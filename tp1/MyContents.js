@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { MyAxis } from "./MyAxis.js";
 import { MyTable } from "./MyObjects/MyTable.js";
 import { MyPlate } from "./MyObjects/MyPlate.js";
+import { MyCake } from "./MyObjects/MyCake.js";
 /**
  *  This class contains the contents of out application
  */
@@ -15,6 +16,7 @@ class MyContents {
         this.axis = null;
         this.table = null;
         this.plate = null;
+        this.cake = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -97,6 +99,7 @@ class MyContents {
 
         // Create a Plane Mesh with basic material
 
+        //Floor
         let plane = new THREE.PlaneGeometry(10, 10);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
@@ -111,6 +114,7 @@ class MyContents {
         this.rightWallMesh.position.y = 5;
         this.app.scene.add(this.rightWallMesh);
 
+        //Walls
         let leftWall = new THREE.PlaneGeometry(10, 10);
         this.leftWallMesh = new THREE.Mesh(leftWall, this.planeMaterial);
         this.leftWallMesh.rotation.x = Math.PI / 2;
@@ -151,6 +155,18 @@ class MyContents {
             this.tableGroup.add(this.plate);
         }
         this.app.scene.add(this.tableGroup);
+
+
+        //Cake
+
+        if (this.cake === null) {
+            this.cake = new MyCake(this);
+            this.cake.position.y = 1;
+            this.cake.position.y += 0.001;
+            this.tableGroup.add(this.cake);
+        }
+        
+
     }
 
     /**
