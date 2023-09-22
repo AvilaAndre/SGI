@@ -37,6 +37,13 @@ class MyContents {
             emissive: "#000000",
             shininess: 10,
         });
+
+        this.plateMaterial = new THREE.MeshPhongMaterial({
+            collor: "#FFFFFF",
+            specular: "#6E260E",
+            emissive: "#000000",
+            shininess: 10,
+        });
     }
 
     /**
@@ -106,16 +113,40 @@ class MyContents {
         this.rightWallMesh.position.x = 5;
         this.app.scene.add(this.rightWallMesh);
 
-        let tableTop = new THREE.BoxGeometry(3, 1, 2);
+        /** TABLE **/
+        let tableTop = new THREE.BoxGeometry(3, 0.2, 2);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
+        this.tableTopMesh.position.y = 0.9;
         this.app.scene.add(this.tableTopMesh);
 
-        let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 1.6, 10, 2);
-        let tableLegMesh1 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh2 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh3 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh4 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.app.scene.add(tableLegMesh1);
+        let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 10, 2, true);
+        this.tableLegMesh1 = new THREE.Mesh(tableLeg, this.tableMaterial);
+        this.tableLegMesh1.position.x = 1.3;
+        this.tableLegMesh1.position.y = 0.4;
+        this.tableLegMesh1.position.z = 0.8;
+        this.tableLegMesh2 = new THREE.Mesh(tableLeg, this.tableMaterial);
+        this.tableLegMesh2.position.x = -1.3;
+        this.tableLegMesh2.position.y = 0.4;
+        this.tableLegMesh2.position.z = 0.8;
+        this.tableLegMesh3 = new THREE.Mesh(tableLeg, this.tableMaterial);
+        this.tableLegMesh3.position.x = 1.3;
+        this.tableLegMesh3.position.y = 0.4;
+        this.tableLegMesh3.position.z = -0.8;
+        this.tableLegMesh4 = new THREE.Mesh(tableLeg, this.tableMaterial);
+        this.tableLegMesh4.position.x = -1.3;
+        this.tableLegMesh4.position.y = 0.4;
+        this.tableLegMesh4.position.z = -0.8;
+        this.app.scene.add(this.tableLegMesh1);
+        this.app.scene.add(this.tableLegMesh2);
+        this.app.scene.add(this.tableLegMesh3);
+        this.app.scene.add(this.tableLegMesh4);
+
+        /** PLATE **/
+        let plate = new THREE.CylinderGeometry(0.4, 0.3, 0.1, 40, 2);
+        this.plateMesh = new THREE.Mesh(plate, this.plateMaterial);
+        this.plateMesh.position.y = 1
+
+        this.app.scene.add(this.plateMesh);
     }
 
     /**
