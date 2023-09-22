@@ -33,6 +33,13 @@ class MyContents {
             emissive: "#000000",
             shininess: this.planeShininess,
         });
+
+        this.testPlaneMaterial = new THREE.MeshPhongMaterial({
+            color: "#FFC0CB",
+            specular: "#FFC0CB",
+            emissive: "#FFC0CB",
+            shininess: this.planeShininess,
+        });
     }
 
     /**
@@ -114,16 +121,14 @@ class MyContents {
 
         let backWall = new THREE.PlaneGeometry(10, 10);
         this.backWallMesh = new THREE.Mesh(backWall, this.planeMaterial);
-        this.backWallMesh.rotation.copy(new THREE.Vector3(Math.PI / 2, Math.PI, 0));
         this.backWallMesh.position.copy(new THREE.Vector3(0, 5, -5));
         this.app.scene.add(this.backWallMesh);
 
-        /* NÃO ESTÁ A FUNCIONAR
         let frontWall = new THREE.PlaneGeometry(10, 10);
         this.frontWallMesh = new THREE.Mesh(frontWall, this.planeMaterial);
-        this.frontWallMesh.rotation.copy(new THREE.Vector3(Math.PI, 0, 0));
         this.frontWallMesh.position.copy(new THREE.Vector3(0, 5, 5));
-        this.app.scene.add(this.frontWallMesh);*/
+        this.frontWallMesh.rotation.y = Math.PI;
+        this.app.scene.add(this.frontWallMesh);
 
         let tableTop = new THREE.BoxGeometry(3, 1, 2);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);

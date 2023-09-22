@@ -1,11 +1,11 @@
 # SGI 2023/2024
 
-## Group T0xG0y
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+## Group: T05G07
 
+| Name                           | Number    | E-Mail                   |
+| ------------------------------ | --------- | ------------------------ |
+| André Ismael Ferraz Ávila      | 202006767 | up202006767@edu.fe.up.pt |
+| Maria Sofia B. P. C. Gonçalves | 202006927 | up202006927@edu.fe.up.pt |
 ----
 
 ## Projects
