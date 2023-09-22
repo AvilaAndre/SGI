@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MyAxis } from "./MyAxis.js";
-
+import { MyTable } from "./MyObjects/MyTable.js";
+import { MyPlate } from "./MyObjects/MyPlate.js";
 /**
  *  This class contains the contents of out application
  */
@@ -12,6 +13,8 @@ class MyContents {
     constructor(app) {
         this.app = app;
         this.axis = null;
+        this.table = null;
+        this.plate = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -29,13 +32,6 @@ class MyContents {
             specular: this.diffusePlaneColor,
             emissive: "#000000",
             shininess: this.planeShininess,
-        });
-
-        this.tableMaterial = new THREE.MeshPhongMaterial({
-            color: "#964B00",
-            specular: "#6E260E",
-            emissive: "#000000",
-            shininess: 10,
         });
     }
 
@@ -132,13 +128,24 @@ class MyContents {
         let tableTop = new THREE.BoxGeometry(3, 1, 2);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
         this.app.scene.add(this.tableTopMesh);
+        /** TABLE **/
 
-        let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 1.6, 10, 2);
-        let tableLegMesh1 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh2 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh3 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        let tableLegMesh4 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.app.scene.add(tableLegMesh1);
+        this.tableGroup = new THREE.Group();
+
+        if (this.table === null) {
+            this.table = new MyTable(this);
+            this.table.position.y += 0.001;
+            this.tableGroup.add(this.table);
+        }
+
+        /** PLATE **/
+        if (this.plate === null) {
+            this.plate = new MyPlate(this);
+            this.plate.position.y = 1;
+            this.plate.position.y += 0.001;
+            this.tableGroup.add(this.plate);
+        }
+        this.app.scene.add(this.tableGroup);
     }
 
     /**
