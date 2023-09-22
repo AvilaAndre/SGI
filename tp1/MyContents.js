@@ -102,9 +102,32 @@ class MyContents {
 
         let rightWall = new THREE.PlaneGeometry(10, 10);
         this.rightWallMesh = new THREE.Mesh(rightWall, this.planeMaterial);
-        this.rightWallMesh.rotation.x = Math.PI / 2;
+        this.rightWallMesh.rotation.x = -Math.PI / 2;
+        this.rightWallMesh.rotation.y = -Math.PI / 2;
         this.rightWallMesh.position.x = 5;
+        this.rightWallMesh.position.y = 5;
         this.app.scene.add(this.rightWallMesh);
+
+        let leftWall = new THREE.PlaneGeometry(10, 10);
+        this.leftWallMesh = new THREE.Mesh(leftWall, this.planeMaterial);
+        this.leftWallMesh.rotation.x = Math.PI / 2;
+        this.leftWallMesh.rotation.y = Math.PI / 2;
+        this.leftWallMesh.position.x = -5;
+        this.leftWallMesh.position.y = 5;
+        this.app.scene.add(this.leftWallMesh);
+
+        let backWall = new THREE.PlaneGeometry(10, 10);
+        this.backWallMesh = new THREE.Mesh(backWall, this.planeMaterial);
+        this.backWallMesh.rotation.copy(new THREE.Vector3(Math.PI / 2, Math.PI, 0));
+        this.backWallMesh.position.copy(new THREE.Vector3(0, 5, -5));
+        this.app.scene.add(this.backWallMesh);
+
+        /* NÃO ESTÁ A FUNCIONAR
+        let frontWall = new THREE.PlaneGeometry(10, 10);
+        this.frontWallMesh = new THREE.Mesh(frontWall, this.planeMaterial);
+        this.frontWallMesh.rotation.copy(new THREE.Vector3(Math.PI, 0, 0));
+        this.frontWallMesh.position.copy(new THREE.Vector3(0, 5, 5));
+        this.app.scene.add(this.frontWallMesh);*/
 
         let tableTop = new THREE.BoxGeometry(3, 1, 2);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
