@@ -39,7 +39,7 @@ class MyContents {
         });
 
         this.plateMaterial = new THREE.MeshPhongMaterial({
-            collor: "#FFFFFF",
+            color: "#FFFFFF",
             specular: "#6E260E",
             emissive: "#000000",
             shininess: 10,
@@ -114,10 +114,13 @@ class MyContents {
         this.app.scene.add(this.rightWallMesh);
 
         /** TABLE **/
+
+        this.tableGroup = new THREE.Group();
+
         let tableTop = new THREE.BoxGeometry(3, 0.2, 2);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
         this.tableTopMesh.position.y = 0.9;
-        this.app.scene.add(this.tableTopMesh);
+        this.tableGroup.add(this.tableTopMesh);
 
         let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 10, 2, true);
         this.tableLegMesh1 = new THREE.Mesh(tableLeg, this.tableMaterial);
@@ -136,17 +139,19 @@ class MyContents {
         this.tableLegMesh4.position.x = -1.3;
         this.tableLegMesh4.position.y = 0.4;
         this.tableLegMesh4.position.z = -0.8;
-        this.app.scene.add(this.tableLegMesh1);
-        this.app.scene.add(this.tableLegMesh2);
-        this.app.scene.add(this.tableLegMesh3);
-        this.app.scene.add(this.tableLegMesh4);
+        this.tableGroup.add(this.tableLegMesh1);
+        this.tableGroup.add(this.tableLegMesh2);
+        this.tableGroup.add(this.tableLegMesh3);
+        this.tableGroup.add(this.tableLegMesh4);
+
+        this.app.scene.add(this.tableGroup);
 
         /** PLATE **/
         let plate = new THREE.CylinderGeometry(0.4, 0.3, 0.1, 40, 2);
         this.plateMesh = new THREE.Mesh(plate, this.plateMaterial);
-        this.plateMesh.position.y = 1
+        this.plateMesh.position.y = 1;
 
-        this.app.scene.add(this.plateMesh);
+        this.tableGroup.add(this.plateMesh);
     }
 
     /**
