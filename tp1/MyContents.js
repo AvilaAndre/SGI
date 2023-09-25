@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MyAxis } from "./MyAxis.js";
 import { MyTable } from "./MyObjects/MyTable.js";
+import { MyChair } from "./MyObjects/MyChair.js";
 import { MyPlate } from "./MyObjects/MyPlate.js";
 import { MyCake } from "./MyObjects/MyCake.js";
 /**
@@ -17,6 +18,7 @@ class MyContents {
         this.table = null;
         this.plate = null;
         this.cake = null;
+        this.chair = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -156,7 +158,6 @@ class MyContents {
         }
         this.app.scene.add(this.tableGroup);
 
-
         //Cake
 
         if (this.cake === null) {
@@ -165,8 +166,18 @@ class MyContents {
             this.cake.position.y += 0.001;
             this.tableGroup.add(this.cake);
         }
-        
 
+        /** Chair **/
+
+        if (this.chair === null) {
+            this.chair = new MyChair(this);
+            this.chair.position.y += 0.001;
+            this.chair.position.z = -2.5
+            this.chair.rotation.z = -Math.PI/3
+            this.chair.rotation.x = Math.PI/2
+            this.chair.position.y = 0.3
+            this.app.scene.add(this.chair);
+        }
     }
 
     /**
