@@ -34,18 +34,18 @@ class MyTable extends THREE.Object3D {
         let legY = this.depth / 2 - 0.2;
 
         let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 10, 2);
-        this.tableLegMesh1 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.tableLegMesh1.position.copy(new THREE.Vector3(legX, 0.4, legY));
-        this.tableLegMesh2 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.tableLegMesh2.position.copy(new THREE.Vector3(-legX, 0.4, legY));
-        this.tableLegMesh3 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.tableLegMesh3.position.copy(new THREE.Vector3(legX, 0.4, -legY));
-        this.tableLegMesh4 = new THREE.Mesh(tableLeg, this.tableMaterial);
-        this.tableLegMesh4.position.copy(new THREE.Vector3(-legX, 0.4, -legY));
-        this.add(this.tableLegMesh1);
-        this.add(this.tableLegMesh2);
-        this.add(this.tableLegMesh3);
-        this.add(this.tableLegMesh4);
+
+        for (let index = 0; index < 4; index++) {
+            let tableLegMesh = new THREE.Mesh(tableLeg, this.tableMaterial);
+            tableLegMesh.position.copy(
+                new THREE.Vector3(
+                    (index > 1 ? 1 : -1) * legX,
+                    0.4,
+                    (index % 2 == 0 ? 1 : -1) * legY
+                )
+            );
+            this.add(tableLegMesh);
+        }
     }
 }
 
