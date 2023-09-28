@@ -2,14 +2,14 @@ import * as THREE from "three";
 import { MyApp } from "../MyApp.js";
 
 /**
- * This class contains a 3D cake representation
+ * This class contains a 3D cakeSlice representation
  */
-class MyCake extends THREE.Object3D {
+class MyCakeSlice extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {number} up_radius the radius of the upside of the cake
-     * @param {number} down_radius the radius of the downside of the cake
+     * @param {number} up_radius the radius of the upside of the cakeSlice
+     * @param {number} down_radius the radius of the downside of the cakeSlice
      * @param {string} flavor
      */
     constructor(app, flavor) {
@@ -43,7 +43,7 @@ class MyCake extends THREE.Object3D {
             });
         }
 
-        let cake = new THREE.CylinderGeometry(
+        let cakeSlice = new THREE.CylinderGeometry(
             //Raio  do círculo superior
             this.up_radius,
             //Raio do círculo inferior
@@ -58,24 +58,24 @@ class MyCake extends THREE.Object3D {
             0,
             (14*Math.PI)/8
         );
-        this.cakeMesh = new THREE.Mesh(cake, this.cakeMaterial);
+        this.cakeMesh = new THREE.Mesh(cakeSlice, this.cakeSliceMaterial);
 
 
 
-        this.cakeMesh.position.y = 0.24;
+        this.cakeSliceMesh.position.y = 0.24;
         //this.flavor = "strawberry";
 
 
 
-        this.cakeGroup = new THREE.Group()
+        this.cakeSliceGroup = new THREE.Group()
 
-        this.cakeGroup.add(this.cakeMesh)
+        this.cakeSliceGroup.add(this.cakeSliceMesh)
 
 
-        this.add(this.cakeGroup);
+        this.add(this.cakeSliceGroup);
     }
 }
 
-MyCake.prototype.isGroup = true;
+MyCakeSlice.prototype.isGroup = true;
 
-export { MyCake };
+export { MyCakeSlice };

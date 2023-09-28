@@ -4,6 +4,8 @@ import { MyTable } from "./MyObjects/MyTable.js";
 import { MyChair } from "./MyObjects/MyChair.js";
 import { MyPlate } from "./MyObjects/MyPlate.js";
 import { MyCake } from "./MyObjects/MyCake.js";
+import { MyCandle } from "./MyObjects/MyCandle.js";
+
 /**
  *  This class contains the contents of out application
  */
@@ -17,13 +19,19 @@ class MyContents {
         this.axis = null;
         this.table = null;
         this.plate = null;
-        this.cake = null;
+        this.cakeBottomLayer = null;
+        this.cakeMiddleLayer = null;
+        this.cakeTopLayer = null;
         this.chair = null;
+        this.candle = null;
+        this.cakeSliceBottom = null;
+        this.cakeSliceMiddle = null;
+        this.cakeSliceTop = null;
 
         // box related attributes
         this.boxMesh = null;
         this.boxMeshSize = 1.0;
-        this.boxEnabled = true;
+        this.boxEnabled = false;
         this.lastBoxEnabled = null;
         this.boxDisplacement = new THREE.Vector3(0, 2, 0);
 
@@ -160,11 +168,54 @@ class MyContents {
 
         //Cake
 
-        if (this.cake === null) {
-            this.cake = new MyCake(this);
-            this.cake.position.y = 1;
-            this.cake.position.y += 0.001;
-            this.tableGroup.add(this.cake);
+        this.cakeGroup = new THREE.Group();
+
+        if (this.cakeBottomLayer === null) {
+            this.cakeBottomLayer = new MyCake(this, "chocolate");
+            this.cakeBottomLayer.position.y = 0.86;
+            this.tableGroup.add(this.cakeBottomLayer);
+        }
+
+        if (this.cakeMiddleLayer === null) {
+            this.cakeMiddleLayer = new MyCake(this, "vanilla");
+            this.cakeMiddleLayer.position.y = 0.96;
+            this.tableGroup.add(this.cakeMiddleLayer);
+        }
+
+        if (this.cakeTopLayer === null) {
+            this.cakeTopLayer = new MyCake(this, "strawberry");
+            this.cakeTopLayer.position.y = 1.06;
+            this.tableGroup.add(this.cakeTopLayer);
+        }
+
+
+        this.cakeGroup.add( this.cakeBottomLayer );
+        this.cakeGroup.add( this.cakeMiddleLayer );
+        this.cakeGroup.add( this.cakeTopLayer );
+
+        this.app.scene.add( this.cakeGroup );
+
+        //Cake slice
+
+        if(this.cakeSliceBottom === null){
+            this.cake = new MyCake(this, "chocolate");
+        }
+
+        if(this.cakeSliceMiddle === null){
+            this.cake = new MyCake(this, "vanilla");
+        }
+
+        if(this.cakeSliceTop === null){
+            this.cake = new MyCake(this, "strawberry");
+        }
+
+        // Candle
+
+        if(this.candle === null){
+            this.candle = new MyCandle(this);
+            this.candle.position.y = 1.4;
+            this.candle.position.x = 0.1;
+            this.app.scene.add(this.candle);
         }
 
         /** Chair **/
