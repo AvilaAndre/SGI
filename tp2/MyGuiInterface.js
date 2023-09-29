@@ -130,18 +130,15 @@ class MyGuiInterface {
         spotLightPositionFolder.add(this.contents.spotLight.position, "z");
         const spotLightTargetPositionFolder =
             spotLightFolder.addFolder("TargetPosition");
-        spotLightTargetPositionFolder.add(
-            this.contents.spotLightTarget.position,
-            "x"
-        );
-        spotLightTargetPositionFolder.add(
-            this.contents.spotLightTarget.position,
-            "y"
-        );
-        spotLightTargetPositionFolder.add(
-            this.contents.spotLightTarget.position,
-            "z"
-        );
+        spotLightTargetPositionFolder
+            .add(this.contents.spotLightTarget.position, "x")
+            .onChange((value) => this.contents.spotLightHelper.update());
+        spotLightTargetPositionFolder
+            .add(this.contents.spotLightTarget.position, "y")
+            .onChange((value) => this.contents.spotLightHelper.update());
+        spotLightTargetPositionFolder
+            .add(this.contents.spotLightTarget.position, "z")
+            .onChange((value) => this.contents.spotLightHelper.update());
     }
 }
 

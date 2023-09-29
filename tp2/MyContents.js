@@ -27,7 +27,6 @@ class MyContents {
         this.cakeSliceBottom = null;
         this.cakeSliceMiddle = null;
         this.cakeSliceTop = null;
-        
 
         // box related attributes
         this.boxMesh = null;
@@ -128,19 +127,23 @@ class MyContents {
             this.spotLightColor,
             5,
             8,
-            Math.PI/4.5,
+            Math.PI / 4.5,
             0,
             0
         );
         this.spotLight.position.set(2, 5, 1);
         this.spotLight.target = this.spotLightTarget;
 
-        let spotLightHelper = new THREE.SpotLightHelper(
+        this.spotLightHelper = new THREE.SpotLightHelper(
             this.spotLight,
             "#FFFFFF"
         );
 
-        this.app.scene.add(this.spotLight, this.spotLightTarget, spotLightHelper);
+        this.app.scene.add(
+            this.spotLight,
+            this.spotLightTarget,
+            this.spotLightHelper
+        );
 
         // add an ambient light
         const ambientLight = new THREE.AmbientLight(0x555555, 1);
@@ -213,8 +216,6 @@ class MyContents {
             this.cakeBottomLayer.position.y = 0.86;
             this.tableGroup.add(this.cakeBottomLayer);
         }
-
-
 
         this.cakeGroup.add(this.cakeBottomLayer);
         this.cakeGroup.add(this.cakeMiddleLayer);
