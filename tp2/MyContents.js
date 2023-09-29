@@ -121,7 +121,7 @@ class MyContents {
         this.spotLightColor = "#FFFFFF";
         this.spotLightPosition = new THREE.Vector3(2, 5, 1);
         this.spotLightTarget = new THREE.Object3D();
-        this.spotLightTarget.position.set(1, 0, 1);
+        this.spotLightTarget.position.set(1, 5, 1);
 
         this.spotLight = new THREE.SpotLight(
             this.spotLightColor,
@@ -139,7 +139,7 @@ class MyContents {
             "#FFFFFF"
         );
 
-        this.app.scene.add(this.spotLight, spotLightHelper);
+        this.app.scene.add(this.spotLight, this.spotLightTarget, spotLightHelper);
 
         // add an ambient light
         const ambientLight = new THREE.AmbientLight(0x555555, 1);

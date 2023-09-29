@@ -124,6 +124,24 @@ class MyGuiInterface {
             .onChange((value) => {
                 this.contents.spotLight.decay = value;
             });
+        const spotLightPositionFolder = spotLightFolder.addFolder("Position");
+        spotLightPositionFolder.add(this.contents.spotLight.position, "x");
+        spotLightPositionFolder.add(this.contents.spotLight.position, "y");
+        spotLightPositionFolder.add(this.contents.spotLight.position, "z");
+        const spotLightTargetPositionFolder =
+            spotLightFolder.addFolder("TargetPosition");
+        spotLightTargetPositionFolder.add(
+            this.contents.spotLightTarget.position,
+            "x"
+        );
+        spotLightTargetPositionFolder.add(
+            this.contents.spotLightTarget.position,
+            "y"
+        );
+        spotLightTargetPositionFolder.add(
+            this.contents.spotLightTarget.position,
+            "z"
+        );
     }
 }
 
