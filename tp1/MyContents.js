@@ -144,9 +144,6 @@ class MyContents {
         this.frontWallMesh.rotation.y = Math.PI;
         this.app.scene.add(this.frontWallMesh);
 
-        let tableTop = new THREE.BoxGeometry(3, 1, 2);
-        this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
-        this.app.scene.add(this.tableTopMesh);
         /** TABLE **/
 
         this.tableGroup = new THREE.Group();
