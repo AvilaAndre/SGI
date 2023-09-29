@@ -27,7 +27,6 @@ class MyContents {
         this.cakeSliceBottom = null;
         this.cakeSliceMiddle = null;
         this.cakeSliceTop = null;
-        
 
         // box related attributes
         this.boxMesh = null;
@@ -174,7 +173,17 @@ class MyContents {
             this.tableGroup.add(this.cakeBottomLayer);
         }
 
+        if (this.cakeMiddleLayer === null) {
+            this.cakeMiddleLayer = new MyCake(this, "vanilla");
+            this.cakeMiddleLayer.position.y = 0.96;
+            this.tableGroup.add(this.cakeMiddleLayer);
+        }
 
+        if (this.cakeTopLayer === null) {
+            this.cakeTopLayer = new MyCake(this, "strawberry");
+            this.cakeTopLayer.position.y = 1.06;
+            this.tableGroup.add(this.cakeTopLayer);
+        }
 
 
         this.cakeGroup.add( this.cakeBottomLayer );
