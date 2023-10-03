@@ -27,7 +27,6 @@ class MyContents {
         this.cakeSliceBottom = null;
         this.cakeSliceMiddle = null;
         this.cakeSliceTop = null;
-        
 
         // box related attributes
         this.boxMesh = null;
@@ -89,12 +88,12 @@ class MyContents {
             this.app.scene.add(this.axis);
         }
 
-        // add a point light on top of the model
-        const pointLight = new THREE.PointLight(0xffffff, 500, 0);
-        pointLight.position.set(0, 20, 0);
+        // // add a point light on top of the model
+        const pointLight = new THREE.PointLight(0xffffff, 20, 0);
+        pointLight.position.set(0, 5, 0);
         this.app.scene.add(pointLight);
 
-        // add a point light helper for the previous point light
+        // // add a point light helper for the previous point light
         const sphereSize = 0.5;
         const pointLightHelper = new THREE.PointLightHelper(
             pointLight,
@@ -102,8 +101,52 @@ class MyContents {
         );
         this.app.scene.add(pointLightHelper);
 
+        // const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        // directionalLight.position.set(0, 20, 0);
+        // this.app.scene.add(directionalLight);
+
+        // const targetObject = new THREE.Object3D()
+
+        // targetObject.position.set(0, 0, 5)
+
+        // directionalLight.target = targetObject;
+
+        // const sphereSize = 0.5;
+        // const directionalLightHelper = new THREE.DirectionalLightHelper(
+        //     directionalLight,
+        //     sphereSize
+        // )
+        // this.app.scene.add(directionalLightHelper)
+
+        this.spotLightColor = "#FFFFFF";
+        this.spotLightPosition = new THREE.Vector3(2, 5, 1);
+        this.spotLightTarget = new THREE.Object3D();
+        this.spotLightTarget.position.set(1, 5, 1);
+
+        this.spotLight = new THREE.SpotLight(
+            this.spotLightColor,
+            5,
+            8,
+            Math.PI / 4.5,
+            0,
+            0
+        );
+        this.spotLight.position.set(2, 5, 3);
+        this.spotLight.target = this.spotLightTarget;
+
+        this.spotLightHelper = new THREE.SpotLightHelper(
+            this.spotLight,
+            "#FFFFFF"
+        );
+
+        this.app.scene.add(
+            //this.spotLight,
+            //this.spotLightTarget,
+            //this.spotLightHelper
+        );
+
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555);
+        const ambientLight = new THREE.AmbientLight(0x555555, 1);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -174,32 +217,29 @@ class MyContents {
             this.tableGroup.add(this.cakeBottomLayer);
         }
 
+        this.cakeGroup.add(this.cakeBottomLayer);
+        this.cakeGroup.add(this.cakeMiddleLayer);
+        this.cakeGroup.add(this.cakeTopLayer);
 
-
-
-        this.cakeGroup.add( this.cakeBottomLayer );
-        this.cakeGroup.add( this.cakeMiddleLayer );
-        this.cakeGroup.add( this.cakeTopLayer );
-
-        this.app.scene.add( this.cakeGroup );
+        this.app.scene.add(this.cakeGroup);
 
         //Cake slice
 
-        if(this.cakeSliceBottom === null){
+        if (this.cakeSliceBottom === null) {
             this.cake = new MyCake(this, "chocolate");
         }
 
-        if(this.cakeSliceMiddle === null){
+        if (this.cakeSliceMiddle === null) {
             this.cake = new MyCake(this, "vanilla");
         }
 
-        if(this.cakeSliceTop === null){
+        if (this.cakeSliceTop === null) {
             this.cake = new MyCake(this, "strawberry");
         }
 
         // Candle
 
-        if(this.candle === null){
+        if (this.candle === null) {
             this.candle = new MyCandle(this);
             this.candle.position.y = 1.4;
             this.candle.position.x = 0.1;
@@ -211,10 +251,10 @@ class MyContents {
         if (this.chair === null) {
             this.chair = new MyChair(this);
             this.chair.position.y += 0.001;
-            this.chair.position.z = -2.5
-            this.chair.rotation.z = -Math.PI/3
-            this.chair.rotation.x = Math.PI/2
-            this.chair.position.y = 0.3
+            this.chair.position.z = -2.5;
+            this.chair.rotation.z = -Math.PI / 3;
+            this.chair.rotation.x = Math.PI / 2;
+            this.chair.position.y = 0.3;
             this.app.scene.add(this.chair);
         }
     }
@@ -271,6 +311,11 @@ class MyContents {
                 this.app.scene.remove(this.boxMesh);
             }
         }
+    }
+
+    updateSpotLightColor(value) {
+        this.spotLightColor = value;
+        this.spotLight.color.set(this.spotLightColor);
     }
 
     /**
