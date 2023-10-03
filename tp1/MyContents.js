@@ -220,6 +220,17 @@ class MyContents {
             this.candle = new MyCandle(this);
             this.candle.position.y = 1.4;
             this.candle.position.x = 0.1;
+
+            const candleLight = new THREE.PointLight(0xffffff, 1, .2, 0.01);
+            candleLight.position.set(0.1, 1.475, 0);
+            this.app.scene.add(candleLight);
+
+            const sphereSize = 0.05;
+            const pointLightHelper = new THREE.PointLightHelper(
+                candleLight,
+                sphereSize
+            );
+            this.app.scene.add(pointLightHelper);
             this.app.scene.add(this.candle);
         }
 
