@@ -19,9 +19,7 @@ class MyContents {
         this.axis = null;
         this.table = null;
         this.plate = null;
-        this.cakeBottomLayer = null;
-        this.cakeMiddleLayer = null;
-        this.cakeTopLayer = null;
+        this.cake = null;
         this.chair = null;
         this.candle = null;
         this.cakeSliceBottom = null;
@@ -89,18 +87,17 @@ class MyContents {
         }
 
         // // add a point light on top of the model
-        const pointLight = new THREE.PointLight(0xffffff, 20, 0);
-        pointLight.position.set(0, 5, 0);
-        this.app.scene.add(pointLight);
+        // const pointLight = new THREE.PointLight(0xffffff, 20, 0);
+        // pointLight.position.set(0, 5, 0);
+        // this.app.scene.add(pointLight);
 
         // // add a point light helper for the previous point light
-        const sphereSize = 0.5;
-        const pointLightHelper = new THREE.PointLightHelper(
-            pointLight,
-            sphereSize
-        );
-        this.app.scene.add(pointLightHelper);
-
+        //const sphereSize = 0.5;
+        //const pointLightHelper = new THREE.PointLightHelper(
+        //    pointLight,
+        //    sphereSize
+        //);
+        //this.app.scene.add(pointLightHelper);
         // const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         // directionalLight.position.set(0, 20, 0);
         // this.app.scene.add(directionalLight);
@@ -140,9 +137,9 @@ class MyContents {
         );
 
         this.app.scene.add(
-            //this.spotLight,
-            //this.spotLightTarget,
-            //this.spotLightHelper
+            this.spotLight,
+            this.spotLightTarget,
+            this.spotLightHelper
         );
 
         // add an ambient light
@@ -209,33 +206,13 @@ class MyContents {
 
         //Cake
 
-        this.cakeGroup = new THREE.Group();
-
-        if (this.cakeBottomLayer === null) {
-            this.cakeBottomLayer = new MyCake(this, "chocolate");
-            this.cakeBottomLayer.position.y = 0.86;
-            this.tableGroup.add(this.cakeBottomLayer);
-        }
-
-        this.cakeGroup.add(this.cakeBottomLayer);
-        this.cakeGroup.add(this.cakeMiddleLayer);
-        this.cakeGroup.add(this.cakeTopLayer);
-
-        this.app.scene.add(this.cakeGroup);
-
-        //Cake slice
-
-        if (this.cakeSliceBottom === null) {
+        if (this.cake === null) {
             this.cake = new MyCake(this, "chocolate");
+            this.cake.position.y = 0.86;
+            this.tableGroup.add(this.cake);
         }
 
-        if (this.cakeSliceMiddle === null) {
-            this.cake = new MyCake(this, "vanilla");
-        }
-
-        if (this.cakeSliceTop === null) {
-            this.cake = new MyCake(this, "strawberry");
-        }
+        this.app.scene.add(this.cake);
 
         // Candle
 
