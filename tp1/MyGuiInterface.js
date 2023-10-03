@@ -81,64 +81,6 @@ class MyGuiInterface {
             .add(this.app.activeCamera.position, "x", 0, 10)
             .name("x coord");
         cameraFolder.open();
-
-        const spotLightData = {
-            color: this.contents.spotLightColor,
-            penumbra: this.contents.spotLightPenumbra,
-            decay: this.contents.spotLightDecay,
-            position: this.contents.spotLightPosition,
-            "target position": this.contents.targetPosition,
-        };
-
-        const spotLightFolder = this.datgui.addFolder("SpotLight");
-        spotLightFolder.addColor(spotLightData, "color").onChange((value) => {
-            this.contents.updateSpotLightColor(value);
-        });
-        spotLightFolder
-            .add(this.contents.spotLight, "intensity")
-            .name("Intensity")
-            .onChange((value) => {
-                this.contents.spotLight.intensity = value;
-            });
-        spotLightFolder
-            .add(this.contents.spotLight, "distance")
-            .name("Limit Distance")
-            .onChange((value) => {
-                this.contents.spotLight.distance = value;
-            });
-        spotLightFolder
-            .add(this.contents.spotLight, "angle", 0, 2 * Math.PI)
-            .name("Angle of Spot")
-            .onChange((value) => {
-                this.contents.spotLight.angle = value;
-            });
-        spotLightFolder
-            .add(this.contents.spotLight, "penumbra")
-            .name("Penumbra")
-            .onChange((value) => {
-                this.contents.spotLight.penumbra = value;
-            });
-        spotLightFolder
-            .add(this.contents.spotLight, "decay")
-            .name("Decay")
-            .onChange((value) => {
-                this.contents.spotLight.decay = value;
-            });
-        const spotLightPositionFolder = spotLightFolder.addFolder("Position");
-        spotLightPositionFolder.add(this.contents.spotLight.position, "x");
-        spotLightPositionFolder.add(this.contents.spotLight.position, "y");
-        spotLightPositionFolder.add(this.contents.spotLight.position, "z");
-        const spotLightTargetPositionFolder =
-            spotLightFolder.addFolder("TargetPosition");
-        spotLightTargetPositionFolder
-            .add(this.contents.spotLightTarget.position, "x")
-            .onChange((value) => this.contents.spotLightHelper.update());
-        spotLightTargetPositionFolder
-            .add(this.contents.spotLightTarget.position, "y")
-            .onChange((value) => this.contents.spotLightHelper.update());
-        spotLightTargetPositionFolder
-            .add(this.contents.spotLightTarget.position, "z")
-            .onChange((value) => this.contents.spotLightHelper.update());
     }
 }
 
