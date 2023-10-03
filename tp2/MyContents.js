@@ -89,17 +89,17 @@ class MyContents {
         }
 
         // // add a point light on top of the model
-        // const pointLight = new THREE.PointLight(0xffffff, 5, 0);
-        // pointLight.position.set(0, 5, 0);
-        // this.app.scene.add(pointLight);
+        const pointLight = new THREE.PointLight(0xffffff, 20, 0);
+        pointLight.position.set(0, 5, 0);
+        this.app.scene.add(pointLight);
 
         // // add a point light helper for the previous point light
-        // const sphereSize = 0.5;
-        // const pointLightHelper = new THREE.PointLightHelper(
-        //     pointLight,
-        //     sphereSize
-        // );
-        // this.app.scene.add(pointLightHelper);
+        const sphereSize = 0.5;
+        const pointLightHelper = new THREE.PointLightHelper(
+            pointLight,
+            sphereSize
+        );
+        this.app.scene.add(pointLightHelper);
 
         // const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         // directionalLight.position.set(0, 20, 0);
@@ -131,7 +131,7 @@ class MyContents {
             0,
             0
         );
-        this.spotLight.position.set(2, 5, 1);
+        this.spotLight.position.set(2, 5, 3);
         this.spotLight.target = this.spotLightTarget;
 
         this.spotLightHelper = new THREE.SpotLightHelper(
@@ -140,9 +140,9 @@ class MyContents {
         );
 
         this.app.scene.add(
-            this.spotLight,
-            this.spotLightTarget,
-            this.spotLightHelper
+            //this.spotLight,
+            //this.spotLightTarget,
+            //this.spotLightHelper
         );
 
         // add an ambient light
