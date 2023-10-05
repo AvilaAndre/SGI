@@ -262,9 +262,8 @@ class MyContents {
         // Cake slice
 
         if(this.cakeSlice === null){
-            //this.cakeSlice = new MyCakeSlice(this);
-
-            //this.scene.add(this.cakeSlice);
+            this.cakeSlice = new MyCakeSlice(this);
+            this.app.scene.add(this.cakeSlice);
         }
 
         // Candle

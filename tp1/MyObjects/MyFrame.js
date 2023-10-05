@@ -46,7 +46,7 @@ class MyFrame extends THREE.Object3D {
         );
         let frameVerticalBar = new THREE.BoxGeometry(
             this.barWidth,
-            this.height,
+            this.height + this.barWidth/2,
             this.barDepth,
         );
 
