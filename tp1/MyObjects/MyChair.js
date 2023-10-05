@@ -26,8 +26,10 @@ class MyChair extends THREE.Object3D {
         this.backDepth = backDepth || 0.05;
         this.backBarNumber = backBarNumber || 4;
 
+        this.chairTexture = new THREE.TextureLoader().load('textures/darkWood.jpg');
+
         this.chairMaterial = new THREE.MeshPhongMaterial({
-            color: "#964B00",
+            map: this.chairTexture ,
             specular: "#6E260E",
             emissive: "#000000",
             shininess: 10,

@@ -18,8 +18,12 @@ class MyTable extends THREE.Object3D {
         this.width = width || 3;
         this.depth = depth || 2;
 
-        this.tableMaterial = new THREE.MeshPhongMaterial({
-            color: "#964B00",
+        this.tableTexture = new THREE.TextureLoader().load('textures/darkWood.jpg');
+
+        this.tableMaterial = new THREE.MeshPhongMaterial({map: this.tableTexture });
+
+        this.tableLegsMaterial = new THREE.MeshPhongMaterial({
+            map: this.tableTexture ,
             specular: "#6E260E",
             emissive: "#000000",
             shininess: 10,
@@ -36,7 +40,7 @@ class MyTable extends THREE.Object3D {
         let tableLeg = new THREE.CylinderGeometry(0.1, 0.1, 0.8, 10, 2);
 
         for (let index = 0; index < 4; index++) {
-            let tableLegMesh = new THREE.Mesh(tableLeg, this.tableMaterial);
+            let tableLegMesh = new THREE.Mesh(tableLeg, this.tableLegsMaterial);
             tableLegMesh.position.copy(
                 new THREE.Vector3(
                     (index > 1 ? 1 : -1) * legX,

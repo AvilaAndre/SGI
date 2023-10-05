@@ -12,14 +12,15 @@ class MyFrame extends THREE.Object3D {
      * @param {number} height the height of the frame
      * @param {number} barWidth the depth of the frame's bar
      * @param {number} barDepth the depth of the frame's bar
+     * @param {string} photo the photo to display in the frame
      */
-    constructor(app, width, height, barWidth, barDepth) {
+    constructor(app, width, height, photo, barWidth, barDepth) {
         super();
         this.app = app;
         this.type = "Group";
         this.width = width || 0.4;
         this.height = height || 0.6;
-        this.barWidth = barWidth || 0.06;
+        this.barWidth = barWidth || 0.1;
         this.barDepth = barDepth || 0.06;
 
         this.frameMaterial = new THREE.MeshPhongMaterial({
@@ -29,11 +30,13 @@ class MyFrame extends THREE.Object3D {
             shininess: 10,
         });
 
+        this.photoTexture = new THREE.TextureLoader().load('textures/' + photo);
+
         this.photoMaterial = new THREE.MeshPhongMaterial({
-            color: "#0000FF",
-            specular: "#6E260E",
+            map: this.photoTexture,
+            specular: "#000000",
             emissive: "#000000",
-            shininess: 10,
+            shininess: 50,
         });
 
         let frameHorizontalBar = new THREE.BoxGeometry(
@@ -64,12 +67,13 @@ class MyFrame extends THREE.Object3D {
             this.add(frameVerticalMesh);
         });
 
-        let photo = new THREE.PlaneGeometry(this.width, this.height);
+        let photoGeometry = new THREE.PlaneGeometry(this.width, this.height);
 
         let photoMesh = new THREE.Mesh(
-            photo,
+            photoGeometry,
             this.photoMaterial
         );
+        
 
         this.add(photoMesh)
 

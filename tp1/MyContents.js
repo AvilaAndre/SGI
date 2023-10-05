@@ -5,6 +5,9 @@ import { MyChair } from "./MyObjects/MyChair.js";
 import { MyPlate } from "./MyObjects/MyPlate.js";
 import { MyCake } from "./MyObjects/MyCake.js";
 import { MyCandle } from "./MyObjects/MyCandle.js";
+import { MyFrame } from "./MyObjects/MyFrame.js";
+import { MyWindow } from "./MyObjects/MyWindow.js";
+import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
 
 /**
  *  This class contains the contents of out application
@@ -23,6 +26,10 @@ class MyContents {
         this.chair = null;
         this.candle = null;
         this.mainSpotLight = null;
+        this.frame1 = null;
+        this.frame2 = null;
+        this.window = null;
+        this.cakeSlice = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -31,23 +38,41 @@ class MyContents {
         this.lastBoxEnabled = null;
         this.boxDisplacement = new THREE.Vector3(0, 2, 0);
 
-        // plane related attributes
-        this.diffusePlaneColor = "#00ffff";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 30;
-        this.planeMaterial = new THREE.MeshPhongMaterial({
-            color: this.diffusePlaneColor,
-            specular: this.diffusePlaneColor,
-            emissive: "#000000",
-            shininess: this.planeShininess,
-        });
+        //box texture
+        this.boxTexture = new THREE.TextureLoader().load('textures/feup_entry.jpg');
+        this.boxTexture.wrapS = THREE.RepeatWrapping;
+        this.boxTexture.wrapT = THREE.RepeatWrapping;
+        this.boxMaterial = new THREE.MeshLambertMaterial({map : this.boxTexture });
 
-        this.testPlaneMaterial = new THREE.MeshPhongMaterial({
-            color: "#FFC0CB",
-            specular: "#FFC0CB",
-            emissive: "#FFC0CB",
-            shininess: this.planeShininess,
-        });
+        // plane related attributes
+        //texture
+        this.planeTexture = new THREE.TextureLoader().load('textures/whiteWallpaper.jpg');
+        this.planeTexture.wrapS = THREE.RepeatWrapping;
+        this.planeTexture.wrapT = THREE.RepeatWrapping;
+        // material
+        this.diffusePlaneColor =  "rgb(128,0,0)";
+        this.specularPlaneColor = "rgb(0,0,0)";
+        this.planeShininess = 0;
+        // relating texture and material:
+        // two alternatives with different results
+        // alternative 1
+        /*this.planeMaterial = new THREE.MeshPhongMaterial({
+                color: this.diffusePlaneColor,
+                specular: this.specularPlaneColor,
+                emissive: "#000000", shininess: this.planeShininess,
+                map: this.planeTexture })*/
+                // end of alternative 1
+                // alternative 2
+
+        this.planeMaterial = new THREE.MeshLambertMaterial({ map: this.planeTexture });
+        // end of alternative 2
+        let plane = new THREE.PlaneGeometry( 10, 10 );
+
+        //wrapping mode U
+        this.wrappingModeU = null;
+
+        
+
     }
 
     /**
@@ -67,7 +92,8 @@ class MyContents {
             this.boxMeshSize,
             this.boxMeshSize
         );
-        this.boxMesh = new THREE.Mesh(box, boxMaterial);
+
+        this.boxMesh = new THREE.Mesh(box, this.boxMaterial);
         this.boxMesh.rotation.x = 0;
         this.boxMesh.position.y = 2;
         this.boxMesh.scale.z = 2;
@@ -141,19 +167,36 @@ class MyContents {
         // );
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 1);
+        const ambientLight = new THREE.AmbientLight(0x555555, 20);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
 
         // Create a Plane Mesh with basic material
+        let planeSizeU = 10;
+        let planeSizeV = 7;
+        let planeUVRate = planeSizeV / planeSizeU;
+        let planeTextureUVRate = 3354 / 2385; // image dimensions
+        let planeTextureRepeatU = 1;
+        let planeTextureRepeatV = planeTextureRepeatU * planeUVRate * planeTextureUVRate;
+        this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV );
+        this.planeTexture.rotation = 30 * Math.PI / 180;
+        this.planeTexture.offset = new THREE.Vector2(0, 0);
+        var plane = new THREE.PlaneGeometry( planeSizeU, planeSizeV );
+        this.planeMesh = new THREE.Mesh( plane, this.planeMaterial );
+        this.planeMesh.rotation.x = -Math.PI / 2;
+        this.planeMesh.position.y = 0;
+        this.app.scene.add( this.planeMesh );
+
+        this.wallWithFramesGroup = new THREE.Group();
+
 
         //Floor
-        let plane = new THREE.PlaneGeometry(10, 10);
+        /*let plane = new THREE.PlaneGeometry(10, 10);
         this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = -0;
-        this.app.scene.add(this.planeMesh);
+        this.app.scene.add(this.planeMesh);*/
 
         let rightWall = new THREE.PlaneGeometry(10, 10);
         this.rightWallMesh = new THREE.Mesh(rightWall, this.planeMaterial);
@@ -170,6 +213,7 @@ class MyContents {
         this.leftWallMesh.rotation.y = Math.PI / 2;
         this.leftWallMesh.position.x = -5;
         this.leftWallMesh.position.y = 5;
+        this.wallWithFramesGroup.add(this.leftWallMesh);
         this.app.scene.add(this.leftWallMesh);
 
         let backWall = new THREE.PlaneGeometry(10, 10);
@@ -200,7 +244,7 @@ class MyContents {
             this.plate.position.y += 0.001;
             this.tableGroup.add(this.plate);
         }
-        this.app.scene.add(this.tableGroup);
+        
 
         //Cake
 
@@ -213,6 +257,15 @@ class MyContents {
         }
 
         this.app.scene.add(this.cake);
+        this.app.scene.add(this.tableGroup);
+
+        // Cake slice
+
+        if(this.cakeSlice === null){
+            //this.cakeSlice = new MyCakeSlice(this);
+
+            //this.scene.add(this.cakeSlice);
+        }
 
         // Candle
 
@@ -234,6 +287,40 @@ class MyContents {
             this.app.scene.add(this.candle);
         }
 
+        // Frame1 - Ávila
+
+        if(this.frame1 === null){
+            this.frame1 = new MyFrame(this, 2, 2, 'ávila.jpg');
+            this.frame1.position.y = 4;
+            this.frame1.position.x = -4.9;
+            this.frame1.position.z = 2;
+            this.frame1.rotation.y = Math.PI/2;
+            this.wallWithFramesGroup.add(this.frame1);
+            this.app.scene.add(this.frame1);
+        }
+
+
+        // Frame2 - Sofia
+
+        if(this.frame2 === null){
+            this.frame2 = new MyFrame(this, 2, 2.5, 'sofia.jpg');
+            this.frame2.position.y = 3;
+            this.frame2.position.x = -4.9;
+            this.frame2.position.z = -2;
+            this.frame2.rotation.y = Math.PI/2;
+            this.wallWithFramesGroup.add(this.frame2);
+            this.app.scene.add(this.frame2);
+        }
+
+        //Window
+
+        if(this.window === null){
+            this.window = new MyWindow(this, 5, 3, 'arouca.jpg');
+            this.window.position.copy(new THREE.Vector3(0, 4, -4.9));
+            this.app.scene.add(this.window);
+        }
+
+
         /** Chair **/
 
         if (this.chair === null) {
@@ -245,6 +332,8 @@ class MyContents {
             this.chair.position.y = 0.3;
             this.app.scene.add(this.chair);
         }
+
+        this.app.scene.add(this.wallWithFramesGroup);
     }
 
     /**
@@ -271,6 +360,12 @@ class MyContents {
         this.planeShininess = value;
         this.planeMaterial.shininess = this.planeShininess;
     }
+
+    // ???????????
+    updateWrappingModeU(value){
+        this.wrappingModeU = value;
+    }
+
 
     /**
      * rebuilds the box mesh if required
