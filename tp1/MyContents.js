@@ -9,6 +9,7 @@ import { MyFrame } from "./MyObjects/MyFrame.js";
 import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
 import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
+import { MyBeetle } from "./MyObjects/MyBeetle.js";
 
 /**
  *  This class contains the contents of out application
@@ -34,6 +35,7 @@ class MyContents {
         this.wallLamps = null;
         this.wallLampsColor = "#FFFFFF";
         this.wallLampsIntensity = 10;
+        this.beetle = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -376,6 +378,14 @@ class MyContents {
             }
 
             this.app.scene.add(this.wallLamps);
+        }
+
+        if (this.beetle == null) {
+            this.beetle = new MyBeetle(this);
+
+            this.beetle.position.set(0, 3, 2)
+
+            this.app.scene.add(this.beetle);
         }
     }
 
