@@ -52,9 +52,8 @@ class MyContents {
 
         // plane related attributes
         //texture
-        this.planeTexture = new THREE.TextureLoader().load(
-            "textures/whiteWallpaper.jpg"
-        );
+        this.floorTexture = new THREE.TextureLoader().load('textures/floor.jpg');
+        this.planeTexture = new THREE.TextureLoader().load('textures/symmetricalWallpaper.jpg');
         this.planeTexture.wrapS = THREE.RepeatWrapping;
         this.planeTexture.wrapT = THREE.RepeatWrapping;
         // material
@@ -153,7 +152,7 @@ class MyContents {
 
         // Create a Plane Mesh with basic material
         let planeSizeU = 10;
-        let planeSizeV = 7;
+        let planeSizeV = 10;
         let planeUVRate = planeSizeV / planeSizeU;
         let planeTextureUVRate = 3354 / 2385; // image dimensions
         let planeTextureRepeatU = 1;
@@ -162,8 +161,8 @@ class MyContents {
         this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV);
         this.planeTexture.rotation = (30 * Math.PI) / 180;
         this.planeTexture.offset = new THREE.Vector2(0, 0);
-        var plane = new THREE.PlaneGeometry(planeSizeU, planeSizeV);
-        this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
+        var plane = new THREE.PlaneGeometry( planeSizeU, planeSizeV );
+        this.planeMesh = new THREE.Mesh( plane, this.floorMaterial );
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
         this.app.scene.add(this.planeMesh);
