@@ -74,6 +74,9 @@ class MyContents {
         this.planeMaterial = new THREE.MeshLambertMaterial({
             map: this.planeTexture,
         });
+        this.floorMaterial = new THREE.MeshLambertMaterial({
+            map: this.floorTexture,
+        });
         // end of alternative 2
         let plane = new THREE.PlaneGeometry(10, 10);
 
