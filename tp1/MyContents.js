@@ -8,6 +8,7 @@ import { MyCandle } from "./MyObjects/MyCandle.js";
 import { MyFrame } from "./MyObjects/MyFrame.js";
 import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
+import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 
 /**
  *  This class contains the contents of out application
@@ -30,6 +31,7 @@ class MyContents {
         this.frame2 = null;
         this.window = null;
         this.cakeSlice = null;
+        this.wallLamps = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -39,18 +41,24 @@ class MyContents {
         this.boxDisplacement = new THREE.Vector3(0, 2, 0);
 
         //box texture
-        this.boxTexture = new THREE.TextureLoader().load('textures/feup_entry.jpg');
+        this.boxTexture = new THREE.TextureLoader().load(
+            "textures/feup_entry.jpg"
+        );
         this.boxTexture.wrapS = THREE.RepeatWrapping;
         this.boxTexture.wrapT = THREE.RepeatWrapping;
-        this.boxMaterial = new THREE.MeshLambertMaterial({map : this.boxTexture });
+        this.boxMaterial = new THREE.MeshLambertMaterial({
+            map: this.boxTexture,
+        });
 
         // plane related attributes
         //texture
-        this.planeTexture = new THREE.TextureLoader().load('textures/whiteWallpaper.jpg');
+        this.planeTexture = new THREE.TextureLoader().load(
+            "textures/whiteWallpaper.jpg"
+        );
         this.planeTexture.wrapS = THREE.RepeatWrapping;
         this.planeTexture.wrapT = THREE.RepeatWrapping;
         // material
-        this.diffusePlaneColor =  "rgb(128,0,0)";
+        this.diffusePlaneColor = "rgb(128,0,0)";
         this.specularPlaneColor = "rgb(0,0,0)";
         this.planeShininess = 0;
         // relating texture and material:
@@ -61,18 +69,17 @@ class MyContents {
                 specular: this.specularPlaneColor,
                 emissive: "#000000", shininess: this.planeShininess,
                 map: this.planeTexture })*/
-                // end of alternative 1
-                // alternative 2
+        // end of alternative 1
+        // alternative 2
 
-        this.planeMaterial = new THREE.MeshLambertMaterial({ map: this.planeTexture });
+        this.planeMaterial = new THREE.MeshLambertMaterial({
+            map: this.planeTexture,
+        });
         // end of alternative 2
-        let plane = new THREE.PlaneGeometry( 10, 10 );
+        let plane = new THREE.PlaneGeometry(10, 10);
 
         //wrapping mode U
         this.wrappingModeU = null;
-
-        
-
     }
 
     /**
@@ -113,19 +120,18 @@ class MyContents {
         if (this.mainSpotLight == null) {
             this.mainSpotLight = new THREE.SpotLight(
                 "#FFFFFF",
-                5,
+                20,
                 9,
                 Math.PI / 12,
                 0,
                 0.5
             );
             this.mainSpotLight.position.set(0, 8, 0);
-            
+
             let defaultSpotLightTarget = new THREE.Object3D();
             defaultSpotLightTarget.position.set(0, 0, 0);
-            
-            this.mainSpotLight.target = defaultSpotLightTarget;
 
+            this.mainSpotLight.target = defaultSpotLightTarget;
 
             this.mainSpotLightHelper = new THREE.SpotLightHelper(
                 this.mainSpotLight,
@@ -133,41 +139,14 @@ class MyContents {
             );
 
             this.app.scene.add(
-                this.mainSpotLight,
+                this.mainSpotLight
                 //defaultSpotLightTarget,
                 //this.mainSpotLightHelper
             );
         }
 
-        // this.spotLightColor = "#FFFFFF";
-        // this.spotLightPosition = new THREE.Vector3(2, 5, 1);
-        // this.spotLightTarget = new THREE.Object3D();
-        // this.spotLightTarget.position.set(1, 5, 1);
-
-        // this.spotLight = new THREE.SpotLight(
-        //     this.spotLightColor,
-        //     5,
-        //     8,
-        //     Math.PI / 4.5,
-        //     0,
-        //     0
-        // );
-        // this.spotLight.position.set(2, 5, 3);
-        // this.spotLight.target = this.spotLightTarget;
-
-        // this.spotLightHelper = new THREE.SpotLightHelper(
-        //     this.spotLight,
-        //     "#FFFFFF"
-        // );
-
-        // this.app.scene.add(
-        //     this.spotLight,
-        //     this.spotLightTarget,
-        //     this.spotLightHelper
-        // );
-
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 20);
+        const ambientLight = new THREE.AmbientLight(0x555555, 5);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -178,18 +157,18 @@ class MyContents {
         let planeUVRate = planeSizeV / planeSizeU;
         let planeTextureUVRate = 3354 / 2385; // image dimensions
         let planeTextureRepeatU = 1;
-        let planeTextureRepeatV = planeTextureRepeatU * planeUVRate * planeTextureUVRate;
-        this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV );
-        this.planeTexture.rotation = 30 * Math.PI / 180;
+        let planeTextureRepeatV =
+            planeTextureRepeatU * planeUVRate * planeTextureUVRate;
+        this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV);
+        this.planeTexture.rotation = (30 * Math.PI) / 180;
         this.planeTexture.offset = new THREE.Vector2(0, 0);
-        var plane = new THREE.PlaneGeometry( planeSizeU, planeSizeV );
-        this.planeMesh = new THREE.Mesh( plane, this.planeMaterial );
+        var plane = new THREE.PlaneGeometry(planeSizeU, planeSizeV);
+        this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
-        this.app.scene.add( this.planeMesh );
+        this.app.scene.add(this.planeMesh);
 
         this.wallWithFramesGroup = new THREE.Group();
-
 
         //Floor
         /*let plane = new THREE.PlaneGeometry(10, 10);
@@ -244,7 +223,6 @@ class MyContents {
             this.plate.position.y += 0.001;
             this.tableGroup.add(this.plate);
         }
-        
 
         //Cake
 
@@ -261,7 +239,7 @@ class MyContents {
 
         // Cake slice
 
-        if(this.cakeSlice === null){
+        if (this.cakeSlice === null) {
             this.cakeSlice = new MyCakeSlice(this);
             this.app.scene.add(this.cakeSlice);
         }
@@ -288,37 +266,35 @@ class MyContents {
 
         // Frame1 - Ávila
 
-        if(this.frame1 === null){
-            this.frame1 = new MyFrame(this, 2, 2, 'ávila.jpg');
+        if (this.frame1 === null) {
+            this.frame1 = new MyFrame(this, 2, 2, "ávila.jpg");
             this.frame1.position.y = 4;
             this.frame1.position.x = -4.9;
             this.frame1.position.z = 2;
-            this.frame1.rotation.y = Math.PI/2;
+            this.frame1.rotation.y = Math.PI / 2;
             this.wallWithFramesGroup.add(this.frame1);
             this.app.scene.add(this.frame1);
         }
 
-
         // Frame2 - Sofia
 
-        if(this.frame2 === null){
-            this.frame2 = new MyFrame(this, 2, 2.5, 'sofia.jpg');
+        if (this.frame2 === null) {
+            this.frame2 = new MyFrame(this, 2, 2.5, "sofia.jpg");
             this.frame2.position.y = 3;
             this.frame2.position.x = -4.9;
             this.frame2.position.z = -2;
-            this.frame2.rotation.y = Math.PI/2;
+            this.frame2.rotation.y = Math.PI / 2;
             this.wallWithFramesGroup.add(this.frame2);
             this.app.scene.add(this.frame2);
         }
 
         //Window
 
-        if(this.window === null){
-            this.window = new MyWindow(this, 5, 3, 'arouca.jpg');
+        if (this.window === null) {
+            this.window = new MyWindow(this, 5, 3, "arouca.jpg");
             this.window.position.copy(new THREE.Vector3(0, 4, -4.9));
             this.app.scene.add(this.window);
         }
-
 
         /** Chair **/
 
@@ -333,6 +309,73 @@ class MyContents {
         }
 
         this.app.scene.add(this.wallWithFramesGroup);
+
+        if (this.wallLamps == null) {
+            this.wallLamps = new THREE.Group();
+
+            const positions = [
+                { position: new THREE.Vector3(-5, 6, 0), rotation: 0 },
+                { position: new THREE.Vector3(5, 6, 0), rotation: Math.PI },
+                { position: new THREE.Vector3(0, 6, 5), rotation: Math.PI / 2 },
+            ];
+
+            for (let index = 0; index < positions.length; index++) {
+                const element = positions[index];
+                const position = element.position;
+                const rotation = element.rotation;
+
+                // Lamp
+                let wallLamp = new MyWallLamp(this);
+
+                wallLamp.position.set(...position);
+                wallLamp.rotation.y = rotation;
+
+                // Light
+
+                let spotLight = new THREE.SpotLight(
+                    "#FFFFFF",
+                    10,
+                    0,
+                    Math.PI / 8,
+                    0.5,
+                    2
+                );
+
+                let defaultSpotLightTarget = new THREE.Object3D();
+                defaultSpotLightTarget.position.set(position.x, 0, position.z);
+                spotLight.target = defaultSpotLightTarget;
+
+                let x_multiplier = 0;
+                if (position.x > 0) x_multiplier = -1;
+                if (position.x < 0) x_multiplier = 1;
+
+                let z_multiplier = 0;
+                if (position.z > 0) z_multiplier = -1;
+                if (position.z < 0) z_multiplier = 1;
+
+                spotLight.position.set(
+                    position.x + 0.05 * x_multiplier,
+                    position.y + 0.15,
+                    position.z + 0.05 * z_multiplier
+                );
+
+                let spotLightHelper = new THREE.SpotLightHelper(
+                    spotLight,
+                    "#FF0000"
+                );
+
+                let newWallLampGroup = new THREE.Group();
+
+                newWallLampGroup.add(wallLamp);
+                newWallLampGroup.add(spotLight);
+
+                this.app.scene.add(spotLight);
+
+                this.wallLamps.add(newWallLampGroup);
+            }
+
+            this.app.scene.add(this.wallLamps);
+        }
     }
 
     /**
@@ -361,10 +404,9 @@ class MyContents {
     }
 
     // ???????????
-    updateWrappingModeU(value){
+    updateWrappingModeU(value) {
         this.wrappingModeU = value;
     }
-
 
     /**
      * rebuilds the box mesh if required
