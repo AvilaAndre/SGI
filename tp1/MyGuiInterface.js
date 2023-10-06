@@ -86,16 +86,35 @@ class MyGuiInterface {
         // adds a folder to the gui interface for controlling the plane's texture parameters/properties
 
         const textureFolder = this.datgui.addFolder("Plane Texture");
-        
+
         textureFolder
-            .add(this.contents, "wrappingModeU", [
-                'A', 
-                'B', 
-                'C'
-            ])
-            .name("Wrapping mode U")
-            
+            .add(this.contents, "wrappingModeU", ["A", "B", "C"])
+            .name("Wrapping mode U");
+
         textureFolder.open();
+
+        const lightsFolder = this.datgui.addFolder("Lights");
+
+        const lightsData = {
+            wallLampsColor: this.contents.wallLampsColor,
+            wallLampsIntensity: this.contents.wallLampsIntensity,
+        };
+
+        const wallLampsFolder = lightsFolder.addFolder("Wall Lamps")
+
+        wallLampsFolder
+            .addColor(lightsData, "wallLampsColor")
+            .onChange((value) => {
+                this.contents.updateWallLampsColor(value);
+            })
+            .name("Wall Lamps Color");
+
+        wallLampsFolder
+            .add(lightsData, "wallLampsIntensity", 0, 20)
+            .onChange((value) => {
+                this.contents.updateWallLampsIntensity(value);
+            })
+            .name("Wall Lamps Intensity");
     }
 }
 
