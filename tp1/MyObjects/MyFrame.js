@@ -24,7 +24,7 @@ class MyFrame extends THREE.Object3D {
         this.barDepth = barDepth || 0.06;
 
         this.frameMaterial = new THREE.MeshPhongMaterial({
-            color: "#000000",
+            color: "#E3BC9A",
             specular: "#000000",
             emissive: "#000000",
             shininess: 10,
