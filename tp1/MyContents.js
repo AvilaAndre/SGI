@@ -25,7 +25,8 @@ class MyContents {
         this.table = null;
         this.plate = null;
         this.cake = null;
-        this.chair = null;
+        this.fallen_chair = null;
+        this.chairs = null
         this.candle = null;
         this.mainSpotLight = null;
         this.frame1 = null;
@@ -308,14 +309,43 @@ class MyContents {
 
         /** Chair **/
 
-        if (this.chair === null) {
-            this.chair = new MyChair(this);
-            this.chair.position.y += 0.001;
-            this.chair.position.z = -2.5;
-            this.chair.rotation.z = -Math.PI / 3;
-            this.chair.rotation.x = Math.PI / 2;
-            this.chair.position.y = 0.3;
-            this.app.scene.add(this.chair);
+        if (this.fallen_chair === null) {
+            this.fallen_chair = new MyChair(this);
+            this.fallen_chair.position.y += 0.001;
+            this.fallen_chair.position.z = -2.5;
+            this.fallen_chair.rotation.z = -Math.PI / 3;
+            this.fallen_chair.rotation.x = Math.PI / 2;
+            this.fallen_chair.position.y = 0.3;
+            this.app.scene.add(this.fallen_chair);
+        }
+
+        if (this.chairs == null) {
+            this.chairs = new THREE.Group()
+            
+            const positions = [
+                { position: new THREE.Vector3(-1.5, 0, 0), rotation: Math.PI },
+                { position: new THREE.Vector3(1.5, 0, 0), rotation: 0 },
+                { position: new THREE.Vector3(0.6, 0, 1), rotation: -Math.PI / 2 },
+                { position: new THREE.Vector3(-0.6, 0, 1), rotation: -Math.PI / 2 },
+                { position: new THREE.Vector3(-1, 0, -2), rotation: 3*Math.PI / 4 },
+            ];
+
+            for (let index = 0; index < positions.length; index++) {
+                const element = positions[index];
+                const position = element.position;
+                const rotation = element.rotation;
+
+                // Lamp
+                let newChair = new MyChair(this);
+
+                newChair.position.set(...position);
+                newChair.rotation.y = rotation;
+
+                this.chairs.add(newChair)
+            }
+
+            
+            this.app.scene.add(this.chairs)
         }
 
         this.app.scene.add(this.wallWithFramesGroup);
@@ -383,7 +413,7 @@ class MyContents {
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
 
-            this.beetle.position.set(0, 3, 2)
+            this.beetle.position.set(0, 3, 2);
 
             this.app.scene.add(this.beetle);
         }
