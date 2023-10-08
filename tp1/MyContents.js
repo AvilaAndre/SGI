@@ -11,6 +11,7 @@ import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
 import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
+import { MyChandelier } from "./MyObjects/MyChandelier.js";
 
 /**
  *  This class contains the contents of out application
@@ -39,6 +40,7 @@ class MyContents {
         this.wallLampsIntensity = 10;
         this.beetle = null;
         this.sofa = null;
+        this.chandelier = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -89,7 +91,6 @@ class MyContents {
             map: this.floorTexture,
         });
         // end of alternative 2
-        let plane = new THREE.PlaneGeometry(10, 10);
 
         //wrapping mode U
         this.wrappingModeU = null;
@@ -159,7 +160,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 0.1);
+        const ambientLight = new THREE.AmbientLight(0x555555, 1);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -182,13 +183,6 @@ class MyContents {
         this.app.scene.add(this.planeMesh);
 
         this.wallWithFramesGroup = new THREE.Group();
-
-        //Floor
-        /*let plane = new THREE.PlaneGeometry(10, 10);
-        this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
-        this.planeMesh.rotation.x = -Math.PI / 2;
-        this.planeMesh.position.y = -0;
-        this.app.scene.add(this.planeMesh);*/
 
         let rightWall = new THREE.PlaneGeometry(10, 10);
         this.rightWallMesh = new THREE.Mesh(rightWall, this.planeMaterial);
@@ -431,9 +425,29 @@ class MyContents {
         if (this.sofa == null) {
             this.sofa = new MySofa(this);
 
-            this.sofa.position.set(0, 0, 3.95 ); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
+            this.sofa.position.set(0, 0, 3.95); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
 
             this.app.scene.add(this.sofa);
+        }
+
+        if (this.chandelier == null) {
+            this.chandelier = new MyChandelier(this);
+
+            const chandelierPosition = new THREE.Vector3(0, 8, 0);
+
+            this.chandelier.position.set(...chandelierPosition);
+            this.mainSpotLight.position.set(...chandelierPosition);
+
+            const lightEffect = new THREE.PointLight(
+                this.mainSpotLight.color,
+                this.mainSpotLight.intensity,
+                1
+            ); //simulates the light that the lightbulb would project on the chandelier cover
+            lightEffect.position.set(...chandelierPosition);
+
+            this.app.scene.add(lightEffect);
+
+            this.app.scene.add(this.chandelier);
         }
     }
 
