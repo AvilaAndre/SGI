@@ -10,6 +10,7 @@ import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
 import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
+import { MySofa } from "./MyObjects/MySofa.js";
 
 /**
  *  This class contains the contents of out application
@@ -26,7 +27,7 @@ class MyContents {
         this.plate = null;
         this.cake = null;
         this.fallen_chair = null;
-        this.chairs = null
+        this.chairs = null;
         this.candle = null;
         this.mainSpotLight = null;
         this.frame1 = null;
@@ -37,6 +38,7 @@ class MyContents {
         this.wallLampsColor = "#FFFFFF";
         this.wallLampsIntensity = 10;
         this.beetle = null;
+        this.sofa = null;
 
         // box related attributes
         this.boxMesh = null;
@@ -320,14 +322,23 @@ class MyContents {
         }
 
         if (this.chairs == null) {
-            this.chairs = new THREE.Group()
-            
+            this.chairs = new THREE.Group();
+
             const positions = [
                 { position: new THREE.Vector3(-1.5, 0, 0), rotation: Math.PI },
                 { position: new THREE.Vector3(1.5, 0, 0), rotation: 0 },
-                { position: new THREE.Vector3(0.6, 0, 1), rotation: -Math.PI / 2 },
-                { position: new THREE.Vector3(-0.6, 0, 1), rotation: -Math.PI / 2 },
-                { position: new THREE.Vector3(-1, 0, -2), rotation: 3*Math.PI / 4 },
+                {
+                    position: new THREE.Vector3(0.6, 0, 1),
+                    rotation: -Math.PI / 2,
+                },
+                {
+                    position: new THREE.Vector3(-0.6, 0, 1),
+                    rotation: -Math.PI / 2,
+                },
+                {
+                    position: new THREE.Vector3(-1, 0, -2),
+                    rotation: (3 * Math.PI) / 4,
+                },
             ];
 
             for (let index = 0; index < positions.length; index++) {
@@ -341,11 +352,10 @@ class MyContents {
                 newChair.position.set(...position);
                 newChair.rotation.y = rotation;
 
-                this.chairs.add(newChair)
+                this.chairs.add(newChair);
             }
 
-            
-            this.app.scene.add(this.chairs)
+            this.app.scene.add(this.chairs);
         }
 
         this.app.scene.add(this.wallWithFramesGroup);
@@ -416,6 +426,14 @@ class MyContents {
             this.beetle.position.set(0, 3, 2);
 
             this.app.scene.add(this.beetle);
+        }
+
+        if (this.sofa == null) {
+            this.sofa = new MySofa(this);
+
+            this.sofa.position.set(0, 0, 3.95 ); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
+
+            this.app.scene.add(this.sofa);
         }
     }
 
