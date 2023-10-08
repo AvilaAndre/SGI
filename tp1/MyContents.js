@@ -42,6 +42,10 @@ class MyContents {
         this.sofa = null;
         this.chandelier = null;
 
+        // Array with every controllable light
+        this.roomLights = [];
+        this.lightsOn = true;
+
         // box related attributes
         this.boxMesh = null;
         this.boxMeshSize = 1.0;
@@ -148,6 +152,11 @@ class MyContents {
             this.mainSpotLight.target = defaultSpotLightTarget;
 
             this.app.scene.add(this.mainSpotLight);
+
+            this.roomLights.push({
+                prevIntensity: this.mainSpotLight.intensity,
+                light: this.mainSpotLight,
+            });
         }
 
         // add an ambient light
@@ -252,13 +261,6 @@ class MyContents {
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
             candleLight.position.set(0.1, 1.475, 0);
             this.app.scene.add(candleLight);
-
-            const sphereSize = 0.05;
-            const pointLightHelper = new THREE.PointLightHelper(
-                candleLight,
-                sphereSize
-            );
-            this.app.scene.add(pointLightHelper);
             this.app.scene.add(this.candle);
         }
 
@@ -399,6 +401,11 @@ class MyContents {
                 newWallLampGroup.add(wallLamp);
                 newWallLampGroup.add(spotLight);
 
+                this.roomLights.push({
+                    prevIntensity: spotLight.intensity,
+                    light: spotLight,
+                });
+
                 this.wallLamps.add(newWallLampGroup);
             }
 
@@ -520,6 +527,24 @@ class MyContents {
             const lamp = this.wallLamps.children[index].children[1];
 
             lamp.intensity = value;
+        }
+    }
+
+    toggleLights(value) {
+        if (value) {
+            for (let index = 0; index < this.roomLights.length; index++) {
+                const lightInfo = this.roomLights[index];
+
+                if (lightInfo.light.intensity == 0)
+                    lightInfo.light.intensity = lightInfo.prevIntensity;
+            }
+        } else {
+            for (let index = 0; index < this.roomLights.length; index++) {
+                const lightInfo = this.roomLights[index];
+
+                lightInfo.prevIntensity = lightInfo.light.intensity;
+                lightInfo.light.intensity = 0;
+            }
         }
     }
 
