@@ -43,8 +43,6 @@ class MyBeetle extends THREE.Object3D {
         rearBumper.rotation.z = Math.PI/2
 
         this.add(rearBumper);
-
-        console.log(this);
     }
 }
 
