@@ -100,11 +100,14 @@ class MyGuiInterface {
             wallLampsIntensity: this.contents.wallLampsIntensity,
         };
 
-        lightsFolder.add(this.contents, "lightsOn").onChange((value) => {
-            this.contents.toggleLights(value)
-        })
+        lightsFolder
+            .add(this.contents, "lightsOn")
+            .onChange((value) => {
+                this.contents.toggleLights(value);
+            })
+            .name("Toggle Lights");
 
-        const wallLampsFolder = lightsFolder.addFolder("Wall Lamps")
+        const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
 
         wallLampsFolder
             .addColor(lightsData, "wallLampsColor")
