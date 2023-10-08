@@ -147,20 +147,11 @@ class MyContents {
 
             this.mainSpotLight.target = defaultSpotLightTarget;
 
-            this.mainSpotLightHelper = new THREE.SpotLightHelper(
-                this.mainSpotLight,
-                "#FFFFFF"
-            );
-
-            this.app.scene.add(
-                this.mainSpotLight
-                //defaultSpotLightTarget,
-                //this.mainSpotLightHelper
-            );
+            this.app.scene.add(this.mainSpotLight);
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 1);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.1);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
