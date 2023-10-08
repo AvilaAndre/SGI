@@ -28,11 +28,11 @@ class MySofa extends THREE.Object3D {
             shininess: 2,
         });
 
-        const mainPartGeometry = new THREE.BoxGeometry(this.width, height, .8);
-        const backPartBottom = new THREE.BoxGeometry(this.width, height + 0.6, 0.6);
+        const mainPartGeometry = new THREE.BoxGeometry(this.width, height, 1);
+        const backPartBottom = new THREE.BoxGeometry(this.width, height + 0.6, 0.5);
         const backPartTop = new THREE.CylinderGeometry(
-            0.3,
-            0.3,
+            0.25,
+            0.25,
             this.width,
             undefined,
             undefined,
@@ -53,21 +53,21 @@ class MySofa extends THREE.Object3D {
         );
 
         const mainPartMesh = new THREE.Mesh(mainPartGeometry, sofaMaterial);
-        mainPartMesh.position.set(0, 0.3, 0);
+        mainPartMesh.position.set(0, 0.2, 0.05);
         const backPartBottomMesh = new THREE.Mesh(backPartBottom, sofaMaterial);
-        backPartBottomMesh.position.set(0, .5, 0.7);
+        backPartBottomMesh.position.set(0, .5, 0.8);
         const backPartTopMesh = new THREE.Mesh(backPartTop, sofaMaterial);
-        backPartTopMesh.position.set(0, 1, 0.7);
+        backPartTopMesh.position.set(0, 1, 0.8);
         backPartTopMesh.rotation.z = Math.PI / 2;
         const leftArmBottomMesh = new THREE.Mesh(armBottom, sofaMaterial);
-        leftArmBottomMesh.position.set(1.7, 0.4, 0.2);
+        leftArmBottomMesh.position.set(1.7, 0.3, 0.2);
         const leftArmTopMesh = new THREE.Mesh(armTop, sofaMaterial);
-        leftArmTopMesh.position.set(1.7, .7, 0.2);
+        leftArmTopMesh.position.set(1.7, .6, 0.2);
         leftArmTopMesh.rotation.x = Math.PI / 2;
         const rightArmBottomMesh = new THREE.Mesh(armBottom, sofaMaterial);
-        rightArmBottomMesh.position.set(-1.7, 0.4, 0.2);
+        rightArmBottomMesh.position.set(-1.7, 0.3, 0.2);
         const rightArmTopMesh = new THREE.Mesh(armTop, sofaMaterial);
-        rightArmTopMesh.position.set(-1.7, .7, 0.2);
+        rightArmTopMesh.position.set(-1.7, .6, 0.2);
         rightArmTopMesh.rotation.x = Math.PI / 2;
 
         this.add(mainPartMesh);
