@@ -377,11 +377,7 @@ class MyContents {
                     this.wallLampsColor,
                     this.wallLampsIntensity,
                     0,
-<<<<<<< HEAD
-                    Math.PI / 6,
-=======
                     Math.PI / 4,
->>>>>>> 1cb43e9868148916a8b643b85c66e4b8683f1749
                     0.5,
                     2
                 );
