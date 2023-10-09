@@ -9,6 +9,9 @@ import { MyFrame } from "./MyObjects/MyFrame.js";
 import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
 import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
+import { MyBeetle } from "./MyObjects/MyBeetle.js";
+import { MySofa } from "./MyObjects/MySofa.js";
+import { MyChandelier } from "./MyObjects/MyChandelier.js";
 
 /**
  *  This class contains the contents of out application
@@ -24,7 +27,8 @@ class MyContents {
         this.table = null;
         this.plate = null;
         this.cake = null;
-        this.chair = null;
+        this.fallen_chair = null;
+        this.chairs = null;
         this.candle = null;
         this.mainSpotLight = null;
         this.frame1 = null;
@@ -32,6 +36,15 @@ class MyContents {
         this.window = null;
         this.cakeSlice = null;
         this.wallLamps = null;
+        this.wallLampsColor = "#FFFFFF";
+        this.wallLampsIntensity = 10;
+        this.beetle = null;
+        this.sofa = null;
+        this.chandelier = null;
+
+        // Array with every controllable light
+        this.roomLights = [];
+        this.lightsOn = true;
 
         // box related attributes
         this.boxMesh = null;
@@ -52,8 +65,12 @@ class MyContents {
 
         // plane related attributes
         //texture
-        this.floorTexture = new THREE.TextureLoader().load('textures/floor.jpg');
-        this.planeTexture = new THREE.TextureLoader().load('textures/symmetricalWallpaper.jpg');
+        this.floorTexture = new THREE.TextureLoader().load(
+            "textures/floor.jpg"
+        );
+        this.planeTexture = new THREE.TextureLoader().load(
+            "textures/symmetricalWallpaper.jpg"
+        );
         this.planeTexture.wrapS = THREE.RepeatWrapping;
         this.planeTexture.wrapT = THREE.RepeatWrapping;
         // material
@@ -78,7 +95,6 @@ class MyContents {
             map: this.floorTexture,
         });
         // end of alternative 2
-        let plane = new THREE.PlaneGeometry(10, 10);
 
         //wrapping mode U
         this.wrappingModeU = null;
@@ -135,21 +151,17 @@ class MyContents {
 
             this.mainSpotLight.target = defaultSpotLightTarget;
 
-            this.mainSpotLightHelper = new THREE.SpotLightHelper(
-                this.mainSpotLight,
-                "#FFFFFF"
-            );
+            this.app.scene.add(this.mainSpotLight);
 
-            this.app.scene.add(
-                this.mainSpotLight
-                //defaultSpotLightTarget,
-                //this.mainSpotLightHelper
-            );
+            this.roomLights.push({
+                prevIntensity: this.mainSpotLight.intensity,
+                light: this.mainSpotLight,
+            });
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 0.5);
-        //this.app.scene.add(ambientLight);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.1);
+        this.app.scene.add(ambientLight);
 
         this.buildBox();
 
@@ -164,20 +176,13 @@ class MyContents {
         this.planeTexture.repeat.set(planeTextureRepeatU, planeTextureRepeatV);
         this.planeTexture.rotation = (30 * Math.PI) / 180;
         this.planeTexture.offset = new THREE.Vector2(0, 0);
-        var plane = new THREE.PlaneGeometry( planeSizeU, planeSizeV );
-        this.planeMesh = new THREE.Mesh( plane, this.floorMaterial );
+        var plane = new THREE.PlaneGeometry(planeSizeU, planeSizeV);
+        this.planeMesh = new THREE.Mesh(plane, this.floorMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
         this.app.scene.add(this.planeMesh);
 
         this.wallWithFramesGroup = new THREE.Group();
-
-        //Floor
-        /*let plane = new THREE.PlaneGeometry(10, 10);
-        this.planeMesh = new THREE.Mesh(plane, this.planeMaterial);
-        this.planeMesh.rotation.x = -Math.PI / 2;
-        this.planeMesh.position.y = -0;
-        this.app.scene.add(this.planeMesh);*/
 
         let rightWall = new THREE.PlaneGeometry(10, 10);
         this.rightWallMesh = new THREE.Mesh(rightWall, this.planeMaterial);
@@ -256,13 +261,6 @@ class MyContents {
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
             candleLight.position.set(0.1, 1.475, 0);
             this.app.scene.add(candleLight);
-
-            const sphereSize = 0.05;
-            const pointLightHelper = new THREE.PointLightHelper(
-                candleLight,
-                sphereSize
-            );
-            this.app.scene.add(pointLightHelper);
             this.app.scene.add(this.candle);
         }
 
@@ -304,14 +302,51 @@ class MyContents {
 
         /** Chair **/
 
-        if (this.chair === null) {
-            this.chair = new MyChair(this);
-            this.chair.position.y += 0.001;
-            this.chair.position.z = -2.5;
-            this.chair.rotation.z = -Math.PI / 3;
-            this.chair.rotation.x = Math.PI / 2;
-            this.chair.position.y = 0.3;
-            this.app.scene.add(this.chair);
+        if (this.fallen_chair === null) {
+            this.fallen_chair = new MyChair(this);
+            this.fallen_chair.position.y += 0.001;
+            this.fallen_chair.position.z = -2.5;
+            this.fallen_chair.rotation.z = -Math.PI / 3;
+            this.fallen_chair.rotation.x = Math.PI / 2;
+            this.fallen_chair.position.y = 0.3;
+            this.app.scene.add(this.fallen_chair);
+        }
+
+        if (this.chairs == null) {
+            this.chairs = new THREE.Group();
+
+            const positions = [
+                { position: new THREE.Vector3(-1.5, 0, 0), rotation: Math.PI },
+                { position: new THREE.Vector3(1.5, 0, 0), rotation: 0 },
+                {
+                    position: new THREE.Vector3(0.6, 0, 1),
+                    rotation: -Math.PI / 2,
+                },
+                {
+                    position: new THREE.Vector3(-0.6, 0, 1),
+                    rotation: -Math.PI / 2,
+                },
+                {
+                    position: new THREE.Vector3(-1, 0, -2),
+                    rotation: (3 * Math.PI) / 4,
+                },
+            ];
+
+            for (let index = 0; index < positions.length; index++) {
+                const element = positions[index];
+                const position = element.position;
+                const rotation = element.rotation;
+
+                // Lamp
+                let newChair = new MyChair(this);
+
+                newChair.position.set(...position);
+                newChair.rotation.y = rotation;
+
+                this.chairs.add(newChair);
+            }
+
+            this.app.scene.add(this.chairs);
         }
 
         this.app.scene.add(this.wallWithFramesGroup);
@@ -339,10 +374,14 @@ class MyContents {
                 // Light
 
                 let spotLight = new THREE.SpotLight(
-                    "#FFFFFF",
-                    10,
+                    this.wallLampsColor,
+                    this.wallLampsIntensity,
                     0,
+<<<<<<< HEAD
                     Math.PI / 6,
+=======
+                    Math.PI / 4,
+>>>>>>> 1cb43e9868148916a8b643b85c66e4b8683f1749
                     0.5,
                     2
                 );
@@ -365,22 +404,56 @@ class MyContents {
                     position.z + 0.05 * z_multiplier
                 );
 
-                let spotLightHelper = new THREE.SpotLightHelper(
-                    spotLight,
-                    "#FF0000"
-                );
-
                 let newWallLampGroup = new THREE.Group();
 
                 newWallLampGroup.add(wallLamp);
                 newWallLampGroup.add(spotLight);
 
-                this.app.scene.add(spotLight);
+                this.roomLights.push({
+                    prevIntensity: spotLight.intensity,
+                    light: spotLight,
+                });
 
                 this.wallLamps.add(newWallLampGroup);
             }
 
             this.app.scene.add(this.wallLamps);
+        }
+
+        if (this.beetle == null) {
+            this.beetle = new MyBeetle(this);
+
+            this.beetle.position.set(0, 3, 2);
+
+            this.app.scene.add(this.beetle);
+        }
+
+        if (this.sofa == null) {
+            this.sofa = new MySofa(this);
+
+            this.sofa.position.set(0, 0, 3.95); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
+
+            this.app.scene.add(this.sofa);
+        }
+
+        if (this.chandelier == null) {
+            this.chandelier = new MyChandelier(this);
+
+            const chandelierPosition = new THREE.Vector3(0, 8, 0);
+
+            this.chandelier.position.set(...chandelierPosition);
+            this.mainSpotLight.position.set(...chandelierPosition);
+
+            const lightEffect = new THREE.PointLight(
+                this.mainSpotLight.color,
+                this.mainSpotLight.intensity,
+                1
+            ); //simulates the light that the lightbulb would project on the chandelier cover
+            lightEffect.position.set(...chandelierPosition);
+
+            this.app.scene.add(lightEffect);
+
+            this.app.scene.add(this.chandelier);
         }
     }
 
@@ -439,6 +512,46 @@ class MyContents {
                 this.app.scene.add(this.boxMesh);
             } else {
                 this.app.scene.remove(this.boxMesh);
+            }
+        }
+    }
+
+    /**
+     * Updates the color of the wall lamps spotlight
+     */
+    updateWallLampsColor(value) {
+        for (let index = 0; index < this.wallLamps.children.length; index++) {
+            const lamp = this.wallLamps.children[index].children[1];
+
+            lamp.color.set(value);
+        }
+    }
+
+    /**
+     * Updates the intensity of the wall lamps spotlight
+     */
+    updateWallLampsIntensity(value) {
+        for (let index = 0; index < this.wallLamps.children.length; index++) {
+            const lamp = this.wallLamps.children[index].children[1];
+
+            lamp.intensity = value;
+        }
+    }
+
+    toggleLights(value) {
+        if (value) {
+            for (let index = 0; index < this.roomLights.length; index++) {
+                const lightInfo = this.roomLights[index];
+
+                if (lightInfo.light.intensity == 0)
+                    lightInfo.light.intensity = lightInfo.prevIntensity;
+            }
+        } else {
+            for (let index = 0; index < this.roomLights.length; index++) {
+                const lightInfo = this.roomLights[index];
+
+                lightInfo.prevIntensity = lightInfo.light.intensity;
+                lightInfo.light.intensity = 0;
             }
         }
     }
