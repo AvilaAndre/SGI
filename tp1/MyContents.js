@@ -124,8 +124,8 @@ class MyContents {
                 "#FFFFFF",
                 20,
                 9,
-                Math.PI / 12,
-                0,
+                Math.PI / 5,
+                0.5,
                 0.5
             );
             this.mainSpotLight.position.set(0, 8, 0);
@@ -148,8 +148,8 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 5);
-        this.app.scene.add(ambientLight);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.5);
+        //this.app.scene.add(ambientLight);
 
         this.buildBox();
 
@@ -266,6 +266,10 @@ class MyContents {
             this.app.scene.add(this.candle);
         }
 
+        const candleLight = new THREE.PointLight(0xffffff, 3);
+        candleLight.position.set(0.1, 8, 0);
+        this.app.scene.add(candleLight);
+
         // Frame1 - Ávila
 
         if (this.frame1 === null) {
@@ -338,7 +342,7 @@ class MyContents {
                     "#FFFFFF",
                     10,
                     0,
-                    Math.PI / 8,
+                    Math.PI / 6,
                     0.5,
                     2
                 );
