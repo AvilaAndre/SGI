@@ -29,7 +29,11 @@ class MyContents {
         this.cake = null;
         this.fallen_chair = null;
         this.chairs = null;
-        this.candle = null;
+        this.candle1 = null;
+        this.candle2 = null;
+        this.candle3 = null;
+        this.candle4 = null;
+        this.candle5 = null;
         this.mainSpotLight = null;
         this.frame1 = null;
         this.frame2 = null;
@@ -160,7 +164,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 0.1);
+        const ambientLight = new THREE.AmbientLight(0x555555, 8);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -253,18 +257,79 @@ class MyContents {
 
         // Candle
 
-        if (this.candle === null) {
-            this.candle = new MyCandle(this);
-            this.candle.position.y = 1.4;
-            this.candle.position.x = 0.1;
+        if (this.candle1 === null) {
+            this.candle1 = new MyCandle(this);
+            this.candle1.position.y = 1.4;
+            this.candle1.position.x = 0.15;
+            this.candle1.position.z = 0.07;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
             candleLight.position.set(0.1, 1.475, 0);
             this.app.scene.add(candleLight);
-            this.app.scene.add(this.candle);
+            this.app.scene.add(this.candle1);
         }
 
         const candleLight = new THREE.PointLight(0xffffff, 3);
+        candleLight.position.set(0.1, 8, 0);
+        this.app.scene.add(candleLight);
+
+        if (this.candle2 === null) {
+            this.candle2 = new MyCandle(this);
+            this.candle2.position.y = 1.4;
+            this.candle2.position.x = -0.15;
+            this.candle2.position.z = 0.09;
+
+            const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
+            candleLight.position.set(0.1, 1.475, 0);
+            this.app.scene.add(candleLight);
+            this.app.scene.add(this.candle2);
+        }
+
+        candleLight.position.set(0.1, 8, 0);
+        this.app.scene.add(candleLight);
+
+        if (this.candle3 === null) {
+            this.candle3 = new MyCandle(this);
+            this.candle3.position.y = 1.4;
+            this.candle3.position.x = -0.15;
+            this.candle3.position.z = -0.07;
+
+            const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
+            candleLight.position.set(0.1, 1.475, 0);
+            this.app.scene.add(candleLight);
+            this.app.scene.add(this.candle3);
+        }
+
+        candleLight.position.set(0.1, 8, 0);
+        this.app.scene.add(candleLight);
+
+        if (this.candle4 === null) {
+            this.candle4 = new MyCandle(this);
+            this.candle4.position.y = 1.4;
+            //this.candle4.position.x = 0.1;
+            this.candle4.position.z = -0.15;
+
+            const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
+            candleLight.position.set(0.1, 1.475, 0);
+            this.app.scene.add(candleLight);
+            this.app.scene.add(this.candle4);
+        }
+
+        candleLight.position.set(0.1, 8, 0);
+        this.app.scene.add(candleLight);
+
+        if (this.candle5 === null) {
+            this.candle5 = new MyCandle(this);
+            this.candle5.position.y = 1.4;
+            this.candle5.position.x = 0.15;
+            this.candle5.position.z = -0.07;
+
+            const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
+            candleLight.position.set(0.1, 1.475, 0);
+            this.app.scene.add(candleLight);
+            this.app.scene.add(this.candle5);
+        }
+
         candleLight.position.set(0.1, 8, 0);
         this.app.scene.add(candleLight);
 
@@ -272,6 +337,7 @@ class MyContents {
 
         if (this.frame1 === null) {
             this.frame1 = new MyFrame(this, 2, 2, "ávila.jpg");
+            this.frame1.rotation.z = -Math.PI / 8;
             this.frame1.position.y = 4;
             this.frame1.position.x = -4.9;
             this.frame1.position.z = 2;
