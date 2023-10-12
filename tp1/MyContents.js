@@ -166,7 +166,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 8);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.1);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -377,12 +377,8 @@ class MyContents {
                 Math.PI / 4
             );
             this.windowLight.position.set(0, 4, -8.9);
-            const windowLightHelper = new THREE.SpotLightHelper(
-                this.windowLight,
-                "FF0000"
-            );
 
-            this.app.scene.add(this.windowLight, windowLightHelper);
+            this.app.scene.add(this.windowLight);
         }
 
         /** Chair **/
