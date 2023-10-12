@@ -107,6 +107,13 @@ class MyGuiInterface {
             })
             .name("Toggle Lights");
 
+        lightsFolder
+            .add(this.contents, "curtain", 0.0, 1.0)
+            .onChange((value) => {
+                this.contents.moveCurtain(value);
+            })
+            .name("Move Curtains");
+
         const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
 
         wallLampsFolder

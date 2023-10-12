@@ -41,10 +41,12 @@ class MyContents {
         this.beetle = null;
         this.sofa = null;
         this.chandelier = null;
+        this.windowLight = null;
 
         // Array with every controllable light
         this.roomLights = [];
         this.lightsOn = true;
+        this.curtain = 0.0;
 
         // box related attributes
         this.boxMesh = null;
@@ -293,7 +295,24 @@ class MyContents {
         if (this.window === null) {
             this.window = new MyWindow(this, 5, 3, "arouca.jpg");
             this.window.position.copy(new THREE.Vector3(0, 4, -4.9));
+            this.window.moveCurtains(this.curtain)
             this.app.scene.add(this.window);
+        }
+
+        if (this.windowLight === null) {
+            this.windowLight = new THREE.SpotLight(
+                "#FFFFFF",
+                20,
+                100,
+                Math.PI / 4
+            );
+            this.windowLight.position.set(0, 4, -8.9);
+            const windowLightHelper = new THREE.SpotLightHelper(
+                this.windowLight,
+                "FF0000"
+            );
+
+            this.app.scene.add(this.windowLight, windowLightHelper);
         }
 
         /** Chair **/
@@ -545,6 +564,15 @@ class MyContents {
                 lightInfo.prevIntensity = lightInfo.light.intensity;
                 lightInfo.light.intensity = 0;
             }
+        }
+    }
+
+    moveCurtain(value) {
+        this.curtain = value;
+
+        if (this.window !== null) {
+            this.window.moveCurtains(this.curtain)
+            this.windowLight.angle = Math.PI / 4 * (1-value)
         }
     }
 

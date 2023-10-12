@@ -105,6 +105,40 @@ class MyWindow extends THREE.Object3D {
 
         this.add(landscapeMesh)
 
+        const curtainMaterial = new THREE.MeshPhongMaterial({
+            color: "#FF0000",
+            specular: "#000000",
+            emissive: "#000000",
+            shininess: 10,
+        });
+
+        this.curtainWidth = this.width/2 + 1
+
+        const curtainGeo = new THREE.PlaneGeometry(this.curtainWidth, this.height + 1);
+
+        this.curtainMesh1 = new THREE.Mesh(curtainGeo, curtainMaterial);
+        this.curtainMesh2 = new THREE.Mesh(curtainGeo, curtainMaterial);
+
+        this.add(this.curtainMesh1, this.curtainMesh2)
+
+        this.curtainMesh1.position.y = -0.2
+        this.curtainMesh2.position.y = -0.2
+
+        this.curtainMesh1.scale.x = 1
+        this.curtainMesh1.position.x = this.curtainWidth/2 + 1
+        this.curtainMesh1.position.z = 0.1
+        this.curtainMesh2.scale.x = 1
+        this.curtainMesh2.position.x = -this.curtainWidth/2 - 1
+        this.curtainMesh2.position.z = 0.1
+    }
+
+    moveCurtains(value) {
+        const open = 0.8*value + 0.2
+
+        this.curtainMesh1.scale.x = open
+        this.curtainMesh1.position.x = -this.curtainWidth/2 * open + this.curtainWidth
+        this.curtainMesh2.scale.x = open
+        this.curtainMesh2.position.x = this.curtainWidth/2 * open - this.curtainWidth
     }
 }
 
