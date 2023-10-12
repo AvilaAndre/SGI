@@ -274,8 +274,6 @@ class MyContents {
             this.app.scene.add(this.candle1);
         }
 
-        // const candleLight = new THREE.PointLight(0xffffff, 3)
-
         if (this.candle2 === null) {
             this.candle2 = new MyCandle(this);
             this.candle2.position.y = 1.4;
@@ -366,7 +364,7 @@ class MyContents {
                 Math.PI / 4
             );
             this.windowLight.castShadow = true;
-            this.windowLight.position.set(0, 6, -8.9);
+            this.windowLight.position.set(0, 5, -8.9);
 
             this.app.scene.add(this.windowLight);
         }
@@ -490,7 +488,7 @@ class MyContents {
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
 
-            this.beetle.position.set(0, 3, 2);
+            this.beetle.position.set(0, 3, 4.98);
 
             this.app.scene.add(this.beetle);
         }
