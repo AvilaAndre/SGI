@@ -37,7 +37,6 @@ class MyCandle extends THREE.Object3D {
             shininess: 10,
         });
 
-
         let candleBase = new THREE.CylinderGeometry(
             //Raio  do círculo superior
             this.up_radius,
@@ -51,10 +50,8 @@ class MyCandle extends THREE.Object3D {
             3,
             false,
             0,
-            2*Math.PI
+            2 * Math.PI
         );
-
-
 
         let candleFlameInterior = new THREE.ConeGeometry(
             //Radius of the cone base
@@ -90,20 +87,27 @@ class MyCandle extends THREE.Object3D {
             6.28
         );
 
-        this.candleBaseMesh = new THREE.Mesh(candleBase, this.candleBaseMaterial);
+        this.candleBaseMesh = new THREE.Mesh(
+            candleBase,
+            this.candleBaseMaterial
+        );
         //this.candleFlameInteriorMesh = new THREE.Mesh(candleFlameInterior, this.candleFlameInteriorMaterial);
-        this.candleFlameExteriorMesh = new THREE.Mesh(candleFlameExterior, this.candleFlameExteriorMaterial);
-
+        this.candleFlameExteriorMesh = new THREE.Mesh(
+            candleFlameExterior,
+            this.candleFlameExteriorMaterial
+        );
 
         //this.candleFlameInteriorMesh.position.y += 0.8;
         this.candleFlameExteriorMesh.position.y += 0.075;
 
         this.candleGroup = new THREE.Group();
+        
+        this.candleBaseMesh.castShadow = true;
+        this.candleBaseMesh.receiveShadow = true;
 
         this.candleGroup.add(this.candleBaseMesh);
         //this.candleGroup.add(this.candleFlameInteriorMesh);
         this.candleGroup.add(this.candleFlameExteriorMesh);
-
 
         this.add(this.candleGroup);
     }

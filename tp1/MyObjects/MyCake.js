@@ -27,21 +27,21 @@ class MyCake extends THREE.Object3D {
             shininess: 10,
         });
 
-        if(this.flavor === "strawberry"){
+        if (this.flavor === "strawberry") {
             this.cakeMaterial = new THREE.MeshPhongMaterial({
                 color: "#FEC5E5",
                 specular: "#6E260E",
                 emissive: "#000000",
                 shininess: 10,
             });
-        } else if (this.flavor === "vanilla"){
+        } else if (this.flavor === "vanilla") {
             this.cakeMaterial = new THREE.MeshPhongMaterial({
                 color: "#FFF6DF",
                 specular: "#6E260E",
                 emissive: "#000000",
                 shininess: 10,
             });
-        } else if (this.flavor === "chocolate"){
+        } else if (this.flavor === "chocolate") {
             this.cakeMaterial = new THREE.MeshPhongMaterial({
                 color: "#805A46",
                 specular: "#6E260E",
@@ -63,7 +63,7 @@ class MyCake extends THREE.Object3D {
             3,
             false,
             0,
-            (14*Math.PI)/8
+            (14 * Math.PI) / 8
         );
 
         this.cakeGroup = new THREE.Group();
@@ -77,35 +77,41 @@ class MyCake extends THREE.Object3D {
             });
 
             this.cakeMesh = new THREE.Mesh(cake, cakeMaterial);
-        
-            this.cakeMesh.position.y = 0.24 + 0.1*index;
 
+            this.cakeMesh.position.y = 0.24 + 0.1 * index;
 
-            this.cakeGroup.add(this.cakeMesh)
+            this.cakeMesh.castShadow = true;
+            this.cakeMesh.receiveShadow = true;
 
-        })
+            this.cakeGroup.add(this.cakeMesh);
+        });
 
+        let planeCake = new THREE.PlaneGeometry(0.22, 0.3);
 
-        let planeCake = new THREE.PlaneGeometry( 
-            0.22, 
-            0.3 
+        this.planeLeftCakeMesh = new THREE.Mesh(
+            planeCake,
+            this.planeCakeMaterial
         );
-        
-        this.planeLeftCakeMesh = new THREE.Mesh( planeCake, this.planeCakeMaterial);
         this.planeLeftCakeMesh.position.y = 0.34;
         this.planeLeftCakeMesh.position.x = -0.1;
-        this.planeLeftCakeMesh.position.z = 0.1
-        this.planeLeftCakeMesh.rotation.y =  Math.PI / 4;
-        
+        this.planeLeftCakeMesh.position.z = 0.1;
+        this.planeLeftCakeMesh.rotation.y = Math.PI / 4;
 
-        this.planeRightCakeMesh = new THREE.Mesh( planeCake, this.planeCakeMaterial);
+        this.planeRightCakeMesh = new THREE.Mesh(
+            planeCake,
+            this.planeCakeMaterial
+        );
         this.planeRightCakeMesh.position.y = 0.34;
         this.planeRightCakeMesh.position.z = 0.14;
-        this.planeRightCakeMesh.rotation.y =  -2 * Math.PI / 4;
+        this.planeRightCakeMesh.rotation.y = (-2 * Math.PI) / 4;
+
+        this.planeLeftCakeMesh.castShadow = true;
+        this.planeLeftCakeMesh.receiveShadow = true;
+        this.planeRightCakeMesh.castShadow = true;
+        this.planeRightCakeMesh.receiveShadow = true;
 
         this.cakeGroup.add(this.planeLeftCakeMesh);
         this.cakeGroup.add(this.planeRightCakeMesh);
-
 
         this.add(this.cakeGroup);
     }

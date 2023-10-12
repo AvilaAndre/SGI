@@ -157,6 +157,8 @@ class MyContents {
 
             this.mainSpotLight.target = defaultSpotLightTarget;
 
+            this.mainSpotLight.castShadow = true;
+
             this.app.scene.add(this.mainSpotLight);
 
             this.roomLights.push({
@@ -186,6 +188,7 @@ class MyContents {
         this.planeMesh = new THREE.Mesh(plane, this.floorMaterial);
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = 0;
+        this.planeMesh.receiveShadow = true;
         this.app.scene.add(this.planeMesh);
 
         this.wallWithFramesGroup = new THREE.Group();
@@ -266,14 +269,12 @@ class MyContents {
             this.candle1.position.z = 0.07;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
-            candleLight.position.set(0.1, 1.475, 0);
+            candleLight.position.set(0.15, 1.475, 0.07);
             this.app.scene.add(candleLight);
             this.app.scene.add(this.candle1);
         }
 
-        const candleLight = new THREE.PointLight(0xffffff, 3);
-        candleLight.position.set(0.1, 8, 0);
-        this.app.scene.add(candleLight);
+        // const candleLight = new THREE.PointLight(0xffffff, 3)
 
         if (this.candle2 === null) {
             this.candle2 = new MyCandle(this);
@@ -282,13 +283,10 @@ class MyContents {
             this.candle2.position.z = 0.09;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
-            candleLight.position.set(0.1, 1.475, 0);
+            candleLight.position.set(-0.15, 1.475, 0.09);
             this.app.scene.add(candleLight);
             this.app.scene.add(this.candle2);
         }
-
-        candleLight.position.set(0.1, 8, 0);
-        this.app.scene.add(candleLight);
 
         if (this.candle3 === null) {
             this.candle3 = new MyCandle(this);
@@ -297,13 +295,10 @@ class MyContents {
             this.candle3.position.z = -0.07;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
-            candleLight.position.set(0.1, 1.475, 0);
+            candleLight.position.set(-0.15, 1.475, -0.07);
             this.app.scene.add(candleLight);
             this.app.scene.add(this.candle3);
         }
-
-        candleLight.position.set(0.1, 8, 0);
-        this.app.scene.add(candleLight);
 
         if (this.candle4 === null) {
             this.candle4 = new MyCandle(this);
@@ -312,13 +307,10 @@ class MyContents {
             this.candle4.position.z = -0.15;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
-            candleLight.position.set(0.1, 1.475, 0);
+            candleLight.position.set(0, 1.475, -0.15);
             this.app.scene.add(candleLight);
             this.app.scene.add(this.candle4);
         }
-
-        candleLight.position.set(0.1, 8, 0);
-        this.app.scene.add(candleLight);
 
         if (this.candle5 === null) {
             this.candle5 = new MyCandle(this);
@@ -327,13 +319,10 @@ class MyContents {
             this.candle5.position.z = -0.07;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);
-            candleLight.position.set(0.1, 1.475, 0);
+            candleLight.position.set(0.15, 1.475, -0.07);
             this.app.scene.add(candleLight);
             this.app.scene.add(this.candle5);
         }
-
-        candleLight.position.set(0.1, 8, 0);
-        this.app.scene.add(candleLight);
 
         // Frame1 - Ávila
 
@@ -365,7 +354,7 @@ class MyContents {
         if (this.window === null) {
             this.window = new MyWindow(this, 5, 3, "arouca.jpg");
             this.window.position.copy(new THREE.Vector3(0, 4, -4.9));
-            this.window.moveCurtains(this.curtain)
+            this.window.moveCurtains(this.curtain);
             this.app.scene.add(this.window);
         }
 
@@ -376,7 +365,8 @@ class MyContents {
                 100,
                 Math.PI / 4
             );
-            this.windowLight.position.set(0, 4, -8.9);
+            this.windowLight.castShadow = true;
+            this.windowLight.position.set(0, 6, -8.9);
 
             this.app.scene.add(this.windowLight);
         }
@@ -637,8 +627,8 @@ class MyContents {
         this.curtain = value;
 
         if (this.window !== null) {
-            this.window.moveCurtains(this.curtain)
-            this.windowLight.angle = Math.PI / 4 * (1-value)
+            this.window.moveCurtains(this.curtain);
+            this.windowLight.angle = (Math.PI / 4) * (1 - value);
         }
     }
 

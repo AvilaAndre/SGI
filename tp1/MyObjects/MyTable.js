@@ -18,12 +18,16 @@ class MyTable extends THREE.Object3D {
         this.width = width || 3;
         this.depth = depth || 2;
 
-        this.tableTexture = new THREE.TextureLoader().load('textures/darkWood.jpg');
+        this.tableTexture = new THREE.TextureLoader().load(
+            "textures/darkWood.jpg"
+        );
 
-        this.tableMaterial = new THREE.MeshPhongMaterial({map: this.tableTexture });
+        this.tableMaterial = new THREE.MeshPhongMaterial({
+            map: this.tableTexture,
+        });
 
         this.tableLegsMaterial = new THREE.MeshPhongMaterial({
-            map: this.tableTexture ,
+            map: this.tableTexture,
             specular: "#6E260E",
             emissive: "#000000",
             shininess: 10,
@@ -32,6 +36,8 @@ class MyTable extends THREE.Object3D {
         let tableTop = new THREE.BoxGeometry(this.width, 0.2, this.depth);
         this.tableTopMesh = new THREE.Mesh(tableTop, this.tableMaterial);
         this.tableTopMesh.position.y = 0.9;
+        this.tableTopMesh.castShadow = true;
+        this.tableTopMesh.receiveShadow = true;
         this.add(this.tableTopMesh);
 
         let legX = this.width / 2 - 0.2;
@@ -48,6 +54,10 @@ class MyTable extends THREE.Object3D {
                     (index % 2 == 0 ? 1 : -1) * legY
                 )
             );
+
+            tableLegMesh.castShadow = true;
+            tableLegMesh.receiveShadow = true;
+
             this.add(tableLegMesh);
         }
     }

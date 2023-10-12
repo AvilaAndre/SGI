@@ -15,7 +15,15 @@ class MyChair extends THREE.Object3D {
      * @param {number} backDepth the depth of the back of the chair
      * @param {number} backBarNumber the number of bars on the back of the chair
      */
-    constructor(app, width, depth, backHeight, backWidth, backDepth, backBarNumber) {
+    constructor(
+        app,
+        width,
+        depth,
+        backHeight,
+        backWidth,
+        backDepth,
+        backBarNumber
+    ) {
         super();
         this.app = app;
         this.type = "Group";
@@ -26,10 +34,12 @@ class MyChair extends THREE.Object3D {
         this.backDepth = backDepth || 0.05;
         this.backBarNumber = backBarNumber || 4;
 
-        this.chairTexture = new THREE.TextureLoader().load('textures/darkWood.jpg');
+        this.chairTexture = new THREE.TextureLoader().load(
+            "textures/darkWood.jpg"
+        );
 
         this.chairMaterial = new THREE.MeshPhongMaterial({
-            map: this.chairTexture ,
+            map: this.chairTexture,
             specular: "#6E260E",
             emissive: "#000000",
             shininess: 10,
@@ -38,6 +48,8 @@ class MyChair extends THREE.Object3D {
         let chairTop = new THREE.BoxGeometry(this.width, 0.1, this.depth);
         this.chairTopMesh = new THREE.Mesh(chairTop, this.chairMaterial);
         this.chairTopMesh.position.y = 0.45;
+        this.chairTopMesh.castShadow = true;
+        this.chairTopMesh.receiveShadow = true;
         this.add(this.chairTopMesh);
 
         let legX = this.width / 2 - 0.1;
@@ -53,6 +65,8 @@ class MyChair extends THREE.Object3D {
                     (i % 2 == 0 ? 1 : -1) * legY
                 )
             );
+            chairLegMesh.castShadow = true;
+            chairLegMesh.receiveShadow = true;
             this.add(chairLegMesh);
         }
 
@@ -71,8 +85,12 @@ class MyChair extends THREE.Object3D {
             chairBackBarMesh.position.set(
                 this.depth / 2 - this.backDepth / 2,
                 0.5 + this.backHeight / 2,
-                -width / 2 + (width / (this.backBarNumber-1)) * i
+                -width / 2 + (width / (this.backBarNumber - 1)) * i
             );
+
+            chairBackBarMesh.castShadow = true;
+            chairBackBarMesh.receiveShadow = true;
+
             this.add(chairBackBarMesh);
         }
 
@@ -90,6 +108,9 @@ class MyChair extends THREE.Object3D {
             0.5 + this.backHeight + 0.05,
             0
         );
+
+        chairBackCrossBarMesh.castShadow = true;
+        chairBackCrossBarMesh.receiveShadow = true;
         this.add(chairBackCrossBarMesh);
     }
 }
