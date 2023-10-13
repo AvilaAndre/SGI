@@ -34,7 +34,7 @@ class MyFlower extends THREE.Object3D {
             side: 2,
         });
         const flowerPetalMaterial = new THREE.MeshPhongMaterial({
-            color: "#FFBF00",
+            color: "#FFFFFF",
             side: 2,
         });
 
