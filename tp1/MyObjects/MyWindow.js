@@ -39,6 +39,16 @@ class MyWindow extends THREE.Object3D {
             shininess: 10,
         });
 
+        this.glassMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x00bfff,   // Set the glass color (light blue in this case)
+            transparent: true,  // Make the material transparent
+            opacity: 0.2,      // Set the opacity level (0.0 to 1.0)
+            roughness: 0.2,    // Adjust the roughness (0.0 for smooth, 1.0 for rough)
+            metalness: 0.1,   // Adjust the metalness (0.0 for non-metallic, 1.0 for metallic)
+            transmission: 0.9,
+          });
+          
+
         let windowHorizontalBar = new THREE.BoxGeometry(
             this.width + this.barWidth*2,
             this.barDepth,
@@ -99,7 +109,7 @@ class MyWindow extends THREE.Object3D {
 
         let landscapeMesh = new THREE.Mesh(
             landscapeGeometry,
-            this.landscapeMaterial
+            this.glassMaterial
         );
         
 
