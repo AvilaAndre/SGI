@@ -30,7 +30,9 @@ class MyWindow extends THREE.Object3D {
             shininess: 10,
         });
 
-        this.landscapeTexture = new THREE.TextureLoader().load('textures/' + landscape);
+        this.landscapeTexture = new THREE.TextureLoader().load(
+            "textures/" + landscape
+        );
 
         this.landscapeMaterial = new THREE.MeshPhongMaterial({
             map: this.landscapeTexture,
@@ -50,18 +52,16 @@ class MyWindow extends THREE.Object3D {
           
 
         let windowHorizontalBar = new THREE.BoxGeometry(
-            this.width + this.barWidth*2,
+            this.width + this.barWidth * 2,
             this.barDepth,
-            this.barWidth,
+            this.barWidth
         );
-
 
         let windowVerticalBar = new THREE.BoxGeometry(
             this.barWidth,
-            this.height + this.barWidth/2,
-            this.barDepth,
+            this.height + this.barWidth / 2,
+            this.barDepth
         );
-
 
         [-1, 1].forEach((num) => {
             let windowHorizontalMesh = new THREE.Mesh(
@@ -69,24 +69,20 @@ class MyWindow extends THREE.Object3D {
                 this.windowMaterial
             );
 
-
             let windowVerticalMesh = new THREE.Mesh(
                 windowVerticalBar,
                 this.windowMaterial
             );
 
+            windowHorizontalMesh.position.y =
+                num * (this.height / 2 + this.barWidth / 2);
 
-
-
-            windowHorizontalMesh.position.y = num * ((this.height / 2) + this.barWidth/2);
-
-            windowVerticalMesh.position.x = num * ((this.width / 2) + this.barWidth/2);
-
+            windowVerticalMesh.position.x =
+                num * (this.width / 2 + this.barWidth / 2);
 
             this.add(windowHorizontalMesh);
 
             this.add(windowVerticalMesh);
-
         });
 
         let windowHorizontalSplitMesh = new THREE.Mesh(
@@ -99,56 +95,67 @@ class MyWindow extends THREE.Object3D {
             this.windowMaterial
         );
 
-        windowHorizontalSplitMesh.position.y = this.barWidth/2;
-        windowVerticalSplitMesh.position.x = this.barWidth/2;
+        windowHorizontalSplitMesh.position.y = this.barWidth / 2;
+        windowVerticalSplitMesh.position.x = this.barWidth / 2;
 
         this.add(windowHorizontalSplitMesh);
         this.add(windowVerticalSplitMesh);
 
-        let landscapeGeometry = new THREE.PlaneGeometry(this.width, this.height);
+        let landscapeGeometry = new THREE.PlaneGeometry(
+            this.width,
+            this.height
+        );
 
         let landscapeMesh = new THREE.Mesh(
             landscapeGeometry,
             this.glassMaterial
         );
-        
 
-        this.add(landscapeMesh)
+        this.add(landscapeMesh);
 
         const curtainMaterial = new THREE.MeshPhongMaterial({
             color: "#FF0000",
             specular: "#000000",
             emissive: "#000000",
             shininess: 10,
+            side: 2,
         });
 
-        this.curtainWidth = this.width/2 + 1
+        this.curtainWidth = this.width / 2 + 1;
 
-        const curtainGeo = new THREE.PlaneGeometry(this.curtainWidth, this.height + 1);
+        const curtainGeo = new THREE.PlaneGeometry(
+            this.curtainWidth,
+            this.height + 1
+        );
 
         this.curtainMesh1 = new THREE.Mesh(curtainGeo, curtainMaterial);
         this.curtainMesh2 = new THREE.Mesh(curtainGeo, curtainMaterial);
 
-        this.add(this.curtainMesh1, this.curtainMesh2)
+        // this.curtainMesh1.castShadow = true;
+        // this.curtainMesh2.castShadow = true;
 
-        this.curtainMesh1.position.y = -0.2
-        this.curtainMesh2.position.y = -0.2
+        this.add(this.curtainMesh1, this.curtainMesh2);
 
-        this.curtainMesh1.scale.x = 1
-        this.curtainMesh1.position.x = this.curtainWidth/2 + 1
-        this.curtainMesh1.position.z = 0.1
-        this.curtainMesh2.scale.x = 1
-        this.curtainMesh2.position.x = -this.curtainWidth/2 - 1
-        this.curtainMesh2.position.z = 0.1
+        this.curtainMesh1.position.y = -0.2;
+        this.curtainMesh2.position.y = -0.2;
+
+        this.curtainMesh1.scale.x = 1;
+        this.curtainMesh1.position.x = this.curtainWidth / 2 + 1;
+        this.curtainMesh1.position.z = 0.1;
+        this.curtainMesh2.scale.x = 1;
+        this.curtainMesh2.position.x = -this.curtainWidth / 2 - 1;
+        this.curtainMesh2.position.z = 0.1;
     }
 
     moveCurtains(value) {
-        const open = 0.8*value + 0.2
+        const open = 0.8 * value + 0.2;
 
-        this.curtainMesh1.scale.x = open
-        this.curtainMesh1.position.x = -this.curtainWidth/2 * open + this.curtainWidth
-        this.curtainMesh2.scale.x = open
-        this.curtainMesh2.position.x = this.curtainWidth/2 * open - this.curtainWidth
+        this.curtainMesh1.scale.x = open;
+        this.curtainMesh1.position.x =
+            (-this.curtainWidth / 2) * open + this.curtainWidth;
+        this.curtainMesh2.scale.x = open;
+        this.curtainMesh2.position.x =
+            (this.curtainWidth / 2) * open - this.curtainWidth;
     }
 }
 

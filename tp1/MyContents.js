@@ -12,6 +12,7 @@ import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
+import { MyFlower } from "./MyObjects/MyFlower.js";
 
 /**
  *  This class contains the contents of out application
@@ -48,6 +49,7 @@ class MyContents {
         this.windowLight = null;
         this.landscape = null;
         this.null = null;
+        this.flower = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -400,7 +402,8 @@ class MyContents {
                 "#FFFFFF",
                 20,
                 100,
-                Math.PI / 4
+                Math.PI / 4,
+                0.3
             );
             this.windowLight.castShadow = true;
             this.windowLight.position.set(0, 5, -8.9);
@@ -463,9 +466,9 @@ class MyContents {
             this.wallLamps = new THREE.Group();
 
             const positions = [
-                { position: new THREE.Vector3(-5, 6, 0), rotation: 0 },
-                { position: new THREE.Vector3(5, 6, 0), rotation: Math.PI },
-                { position: new THREE.Vector3(0, 6, 5), rotation: Math.PI / 2 },
+                { position: new THREE.Vector3(-5, 9, 0), rotation: 0 },
+                { position: new THREE.Vector3(5, 9, 0), rotation: Math.PI },
+                { position: new THREE.Vector3(0, 9, 5), rotation: Math.PI / 2 },
             ];
 
             for (let index = 0; index < positions.length; index++) {
@@ -489,6 +492,8 @@ class MyContents {
                     0.5,
                     2
                 );
+
+                spotLight.castShadow = true;
 
                 let defaultSpotLightTarget = new THREE.Object3D();
                 defaultSpotLightTarget.position.set(position.x, 0, position.z);
@@ -558,6 +563,14 @@ class MyContents {
             this.app.scene.add(lightEffect);
 
             this.app.scene.add(this.chandelier);
+        }
+
+        if (this.flower == null) {
+            this.flower = new MyFlower(this);
+
+            this.flower.position.set(4, 0, -4);
+
+            this.app.scene.add(this.flower);
         }
     }
 
