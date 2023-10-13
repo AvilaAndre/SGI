@@ -427,9 +427,9 @@ class MyContents {
             this.wallLamps = new THREE.Group();
 
             const positions = [
-                { position: new THREE.Vector3(-5, 6, 0), rotation: 0 },
-                { position: new THREE.Vector3(5, 6, 0), rotation: Math.PI },
-                { position: new THREE.Vector3(0, 6, 5), rotation: Math.PI / 2 },
+                { position: new THREE.Vector3(-5, 9, 0), rotation: 0 },
+                { position: new THREE.Vector3(5, 9, 0), rotation: Math.PI },
+                { position: new THREE.Vector3(0, 9, 5), rotation: Math.PI / 2 },
             ];
 
             for (let index = 0; index < positions.length; index++) {
