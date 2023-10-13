@@ -12,6 +12,7 @@ import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
+import { MyFlower } from "./MyObjects/MyFlower.js";
 
 /**
  *  This class contains the contents of out application
@@ -46,6 +47,7 @@ class MyContents {
         this.sofa = null;
         this.chandelier = null;
         this.windowLight = null;
+        this.flower = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -519,6 +521,14 @@ class MyContents {
             this.app.scene.add(lightEffect);
 
             this.app.scene.add(this.chandelier);
+        }
+
+        if (this.flower == null) {
+            this.flower = new MyFlower(this);
+
+            this.flower.position.set(3, 0, 0);
+
+            this.app.scene.add(this.flower);
         }
     }
 
