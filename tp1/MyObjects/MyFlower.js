@@ -30,11 +30,11 @@ class MyFlower extends THREE.Object3D {
         this.curveGeometry = new THREE.TubeGeometry(curve, 1024, 0.01);
 
         const flowerMaterial = new THREE.MeshPhongMaterial({
-            color: "#00FFFF",
+            color: "#ff5349",
             side: 2,
         });
         const flowerPetalMaterial = new THREE.MeshPhongMaterial({
-            color: "#0000FF",
+            color: "#FFBF00",
             side: 2,
         });
 
@@ -53,7 +53,10 @@ class MyFlower extends THREE.Object3D {
         const flowerPetalGeo = new THREE.CircleGeometry(0.2, 5);
 
         const flowerMesh = new THREE.Mesh(flowerGeo, flowerMaterial);
-        const flowerPetalMesh = new THREE.Mesh(flowerPetalGeo, flowerPetalMaterial);
+        const flowerPetalMesh = new THREE.Mesh(
+            flowerPetalGeo,
+            flowerPetalMaterial
+        );
 
         flowerMesh.position.set(0.0, 0.615, 0.0);
         flowerMesh.rotation.x = Math.PI / 3;
@@ -61,6 +64,13 @@ class MyFlower extends THREE.Object3D {
         flowerPetalMesh.position.set(0.0, 0.61, 0.0);
         flowerPetalMesh.rotation.x = Math.PI / 3;
         flowerPetalMesh.rotation.y = Math.PI / 3;
+
+        flowerMesh.castShadow = true;
+        flowerMesh.receiveShadow = true;
+        flowerPetalMesh.castShadow = true;
+        flowerPetalMesh.receiveShadow = true;
+        this.lineObj.castShadow = true;
+        this.lineObj.receiveShadow = true;
 
         this.add(flowerMesh);
         this.add(flowerPetalMesh);

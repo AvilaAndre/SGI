@@ -363,7 +363,8 @@ class MyContents {
                 "#FFFFFF",
                 20,
                 100,
-                Math.PI / 4
+                Math.PI / 4,
+                0.3
             );
             this.windowLight.castShadow = true;
             this.windowLight.position.set(0, 5, -8.9);
@@ -453,6 +454,8 @@ class MyContents {
                     2
                 );
 
+                spotLight.castShadow = true;
+
                 let defaultSpotLightTarget = new THREE.Object3D();
                 defaultSpotLightTarget.position.set(position.x, 0, position.z);
                 spotLight.target = defaultSpotLightTarget;
@@ -526,7 +529,7 @@ class MyContents {
         if (this.flower == null) {
             this.flower = new MyFlower(this);
 
-            this.flower.position.set(3, 0, 0);
+            this.flower.position.set(4, 0, -4);
 
             this.app.scene.add(this.flower);
         }
