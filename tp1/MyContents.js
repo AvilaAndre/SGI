@@ -14,6 +14,7 @@ class MyContents  {
         }
         // variables to hold the curves
         this.polyline = null;
+        this.quadraticBezierCurve = null
         // number of samples to use for the curves (not for polyline)
         this.numberOfSamples = 6;
         // hull material and geometry
@@ -28,6 +29,10 @@ class MyContents  {
     recompute() {
         if (this.polyline !== null) this.app.scene.remove(this.polyline)
         this.initPolyline()
+
+        if (this.quadraticBezierCurve !== null)
+            this.app.scene.remove(this.quadraticBezierCurve)
+        this.initQuadraticBezierCurve()
     }
     
     drawHull(position, points) {
@@ -63,6 +68,29 @@ class MyContents  {
         // add the line to the scene
         this.app.scene.add( this.polyline );
     }
+
+    initQuadraticBezierCurve() {
+        let points = [
+            new THREE.Vector3( -0.6, -0.6, 1.0 ), // starting point
+            new THREE.Vector3(    0,  0.6, 3.0 ), // control point
+            new THREE.Vector3(  0.6, -0.6, 2.0 )  // ending point
+        ]
+            let position = new THREE.Vector3(-2,4,0)
+            this.drawHull(position, points);
+    
+        let curve =
+            new THREE.QuadraticBezierCurve3( points[0], points[1], points[2])
+        // sample a number of points on the curve
+        let sampledPoints = curve.getPoints( 16 );
+        this.curveGeometry =
+                new THREE.BufferGeometry().setFromPoints( sampledPoints )
+        this.lineMaterial = new THREE.LineBasicMaterial( { color: 0x00ff00 } )
+        this.lineObj = new THREE.Line( this.curveGeometry, this.lineMaterial )
+        this.lineObj.position.set(position.x,position.y,position.z)
+        this.app.scene.add( this.lineObj );
+    
+    }
+
     /**
      * updates the contents
      * this method is called from the render method of the app
