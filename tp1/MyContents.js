@@ -90,7 +90,6 @@ class MyContents {
         this.landscapeTexture.wrapS = THREE.RepeatWrapping;
         this.landscapeTexture.wrapT = THREE.RepeatWrapping;
 
-
         // material
         this.diffusePlaneColor = "rgb(128,0,0)";
         this.specularPlaneColor = "rgb(0,0,0)";
@@ -105,16 +104,16 @@ class MyContents {
         this.floorMaterial = new THREE.MeshLambertMaterial({
             map: this.floorTexture,
         });
-        
+
         this.wrappingModeU = null;
 
         //creating the hole in the wall for the window
 
         this.holeGeometry = new THREE.BoxGeometry(1, 1, 0.2);
-        this.holeMaterial = new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 });
-
-        
-
+        this.holeMaterial = new THREE.MeshStandardMaterial({
+            transparent: true,
+            opacity: 0,
+        });
     }
 
     /**
@@ -179,7 +178,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 10);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.2);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -228,17 +227,26 @@ class MyContents {
         this.app.scene.add(this.backWallTopMesh);
 
         let backWallBottom = new THREE.PlaneGeometry(10, 2.45);
-        this.backWallBottomMesh = new THREE.Mesh(backWallBottom, this.planeMaterial);
+        this.backWallBottomMesh = new THREE.Mesh(
+            backWallBottom,
+            this.planeMaterial
+        );
         this.backWallBottomMesh.position.copy(new THREE.Vector3(0, 1.2, -5));
         this.app.scene.add(this.backWallBottomMesh);
 
         let backWallLeft = new THREE.PlaneGeometry(2.95, 3.2);
-        this.backWallLeftMesh = new THREE.Mesh(backWallLeft, this.planeMaterial);
+        this.backWallLeftMesh = new THREE.Mesh(
+            backWallLeft,
+            this.planeMaterial
+        );
         this.backWallLeftMesh.position.copy(new THREE.Vector3(-4, 4, -5));
         this.app.scene.add(this.backWallLeftMesh);
 
         let backWallRight = new THREE.PlaneGeometry(2.95, 3.2);
-        this.backWallRightMesh = new THREE.Mesh(backWallRight, this.planeMaterial);
+        this.backWallRightMesh = new THREE.Mesh(
+            backWallRight,
+            this.planeMaterial
+        );
         this.backWallRightMesh.position.copy(new THREE.Vector3(4, 4, -5));
         this.app.scene.add(this.backWallRightMesh);
 
@@ -248,20 +256,38 @@ class MyContents {
         this.frontWallMesh.rotation.y = Math.PI;
         this.app.scene.add(this.frontWallMesh);
 
-        if(this.landscape === null){
+        this.rightWallMesh.castShadow = true;
+        this.rightWallMesh.receiveShadow = true;
+        this.leftWallMesh.castShadow = true;
+        this.leftWallMesh.receiveShadow = true;
+        this.frontWallMesh.castShadow = true;
+        this.frontWallMesh.receiveShadow = true;
+        this.backWallBottomMesh.castShadow = true;
+        this.backWallBottomMesh.receiveShadow = true;
+        this.backWallLeftMesh.castShadow = true;
+        this.backWallLeftMesh.receiveShadow = true;
+        this.backWallRightMesh.castShadow = true;
+        this.backWallRightMesh.receiveShadow = true;
+        this.backWallTopMesh.castShadow = true;
+        this.backWallTopMesh.receiveShadow = true;
+        
+
+        if (this.landscape === null) {
             this.landscape = new THREE.PlaneGeometry(15, 15);
-            this.landscapeMesh = new THREE.Mesh(this.landscape, this.landscapeMaterial);
+            this.landscapeMesh = new THREE.Mesh(
+                this.landscape,
+                this.landscapeMaterial
+            );
             this.landscapeMesh.position.set(0, 5, -8);
             this.app.scene.add(this.landscapeMesh);
         }
 
-        if(this.hole === null){
+        if (this.hole === null) {
             this.hole = new THREE.Mesh(holeGeometry, holeMaterial);
             this.hole.position.set(0, 5, -5);
             this.hole.position.set(0, 0, 0); // Set the position of the hole within the wall
             scene.add(this.hole);
         }
-
 
         /** TABLE **/
 
@@ -402,13 +428,18 @@ class MyContents {
                 "#FFFFFF",
                 20,
                 100,
-                Math.PI / 4,
+                Math.PI / 3,
                 0.3
             );
             this.windowLight.castShadow = true;
-            this.windowLight.position.set(0, 5, -8.9);
+            this.windowLight.position.set(0, 6, -6.5);
 
-            this.app.scene.add(this.windowLight);
+            const windowLightHelper = new THREE.SpotLightHelper(
+                this.windowLight,
+                "#0000ff"
+            );
+
+            this.app.scene.add(this.windowLight, windowLightHelper);
         }
 
         /** Chair **/
