@@ -316,6 +316,13 @@ class MyContents {
             this.tableGroup.add(this.cake);
 
             this.mainSpotLight.target = this.cake;
+
+            this.observables.push({
+                object: this.cake,
+                offset: new THREE.Vector3(0, 0.3, 0),
+                angle: 0,
+                name: "Cake"
+            });
         }
 
         this.app.scene.add(this.cake);

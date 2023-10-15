@@ -74,7 +74,9 @@ class MyGuiInterface {
             "Right",
         ]
 
-        cameras.push(this.contents.observables.map(obj => obj.name))
+        this.contents.observables.forEach((obs) => {
+            cameras.push(obs.name)
+        })
 
         // adds a folder to the gui interface for the camera
         const cameraFolder = this.datgui.addFolder("Camera");
