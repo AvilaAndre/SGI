@@ -51,6 +51,7 @@ class MyContents {
         this.landscape = null;
         this.null = null;
         this.flower = null;
+        this.spring = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -129,7 +130,7 @@ class MyContents {
         this.samplesV = 8         // maximum defined in MyGuiInterface
 
         this.init()
-        this.createNurbsSurfaces()  
+        //this.createNurbsSurfaces()  
         
 
     }
@@ -404,6 +405,13 @@ class MyContents {
             this.wallWithFramesGroup.add(this.frame2);
             this.app.scene.add(this.frame2);
         }
+
+        // Spring
+
+        if(this.spring === null){
+
+        }
+
 
         //Window
 
