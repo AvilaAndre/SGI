@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { MyApp } from "../MyApp.js";
+import { MyCurtain } from "./MyCurtain.js";
 
 /**
- * This class contains a 3D chair representation
+ * This class contains a 3D window representation
  */
 class MyWindow extends THREE.Object3D {
     /**
@@ -42,14 +43,13 @@ class MyWindow extends THREE.Object3D {
         });
 
         this.glassMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0x00bfff,   // Set the glass color (light blue in this case)
-            transparent: true,  // Make the material transparent
-            opacity: 0.2,      // Set the opacity level (0.0 to 1.0)
-            roughness: 0.2,    // Adjust the roughness (0.0 for smooth, 1.0 for rough)
-            metalness: 0.1,   // Adjust the metalness (0.0 for non-metallic, 1.0 for metallic)
+            color: 0x00bfff, // Set the glass color (light blue in this case)
+            transparent: true, // Make the material transparent
+            opacity: 0.2, // Set the opacity level (0.0 to 1.0)
+            roughness: 0.2, // Adjust the roughness (0.0 for smooth, 1.0 for rough)
+            metalness: 0.1, // Adjust the metalness (0.0 for non-metallic, 1.0 for metallic)
             transmission: 0.9,
-          });
-          
+        });
 
         let windowHorizontalBar = new THREE.BoxGeometry(
             this.width + this.barWidth * 2,
@@ -123,16 +123,21 @@ class MyWindow extends THREE.Object3D {
 
         this.curtainWidth = this.width / 2 + 1;
 
-        const curtainGeo = new THREE.PlaneGeometry(
-            this.curtainWidth,
-            this.height + 1
+
+        this.curtainMesh1 = new MyCurtain(
+            this.app,
+            this.width / 2 + 1,
+            this.height + 1,
+            10,
+            0.1
         );
-
-        this.curtainMesh1 = new THREE.Mesh(curtainGeo, curtainMaterial);
-        this.curtainMesh2 = new THREE.Mesh(curtainGeo, curtainMaterial);
-
-        // this.curtainMesh1.castShadow = true;
-        // this.curtainMesh2.castShadow = true;
+        this.curtainMesh2 = new MyCurtain(
+            this.app,
+            this.width / 2 + 1,
+            this.height + 1,
+            10,
+            0.1
+        );
 
         this.add(this.curtainMesh1, this.curtainMesh2);
 
