@@ -232,14 +232,14 @@ class MyContents {
         this.backWallBottomMesh.position.copy(new THREE.Vector3(0, 1.2, -5));
         this.app.scene.add(this.backWallBottomMesh);
 
-        let backWallLeft = new THREE.PlaneGeometry(2.95, 3.2);
+        let backWallLeft = new THREE.PlaneGeometry(2.4, 3.2);
         this.backWallLeftMesh = new THREE.Mesh(backWallLeft, this.planeMaterial);
-        this.backWallLeftMesh.position.copy(new THREE.Vector3(-4, 4, -5));
+        this.backWallLeftMesh.position.copy(new THREE.Vector3(-3.81, 4, -5));
         this.app.scene.add(this.backWallLeftMesh);
 
-        let backWallRight = new THREE.PlaneGeometry(2.95, 3.2);
+        let backWallRight = new THREE.PlaneGeometry(2.4, 3.2);
         this.backWallRightMesh = new THREE.Mesh(backWallRight, this.planeMaterial);
-        this.backWallRightMesh.position.copy(new THREE.Vector3(4, 4, -5));
+        this.backWallRightMesh.position.copy(new THREE.Vector3(3.81, 4, -5));
         this.app.scene.add(this.backWallRightMesh);
 
         let frontWall = new THREE.PlaneGeometry(10, 10);
