@@ -435,6 +435,9 @@ class MyContents {
 
         if(this.spring === null){
             this.spring = new MySpring(this);
+            this.spring.position.copy(new THREE.Vector3(0.6, 1.2, -0.5));
+            this.spring.rotation.set(0, Math.PI/8, 0);
+            this.spring.scale.set(0.5, 0.5, 0.5);
             this.app.scene.add(this.spring);
         }
 
