@@ -42,12 +42,16 @@ class MyContents  {
     initPolyline() {
         // define vertex points
         let points = [
-            new THREE.Vector3( -0.6, -0.6, 0.0 ),
-            new THREE.Vector3(  0.6, -0.6, 0.0 ),
-            new THREE.Vector3(  0.6,  0.6, 0.0 ),
-            new THREE.Vector3( -0.6,  0.6, 0.0 )
+            new THREE.Vector3( -0.6, -0.6, 1.0 ),
+            new THREE.Vector3(  0.6, -0.6, 2.0 ),
+            new THREE.Vector3(  0.6,  0.6, 5.0 ),
+            new THREE.Vector3( -0.6,  0.6, 3.0 ),
+            new THREE.Vector3( -0.6,  0.6, 6.0 ),
+            new THREE.Vector3( -0.6,  0.6, 4.0 ),
+            new THREE.Vector3( -6,  0.6, -1.0 ),
+            new THREE.Vector3( -1,  0.9, 10.0 )
         ]
-        let position = new THREE.Vector3(0,0,0)
+        let position = new THREE.Vector3(-4,4,0)
         this.drawHull(position, points);
         // define geometry
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
