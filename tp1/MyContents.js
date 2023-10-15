@@ -129,16 +129,15 @@ class MyContents {
         this.samplesU = 8         // maximum defined in MyGuiInterface
         this.samplesV = 8         // maximum defined in MyGuiInterface
 
+        this.observables = [];
+
         this.init()
-        //this.createNurbsSurfaces()  
-        
 
         this.holeMaterial = new THREE.MeshStandardMaterial({
             transparent: true,
             opacity: 0,
         });
 
-        this.observables = [];
     }
 
     /**
