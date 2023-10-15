@@ -114,6 +114,8 @@ class MyContents {
             transparent: true,
             opacity: 0,
         });
+
+        this.observables = [];
     }
 
     /**
@@ -270,7 +272,6 @@ class MyContents {
         this.backWallRightMesh.receiveShadow = true;
         this.backWallTopMesh.castShadow = true;
         this.backWallTopMesh.receiveShadow = true;
-        
 
         if (this.landscape === null) {
             this.landscape = new THREE.PlaneGeometry(15, 15);
@@ -424,12 +425,7 @@ class MyContents {
         }
 
         if (this.windowLight === null) {
-            this.windowLight = new THREE.PointLight(
-                "#FFFFFF",
-                1,
-                100,
-                0.3
-            );
+            this.windowLight = new THREE.PointLight("#FFFFFF", 1, 100, 0.3);
             this.windowLight.castShadow = true;
             this.windowLight.position.set(0, 6.3, -6.3);
 
@@ -596,6 +592,13 @@ class MyContents {
             this.flower.position.set(4, 0, -4);
 
             this.app.scene.add(this.flower);
+
+            this.observables.push({
+                object: this.flower,
+                offset: new THREE.Vector3(0, 0.6, 0),
+                angle: Math.PI,
+                name: "Flower"
+            });
         }
     }
 

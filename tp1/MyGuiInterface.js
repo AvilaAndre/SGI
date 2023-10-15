@@ -64,17 +64,22 @@ class MyGuiInterface {
             });
         planeFolder.open();
 
+
+        const cameras = [
+            "Perspective",
+            "Left",
+            "Top",
+            "Front",
+            "Back",
+            "Right",
+        ]
+
+        cameras.push(this.contents.observables.map(obj => obj.name))
+
         // adds a folder to the gui interface for the camera
         const cameraFolder = this.datgui.addFolder("Camera");
         cameraFolder
-            .add(this.app, "activeCameraName", [
-                "Perspective",
-                "Left",
-                "Top",
-                "Front",
-                "Back",
-                "Right",
-            ])
+            .add(this.app, "activeCameraName", cameras)
             .name("active camera");
 
         // note that we are using a property from the app
