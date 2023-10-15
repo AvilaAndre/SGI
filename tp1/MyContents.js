@@ -15,6 +15,7 @@ import { MyChandelier } from "./MyObjects/MyChandelier.js";
 import { MyFlower } from "./MyObjects/MyFlower.js";
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MySpring } from './MyObjects/MySpring.js';
+import { MyJournal } from './MyObjects/MyJournal.js';
 
 /**
  *  This class contains the contents of out application
@@ -53,6 +54,7 @@ class MyContents {
         this.null = null;
         this.flower = null;
         this.spring = null;
+        this.journal = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -131,12 +133,9 @@ class MyContents {
 
         this.observables = [];
 
-        this.init()
+        this.init();
 
-        this.holeMaterial = new THREE.MeshStandardMaterial({
-            transparent: true,
-            opacity: 0,
-        });
+        this.createNurbsSurfaces();
 
     }
 
@@ -202,7 +201,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 0.2);
+        const ambientLight = new THREE.AmbientLight(0x555555, 15);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -448,6 +447,14 @@ class MyContents {
             this.app.scene.add(this.spring);
         }
 
+        //journal
+
+        if(this.journal === null){
+            this.journal = new MyJournal(this);
+            this.journal.position.copy(new THREE.Vector3(0, 2, 0));
+            this.app.scene.add(this.journal);
+        }
+
 
         //Window
 
@@ -627,6 +634,7 @@ class MyContents {
 
             this.app.scene.add(this.flower);
 
+
             this.observables.push({
                 object: this.flower,
                 offset: new THREE.Vector3(0, 0.6, 0),
@@ -771,7 +779,7 @@ class MyContents {
         controlPoints =
             [   // U = 0
                 [ // V = 0..1;
-                    [-2.0, -2.0, 0.0, 0.2 ],
+                    [-2.0, -2.0, 0.0, 1 ],
                     [-2.0,  2.0, 0.0, 1 ]
                 ],
                 // U = 1
@@ -788,7 +796,7 @@ class MyContents {
         mesh.rotation.x = 0
         mesh.rotation.y = 0
         mesh.rotation.z = 0
-        mesh.scale.set( -4,3,0 )
+        mesh.scale.set( 0,3,0 )
         mesh.position.set( 0,0,0 )
         this.app.scene.add( mesh )
         this.meshes.push (mesh)
