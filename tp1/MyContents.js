@@ -14,7 +14,7 @@ import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
 import { MyFlower } from "./MyObjects/MyFlower.js";
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
-import { MySpring } from './MySpring.js';
+import { MySpring } from './MyObjects/MySpring.js';
 
 /**
  *  This class contains the contents of out application

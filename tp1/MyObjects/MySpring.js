@@ -36,11 +36,21 @@ class MySpring extends THREE.Object3D {
         this.lineMaterial = new THREE.LineBasicMaterial( { color: 0xffff00 } )
         this.lineObj = new THREE.Line( this.curveGeometry, this.lineMaterial )
         this.lineObj.position.set(position.x,position.y,position.z)
-        this.app.scene.add( this.lineObj );
+        this.add( this.lineObj );
         
         
     
     }
+
+    drawHull(position, points) {
+       
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+        let line = new THREE.Line( geometry, this.hullMaterial );
+        // set initial position
+        line.position.set(position.x,position.y,position.z)
+        this.add( line );
+    }
+
 
 
 }
