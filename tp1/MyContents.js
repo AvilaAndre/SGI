@@ -424,22 +424,16 @@ class MyContents {
         }
 
         if (this.windowLight === null) {
-            this.windowLight = new THREE.SpotLight(
+            this.windowLight = new THREE.PointLight(
                 "#FFFFFF",
-                20,
+                1,
                 100,
-                Math.PI / 3,
                 0.3
             );
             this.windowLight.castShadow = true;
-            this.windowLight.position.set(0, 6, -6.5);
+            this.windowLight.position.set(0, 5.6, -5.5);
 
-            const windowLightHelper = new THREE.SpotLightHelper(
-                this.windowLight,
-                "#0000ff"
-            );
-
-            this.app.scene.add(this.windowLight, windowLightHelper);
+            this.app.scene.add(this.windowLight);
         }
 
         /** Chair **/
