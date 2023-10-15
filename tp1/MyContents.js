@@ -443,7 +443,7 @@ class MyContents {
 
         if (this.window === null) {
             this.window = new MyWindow(this, 5, 3, "arouca.jpg");
-            this.window.position.copy(new THREE.Vector3(0, 4, -4.9));
+            this.window.position.copy(new THREE.Vector3(0, 4, -5));
             this.window.moveCurtains(this.curtain);
             this.app.scene.add(this.window);
         }
@@ -456,7 +456,7 @@ class MyContents {
                 0.3
             );
             this.windowLight.castShadow = true;
-            this.windowLight.position.set(0, 5.6, -5.5);
+            this.windowLight.position.set(0, 6.3, -6.3);
 
             this.app.scene.add(this.windowLight);
         }
