@@ -20,6 +20,7 @@ class MyApp {
         this.activeCameraName = null;
         this.lastCameraName = null;
         this.cameras = [];
+        this.camerasTarget = [];
         this.frustumSize = 20;
 
         // other attributes
@@ -151,6 +152,28 @@ class MyApp {
     }
 
     /**
+     *
+     * @param {THREE.Object3D} object
+     * @param {THREE.Vector3} offset
+     * @param {number} angle
+     * @param {string} name the object's name
+     */
+    initObjectCamera(object, offset, angle, name) {
+        const aspect = window.innerWidth / window.innerHeight;
+
+        // Create a basic perspective camera
+        const perspective = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
+        perspective.position.set(
+            object.position.x + Math.cos(angle),
+            object.position.y + 1,
+            object.position.z + Math.sin(angle)
+        );
+        this.cameras[name] = perspective;
+
+        this.camerasTarget[name] = new THREE.Vector3(object.position.x + offset.x, object.position.y + offset.y, object.position.z + offset.z);
+    }
+
+    /**
      * sets the active camera by name
      * @param {String} cameraName
      */
@@ -187,6 +210,11 @@ class MyApp {
                 this.controls.update();
             } else {
                 this.controls.object = this.activeCamera;
+                if (this.camerasTarget[this.activeCameraName])
+                    this.controls.target.copy(
+                        this.camerasTarget[this.activeCameraName]
+                    );
+                else this.controls.target.copy(new THREE.Vector3(0, 0, 0));
             }
         }
     }
@@ -207,6 +235,17 @@ class MyApp {
      */
     setContents(contents) {
         this.contents = contents;
+
+        // this runs after the app init method
+
+        this.contents.observables.forEach((observable) => {
+            this.initObjectCamera(
+                observable.object,
+                observable.offset,
+                observable.angle,
+                observable.name
+            );
+        });
     }
 
     /**
