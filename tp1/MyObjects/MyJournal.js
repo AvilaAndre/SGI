@@ -19,13 +19,15 @@ class MyJournal extends THREE.Object3D {
         this.curtWaves = waves || 5;
         this.curtainDepth = depth || 0.2;
 
-        const curtainMaterial = new THREE.MeshPhongMaterial({
-            color: "#FF0000",
-            specular: "#000000",
-            emissive: "#000000",
-            shininess: 10,
-            side: 2,
+        this.journalTexture = new THREE.TextureLoader().load(
+            "textures/newspapers.jpg"
+        );
+
+        this.journalMaterial = new THREE.MeshLambertMaterial({
+            map: this.journalTexture,
         });
+
+
 
         const widthPoints = [];
 
@@ -33,23 +35,37 @@ class MyJournal extends THREE.Object3D {
             widthPoints.push((index / this.curtWaves) * this.curtainWidth);
         }
 
-        this.curtainMesh3 = new THREE.Group();
+        this.journalMesh3 = new THREE.Group();
         let side = 1.0;
-        //for (let i = 0; i < 4; i++) {
+
             const controlPoints = [   // U = 0
             [ // V = 0..1;
-                [ -1.5, -1.5, 0.0, 1 ],
-                [ -1.5,  1.5, 0.0, 1 ]
+                [ -1.5, -1.5, -0.2, 1 ],
+                [ -1.5,  1.5, -0.2, 1 ]
             ],
+            [
+                [ -0.5, -1.5, 0.5, 1 ],
+                [ -0.5,  1.5, 0.5, 1 ]
+            ],
+
         // U = 1
             [ // V = 0..1
-                [ 0, -1.5, -1.0, 3 ],
-                [ 0,  1.5, -1.0, 3 ]
+                [ 0, -1.5, -0.4, 5 ],
+                [ 0,  1.5, -0.4, 5 ]
+            ],
+            [ // V = 0..1
+                [ 0, -1.5, -0.4, 5 ],
+                [ 0,  1.5, -0.4, 5 ]
+            ],
+
+            [
+                [ 0.5, -1.5, 0.5, 1 ],
+                [ 0.5,  1.5, 0.5, 1 ]
             ],
         // U = 2
             [ // V = 0..1
-                [ 1.5, -1.5, 0.0, 1 ],
-                [ 1.5,  1.5, 0.0, 1 ]
+                [ 1.5, -1.5, -0.2, 1 ],
+                [ 1.5,  1.5, -0.2, 1 ]
             ]
     ]
             
@@ -59,14 +75,14 @@ class MyJournal extends THREE.Object3D {
 
             const surfaceData = this.builder.build(
                 controlPoints,
-                2,
+                5,
                 1,
                 80,
                 8,
-                curtainMaterial
+                this.journalMaterial
             );
 
-            const mesh = new THREE.Mesh(surfaceData, curtainMaterial);
+            const mesh = new THREE.Mesh(surfaceData, this.journalMaterial);
 
             mesh.castShadow = true
             mesh.receiveShadow = true;
