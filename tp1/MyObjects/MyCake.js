@@ -81,7 +81,6 @@ class MyCake extends THREE.Object3D {
             this.cakeMesh.position.y = 0.24 + 0.1 * index;
 
             this.cakeMesh.castShadow = true;
-            this.cakeMesh.receiveShadow = true;
 
             this.cakeGroup.add(this.cakeMesh);
         });

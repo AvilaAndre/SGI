@@ -13,8 +13,9 @@ import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
 import { MyFlower } from "./MyObjects/MyFlower.js";
-import { MyNurbsBuilder } from './MyNurbsBuilder.js';
-import { MySpring } from './MyObjects/MySpring.js';
+import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
+import { MySpring } from "./MyObjects/MySpring.js";
+import { MyVase } from "./MyObjects/MyVase.js";
 
 /**
  *  This class contains the contents of out application
@@ -53,6 +54,7 @@ class MyContents {
         this.null = null;
         this.flower = null;
         this.spring = null;
+        this.vase = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -113,31 +115,36 @@ class MyContents {
         //creating the hole in the wall for the window
 
         this.holeGeometry = new THREE.BoxGeometry(1, 1, 0.2);
-        this.holeMaterial = new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 });
-
-
-        const map =
-            new THREE.TextureLoader().load( 'textures/uv_grid_opengl.jpg' );
-        map.wrapS = map.wrapT = THREE.RepeatWrapping;
-        map.anisotropy = 16;
-        map.colorSpace = THREE.SRGBColorSpace;
-        this.material = new THREE.MeshLambertMaterial( { map: map,
-                        side: THREE.DoubleSide,
-                        transparent: true, opacity: 0.90 } );
-        this.builder = new MyNurbsBuilder()
-        this.meshes = []
-        this.samplesU = 8         // maximum defined in MyGuiInterface
-        this.samplesV = 8         // maximum defined in MyGuiInterface
-
-        this.observables = [];
-
-        this.init()
-
         this.holeMaterial = new THREE.MeshStandardMaterial({
             transparent: true,
             opacity: 0,
         });
 
+        const map = new THREE.TextureLoader().load(
+            "textures/uv_grid_opengl.jpg"
+        );
+        map.wrapS = map.wrapT = THREE.RepeatWrapping;
+        map.anisotropy = 16;
+        map.colorSpace = THREE.SRGBColorSpace;
+        this.material = new THREE.MeshLambertMaterial({
+            map: map,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.9,
+        });
+        this.builder = new MyNurbsBuilder();
+        this.meshes = [];
+        this.samplesU = 8; // maximum defined in MyGuiInterface
+        this.samplesV = 8; // maximum defined in MyGuiInterface
+
+        this.observables = [];
+
+        this.init();
+
+        this.holeMaterial = new THREE.MeshStandardMaterial({
+            transparent: true,
+            opacity: 0,
+        });
     }
 
     /**
@@ -259,12 +266,18 @@ class MyContents {
         this.app.scene.add(this.backWallBottomMesh);
 
         let backWallLeft = new THREE.PlaneGeometry(2.4, 3.2);
-        this.backWallLeftMesh = new THREE.Mesh(backWallLeft, this.planeMaterial);
+        this.backWallLeftMesh = new THREE.Mesh(
+            backWallLeft,
+            this.planeMaterial
+        );
         this.backWallLeftMesh.position.copy(new THREE.Vector3(-3.81, 4, -5));
         this.app.scene.add(this.backWallLeftMesh);
 
         let backWallRight = new THREE.PlaneGeometry(2.4, 3.2);
-        this.backWallRightMesh = new THREE.Mesh(backWallRight, this.planeMaterial);
+        this.backWallRightMesh = new THREE.Mesh(
+            backWallRight,
+            this.planeMaterial
+        );
         this.backWallRightMesh.position.copy(new THREE.Vector3(3.81, 4, -5));
         this.app.scene.add(this.backWallRightMesh);
 
@@ -337,7 +350,7 @@ class MyContents {
                 object: this.cake,
                 offset: new THREE.Vector3(0, 0.3, 0),
                 angle: 0,
-                name: "Cake"
+                name: "Cake",
             });
         }
 
@@ -440,14 +453,13 @@ class MyContents {
 
         // Spring
 
-        if(this.spring === null){
+        if (this.spring === null) {
             this.spring = new MySpring(this);
             this.spring.position.copy(new THREE.Vector3(0.6, 1.2, -0.5));
-            this.spring.rotation.set(0, Math.PI/8, 0);
+            this.spring.rotation.set(0, Math.PI / 8, 0);
             this.spring.scale.set(0.5, 0.5, 0.5);
             this.app.scene.add(this.spring);
         }
-
 
         //Window
 
@@ -593,9 +605,9 @@ class MyContents {
 
             this.observables.push({
                 object: this.beetle,
-                offset: new THREE.Vector3(0, 0.0, 0),
-                angle: -Math.PI/2,
-                name: "Beetle"
+                offset: new THREE.Vector3(0, 0, 0),
+                angle: -Math.PI / 2,
+                name: "Beetle",
             });
         }
 
@@ -615,15 +627,6 @@ class MyContents {
             this.chandelier.position.set(...chandelierPosition);
             this.mainSpotLight.position.set(...chandelierPosition);
 
-            const lightEffect = new THREE.PointLight(
-                this.mainSpotLight.color,
-                this.mainSpotLight.intensity,
-                1
-            ); //simulates the light that the lightbulb would project on the chandelier cover
-            lightEffect.position.set(...chandelierPosition);
-
-            this.app.scene.add(lightEffect);
-
             this.app.scene.add(this.chandelier);
         }
 
@@ -638,12 +641,16 @@ class MyContents {
                 object: this.flower,
                 offset: new THREE.Vector3(0, 0.6, 0),
                 angle: Math.PI,
-                name: "Flower"
+                name: "Flower",
             });
         }
 
+        if (this.vase == null) {
+            this.vase = new MyVase(this);
 
-
+            this.vase.position.set(3, 1, 2)
+            this.app.scene.add(this.vase);
+        }
     }
 
     /**
@@ -757,49 +764,55 @@ class MyContents {
     /**
      * removes (if existing) and recreates the nurbs surfaces
      */
-    createNurbsSurfaces() {  
+    createNurbsSurfaces() {
         // are there any meshes to remove?
         if (this.meshes !== null) {
             // traverse mesh array
-            for (let i=0; i<this.meshes.length; i++) {
+            for (let i = 0; i < this.meshes.length; i++) {
                 // remove all meshes from the scene
-                this.app.scene.remove(this.meshes[i])
+                this.app.scene.remove(this.meshes[i]);
             }
-            this.meshes = [] // empty the array  
+            this.meshes = []; // empty the array
         }
-     
+
         // declare local variables
         let controlPoints;
         let surfaceData;
         let mesh;
-        let orderU = 1
-        let orderV = 1
+        let orderU = 1;
+        let orderV = 1;
         // build nurb #1
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..1;
-                    [-2.0, -2.0, 0.0, 0.2 ],
-                    [-2.0,  2.0, 0.0, 1 ]
-                ],
-                // U = 1
-                [ // V = 0..1
-                    [ 2.0, -2.0, 0.0, 1 ],
-                    [ 2.0,  2.0, 0.0, 1 ]                                                
-                ]
-            ]
-       
-        surfaceData = this.builder.build(controlPoints,
-                      orderU, orderV, this.samplesU,
-                      this.samplesV, this.material)  
-        mesh = new THREE.Mesh( surfaceData, this.material );
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set( -4,3,0 )
-        mesh.position.set( 0,0,0 )
-        this.app.scene.add( mesh )
-        this.meshes.push (mesh)
+        controlPoints = [
+            // U = 0
+            [
+                // V = 0..1;
+                [-2.0, -2.0, 0.0, 0.2],
+                [-2.0, 2.0, 0.0, 1],
+            ],
+            // U = 1
+            [
+                // V = 0..1
+                [2.0, -2.0, 0.0, 1],
+                [2.0, 2.0, 0.0, 1],
+            ],
+        ];
 
+        surfaceData = this.builder.build(
+            controlPoints,
+            orderU,
+            orderV,
+            this.samplesU,
+            this.samplesV,
+            this.material
+        );
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0;
+        mesh.rotation.y = 0;
+        mesh.rotation.z = 0;
+        mesh.scale.set(-4, 3, 0);
+        mesh.position.set(0, 0, 0);
+        this.app.scene.add(mesh);
+        this.meshes.push(mesh);
     }
 
     /**
