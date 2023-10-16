@@ -23,6 +23,9 @@ class MyTV extends THREE.Object3D {
         this.barWidth = barWidth || 0.1;
         this.barDepth = barDepth || 0.06;
 
+        const video = document.getElementById( '../video.html' );
+        const texture = new THREE.VideoTexture( video );
+
         this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
 
         this.frameMaterial = new THREE.MeshPhongMaterial({

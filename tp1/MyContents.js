@@ -577,7 +577,7 @@ class MyContents {
 
         this.app.scene.add(this.wallWithFramesGroup);
 
-        if (this.wallLamps == null) {
+        /*if (this.wallLamps == null) {
             this.wallLamps = new THREE.Group();
 
             const positions = [
@@ -642,7 +642,7 @@ class MyContents {
             }
 
             this.app.scene.add(this.wallLamps);
-        }
+        }*/
 
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
