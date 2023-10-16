@@ -12,13 +12,12 @@ class MyVase extends THREE.Object3D {
      * @param {radius} radius the radius of the chandelier
      * @param {stringLength} stringLength the length of the string supporting the chandelier
      */
-    constructor(app, radius, stringLength) {
+    constructor(app, radius, height) {
         super();
         this.app = app;
         this.type = "Group";
         this.radius = radius || 0.3;
-        this.height = 0.6;
-        this.stringLength = stringLength || 1.4;
+        this.height = height || 0.6;
 
         const vaseMaterial = new THREE.MeshPhongMaterial({
             color: "#0000ff",

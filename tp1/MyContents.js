@@ -695,9 +695,9 @@ class MyContents {
         }
 
         if (this.vase == null) {
-            this.vase = new MyVase(this);
+            this.vase = new MyVase(this, 0.2, 0.4);
 
-            this.vase.position.set(3, 1, 2)
+            this.vase.position.set(4, 0, -4)
             this.app.scene.add(this.vase);
         }
     }
