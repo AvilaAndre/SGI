@@ -201,7 +201,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 15);
+        const ambientLight = new THREE.AmbientLight(0x555555, 12);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -347,6 +347,8 @@ class MyContents {
 
         if (this.cakeSlice === null) {
             this.cakeSlice = new MyCakeSlice(this);
+            console.log(this.cakeSlice.position);
+            this.cakeSlice.position.copy(new THREE.Vector3(2, -2.9, -1.7));
             this.app.scene.add(this.cakeSlice);
         }
 
@@ -445,6 +447,13 @@ class MyContents {
             this.spring.rotation.set(0, Math.PI/8, 0);
             this.spring.scale.set(0.5, 0.5, 0.5);
             this.app.scene.add(this.spring);
+
+            this.observables.push({
+                object: this.spring,
+                offset: new THREE.Vector3(0.4, 0, 0),
+                angle: 0,
+                name: "Spring"
+            });
         }
 
         //journal

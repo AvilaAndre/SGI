@@ -87,28 +87,27 @@ class MyCakeSlice extends THREE.Object3D {
 
         })
 
-        this.cakeSliceGroup.position.x = -1;
+        /*this.cakeSliceGroup.position.x = -1;
         this.cakeSliceGroup.position.y = 0;
         this.cakeSliceGroup.position.z = -2;
         this.cakeSliceGroup.rotation.x = -Math.PI/3 + Math.PI/9;
-        this.cakeSliceGroup.rotation.z = -Math.PI/2;
+        this.cakeSliceGroup.rotation.z = -Math.PI/2;*/
 
         let planeCake = new THREE.PlaneGeometry( 
-            0.2, 
+            0.25, 
             0.3 
         );
 
+
+
+
         this.planeLeftCakeMesh = new THREE.Mesh( planeCake, this.cakeSliceMaterial);
         this.planeLeftCakeMesh.position.y = this.cakeMesh.position.y - 0.15;
-        this.planeLeftCakeMesh.position.x = 0.08;
-        this.planeLeftCakeMesh.position.z = 0.3;
-        this.planeLeftCakeMesh.rotation.y =  -Math.PI / 2;
-        
+        this.planeLeftCakeMesh.position.copy(this.cakeMesh.position);
+        this.planeLeftCakeMesh.position.y -= 0.1;
+        this.planeLeftCakeMesh.position.z += 0.12;
+        this.planeLeftCakeMesh.rotation.set(0, -Math.PI/2, 0);
 
-        /*this.planeRightCakeMesh = new THREE.Mesh( planeCake, this.cakeSliceMaterial);
-        this.planeRightCakeMesh.position.y = 5;
-        this.planeRightCakeMesh.position.z = 0.14;
-        this.planeRightCakeMesh.rotation.y =  -2 * Math.PI / 4;*/
 
         this.cakeSliceGroup.add(this.planeLeftCakeMesh);
         //this.cakeSliceGroup.add(this.planeRightCakeMesh);
