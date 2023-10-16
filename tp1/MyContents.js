@@ -681,7 +681,7 @@ class MyContents {
         if (this.flower == null) {
             this.flower = new MyFlower(this);
 
-            this.flower.position.set(4, 0, -4);
+            this.flower.position.set(4, 0.05, -4);
 
             this.app.scene.add(this.flower);
 
@@ -695,9 +695,9 @@ class MyContents {
         }
 
         if (this.vase == null) {
-            this.vase = new MyVase(this);
+            this.vase = new MyVase(this, 0.2, 0.4);
 
-            this.vase.position.set(3, 1, 2)
+            this.vase.position.set(4.05, 0, -3.95)
             this.app.scene.add(this.vase);
         }
     }
