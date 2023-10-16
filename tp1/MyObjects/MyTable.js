@@ -19,7 +19,7 @@ class MyTable extends THREE.Object3D {
         this.depth = depth || 2;
 
         this.tableTexture = new THREE.TextureLoader().load(
-            "textures/darkWood.jpg"
+            "textures/wood4.jpg"
         );
 
         this.tableMaterial = new THREE.MeshPhongMaterial({
