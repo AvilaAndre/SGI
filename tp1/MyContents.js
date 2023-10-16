@@ -16,6 +16,7 @@ import { MyFlower } from "./MyObjects/MyFlower.js";
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 import { MySpring } from './MyObjects/MySpring.js';
 import { MyJournal } from './MyObjects/MyJournal.js';
+import { MyTV } from './MyObjects/MyTV.js';
 
 /**
  *  This class contains the contents of out application
@@ -55,6 +56,7 @@ class MyContents {
         this.flower = null;
         this.spring = null;
         this.journal = null;
+        this.tv = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -473,6 +475,22 @@ class MyContents {
                 offset: new THREE.Vector3(0, 0, 0),
                 angle: Math.PI/2,
                 name: "Newspaper"
+            });
+        }
+
+        // TV
+
+        if(this.tv === null){
+            this.tv = new MyTV(this, 5, 3);
+            this.tv.rotation.set(0, -Math.PI/2, 0);
+            this.tv.position.copy(new THREE.Vector3(4.9, 3, 0));
+            this.app.scene.add(this.tv);
+
+            this.observables.push({
+                object: this.tv,
+                offset: new THREE.Vector3(0, 0, 0),
+                angle: 0,
+                name: "TV"
             });
         }
 
