@@ -79,7 +79,7 @@ class MyCakeSlice extends THREE.Object3D {
             this.cakeMesh = new THREE.Mesh(cakeSlice, cakeMaterial);
         
             //this.cakeMesh.position.x = -2;
-            this.cakeMesh.position.y = 3 + 0.1*index;
+            this.cakeMesh.position.y = 0.1*index;
             //this.cakeMesh.position.z = -1.5; 
 
 

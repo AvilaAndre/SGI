@@ -348,7 +348,10 @@ class MyContents {
         if (this.cakeSlice === null) {
             this.cakeSlice = new MyCakeSlice(this);
             console.log(this.cakeSlice.position);
-            this.cakeSlice.position.copy(new THREE.Vector3(2, -2.9, -1.7));
+            this.cakeSlice.rotation.set(-Math.PI/4, 0, -Math.PI/2);
+            this.cakeSlice.position.copy(new THREE.Vector3(2, 0, -1.5));
+
+            
             this.app.scene.add(this.cakeSlice);
         }
 
