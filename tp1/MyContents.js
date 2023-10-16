@@ -597,6 +597,13 @@ class MyContents {
             this.beetle.position.set(0, 3, 4.98);
 
             this.app.scene.add(this.beetle);
+
+            this.observables.push({
+                object: this.beetle,
+                offset: new THREE.Vector3(0, 0.0, 0),
+                angle: -Math.PI/2,
+                name: "Beetle"
+            });
         }
 
         if (this.sofa == null) {
