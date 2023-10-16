@@ -14,18 +14,16 @@ class MySpring extends THREE.Object3D {
         this.app = app;
         this.type = "Group";
 
-
         let points = [];
         for (let x = 0; x <= 2.0; x += 0.01) {
             const y = Math.sin(x * 15) * 0.3; // Adjust the multiplier and amplitude as needed
             const z = Math.cos(x * 15) * 0.3; // Adjust the multiplier and amplitude as needed
             points.push(new THREE.Vector3(x, y, z));
         }
-            let position = new THREE.Vector3(0,0,0)
-            //this.drawHull(position, points);
-    
-        let curve =
-            new THREE.CatmullRomCurve3( points)
+        let position = new THREE.Vector3(0, 0, 0);
+        //this.drawHull(position, points);
+
+        let curve = new THREE.CatmullRomCurve3(points);
         // sample a number of points on the curve
         let sampledPoints = curve.getPoints( 500 );
         this.curveGeometry = new THREE.TubeGeometry(curve, 2048, 0.01, 128);
@@ -43,16 +41,12 @@ class MySpring extends THREE.Object3D {
     }
 
     drawHull(position, points) {
-       
-        const geometry = new THREE.BufferGeometry().setFromPoints( points );
-        let line = new THREE.Line( geometry, this.hullMaterial );
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        let line = new THREE.Line(geometry, this.hullMaterial);
         // set initial position
-        line.position.set(position.x,position.y,position.z)
-        this.add( line );
+        line.position.set(position.x, position.y, position.z);
+        this.add(line);
     }
-
-
-
 }
 
 MySpring.prototype.isGroup = true;

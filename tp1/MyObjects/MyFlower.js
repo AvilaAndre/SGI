@@ -66,11 +66,8 @@ class MyFlower extends THREE.Object3D {
         flowerPetalMesh.rotation.y = Math.PI / 3;
 
         flowerMesh.castShadow = true;
-        flowerMesh.receiveShadow = true;
         flowerPetalMesh.castShadow = true;
-        flowerPetalMesh.receiveShadow = true;
         this.lineObj.castShadow = true;
-        this.lineObj.receiveShadow = true;
 
         this.add(flowerMesh);
         this.add(flowerPetalMesh);
