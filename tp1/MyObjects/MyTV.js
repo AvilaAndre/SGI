@@ -23,8 +23,12 @@ class MyTV extends THREE.Object3D {
         this.barWidth = barWidth || 0.1;
         this.barDepth = barDepth || 0.06;
 
-        const video = document.getElementById( '../video.html' );
+        const video = document.getElementById( 'video' );
+        video.muted = true;
         const texture = new THREE.VideoTexture( video );
+
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+
 
         this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
 
@@ -65,9 +69,10 @@ class MyTV extends THREE.Object3D {
 
         let photoGeometry = new THREE.PlaneGeometry(this.width, this.height);
 
+
         let photoMesh = new THREE.Mesh(
             photoGeometry,
-            this.photoMaterial
+            material
         );
         
 

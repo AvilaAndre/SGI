@@ -503,7 +503,7 @@ class MyContents {
             this.observables.push({
                 object: this.tv,
                 offset: new THREE.Vector3(0, 0, 0),
-                angle: 0,
+                angle: Math.PI,
                 name: "TV"
             });
         }
