@@ -451,7 +451,9 @@ class MyContents {
 
         if(this.journal === null){
             this.journal = new MyJournal(this);
-            this.journal.position.copy(new THREE.Vector3(0, 2, 0));
+            this.journal.scale.set(0.2, 0.2, 0.2);
+            this.journal.rotation.set(-Math.PI/2, 0, 0);
+            this.journal.position.copy(new THREE.Vector3(-0.6, 1.2, 0.5));
             this.app.scene.add(this.journal);
         }
 

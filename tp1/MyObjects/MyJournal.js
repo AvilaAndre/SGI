@@ -10,14 +10,13 @@ class MyJournal extends THREE.Object3D {
      *
      * @param {MyApp} app the application object
      */
-    constructor(app, width, height, waves, depth) {
+    constructor(app, width, height, depth) {
         super();
         this.app = app;
         this.type = "Group";
-        this.curtainWidth = width || 1.2;
-        this.curtainHeight = height || 1.6;
-        this.curtWaves = waves || 5;
-        this.curtainDepth = depth || 0.2;
+        this.journalWidth = width;
+        this.journalHeight = height;
+        this.journalDepth = depth || 0.2;
 
         this.journalTexture = new THREE.TextureLoader().load(
             "textures/newspapers.jpg"
@@ -31,17 +30,13 @@ class MyJournal extends THREE.Object3D {
 
         const widthPoints = [];
 
-        for (let index = 0; index <= this.curtWaves; index++) {
-            widthPoints.push((index / this.curtWaves) * this.curtainWidth);
-        }
 
         this.journalMesh3 = new THREE.Group();
-        let side = 1.0;
 
             const controlPoints = [   // U = 0
             [ // V = 0..1;
-                [ -1.5, -1.5, -0.2, 1 ],
-                [ -1.5,  1.5, -0.2, 1 ]
+                [ -1.5, -1.5, -0.7, 1 ],
+                [ -1.5,  1.5, -0.7, 1 ]
             ],
             [
                 [ -0.5, -1.5, 0.5, 1 ],
@@ -50,12 +45,12 @@ class MyJournal extends THREE.Object3D {
 
         // U = 1
             [ // V = 0..1
-                [ 0, -1.5, -0.4, 5 ],
-                [ 0,  1.5, -0.4, 5 ]
+                [ 0, -1.5, -0.8, 5 ],
+                [ 0,  1.5, -0.8, 5 ]
             ],
             [ // V = 0..1
-                [ 0, -1.5, -0.4, 5 ],
-                [ 0,  1.5, -0.4, 5 ]
+                [ 0, -1.5, -0.8, 5 ],
+                [ 0,  1.5, -0.8, 5 ]
             ],
 
             [
@@ -64,13 +59,11 @@ class MyJournal extends THREE.Object3D {
             ],
         // U = 2
             [ // V = 0..1
-                [ 1.5, -1.5, -0.2, 1 ],
-                [ 1.5,  1.5, -0.2, 1 ]
+                [ 1.5, -1.5, -0.7, 1 ],
+                [ 1.5,  1.5, -0.7, 1 ]
             ]
     ]
             
-
-            side = side * -1
             this.builder = new MyNurbsBuilder();
 
             const surfaceData = this.builder.build(
