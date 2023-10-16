@@ -19,8 +19,10 @@ class MyVase extends THREE.Object3D {
         this.radius = radius || 0.3;
         this.height = height || 0.6;
 
+        this.clayTexture = new THREE.TextureLoader().load("textures/clay.jpg");
+
         const vaseMaterial = new THREE.MeshPhongMaterial({
-            color: "#0000ff",
+            map: this.clayTexture,
             specular: "#0000aa",
             emissive: "#000000",
             shininess: 10,
@@ -83,7 +85,7 @@ class MyVase extends THREE.Object3D {
                 3,
                 5,
                 20,
-                8,
+                12,
                 vaseMaterial
             );
 
