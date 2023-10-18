@@ -8,7 +8,6 @@ import { MyCandle } from "./MyObjects/MyCandle.js";
 import { MyFrame } from "./MyObjects/MyFrame.js";
 import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
-import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
@@ -360,7 +359,6 @@ class MyContents {
 
         if (this.cakeSlice === null) {
             this.cakeSlice = new MyCakeSlice(this);
-            console.log(this.cakeSlice.position);
             this.cakeSlice.rotation.set(-Math.PI / 4, 0, -Math.PI / 2);
             this.cakeSlice.position.copy(new THREE.Vector3(2, 0, -1.5));
 
