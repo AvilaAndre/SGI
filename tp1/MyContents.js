@@ -8,7 +8,6 @@ import { MyCandle } from "./MyObjects/MyCandle.js";
 import { MyFrame } from "./MyObjects/MyFrame.js";
 import { MyWindow } from "./MyObjects/MyWindow.js";
 import { MyCakeSlice } from "./MyObjects/MyCakeSlice.js";
-import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 import { MyBeetle } from "./MyObjects/MyBeetle.js";
 import { MySofa } from "./MyObjects/MySofa.js";
 import { MyChandelier } from "./MyObjects/MyChandelier.js";
@@ -116,8 +115,6 @@ class MyContents {
             map: this.floorTexture,
         });
 
-        this.wrappingModeU = null;
-
         //creating the hole in the wall for the window
 
         this.holeGeometry = new THREE.BoxGeometry(1, 1, 0.2);
@@ -148,7 +145,6 @@ class MyContents {
         this.init();
 
         this.createNurbsSurfaces();
-
     }
 
     /**
@@ -365,11 +361,9 @@ class MyContents {
 
         if (this.cakeSlice === null) {
             this.cakeSlice = new MyCakeSlice(this);
-            console.log(this.cakeSlice.position);
-            this.cakeSlice.rotation.set(-Math.PI/4, 0, -Math.PI/2);
+            this.cakeSlice.rotation.set(-Math.PI / 4, 0, -Math.PI / 2);
             this.cakeSlice.position.copy(new THREE.Vector3(2, 0, -1.5));
 
-            
             this.app.scene.add(this.cakeSlice);
         }
 
@@ -473,32 +467,32 @@ class MyContents {
                 object: this.spring,
                 offset: new THREE.Vector3(0.4, 0, 0),
                 angle: 0,
-                name: "Spring"
+                name: "Spring",
             });
         }
 
         //journal
 
-        if(this.journal === null){
+        if (this.journal === null) {
             this.journal = new MyJournal(this);
             this.journal.scale.set(0.2, 0.2, 0.2);
-            this.journal.rotation.set(-Math.PI/2, 0, 0);
-            this.journal.position.copy(new THREE.Vector3(-0.6, 1.17, 0.5));
+            this.journal.rotation.set(-Math.PI / 2, 0, 0);
+            this.journal.position.copy(new THREE.Vector3(-0.6, 1.14, 0.5));
             this.app.scene.add(this.journal);
 
             this.observables.push({
                 object: this.journal,
                 offset: new THREE.Vector3(0, 0, 0),
-                angle: Math.PI/2,
-                name: "Newspaper"
+                angle: Math.PI / 2,
+                name: "Newspaper",
             });
         }
 
         // TV
 
-        if(this.tv === null){
+        if (this.tv === null) {
             this.tv = new MyTV(this, 5, 3);
-            this.tv.rotation.set(0, -Math.PI/2, 0);
+            this.tv.rotation.set(0, -Math.PI / 2, 0);
             this.tv.position.copy(new THREE.Vector3(4.9, 3, 0));
             this.app.scene.add(this.tv);
 
@@ -506,7 +500,7 @@ class MyContents {
                 object: this.tv,
                 offset: new THREE.Vector3(0, 0, 0),
                 angle: Math.PI,
-                name: "TV"
+                name: "TV",
             });
         }
 
@@ -700,7 +694,6 @@ class MyContents {
 
             this.app.scene.add(this.flower);
 
-
             this.observables.push({
                 object: this.flower,
                 offset: new THREE.Vector3(0, 0.6, 0),
@@ -854,31 +847,37 @@ class MyContents {
         let orderU = 1;
         let orderV = 1;
         // build nurb #1
-        controlPoints =
-            [   // U = 0
-                [ // V = 0..1;
-                    [-2.0, -2.0, 0.0, 1 ],
-                    [-2.0,  2.0, 0.0, 1 ]
-                ],
-                // U = 1
-                [ // V = 0..1
-                    [ 2.0, -2.0, 0.0, 1 ],
-                    [ 2.0,  2.0, 0.0, 1 ]                                                
-                ]
-            ]
-       
-        surfaceData = this.builder.build(controlPoints,
-                      orderU, orderV, this.samplesU,
-                      this.samplesV, this.material)  
-        mesh = new THREE.Mesh( surfaceData, this.material );
-        mesh.rotation.x = 0
-        mesh.rotation.y = 0
-        mesh.rotation.z = 0
-        mesh.scale.set( 0,3,0 )
-        mesh.position.set( 0,0,0 )
-        this.app.scene.add( mesh )
-        this.meshes.push (mesh)
+        controlPoints = [
+            // U = 0
+            [
+                // V = 0..1;
+                [-2.0, -2.0, 0.0, 1],
+                [-2.0, 2.0, 0.0, 1],
+            ],
+            // U = 1
+            [
+                // V = 0..1
+                [2.0, -2.0, 0.0, 1],
+                [2.0, 2.0, 0.0, 1],
+            ],
+        ];
 
+        surfaceData = this.builder.build(
+            controlPoints,
+            orderU,
+            orderV,
+            this.samplesU,
+            this.samplesV,
+            this.material
+        );
+        mesh = new THREE.Mesh(surfaceData, this.material);
+        mesh.rotation.x = 0;
+        mesh.rotation.y = 0;
+        mesh.rotation.z = 0;
+        mesh.scale.set(0, 3, 0);
+        mesh.position.set(0, 0, 0);
+        this.app.scene.add(mesh);
+        this.meshes.push(mesh);
     }
 
     /**

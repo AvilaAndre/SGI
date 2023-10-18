@@ -28,43 +28,6 @@ class MyGuiInterface {
      * Initialize the gui interface
      */
     init() {
-        // add a folder to the gui interface for the box
-        const boxFolder = this.datgui.addFolder("Box");
-        // note that we are using a property from the contents object
-        boxFolder
-            .add(this.contents, "boxMeshSize", 0, 10)
-            .name("size")
-            .onChange(() => {
-                this.contents.rebuildBox();
-            });
-        boxFolder.add(this.contents, "boxEnabled", true).name("enabled");
-        boxFolder.add(this.contents.boxDisplacement, "x", -5, 5);
-        boxFolder.add(this.contents.boxDisplacement, "y", -5, 5);
-        boxFolder.add(this.contents.boxDisplacement, "z", -5, 5);
-        boxFolder.open();
-
-        const data = {
-            "diffuse color": this.contents.diffusePlaneColor,
-            "specular color": this.contents.specularPlaneColor,
-        };
-
-        // adds a folder to the gui interface for the plane
-        const planeFolder = this.datgui.addFolder("Plane");
-        planeFolder.addColor(data, "diffuse color").onChange((value) => {
-            this.contents.updateDiffusePlaneColor(value);
-        });
-        planeFolder.addColor(data, "specular color").onChange((value) => {
-            this.contents.updateSpecularPlaneColor(value);
-        });
-        planeFolder
-            .add(this.contents, "planeShininess", 0, 1000)
-            .name("shininess")
-            .onChange((value) => {
-                this.contents.updatePlaneShininess(value);
-            });
-        planeFolder.open();
-
-
         const cameras = [
             "Perspective",
             "Left",
@@ -72,11 +35,11 @@ class MyGuiInterface {
             "Front",
             "Back",
             "Right",
-        ]
+        ];
 
         this.contents.observables.forEach((obs) => {
-            cameras.push(obs.name)
-        })
+            cameras.push(obs.name);
+        });
 
         // adds a folder to the gui interface for the camera
         const cameraFolder = this.datgui.addFolder("Camera");
@@ -95,17 +58,65 @@ class MyGuiInterface {
         const textureFolder = this.datgui.addFolder("Plane Texture");
 
         textureFolder
-            .add(this.contents, "wrappingModeU", ["A", "B", "C"])
+            .add(this.contents.floorTexture, "wrapS", [
+                "RepeatWrapping",
+                "ClampToEdgeWrapping",
+                "MirroredRepeatWrapping",
+            ])
+            .onChange((value) => {
+                this.contents.floorTexture.wrapS =
+                    [
+                        "RepeatWrapping",
+                        "ClampToEdgeWrapping",
+                        "MirroredRepeatWrapping",
+                    ].indexOf(value) + 1000;
+            })
             .name("Wrapping mode U");
+
+        textureFolder
+            .add(this.contents.floorTexture, "wrapT", [
+                "RepeatWrapping",
+                "ClampToEdgeWrapping",
+                "MirroredRepeatWrapping",
+            ])
+            .onChange((value) => {
+                this.contents.floorTexture.wrapT =
+                    [
+                        "RepeatWrapping",
+                        "ClampToEdgeWrapping",
+                        "MirroredRepeatWrapping",
+                    ].indexOf(value) + 1000;
+            })
+            .name("Wrapping mode U");
+
+        textureFolder
+            .add(this.contents.floorTexture.repeat, "x", 0, 2, 0.1)
+            .name("Repeat X");
+
+        textureFolder
+            .add(this.contents.floorTexture.repeat, "y", 0, 2, 0.1)
+            .name("Repeat Y");
+
+        textureFolder
+            .add(this.contents.floorTexture.offset, "x", -1, 1, 0.1)
+            .name("Offset X");
+
+        textureFolder
+            .add(this.contents.floorTexture.offset, "y", -1, 1, 0.1)
+            .name("Offset Y");
+
+        textureFolder
+            .add(this.contents.floorTexture, "rotation", -Math.PI, Math.PI, 0.1)
+            .name("Rotation");
 
         textureFolder.open();
 
         const lightsFolder = this.datgui.addFolder("Lights");
 
-        const lightsData = {
-            wallLampsColor: this.contents.wallLampsColor,
-            wallLampsIntensity: this.contents.wallLampsIntensity,
-        };
+        // const lightsData = {
+        //     wallLampsColor: this.contents.wallLampsColor,
+        //     wallLampsIntensity: this.contents.wallLampsIntensity,
+        // };
 
         lightsFolder
             .add(this.contents, "lightsOn")
@@ -121,21 +132,21 @@ class MyGuiInterface {
             })
             .name("Move Curtains");
 
-        const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
+        // const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
 
-        wallLampsFolder
-            .addColor(lightsData, "wallLampsColor")
-            .onChange((value) => {
-                this.contents.updateWallLampsColor(value);
-            })
-            .name("Wall Lamps Color");
+        // wallLampsFolder
+        //     .addColor(lightsData, "wallLampsColor")
+        //     .onChange((value) => {
+        //         this.contents.updateWallLampsColor(value);
+        //     })
+        //     .name("Wall Lamps Color");
 
-        wallLampsFolder
-            .add(lightsData, "wallLampsIntensity", 0, 20)
-            .onChange((value) => {
-                this.contents.updateWallLampsIntensity(value);
-            })
-            .name("Wall Lamps Intensity");
+        // wallLampsFolder
+        //     .add(lightsData, "wallLampsIntensity", 0, 20)
+        //     .onChange((value) => {
+        //         this.contents.updateWallLampsIntensity(value);
+        //     })
+        //     .name("Wall Lamps Intensity");
     }
 }
 
