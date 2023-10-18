@@ -30,6 +30,9 @@ class MyTV extends THREE.Object3D {
            let texture = new THREE.VideoTexture(video);
    
            const material = new THREE.MeshBasicMaterial({ map: texture });
+
+           //texture.dispose();
+           
    
            this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
    
@@ -78,18 +81,11 @@ class MyTV extends THREE.Object3D {
 
         this.add(photoMesh);
 
-        this.dispose = function () {
-            // Dispose of the video texture and stop the video
-            texture.dispose();
-            video.pause();
-            video.src = '';
-            video.load();
-        };
-        
-
         
 
     }
+
+
 }
 
 MyTV.prototype.isGroup = true;
