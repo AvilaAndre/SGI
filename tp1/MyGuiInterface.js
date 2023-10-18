@@ -64,7 +64,6 @@ class MyGuiInterface {
             });
         planeFolder.open();
 
-
         const cameras = [
             "Perspective",
             "Left",
@@ -72,11 +71,11 @@ class MyGuiInterface {
             "Front",
             "Back",
             "Right",
-        ]
+        ];
 
         this.contents.observables.forEach((obs) => {
-            cameras.push(obs.name)
-        })
+            cameras.push(obs.name);
+        });
 
         // adds a folder to the gui interface for the camera
         const cameraFolder = this.datgui.addFolder("Camera");
@@ -95,8 +94,52 @@ class MyGuiInterface {
         const textureFolder = this.datgui.addFolder("Plane Texture");
 
         textureFolder
-            .add(this.contents, "wrappingModeU", ["A", "B", "C"])
+            .add(this.contents.floorTexture, "wrapS", [
+                "RepeatWrapping",
+                "ClampToEdgeWrapping",
+                "MirroredRepeatWrapping",
+            ])
+            .onChange((value) => {
+                this.contents.floorTexture.wrapS =
+                    [
+                        "RepeatWrapping",
+                        "ClampToEdgeWrapping",
+                        "MirroredRepeatWrapping",
+                    ].indexOf(value) + 1000;
+            })
             .name("Wrapping mode U");
+
+        textureFolder
+            .add(this.contents.floorTexture, "wrapT", [
+                "RepeatWrapping",
+                "ClampToEdgeWrapping",
+                "MirroredRepeatWrapping",
+            ])
+            .onChange((value) => {
+                this.contents.floorTexture.wrapT =
+                    [
+                        "RepeatWrapping",
+                        "ClampToEdgeWrapping",
+                        "MirroredRepeatWrapping",
+                    ].indexOf(value) + 1000;
+            })
+            .name("Wrapping mode U");
+
+        textureFolder
+            .add(this.contents.floorTexture.repeat, "x", 0, 2, 0.1)
+            .name("Repeat X");
+
+        textureFolder
+            .add(this.contents.floorTexture.repeat, "y", 0, 2, 0.1)
+            .name("Repeat Y");
+
+        textureFolder
+            .add(this.contents.floorTexture.offset, "x", -1, 1, 0.1)
+            .name("Offset X");
+
+        textureFolder
+            .add(this.contents.floorTexture.offset, "y", -1, 1, 0.1)
+            .name("Offset Y");
 
         textureFolder.open();
 
