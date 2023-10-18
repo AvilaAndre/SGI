@@ -26,14 +26,16 @@
         <div id="camera"></div>
         <script type="module" src="main.js"></script>
         <video
-            id="video"
-            d="video"
-            muted
-            loop
-            autoplay
-            style="display: none"
-        >
-            <source src="videos/cows.mp4" type="video/mp4" />
-        </video>
+        id="video"
+        playsinline
+        webkit-playsinline
+        muted
+        loop
+        autoplay
+        width="640"
+        height="360"
+        src="videos/cows.mp4"
+        style="display: none"
+      ></video>
     </body>
 </html>
