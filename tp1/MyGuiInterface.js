@@ -105,14 +105,18 @@ class MyGuiInterface {
             .add(this.contents.floorTexture.offset, "y", -1, 1, 0.1)
             .name("Offset Y");
 
+        textureFolder
+            .add(this.contents.floorTexture, "rotation", -Math.PI, Math.PI, 0.1)
+            .name("Rotation");
+
         textureFolder.open();
 
         const lightsFolder = this.datgui.addFolder("Lights");
 
-        const lightsData = {
-            wallLampsColor: this.contents.wallLampsColor,
-            wallLampsIntensity: this.contents.wallLampsIntensity,
-        };
+        // const lightsData = {
+        //     wallLampsColor: this.contents.wallLampsColor,
+        //     wallLampsIntensity: this.contents.wallLampsIntensity,
+        // };
 
         lightsFolder
             .add(this.contents, "lightsOn")
