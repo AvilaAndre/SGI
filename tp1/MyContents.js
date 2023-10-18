@@ -15,9 +15,9 @@ import { MyFlower } from "./MyObjects/MyFlower.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 import { MySpring } from "./MyObjects/MySpring.js";
 import { MyVase } from "./MyObjects/MyVase.js";
-import { MyJournal } from './MyObjects/MyJournal.js';
-import { MyTV } from './MyObjects/MyTV.js';
-import { MySideboard } from './MyObjects/MySideboard.js';
+import { MyJournal } from "./MyObjects/MyJournal.js";
+import { MyTV } from "./MyObjects/MyTV.js";
+import { MySideboard } from "./MyObjects/MySideboard.js";
 
 /**
  *  This class contains the contents of out application
@@ -506,13 +506,12 @@ class MyContents {
 
         // Sideboard
 
-        if(this.sideboard === null){
+        if (this.sideboard === null) {
             this.sideboard = new MySideboard(this);
             this.sideboard.scale.set(0.75, 0.75, 0.75);
             this.sideboard.position.copy(new THREE.Vector3(-2.5, 0.8, 3.95));
             this.app.scene.add(this.sideboard);
         }
-
 
         //Window
 
@@ -652,7 +651,7 @@ class MyContents {
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
 
-            this.beetle.position.set(2, 3, 4.98);
+            this.beetle.position.set(2, 3, 4.94);
 
             this.app.scene.add(this.beetle);
 
@@ -697,12 +696,9 @@ class MyContents {
             this.observables.push({
                 object: this.flower,
                 offset: new THREE.Vector3(0, 0.6, 0),
-                angle: -Math.PI/2,
+                angle: -Math.PI / 2,
                 name: "Flower",
             });
-
-        
-
         }
 
         if (this.vase == null) {
@@ -712,12 +708,8 @@ class MyContents {
             this.flowerAndVase.add(this.vase);
             this.app.scene.add(this.vase);
         }
-
-
-
     }
 
-    
     /**
      * updates the diffuse plane color and the material
      * @param {THREE.Color} value
@@ -741,11 +733,6 @@ class MyContents {
     updatePlaneShininess(value) {
         this.planeShininess = value;
         this.planeMaterial.shininess = this.planeShininess;
-    }
-
-    // ???????????
-    updateWrappingModeU(value) {
-        this.wrappingModeU = value;
     }
 
     /**
