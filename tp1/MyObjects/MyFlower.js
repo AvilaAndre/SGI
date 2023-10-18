@@ -45,6 +45,7 @@ class MyFlower extends THREE.Object3D {
         this.lineObj = new THREE.Line(this.curveGeometry, stalkMaterial);
 
         this.lineObj.position.set(position.x, position.y, position.z);
+        this.lineObj.rotation.set(0, -Math.PI/4, 0);
 
         this.add(this.lineObj);
 
@@ -60,10 +61,10 @@ class MyFlower extends THREE.Object3D {
 
         flowerMesh.position.set(0.0, 0.615, 0.0);
         flowerMesh.rotation.x = Math.PI / 3;
-        flowerMesh.rotation.y = Math.PI / 3;
+        flowerMesh.rotation.y = -Math.PI / 6;
         flowerPetalMesh.position.set(0.0, 0.61, 0.0);
         flowerPetalMesh.rotation.x = Math.PI / 3;
-        flowerPetalMesh.rotation.y = Math.PI / 3;
+        flowerPetalMesh.rotation.y = -Math.PI / 6;
 
         flowerMesh.castShadow = true;
         flowerPetalMesh.castShadow = true;

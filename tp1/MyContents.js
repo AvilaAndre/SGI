@@ -18,6 +18,7 @@ import { MySpring } from "./MyObjects/MySpring.js";
 import { MyVase } from "./MyObjects/MyVase.js";
 import { MyJournal } from './MyObjects/MyJournal.js';
 import { MyTV } from './MyObjects/MyTV.js';
+import { MySideboard } from './MyObjects/MySideboard.js';
 
 /**
  *  This class contains the contents of out application
@@ -59,6 +60,7 @@ class MyContents {
         this.vase = null;
         this.journal = null;
         this.tv = null;
+        this.sideboard = null;
 
         // Array with every controllable light
         this.roomLights = [];
@@ -508,6 +510,15 @@ class MyContents {
             });
         }
 
+        // Sideboard
+
+        if(this.sideboard === null){
+            this.sideboard = new MySideboard(this);
+            this.sideboard.scale.set(0.75, 0.75, 0.75);
+            this.sideboard.position.copy(new THREE.Vector3(-2.5, 0.8, 3.95));
+            this.app.scene.add(this.sideboard);
+        }
+
 
         //Window
 
@@ -647,7 +658,7 @@ class MyContents {
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
 
-            this.beetle.position.set(0, 3, 4.98);
+            this.beetle.position.set(2, 3, 4.98);
 
             this.app.scene.add(this.beetle);
 
@@ -662,7 +673,7 @@ class MyContents {
         if (this.sofa == null) {
             this.sofa = new MySofa(this);
 
-            this.sofa.position.set(0, 0, 3.95); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
+            this.sofa.position.set(2, 0, 3.95); // 5 is wall z, 1.2 is for the sofa, 0.05 is a padding
 
             this.app.scene.add(this.sofa);
         }
@@ -678,10 +689,14 @@ class MyContents {
             this.app.scene.add(this.chandelier);
         }
 
+        this.flowerAndVase = new THREE.Group();
+
         if (this.flower == null) {
             this.flower = new MyFlower(this);
+            //this.flower.rotation.copy(new THREE.Vector3(0, -Math.PI, 0));
+            this.flower.position.set(-2.5, 1.72, 4.2);
 
-            this.flower.position.set(4, 0.05, -4);
+            this.flowerAndVase.add(this.flower);
 
             this.app.scene.add(this.flower);
 
@@ -689,19 +704,27 @@ class MyContents {
             this.observables.push({
                 object: this.flower,
                 offset: new THREE.Vector3(0, 0.6, 0),
-                angle: Math.PI,
+                angle: -Math.PI/2,
                 name: "Flower",
             });
+
+        
+
         }
 
         if (this.vase == null) {
             this.vase = new MyVase(this, 0.2, 0.4);
 
-            this.vase.position.set(4.05, 0, -3.95)
+            this.vase.position.set(-2.5, 1.55, 4.3);
+            this.flowerAndVase.add(this.vase);
             this.app.scene.add(this.vase);
         }
+
+
+
     }
 
+    
     /**
      * updates the diffuse plane color and the material
      * @param {THREE.Color} value

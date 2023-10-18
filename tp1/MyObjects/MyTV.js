@@ -22,20 +22,21 @@ class MyTV extends THREE.Object3D {
         this.height = height || 0.6;
         this.barWidth = barWidth || 0.1;
         this.barDepth = barDepth || 0.06;
-
-        const video = document.getElementById( 'video' );
-        video.muted = true;
-        const texture = new THREE.VideoTexture( video );
-
-        const material = new THREE.MeshBasicMaterial({ map: texture });
-
-
-        this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
-
-        this.frameMaterial = new THREE.MeshPhongMaterial({
-            map: this.tvTexture,
-            shininess: 10,
-        });
+        //this.texture = null;
+        
+           // Define video and video texture
+           let video = document.getElementById('video');
+           video.muted = true;
+           let texture = new THREE.VideoTexture(video);
+   
+           const material = new THREE.MeshBasicMaterial({ map: texture });
+   
+           this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
+   
+           this.frameMaterial = new THREE.MeshPhongMaterial({
+               map: this.tvTexture,
+               shininess: 10,
+           });
 
 
 
@@ -74,9 +75,19 @@ class MyTV extends THREE.Object3D {
             photoGeometry,
             material
         );
+
+        this.add(photoMesh);
+
+        this.dispose = function () {
+            // Dispose of the video texture and stop the video
+            texture.dispose();
+            video.pause();
+            video.src = '';
+            video.load();
+        };
         
 
-        this.add(photoMesh)
+        
 
     }
 }
