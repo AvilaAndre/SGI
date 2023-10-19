@@ -3,23 +3,17 @@ import { MyApp } from "../MyApp.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 
 /**
- * This class contains a 3D chair representation
+ * This class contains a 3D sideboard representation
  */
 class MySideboard extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {number} width the width of the frame
-     * @param {number} height the height of the frame
      */
-    constructor(app, width, height, depth) {
+    constructor(app) {
         super();
         this.app = app;
         this.type = "Group";
-        this.journalWidth = width;
-        this.journalHeight = height;
-        this.journalDepth = depth || 0.2;
-
 
         const sideboardMaterial = new THREE.MeshPhongMaterial({
             color: "#FF0000",
@@ -28,7 +22,6 @@ class MySideboard extends THREE.Object3D {
             shininess: 10,
             side: 2,
         });
-
 
         this.glassMaterial = new THREE.MeshPhysicalMaterial({
             color: 0x00bfff, // Set the glass color (light blue in this case)
@@ -39,97 +32,93 @@ class MySideboard extends THREE.Object3D {
             transmission: 0.9,
         });
 
-
-        const widthPoints = [];
-
-
-        this.journalMesh3 = new THREE.Group();
-
-            const controlPoints = [   // U = 0
-            [ // V = 0..1;
-                [ -2, 1, 0, 1 ],
-                [ -2, 1, 1, 1 ],
-            ],
-            [ // V = 0..1;
-                [ 2, 1, 0, 1 ],
-                [ 2, 1, 1, 1 ],
+        const controlPoints = [
+            // U = 0
+            [
+                // V = 0..1;
+                [-2, 1, 0, 1],
+                [-2, 1, 1, 1],
             ],
             [
-                [ 2, -1, 0, 1 ],
-                [ 2, -1, 1, 1 ],
+                // V = 0..1;
+                [2, 1, 0, 1],
+                [2, 1, 1, 1],
             ],
             [
-                [ -2, -1, 0, 1 ],
-                [ -2, -1, 1, 1 ],
-            ]
-        ]
-
-        const leftControlPoints = [   // U = 0
-            [ // V = 0..1;
-                [ 2, 1, 0, 1 ],
-                [ 2, 1, 1, 1 ],
-            ],
-            [ // V = 0..1;
-                [ -2, 1, 0, 1 ],
-                [ -2, 1, 1, 1 ],
+                [2, -1, 0, 1],
+                [2, -1, 1, 1],
             ],
             [
-                [ -2, -1, 0, 1 ],
-                [ -2, -1, 1, 1 ],
+                [-2, -1, 0, 1],
+                [-2, -1, 1, 1],
+            ],
+        ];
+
+        const leftControlPoints = [
+            // U = 0
+            [
+                // V = 0..1;
+                [2, 1, 0, 1],
+                [2, 1, 1, 1],
             ],
             [
-                [ 2, -1, 0, 1 ],
-                [ 2, -1, 1, 1 ],
-            ]
-        ]
-            
-            this.builder = new MyNurbsBuilder();
+                // V = 0..1;
+                [-2, 1, 0, 1],
+                [-2, 1, 1, 1],
+            ],
+            [
+                [-2, -1, 0, 1],
+                [-2, -1, 1, 1],
+            ],
+            [
+                [2, -1, 0, 1],
+                [2, -1, 1, 1],
+            ],
+        ];
 
-            const surfaceData = this.builder.build(
-                controlPoints,
-                3,
-                1,
-                80,
-                8,
-                sideboardMaterial
-            );
+        this.builder = new MyNurbsBuilder();
 
-            const leftSurface = this.builder.build(
-                leftControlPoints,
-                3,
-                1,
-                80,
-                8,
-                sideboardMaterial
-            );
+        const surfaceData = this.builder.build(
+            controlPoints,
+            3,
+            1,
+            80,
+            8,
+            sideboardMaterial
+        );
 
-            const mesh = new THREE.Mesh(surfaceData, sideboardMaterial);
-            const leftMesh = new THREE.Mesh(leftSurface, sideboardMaterial);
+        const leftSurface = this.builder.build(
+            leftControlPoints,
+            3,
+            1,
+            80,
+            8,
+            sideboardMaterial
+        );
 
-            mesh.castShadow = true
-            mesh.receiveShadow = true;
+        const mesh = new THREE.Mesh(surfaceData, sideboardMaterial);
+        const leftMesh = new THREE.Mesh(leftSurface, sideboardMaterial);
 
-            leftMesh.castShadow = true
-            leftMesh.receiveShadow = true;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
 
-            let glassPartGeometry = new THREE.PlaneGeometry(
-                1,
-                4
-            );
-    
-            let glassPartMesh = new THREE.Mesh(
-                glassPartGeometry,
-                this.glassMaterial
-            );
+        leftMesh.castShadow = true;
+        leftMesh.receiveShadow = true;
 
-            glassPartMesh.rotation.set(-Math.PI/2, 0, Math.PI/2);
-            glassPartMesh.position.set(0, 1.001, 0.5);
+        let glassPartGeometry = new THREE.PlaneGeometry(1, 4);
 
-            this.add(mesh);
-            this.add(leftMesh);
-            this.add(glassPartMesh);
+        let glassPartMesh = new THREE.Mesh(
+            glassPartGeometry,
+            this.glassMaterial
+        );
 
-            
+        glassPartMesh.rotation.set(-Math.PI / 2, 0, Math.PI / 2);
+        glassPartMesh.position.set(0, 1.001, 0.5);
+
+        this.add(mesh);
+        this.add(leftMesh);
+        this.add(glassPartMesh);
+
         //}
     }
 }

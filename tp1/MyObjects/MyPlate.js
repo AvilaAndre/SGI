@@ -34,12 +34,11 @@ class MyPlate extends THREE.Object3D {
         );
         this.plateMesh = new THREE.Mesh(plate, this.plateMaterial);
 
-        this.plateMesh.position.y = 0.025
+        this.plateMesh.position.y = 0.025;
 
-        this.plateGroup = new THREE.Group()
+        this.plateGroup = new THREE.Group();
 
-        this.plateGroup.add(this.plateMesh)
-
+        this.plateGroup.add(this.plateMesh);
 
         this.add(this.plateGroup);
     }

@@ -3,9 +3,7 @@ import { NURBSSurface } from "three/addons/curves/NURBSSurface.js";
 import { ParametricGeometry } from "three/addons/geometries/ParametricGeometry.js";
 
 /**
-
  *  This class contains the contents of out application
-
  */
 
 class MyNurbsBuilder {
@@ -50,12 +48,7 @@ class MyNurbsBuilder {
                 let item = row[j];
 
                 newRow.push(
-                    new THREE.Vector4(
-                        item[0],
-                        item[1],
-                        item[2],
-                        item[3]
-                    )
+                    new THREE.Vector4(item[0], item[1], item[2], item[3])
                 );
             }
 

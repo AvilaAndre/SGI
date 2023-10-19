@@ -3,14 +3,14 @@ import { MyApp } from "../MyApp.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 
 /**
- * This class contains a 3D cake representation
+ * This class contains a 3D vase representation
  */
 class MyVase extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {radius} radius the radius of the chandelier
-     * @param {stringLength} stringLength the length of the string supporting the chandelier
+     * @param {number} radius the radius of the vase
+     * @param {number} height the height of the vase
      */
     constructor(app, radius, height) {
         super();

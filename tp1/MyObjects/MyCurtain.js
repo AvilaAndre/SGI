@@ -3,7 +3,7 @@ import { MyApp } from "../MyApp.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 
 /**
- * This class contains a 3D cake representation
+ * This class contains a 3D curtain representation
  */
 class MyCurtain extends THREE.Object3D {
     /**
@@ -40,20 +40,32 @@ class MyCurtain extends THREE.Object3D {
                 // U = 0
                 [
                     // V = 0..1;
-                    [widthPoints[i] - this.curtainWidth/2, -this.curtainHeight / 2, 0.0, 1],
-                    [widthPoints[i] - this.curtainWidth/2, this.curtainHeight / 2, 0.0, 1],
+                    [
+                        widthPoints[i] - this.curtainWidth / 2,
+                        -this.curtainHeight / 2,
+                        0.0,
+                        1,
+                    ],
+                    [
+                        widthPoints[i] - this.curtainWidth / 2,
+                        this.curtainHeight / 2,
+                        0.0,
+                        1,
+                    ],
                 ],
                 // U = 1
                 [
                     // V = 0..1
                     [
-                        (widthPoints[i] + widthPoints[i + 1]) / 2 - this.curtainWidth/2,
+                        (widthPoints[i] + widthPoints[i + 1]) / 2 -
+                            this.curtainWidth / 2,
                         -this.curtainHeight / 2,
                         this.curtainDepth * side,
                         1,
                     ],
                     [
-                        (widthPoints[i] + widthPoints[i + 1]) / 2 - this.curtainWidth/2,
+                        (widthPoints[i] + widthPoints[i + 1]) / 2 -
+                            this.curtainWidth / 2,
                         this.curtainHeight / 2,
                         this.curtainDepth * side,
                         1,
@@ -62,12 +74,22 @@ class MyCurtain extends THREE.Object3D {
                 // U = 1
                 [
                     // V = 0..1
-                    [widthPoints[i + 1] - this.curtainWidth/2, -this.curtainHeight / 2, 0.0, 1],
-                    [widthPoints[i + 1] - this.curtainWidth/2, this.curtainHeight / 2, 0.0, 1],
+                    [
+                        widthPoints[i + 1] - this.curtainWidth / 2,
+                        -this.curtainHeight / 2,
+                        0.0,
+                        1,
+                    ],
+                    [
+                        widthPoints[i + 1] - this.curtainWidth / 2,
+                        this.curtainHeight / 2,
+                        0.0,
+                        1,
+                    ],
                 ],
             ];
 
-            side = side * -1
+            side = side * -1;
             this.builder = new MyNurbsBuilder();
 
             const surfaceData = this.builder.build(
@@ -81,7 +103,7 @@ class MyCurtain extends THREE.Object3D {
 
             const mesh = new THREE.Mesh(surfaceData, curtainMaterial);
 
-            mesh.castShadow = true
+            mesh.castShadow = true;
             mesh.receiveShadow = true;
 
             this.add(mesh);

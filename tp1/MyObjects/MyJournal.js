@@ -23,58 +23,61 @@ class MyJournal extends THREE.Object3D {
             map: this.journalTexture,
         });
 
-
-
         this.journalMesh3 = new THREE.Group();
 
-            const controlPoints = [   // U = 0
-            [ // V = 0..1;
-                [ -1.5, -1.5, -0.7, 1 ],
-                [ -1.5,  1.5, -0.7, 1 ]
+        const controlPoints = [
+            // U = 0
+            [
+                // V = 0..1;
+                [-1.5, -1.5, -0.7, 1],
+                [-1.5, 1.5, -0.7, 1],
             ],
             [
-                [ -0.5, -1.5, 0.5, 1 ],
-                [ -0.5,  1.5, 0.5, 1 ]
+                [-0.5, -1.5, 0.5, 1],
+                [-0.5, 1.5, 0.5, 1],
             ],
 
-        // U = 1
-            [ // V = 0..1
-                [ 0, -1.5, -0.8, 5 ],
-                [ 0,  1.5, -0.8, 5 ]
+            // U = 1
+            [
+                // V = 0..1
+                [0, -1.5, -0.8, 5],
+                [0, 1.5, -0.8, 5],
             ],
-            [ // V = 0..1
-                [ 0, -1.5, -0.8, 5 ],
-                [ 0,  1.5, -0.8, 5 ]
+            [
+                // V = 0..1
+                [0, -1.5, -0.8, 5],
+                [0, 1.5, -0.8, 5],
             ],
 
             [
-                [ 0.5, -1.5, 0.5, 1 ],
-                [ 0.5,  1.5, 0.5, 1 ]
+                [0.5, -1.5, 0.5, 1],
+                [0.5, 1.5, 0.5, 1],
             ],
-        // U = 2
-            [ // V = 0..1
-                [ 1.5, -1.5, -0.7, 1 ],
-                [ 1.5,  1.5, -0.7, 1 ]
-            ]
-    ]
-            
-            this.builder = new MyNurbsBuilder();
+            // U = 2
+            [
+                // V = 0..1
+                [1.5, -1.5, -0.7, 1],
+                [1.5, 1.5, -0.7, 1],
+            ],
+        ];
 
-            const surfaceData = this.builder.build(
-                controlPoints,
-                5,
-                1,
-                80,
-                8,
-                this.journalMaterial
-            );
+        this.builder = new MyNurbsBuilder();
 
-            const mesh = new THREE.Mesh(surfaceData, this.journalMaterial);
+        const surfaceData = this.builder.build(
+            controlPoints,
+            5,
+            1,
+            80,
+            8,
+            this.journalMaterial
+        );
 
-            mesh.castShadow = true
-            mesh.receiveShadow = true;
+        const mesh = new THREE.Mesh(surfaceData, this.journalMaterial);
 
-            this.add(mesh);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        this.add(mesh);
         //}
     }
 }
