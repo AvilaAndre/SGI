@@ -22,36 +22,30 @@ class MyTV extends THREE.Object3D {
         this.height = height || 0.6;
         this.barWidth = barWidth || 0.1;
         this.barDepth = barDepth || 0.06;
-        //this.texture = null;
-        
-           // Define video and video texture
-           let video = document.getElementById('video');
-           video.muted = true;
-           let texture = new THREE.VideoTexture(video);
-   
-           const material = new THREE.MeshBasicMaterial({ map: texture });
 
-           //texture.dispose();
-           
-   
-           this.tvTexture = new THREE.TextureLoader().load('textures/steel.jpg');
-   
-           this.frameMaterial = new THREE.MeshPhongMaterial({
-               map: this.tvTexture,
-               shininess: 10,
-           });
+        // Define video and video texture
+        let video = document.getElementById("video");
+        video.muted = true;
+        let texture = new THREE.VideoTexture(video);
 
+        const material = new THREE.MeshBasicMaterial({ map: texture });
 
+        this.tvTexture = new THREE.TextureLoader().load("textures/steel.jpg");
+
+        this.frameMaterial = new THREE.MeshPhongMaterial({
+            map: this.tvTexture,
+            shininess: 10,
+        });
 
         let frameHorizontalBar = new THREE.BoxGeometry(
-            this.width + this.barWidth*2,
+            this.width + this.barWidth * 2,
             this.barDepth,
-            this.barWidth,
+            this.barWidth
         );
         let frameVerticalBar = new THREE.BoxGeometry(
             this.barWidth,
-            this.height + this.barWidth/2,
-            this.barDepth,
+            this.height + this.barWidth / 2,
+            this.barDepth
         );
 
         [-1, 1].forEach((num) => {
@@ -64,8 +58,10 @@ class MyTV extends THREE.Object3D {
                 this.frameMaterial
             );
 
-            frameHorizontalMesh.position.y = num * ((this.height / 2) + this.barWidth/2)
-            frameVerticalMesh.position.x = num * ((this.width / 2) + this.barWidth/2);
+            frameHorizontalMesh.position.y =
+                num * (this.height / 2 + this.barWidth / 2);
+            frameVerticalMesh.position.x =
+                num * (this.width / 2 + this.barWidth / 2);
 
             this.add(frameHorizontalMesh);
             this.add(frameVerticalMesh);
@@ -73,19 +69,10 @@ class MyTV extends THREE.Object3D {
 
         let photoGeometry = new THREE.PlaneGeometry(this.width, this.height);
 
-
-        let photoMesh = new THREE.Mesh(
-            photoGeometry,
-            material
-        );
+        let photoMesh = new THREE.Mesh(photoGeometry, material);
 
         this.add(photoMesh);
-
-        
-
     }
-
-
 }
 
 MyTV.prototype.isGroup = true;

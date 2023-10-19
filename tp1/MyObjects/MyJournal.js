@@ -3,20 +3,17 @@ import { MyApp } from "../MyApp.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 
 /**
- * This class contains a 3D cake representation
+ * This class contains a 3D journal representation
  */
 class MyJournal extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
      */
-    constructor(app, width, height, depth) {
+    constructor(app) {
         super();
         this.app = app;
         this.type = "Group";
-        this.journalWidth = width;
-        this.journalHeight = height;
-        this.journalDepth = depth || 0.2;
 
         this.journalTexture = new THREE.TextureLoader().load(
             "textures/newspapers.jpg"
@@ -26,9 +23,6 @@ class MyJournal extends THREE.Object3D {
             map: this.journalTexture,
         });
 
-
-
-        const widthPoints = [];
 
 
         this.journalMesh3 = new THREE.Group();
