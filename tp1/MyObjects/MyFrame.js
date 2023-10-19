@@ -11,17 +11,15 @@ class MyFrame extends THREE.Object3D {
      * @param {number} width the width of the frame
      * @param {number} height the height of the frame
      * @param {number} barWidth the depth of the frame's bar
-     * @param {number} barDepth the depth of the frame's bar
      * @param {string} photo the photo to display in the frame
      */
-    constructor(app, width, height, photo, barWidth, barDepth) {
+    constructor(app, width, height, photo, barWidth) {
         super();
         this.app = app;
         this.type = "Group";
         this.width = width || 0.4;
         this.height = height || 0.6;
         this.barWidth = barWidth || 0.1;
-        this.barDepth = barDepth || 0.06;
 
         this.frameMaterial = new THREE.MeshPhongMaterial({
             color: "#E3BC9A",
@@ -30,7 +28,7 @@ class MyFrame extends THREE.Object3D {
             shininess: 10,
         });
 
-        this.photoTexture = new THREE.TextureLoader().load('textures/' + photo);
+        this.photoTexture = new THREE.TextureLoader().load("textures/" + photo);
 
         this.photoMaterial = new THREE.MeshPhongMaterial({
             map: this.photoTexture,
@@ -40,14 +38,14 @@ class MyFrame extends THREE.Object3D {
         });
 
         let frameHorizontalBar = new THREE.BoxGeometry(
-            this.width + this.barWidth*2,
-            this.barDepth,
+            this.width + this.barWidth * 2,
             this.barWidth,
+            this.barWidth
         );
         let frameVerticalBar = new THREE.BoxGeometry(
             this.barWidth,
-            this.height + this.barWidth/2,
-            this.barDepth,
+            this.height + this.barWidth / 2,
+            this.barWidth
         );
 
         [-1, 1].forEach((num) => {
@@ -60,8 +58,10 @@ class MyFrame extends THREE.Object3D {
                 this.frameMaterial
             );
 
-            frameHorizontalMesh.position.y = num * ((this.height / 2) + this.barWidth/2)
-            frameVerticalMesh.position.x = num * ((this.width / 2) + this.barWidth/2);
+            frameHorizontalMesh.position.y =
+                num * (this.height / 2 + this.barWidth / 2);
+            frameVerticalMesh.position.x =
+                num * (this.width / 2 + this.barWidth / 2);
 
             this.add(frameHorizontalMesh);
             this.add(frameVerticalMesh);
@@ -69,14 +69,9 @@ class MyFrame extends THREE.Object3D {
 
         let photoGeometry = new THREE.PlaneGeometry(this.width, this.height);
 
-        let photoMesh = new THREE.Mesh(
-            photoGeometry,
-            this.photoMaterial
-        );
-        
+        let photoMesh = new THREE.Mesh(photoGeometry, this.photoMaterial);
 
-        this.add(photoMesh)
-
+        this.add(photoMesh);
     }
 }
 

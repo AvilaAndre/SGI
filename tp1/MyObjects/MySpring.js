@@ -21,23 +21,15 @@ class MySpring extends THREE.Object3D {
             points.push(new THREE.Vector3(x, y, z));
         }
         let position = new THREE.Vector3(0, 0, 0);
-        //this.drawHull(position, points);
 
         let curve = new THREE.CatmullRomCurve3(points);
-        // sample a number of points on the curve
-        let sampledPoints = curve.getPoints( 500 );
         this.curveGeometry = new THREE.TubeGeometry(curve, 2048, 0.01, 128);
-                //new THREE.BufferGeometry().setFromPoints( sampledPoints );
-        this.lineMaterial = new THREE.LineBasicMaterial({ 
-            color: 0x808080, 
-            //linewidth: 500 
-        } );
-        this.lineObj = new THREE.Line( this.curveGeometry, this.lineMaterial );
-        this.lineObj.position.set(position.x,position.y,position.z);
-        this.add( this.lineObj );
-        
-        
-    
+        this.lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x808080,
+        });
+        this.lineObj = new THREE.Line(this.curveGeometry, this.lineMaterial);
+        this.lineObj.position.set(position.x, position.y, position.z);
+        this.add(this.lineObj);
     }
 
     drawHull(position, points) {
