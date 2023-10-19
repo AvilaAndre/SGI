@@ -33,7 +33,7 @@
 
 
 -   Scene
-    -   The scene consists of a cozy room, filled with mystery. A beautiful landscape can be seen through the window, if the curtains are not covering them. The central piece is a table with a cake full of candles, a spring and a newspaper, all illuminated by a chandelier. A cake slice is next to one of the chairs, both dropped on the floor. In front of them, a flat screen TV shows a video of some cows walking. On the opposite side of the window, there are a sofa and a sidetable, with a glass surface and a vase with a flower on top. Above the sofa, a frame with a beetle is visible. Finally, there are two frames with the students' pictures, one of them slightly tilted. Across the walls, lamps are illuminating even more the scene.
+    -   The scene ![Screenshot](/tp1/screenshots/sceneT05G07.png) consists of a cozy room, filled with mystery. A beautiful landscape can be seen through the window, if the curtains are not covering them. The central piece is a table with a cake full of candles, a spring and a newspaper, all illuminated by a chandelier. A cake slice is next to one of the chairs, both dropped on the floor. In front of them, a flat screen TV shows a video of some cows walking. On the opposite side of the window, there are a sofa and a sidetable, with a glass surface and a vase with a flower on top. Above the sofa, a frame with a beetle is visible. Finally, there are two frames with the students' pictures, one of them slightly tilted. Across the walls, lamps are illuminating even more the scene.
     -  [Link to Scene](/tp1/)
 
 ---
