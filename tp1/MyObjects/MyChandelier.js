@@ -8,8 +8,8 @@ class MyChandelier extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {radius} radius the radius of the chandelier
-     * @param {stringLength} stringLength the length of the string supporting the chandelier
+     * @param {number} radius the radius of the chandelier
+     * @param {number} stringLength the length of the string supporting the chandelier
      */
     constructor(app, radius, stringLength) {
         super();

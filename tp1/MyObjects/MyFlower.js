@@ -45,7 +45,7 @@ class MyFlower extends THREE.Object3D {
         this.lineObj = new THREE.Line(this.curveGeometry, stalkMaterial);
 
         this.lineObj.position.set(position.x, position.y, position.z);
-        this.lineObj.rotation.set(0, -Math.PI/4, 0);
+        this.lineObj.rotation.set(0, -Math.PI / 4, 0);
 
         this.add(this.lineObj);
 

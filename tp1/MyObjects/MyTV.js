@@ -2,17 +2,16 @@ import * as THREE from "three";
 import { MyApp } from "../MyApp.js";
 
 /**
- * This class contains a 3D chair representation
+ * This class contains a 3D tv representation
  */
 class MyTV extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {number} width the width of the frame
-     * @param {number} height the height of the frame
-     * @param {number} barWidth the depth of the frame's bar
-     * @param {number} barDepth the depth of the frame's bar
-     * @param {string} photo the photo to display in the frame
+     * @param {number} width the width of the tv
+     * @param {number} height the height of the tv
+     * @param {number} barWidth the width of the tv's bar
+     * @param {number} barDepth the depth of the tv's bar
      */
     constructor(app, width, height, barWidth, barDepth) {
         super();
@@ -32,39 +31,36 @@ class MyTV extends THREE.Object3D {
 
         this.tvTexture = new THREE.TextureLoader().load("textures/steel.jpg");
 
-        this.frameMaterial = new THREE.MeshPhongMaterial({
+        this.tvMaterial = new THREE.MeshPhongMaterial({
             map: this.tvTexture,
             shininess: 10,
         });
 
-        let frameHorizontalBar = new THREE.BoxGeometry(
+        let tvHorizontalBar = new THREE.BoxGeometry(
             this.width + this.barWidth * 2,
             this.barDepth,
             this.barWidth
         );
-        let frameVerticalBar = new THREE.BoxGeometry(
+        let tvVerticalBar = new THREE.BoxGeometry(
             this.barWidth,
             this.height + this.barWidth / 2,
             this.barDepth
         );
 
         [-1, 1].forEach((num) => {
-            let frameHorizontalMesh = new THREE.Mesh(
-                frameHorizontalBar,
-                this.frameMaterial
+            let tvHorizontalMesh = new THREE.Mesh(
+                tvHorizontalBar,
+                this.tvMaterial
             );
-            let frameVerticalMesh = new THREE.Mesh(
-                frameVerticalBar,
-                this.frameMaterial
-            );
+            let tvVerticalMesh = new THREE.Mesh(tvVerticalBar, this.tvMaterial);
 
-            frameHorizontalMesh.position.y =
+            tvHorizontalMesh.position.y =
                 num * (this.height / 2 + this.barWidth / 2);
-            frameVerticalMesh.position.x =
+            tvVerticalMesh.position.x =
                 num * (this.width / 2 + this.barWidth / 2);
 
-            this.add(frameHorizontalMesh);
-            this.add(frameVerticalMesh);
+            this.add(tvHorizontalMesh);
+            this.add(tvVerticalMesh);
         });
 
         let photoGeometry = new THREE.PlaneGeometry(this.width, this.height);

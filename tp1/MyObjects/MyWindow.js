@@ -81,10 +81,10 @@ class MyWindow extends THREE.Object3D {
                 num * (this.width / 2 + this.barWidth / 2);
 
             this.add(windowHorizontalMesh);
-            windowHorizontalMesh.castShadow = true
+            windowHorizontalMesh.castShadow = true;
 
             this.add(windowVerticalMesh);
-            windowVerticalMesh.castShadow = true
+            windowVerticalMesh.castShadow = true;
         });
 
         let windowHorizontalSplitMesh = new THREE.Mesh(
@@ -115,9 +115,7 @@ class MyWindow extends THREE.Object3D {
 
         this.add(landscapeMesh);
 
-
         this.curtainWidth = this.width / 2 + 1;
-
 
         this.curtainMesh1 = new MyCurtain(
             this.app,
