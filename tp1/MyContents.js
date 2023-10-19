@@ -408,7 +408,6 @@ class MyContents {
         if (this.candle4 === null) {
             this.candle4 = new MyCandle(this);
             this.candle4.position.y = 1.4;
-            //this.candle4.position.x = 0.1;
             this.candle4.position.z = -0.15;
 
             const candleLight = new THREE.PointLight(0xffffff, 1, 0.2, 0.01);

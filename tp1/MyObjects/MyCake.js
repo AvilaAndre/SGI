@@ -10,7 +10,7 @@ class MyCake extends THREE.Object3D {
      * @param {MyApp} app the application object
      * @param {number} up_radius the radius of the upside of the cake
      * @param {number} down_radius the radius of the downside of the cake
-     * @param {string} flavor
+     * @param {string} flavor the flavor of the cake, decides which layer it draws
      */
     constructor(app, flavor) {
         super();
