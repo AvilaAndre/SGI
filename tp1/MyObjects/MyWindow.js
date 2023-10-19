@@ -145,6 +145,10 @@ class MyWindow extends THREE.Object3D {
         this.curtainMesh2.position.z = 0.1;
     }
 
+    /**
+     *
+     * Changes the position of the curtains, simulating them opening and closing by changing the scale
+     */
     moveCurtains(value) {
         const open = 0.8 * value + 0.2;
 

@@ -786,6 +786,10 @@ class MyContents {
         }
     }
 
+    /**
+     *
+     * Turns on/off the light in the this.roomLight array by changing their intensity
+     */
     toggleLights(value) {
         if (value) {
             for (let index = 0; index < this.roomLights.length; index++) {
@@ -804,12 +808,15 @@ class MyContents {
         }
     }
 
+    /**
+     *
+     * Moves the curtains in front of the windows
+     */
     moveCurtain(value) {
         this.curtain = value;
 
         if (this.window !== null) {
             this.window.moveCurtains(this.curtain);
-            this.windowLight.angle = (Math.PI / 4) * (1 - value);
         }
     }
 

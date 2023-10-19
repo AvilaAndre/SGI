@@ -47,14 +47,12 @@ class MyGuiInterface {
             .add(this.app, "activeCameraName", cameras)
             .name("active camera");
 
-        // note that we are using a property from the app
         cameraFolder
             .add(this.app.activeCamera.position, "x", 0, 10)
             .name("x coord");
         cameraFolder.open();
 
         // adds a folder to the gui interface for controlling the plane's texture parameters/properties
-
         const textureFolder = this.datgui.addFolder("Plane Texture");
 
         textureFolder
