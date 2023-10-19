@@ -66,6 +66,7 @@ class MyCakeSlice extends THREE.Object3D {
             Math.PI / 4
         );
 
+        //Chenging the cakes colour, for the different icings
         ["#805A46", "#FFF6DF", "#FEC5E5"].forEach((color, index) => {
             let cakeMaterial = new THREE.MeshPhongMaterial({
                 color,
