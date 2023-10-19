@@ -113,10 +113,10 @@ class MyGuiInterface {
 
         const lightsFolder = this.datgui.addFolder("Lights");
 
-        // const lightsData = {
-        //     wallLampsColor: this.contents.wallLampsColor,
-        //     wallLampsIntensity: this.contents.wallLampsIntensity,
-        // };
+        const lightsData = {
+            wallLampsColor: this.contents.wallLampsColor,
+            wallLampsIntensity: this.contents.wallLampsIntensity,
+        };
 
         lightsFolder
             .add(this.contents, "lightsOn")
@@ -132,21 +132,21 @@ class MyGuiInterface {
             })
             .name("Move Curtains");
 
-        // const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
+        const wallLampsFolder = lightsFolder.addFolder("Wall Lamps");
 
-        // wallLampsFolder
-        //     .addColor(lightsData, "wallLampsColor")
-        //     .onChange((value) => {
-        //         this.contents.updateWallLampsColor(value);
-        //     })
-        //     .name("Wall Lamps Color");
+        wallLampsFolder
+            .addColor(lightsData, "wallLampsColor")
+            .onChange((value) => {
+                this.contents.updateWallLampsColor(value);
+            })
+            .name("Wall Lamps Color");
 
-        // wallLampsFolder
-        //     .add(lightsData, "wallLampsIntensity", 0, 20)
-        //     .onChange((value) => {
-        //         this.contents.updateWallLampsIntensity(value);
-        //     })
-        //     .name("Wall Lamps Intensity");
+        wallLampsFolder
+            .add(lightsData, "wallLampsIntensity", 0, 20)
+            .onChange((value) => {
+                this.contents.updateWallLampsIntensity(value);
+            })
+            .name("Wall Lamps Intensity");
     }
 }
 

@@ -18,6 +18,7 @@ import { MyVase } from "./MyObjects/MyVase.js";
 import { MyJournal } from "./MyObjects/MyJournal.js";
 import { MyTV } from "./MyObjects/MyTV.js";
 import { MySideboard } from "./MyObjects/MySideboard.js";
+import { MyWallLamp } from "./MyObjects/MyWallLamp.js";
 
 /**
  *  This class contains the contents of out application
@@ -209,7 +210,7 @@ class MyContents {
         }
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight(0x555555, 12);
+        const ambientLight = new THREE.AmbientLight(0x555555, 0.4);
         this.app.scene.add(ambientLight);
 
         this.buildBox();
@@ -580,7 +581,7 @@ class MyContents {
 
         this.app.scene.add(this.wallWithFramesGroup);
 
-        /*if (this.wallLamps == null) {
+        if (this.wallLamps == null) {
             this.wallLamps = new THREE.Group();
 
             const positions = [
@@ -645,7 +646,7 @@ class MyContents {
             }
 
             this.app.scene.add(this.wallLamps);
-        }*/
+        }
 
         if (this.beetle == null) {
             this.beetle = new MyBeetle(this);
