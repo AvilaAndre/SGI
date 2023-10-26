@@ -13,6 +13,12 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        // global settings
+        this.background = null;
+        this.ambient = null;
+        // materials
+        this.materials = [];
+
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/demo.xml");		
@@ -28,6 +34,10 @@ class MyContents  {
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
         }
+
+        // TODO: Init Background
+
+        // TODO: Init Ambient
     }
 
     /**
@@ -48,11 +58,15 @@ class MyContents  {
         // refer to descriptors in class MySceneData.js
         // to see the data structure for each item
 
-        this.output(data.options)
+        // this.output(data.options)
+
+        this.setOptions(data.options)
+
         console.log("textures:")
         for (var key in data.textures) {
             let texture = data.textures[key]
             this.output(texture, 1)
+            this.addTexture(texture)
         }
 
         console.log("materials:")
@@ -88,6 +102,16 @@ class MyContents  {
 
     update() {
         
+    }
+
+    setOptions(options) {
+        this.background = JSON.stringify(options.background) || 0;
+        this.ambient = JSON.stringify(options.ambient) || 0;
+    }
+
+    addTexture(texture) {
+        let textureObj = JSON.parse(JSON.stringify(texture))
+        console.log('TEXTURE' + JSON.parse(JSON.stringify(texture)).id) 
     }
 }
 
