@@ -20,6 +20,8 @@ class MyContents {
         this.textures = new Object();
         // materials
         this.materials = [];
+        //cameras
+        this.cameras = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
@@ -86,6 +88,7 @@ class MyContents {
         for (var key in data.cameras) {
             let camera = data.cameras[key];
             this.output(camera, 1);
+            this.addCamera(camera);
         }
 
         console.log("nodes:");
@@ -143,6 +146,43 @@ class MyContents {
         );
 
         this.textures[texture.id] = newTexture;
+    }
+
+    addCamera(camera) {
+        let newCamera = undefined;
+
+        if (camera.type == "perspective") {
+            newCamera = new THREE.PerspectiveCamera(
+                camera.angle,
+                undefined,
+                camera.near,
+                camera.far
+            );
+        } else if (camera.type == "orthogonal") {
+            newCamera = new THREE.OrthographicCamera(
+                camera.left,
+                camera.right,
+                camera.top,
+                camera.bottom,
+                camera.near,
+                camera.far
+            );
+        } else return;
+
+        newCamera.position.set(
+            camera.location[0],
+            camera.location[1],
+            camera.location[2]
+        );
+
+        const target = new THREE.Object3D();
+        target.position.set(
+            camera.target[0],
+            camera.target[1],
+            camera.target[2]
+        );
+
+        this.cameras[camera.id] = newCamera;
     }
 }
 
