@@ -182,6 +182,8 @@ class MyContents {
             camera.target[2]
         );
 
+        newCamera.target = target;
+
         this.cameras[camera.id] = newCamera;
     }
 }
