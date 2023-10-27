@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MyAxis } from "./MyAxis.js";
 import { MyFileReader } from "./parser/MyFileReader.js";
+import * as Utils from "./MyUtils.js";
 /**
  *  This class contains the contents of out application
  */
@@ -134,10 +135,8 @@ class MyContents {
             undefined,
             undefined,
             undefined,
-            texture.magFilter == "LinearFilter"
-                ? THREE.LinearFilter
-                : THREE.NearestFilter,
-            texture.minFilter, // This is a string instead of the actual value
+            Utils.getMagFilterFromString(texture.magFilter),
+            Utils.getMinFilterFromString(texture.minFilter),
             undefined,
             undefined,
             texture.anisotropy
