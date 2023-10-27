@@ -18,7 +18,7 @@ class MyContents {
         // textures
         this.textures = new Object();
         // materials
-        this.materials = [];
+        this.materials = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
@@ -79,6 +79,7 @@ class MyContents {
         for (var key in data.materials) {
             let material = data.materials[key];
             this.output(material, 1);
+            this.addMaterial(material);
         }
 
         console.log("cameras:");
@@ -144,6 +145,15 @@ class MyContents {
         );
 
         this.textures[texture.id] = newTexture;
+    }
+
+    addMaterial(material){
+        const newMaterial = new THREE.MeshBasicMaterial({
+            color: material.diffuse,
+            wireframe: true,
+        });
+
+        this.materials[material.id] = newMaterial;
     }
 }
 
