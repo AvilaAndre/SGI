@@ -34,10 +34,6 @@ class MyGuiInterface {
         cameraFolder
             .add(this.app, "activeCameraName", Object.keys(this.app.cameras))
             .name("active camera");
-
-        cameraFolder
-            .add(this.app.activeCamera.position, "x", 0, 10)
-            .name("x coord");
         cameraFolder.open();
     }
 }

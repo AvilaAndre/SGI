@@ -21,7 +21,7 @@ class MyContents {
         // materials
         this.materials = [];
         //cameras
-        this.cameras = new Utils.Dictionary();
+        this.cameras = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
@@ -127,7 +127,6 @@ class MyContents {
         // add cameras to the app object
         this.app.addCameras(this.cameras);
 
-        
         // reinitialize gui
         this.app.gui.init();
     }
@@ -155,6 +154,11 @@ class MyContents {
         this.textures[texture.id] = newTexture;
     }
 
+    /**
+     *
+     * @param {CameraData} camera
+     * creates a camera based on the data received and adds to the cameras array
+     */
     addCamera(camera) {
         let newCamera = undefined;
 
@@ -191,7 +195,7 @@ class MyContents {
 
         newCamera.target = target;
 
-        this.cameras.add(camera.id, newCamera);
+        this.cameras[camera.id] = newCamera;
     }
 }
 

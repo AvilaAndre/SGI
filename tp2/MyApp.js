@@ -3,7 +3,6 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { MyContents } from "./MyContents.js";
 import { MyGuiInterface } from "./MyGuiInterface.js";
 import Stats from "three/addons/libs/stats.module.js";
-import { Dictionary } from "./MyUtils.js";
 
 /**
  * This class contains the application object
@@ -186,8 +185,8 @@ class MyApp {
      * @param {Dictionary}
      */
     addCameras(cameras) {
-        cameras.keys().forEach((key) => {
-            this.cameras[key] = cameras.values()[key];
+        Object.keys(cameras).forEach((key) => {
+            this.cameras[key] = cameras[key];
         });
     }
 
