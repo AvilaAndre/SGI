@@ -37,3 +37,24 @@ export function getMinFilterFromString(minFilter) {
             return undefined;
     }
 }
+
+export class Dictionary {
+    constructor() {
+        this.__keys = new Set();
+        this.__values = new Object();
+    }
+
+    add = (key, value) => {
+        this.__keys.add(key);
+
+        this.__values[key] = value;
+    };
+
+    keys = () => {
+        return [...this.__keys];
+    };
+
+    values = () => {
+        return this.__values;
+    };
+}

@@ -21,7 +21,7 @@ class MyContents {
         // materials
         this.materials = [];
         //cameras
-        this.cameras = new Object();
+        this.cameras = new Utils.Dictionary();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
@@ -123,6 +123,13 @@ class MyContents {
                 }
             }
         }
+
+        // add cameras to the app object
+        this.app.addCameras(this.cameras);
+
+        
+        // reinitialize gui
+        this.app.gui.init();
     }
 
     update() {}
@@ -184,7 +191,7 @@ class MyContents {
 
         newCamera.target = target;
 
-        this.cameras[camera.id] = newCamera;
+        this.cameras.add(camera.id, newCamera);
     }
 }
 
