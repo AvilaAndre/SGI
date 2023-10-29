@@ -144,13 +144,33 @@ class MyContents {
         );
 
         this.textures[texture.id] = newTexture;
+
     }
 
+
+
     addMaterial(material){
-        const newMaterial = new THREE.MeshBasicMaterial({
-            color: material.diffuse,
-            wireframe: true,
+        // Create a THREE.Color object with RGB values
+        const materialColor = new THREE.Color(material.color.r / 255, material.color.g / 255, material.color.b / 255);
+
+        // Get the hexadecimal representation of the color
+        const hex = materialColor.getHexString();
+        console.log("Material!", material);
+        console.log("Material color!", material.color);
+        console.log("r!", material.color.r);
+        console.log("map: ", material.textureref);
+        const newMaterial = new THREE.MeshPhongMaterial({
+            color: materialColor,
+            specular: material.specular ? material.specular : "#000000",
+            emissive: material.emissive ? material.emissive : "#000000",
+            map: material.textureref ? this.textures[material.textureref] : undefined,
+                        
         });
+
+        const materialMesh = new THREE.Mesh(
+
+            newMaterial
+        );
 
         this.materials[material.id] = newMaterial;
     }
