@@ -22,6 +22,8 @@ class MyContents {
         this.materials = [];
         //cameras
         this.cameras = new Object();
+        //nodes
+        this.nodes = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
@@ -92,11 +94,16 @@ class MyContents {
         }
 
         console.log("nodes:");
+        console.log("DEBUG: ", data);
         for (var key in data.nodes) {
             let node = data.nodes[key];
+
+            const nodeObj = new THREE.Object3D();
             this.output(node, 1);
+            this.applyTransformations(nodeObj, node.transformations);
             for (let i = 0; i < node.children.length; i++) {
                 let child = node.children[i];
+
                 if (child.type === "primitive") {
                     console.log(
                         "" +
@@ -109,6 +116,10 @@ class MyContents {
                             child.subtype +
                             " representation(s)"
                     );
+                    const geometry = this.createPrimitive(child);
+
+                    nodeObj.add(new THREE.Mesh(geometry));
+
                     if (child.subtype === "nurbs") {
                         console.log(
                             "" +
@@ -120,12 +131,16 @@ class MyContents {
                     }
                 } else {
                     this.output(child, 2);
+                    //node ref!
                 }
             }
+
+            this.app.scene.add(this.nodes[data.rootId]);
         }
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
+        this.app.setActiveCamera(data.activeCameraId);
 
         // reinitialize gui
         this.app.gui.init();
@@ -196,6 +211,43 @@ class MyContents {
         newCamera.target = target;
 
         this.cameras[camera.id] = newCamera;
+    }
+
+    createPrimitive(child) {
+        if (child.subtype == "cylinder") {
+            return new THREE.CylinderGeometry(
+                child.representations["top"],
+                child.representations["base"],
+                child.representations["height"],
+                child.representations["slices"],
+                child.representations["stacks"],
+                child.representations["capsclose"],
+                child.representations["thetastart"],
+                child.representations["thetalength"]
+            );
+        }
+    }
+
+    applyTransformations(node, transformations) {
+        transformations.forEach((key) => {
+            switch (key.type) {
+                case "T":
+                    node.position.x += key.translate[0];
+                    node.position.y += key.translate[1];
+                    node.position.z += key.translate[2];
+                    break;
+                case "S":
+                    node.scale.x += key.scale[0];
+                    node.scale.y += key.scale[1];
+                    node.scale.z += key.scale[2];
+                    break;
+                case "R":
+                    node.rotation.x += key.rotation[0];
+                    node.rotation.y += key.rotation[1];
+                    node.rotation.z += key.rotation[2];
+                    break;
+            }
+        });
     }
 }
 

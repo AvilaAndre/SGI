@@ -28,6 +28,7 @@ class MyGuiInterface {
      * Initialize the gui interface
      */
     init() {
+        if (this.datgui != undefined) this.datgui.destroy();
         this.datgui = new GUI();
 
         const cameraFolder = this.datgui.addFolder("Camera");
