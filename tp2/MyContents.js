@@ -27,6 +27,9 @@ class MyContents {
         //nodes
         this.nodes = new Object();
 
+        //lights
+        this.lights = new Object();
+
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/demo/demo.xml");
     }
@@ -98,6 +101,7 @@ class MyContents {
 
         console.log("nodes:");
         for (var key in data.nodes) {
+            console.log("data:", data)
             let node = data.nodes[key];
             this.output(node, 1);
 
@@ -108,6 +112,8 @@ class MyContents {
             this.applyTransformations(nodeObj, node.transformations);
             for (let i = 0; i < node.children.length; i++) {
                 let child = node.children[i];
+                console.log("características child:", child)
+                console.log("caracteristicas node!:", node)
 
                 if (child.type === "primitive") {
                     console.log(
@@ -135,7 +141,25 @@ class MyContents {
                     const geometry = this.createPrimitive(child);
 
                     if (geometry !== undefined)
+                    console.log("materials!: ", this.materials);
+                    console.log("materials specific: ", this.materials["tableApp"]);
+                    console.log("dentro do último if:")
+                    console.log("child: ", child);
+                    console.log("nodeObj: ", nodeObj);
+                    console.log("node:", node);
+                    console.log("node materialsID:", node.materialIds);
+                    console.log("node materialIds 0: ", node.materialIds[0]);
+                    console.log("this.materials[node.materialIds[0]]: ", this.materials[node.materialIds[0]])
+                    if(node.materialIds.length > 0){
+                        this.newMaterial = this.materials[node.materialIds[0]];
+                        console.log("newMaterial: ", this.newMaterial);
+                        console.log("texturas:", this.textures);
+                        nodeObj.add(new THREE.Mesh(geometry, this.newMaterial));
+                        
+                    } else{
                         nodeObj.add(new THREE.Mesh(geometry));
+                    }
+                        
                 } else {
                     this.output(child, 2);
 
@@ -148,13 +172,16 @@ class MyContents {
         this.resolveHierarchy(data.rootId);
 
         this.app.scene.add(this.nodes[data.rootId]);
+        const ambientLight = new THREE.AmbientLight(0x000000, 20);
+        this.app.scene.add(ambientLight);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
 
         // reinitialize gui
-        this.app.gui.init();
+
+        //this.app.gui.init();
     }
 
     update() {}
@@ -193,20 +220,23 @@ class MyContents {
         console.log("Material color!", material.color);
         console.log("r!", material.color.r);
         console.log("map: ", material.textureref);
+        console.log("map2: ", this.textures[material.textureref]);
+        if(material.twosided == "true"){
+            this.intSides= 2;
+        } else{
+            this.intSides = 1;
+        }
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
-            specular: material.specular ? material.specular : "#000000",
-            emissive: material.emissive ? material.emissive : "#000000",
-            map: material.textureref ? this.textures[material.textureref] : undefined,
-            shininess: material.shininess ? material.shininess : 10,          
+            specular: material.specular,
+            emissive: material.emissive,
+            map: this.textures[material.textureref],
+            shininess: material.shininess,
+            //Not sure if is supossed to be this way
+            //forceSinglePass: this.intSides,     
         });
 
-        const materialMesh = new THREE.Mesh(
 
-            newMaterial
-        );
-
-        material.map.repeat.set(texlength_s, texlength_t)
 
         this.materials[material.id] = newMaterial;
     }
