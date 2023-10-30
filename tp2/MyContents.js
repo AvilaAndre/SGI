@@ -95,12 +95,14 @@ class MyContents {
         }
 
         console.log("nodes:");
-        console.log("DEBUG: ", data);
         for (var key in data.nodes) {
             let node = data.nodes[key];
+            this.output(node, 1);
 
             const nodeObj = new THREE.Object3D();
-            this.output(node, 1);
+
+            nodeObj.children_refs = [];
+
             this.applyTransformations(nodeObj, node.transformations);
             for (let i = 0; i < node.children.length; i++) {
                 let child = node.children[i];
@@ -117,12 +119,6 @@ class MyContents {
                             child.subtype +
                             " representation(s)"
                     );
-                    const geometry = this.createPrimitive(child);
-
-                    if (geometry !== undefined)
-                        nodeObj.add(new THREE.Mesh(geometry));
-
-                    this.app.scene.add(nodeObj);
 
                     if (child.subtype === "nurbs") {
                         console.log(
@@ -133,13 +129,23 @@ class MyContents {
                                 " control points"
                         );
                     }
+
+                    const geometry = this.createPrimitive(child);
+
+                    if (geometry !== undefined)
+                        nodeObj.add(new THREE.Mesh(geometry));
                 } else {
                     this.output(child, 2);
-                    //node ref!
+
+                    nodeObj.children_refs.push(child.id);
                 }
+                this.nodes[key] = nodeObj;
             }
         }
-        //this.app.scene.add(this.nodes[data.rootId]);
+
+        this.resolveHierarchy(data.rootId);
+
+        this.app.scene.add(this.nodes[data.rootId]);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -232,12 +238,20 @@ class MyContents {
             const point1 = child.representations[0]["xy1"];
             const point2 = child.representations[0]["xy2"];
 
-            return new THREE.PlaneGeometry(
+            const geometry = new THREE.PlaneGeometry(
                 point2[0] - point1[0],
                 point2[1] - point1[1],
                 child.representations["parts_x"],
                 child.representations["parts_y"]
             );
+
+            geometry.translate(
+                (point2[0] + point1[0]) / 2,
+                (point2[1] + point1[1]) / 2,
+                0
+            );
+
+            return geometry;
         } else if (child.subtype === "triangle") {
             return new THREE.Triangle(
                 new Vector3(
@@ -320,17 +334,51 @@ class MyContents {
                     node.position.z += key.translate[2];
                     break;
                 case "S":
-                    node.scale.x += key.scale[0];
-                    node.scale.y += key.scale[1];
-                    node.scale.z += key.scale[2];
+                    node.scale.x *= key.scale[0];
+                    node.scale.y *= key.scale[1];
+                    node.scale.z *= key.scale[2];
                     break;
                 case "R":
-                    node.rotation.x += key.rotation[0];
-                    node.rotation.y += key.rotation[1];
-                    node.rotation.z += key.rotation[2];
+                    node.rotation.x += key.rotation[0] * (Math.PI / 180);
+                    node.rotation.y += key.rotation[1] * (Math.PI / 180);
+                    node.rotation.z += key.rotation[2] * (Math.PI / 180);
                     break;
             }
         });
+    }
+
+    resolveHierarchy(rootId) {
+        if (this.nodes === undefined) return;
+
+        this.visitNode(rootId);
+    }
+
+    visitNode(node_ref) {
+        const node = this.nodes[node_ref];
+        if (node === undefined) {
+            console.warn("node", node_ref, "not found");
+            return;
+        }
+        for (let i = 0; i < node.children_refs.length; i++) {
+            const child_ref = node.children_refs[i];
+
+            this.visitNode(child_ref);
+
+            const child_node = this.nodes[child_ref];
+
+            if (child_node === undefined) {
+                console.warn("node", child_ref, "not found");
+                continue;
+            }
+            if (child_node.parent === null) {
+                child_node.parent = node;
+                node.add(child_node);
+            } else {
+                const new_child_node = child_node.clone();
+                new_child_node.parent = node;
+                node.add(new_child_node);
+            }
+        }
     }
 }
 
