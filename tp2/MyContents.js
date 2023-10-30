@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { MyAxis } from "./MyAxis.js";
 import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
+import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
 /**
  *  This class contains the contents of out application
  */
@@ -96,12 +97,14 @@ class MyContents {
         }
 
         console.log("nodes:");
-        console.log("DEBUG: ", data);
         for (var key in data.nodes) {
             let node = data.nodes[key];
+            this.output(node, 1);
 
             const nodeObj = new THREE.Object3D();
-            this.output(node, 1);
+
+            nodeObj.children_refs = [];
+
             this.applyTransformations(nodeObj, node.transformations);
             for (let i = 0; i < node.children.length; i++) {
                 let child = node.children[i];
@@ -118,9 +121,6 @@ class MyContents {
                             child.subtype +
                             " representation(s)"
                     );
-                    const geometry = this.createPrimitive(child);
-
-                    nodeObj.add(new THREE.Mesh(geometry));
 
                     if (child.subtype === "nurbs") {
                         console.log(
@@ -131,14 +131,23 @@ class MyContents {
                                 " control points"
                         );
                     }
+
+                    const geometry = this.createPrimitive(child);
+
+                    if (geometry !== undefined)
+                        nodeObj.add(new THREE.Mesh(geometry));
                 } else {
                     this.output(child, 2);
-                    //node ref!
-                }
-            }
 
-            this.app.scene.add(this.nodes[data.rootId]);
+                    nodeObj.children_refs.push(child.id);
+                }
+                this.nodes[key] = nodeObj;
+            }
         }
+
+        this.resolveHierarchy(data.rootId);
+
+        this.app.scene.add(this.nodes[data.rootId]);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -247,18 +256,106 @@ class MyContents {
     }
 
     createPrimitive(child) {
-        if (child.subtype == "cylinder") {
+        if (child.subtype === "cylinder") {
             return new THREE.CylinderGeometry(
-                child.representations["top"],
-                child.representations["base"],
-                child.representations["height"],
+                child.representations[0]["top"],
+                child.representations[0]["base"],
+                child.representations[0]["height"],
+                child.representations[0]["slices"],
+                child.representations[0]["stacks"],
+                child.representations[0]["capsclose"],
+                child.representations[0]["thetastart"],
+                child.representations[0]["thetalength"]
+            );
+        } else if (child.subtype === "rectangle") {
+            const point1 = child.representations[0]["xy1"];
+            const point2 = child.representations[0]["xy2"];
+
+            const geometry = new THREE.PlaneGeometry(
+                point2[0] - point1[0],
+                point2[1] - point1[1],
+                child.representations["parts_x"],
+                child.representations["parts_y"]
+            );
+
+            geometry.translate(
+                (point2[0] + point1[0]) / 2,
+                (point2[1] + point1[1]) / 2,
+                0
+            );
+
+            return geometry;
+        } else if (child.subtype === "triangle") {
+            return new THREE.Triangle(
+                new Vector3(
+                    child.representations[0]["xyz1"][0],
+                    child.representations[0]["xyz1"][1],
+                    child.representations[0]["xyz1"][2]
+                ),
+                new Vector3(
+                    child.representations[0]["xyz2"][0],
+                    child.representations[0]["xyz2"][1],
+                    child.representations[0]["xyz2"][2]
+                ),
+                new Vector3(
+                    child.representations[0]["xyz3"][0],
+                    child.representations[0]["xyz3"][1],
+                    child.representations[0]["xyz3"][2]
+                )
+            );
+        } else if (child.subtype === "sphere") {
+            return new THREE.SphereGeometry(
+                child.representations["radius"],
                 child.representations["slices"],
                 child.representations["stacks"],
-                child.representations["capsclose"],
+                child.representations["phistart"],
+                child.representations["philength"],
                 child.representations["thetastart"],
                 child.representations["thetalength"]
             );
+        } else if (child.subtype === "nurbs") {
+            const degree_v = child.representations[0]["degree_v"];
+            const degree_u = child.representations[0]["degree_u"];
+            const num_pts = child.representations[0].controlpoints.length;
+            const controlpoints = [];
+
+            for (let i = 0; i < num_pts / (degree_u + 1); i++) {
+                const pt_to_add = [];
+                for (let j = 0; j < degree_v + 1; j++) {
+                    const point =
+                        child.representations[0].controlpoints[
+                            i * (degree_u + 1) + j
+                        ];
+                    pt_to_add.push([point.xx, point.yy, point.zz]);
+                }
+                controlpoints.push(pt_to_add);
+            }
+
+            return new MyNurbsBuilder().build(
+                controlpoints,
+                degree_u,
+                degree_v,
+                child.representations[0]["parts_u"],
+                child.representations[0]["parts_v"]
+            );
+        } else if (child.subtype === "box") {
+            const point1 = child.representations[0]["xyz1"];
+            const point2 = child.representations[0]["xyz2"];
+
+            return new THREE.BoxGeometry(
+                point2[0] - point1[0],
+                point2[1] - point1[1],
+                point2[2] - point1[2],
+                child.representations["parts_x"],
+                child.representations["parts_y"],
+                child.representations["parts_z"]
+            );
+        } else {
+            console.error("Can't create primitive: ", child.subtype);
+            return undefined;
         }
+        // ("model3d");
+        // ("skybox");
     }
 
     applyTransformations(node, transformations) {
@@ -270,17 +367,51 @@ class MyContents {
                     node.position.z += key.translate[2];
                     break;
                 case "S":
-                    node.scale.x += key.scale[0];
-                    node.scale.y += key.scale[1];
-                    node.scale.z += key.scale[2];
+                    node.scale.x *= key.scale[0];
+                    node.scale.y *= key.scale[1];
+                    node.scale.z *= key.scale[2];
                     break;
                 case "R":
-                    node.rotation.x += key.rotation[0];
-                    node.rotation.y += key.rotation[1];
-                    node.rotation.z += key.rotation[2];
+                    node.rotation.x += key.rotation[0] * (Math.PI / 180);
+                    node.rotation.y += key.rotation[1] * (Math.PI / 180);
+                    node.rotation.z += key.rotation[2] * (Math.PI / 180);
                     break;
             }
         });
+    }
+
+    resolveHierarchy(rootId) {
+        if (this.nodes === undefined) return;
+
+        this.visitNode(rootId);
+    }
+
+    visitNode(node_ref) {
+        const node = this.nodes[node_ref];
+        if (node === undefined) {
+            console.warn("node", node_ref, "not found");
+            return;
+        }
+        for (let i = 0; i < node.children_refs.length; i++) {
+            const child_ref = node.children_refs[i];
+
+            this.visitNode(child_ref);
+
+            const child_node = this.nodes[child_ref];
+
+            if (child_node === undefined) {
+                console.warn("node", child_ref, "not found");
+                continue;
+            }
+            if (child_node.parent === null) {
+                child_node.parent = node;
+                node.add(child_node);
+            } else {
+                const new_child_node = child_node.clone();
+                new_child_node.parent = node;
+                node.add(new_child_node);
+            }
+        }
     }
 }
 
