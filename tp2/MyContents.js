@@ -114,6 +114,7 @@ class MyContents {
                 let child = node.children[i];
                 console.log("características child:", child)
                 console.log("caracteristicas node!:", node)
+                console.log("node.id: ", node.id);
 
                 if (child.type === "primitive") {
                     console.log(
@@ -160,7 +161,20 @@ class MyContents {
                         nodeObj.add(new THREE.Mesh(geometry));
                     }
                         
-                } else {
+                } else if(child.type == 'pointlight'){
+                    this.addPointligth(child);
+                    console.log("child: ", child);
+                    console.log("luzinha: ", this.lights[child.id]);
+            
+                    //this.lights[child.id];
+                    //this.app.scene.add(light);
+                } else if(child.type == 'spotlight'){
+                    this.addSpotligth(child);
+
+                } else if(child.type == 'directionallight'){
+                    this.addDirectionalligth(child);
+
+                }else {
                     this.output(child, 2);
 
                     nodeObj.children_refs.push(child.id);
@@ -172,8 +186,8 @@ class MyContents {
         this.resolveHierarchy(data.rootId);
 
         this.app.scene.add(this.nodes[data.rootId]);
-        const ambientLight = new THREE.AmbientLight(0x000000, 20);
-        this.app.scene.add(ambientLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 20);
+        //this.app.scene.add(ambientLight);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -192,17 +206,11 @@ class MyContents {
     }
 
     addTexture(texture) {
-        const newTexture = new THREE.Texture(
-            texture.filepath,
-            undefined,
-            undefined,
-            undefined,
-            Utils.getMagFilterFromString(texture.magFilter),
-            Utils.getMinFilterFromString(texture.minFilter),
-            undefined,
-            undefined,
-            texture.anisotropy
-        );
+        const newTexture = new THREE.TextureLoader().load(texture.filepath);
+
+        newTexture.magFilter = Utils.getMagFilterFromString(texture.magFilter);
+        newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
+        newTexture.anisotropy = texture.anisotropy;
 
         this.textures[texture.id] = newTexture;
 
@@ -223,7 +231,7 @@ class MyContents {
         console.log("map2: ", this.textures[material.textureref]);
         if(material.twosided == "true"){
             this.intSides= 2;
-        } else{
+        } else if (material.twosided == null){
             this.intSides = 1;
         }
         const newMaterial = new THREE.MeshPhongMaterial({
@@ -232,14 +240,90 @@ class MyContents {
             emissive: material.emissive,
             map: this.textures[material.textureref],
             shininess: material.shininess,
-            //Not sure if is supossed to be this way
-            //forceSinglePass: this.intSides,     
+   
         });
 
-
+        newMaterial.side = this.intSides;
 
         this.materials[material.id] = newMaterial;
     }
+
+    
+    addPointligth(light) {
+        //const positionArray = positionString.split(" ").map(Number);
+
+        // Now, positionArray contains the individual components as numbers
+        const x = light.position[0];
+        const y = light.position[1];
+        const z = light.position[2];
+        console.log("x!: ", x);
+        console.log("y!: ", y);
+        console.log("z!: ", z);
+        const lightColor = new THREE.Color(light.color.r / 255, light.color.g / 255, light.color.b / 255);
+        const newLight = new THREE.PointLight(
+            lightColor, 
+            light.intensity,
+            light.distance, 
+            light.decay);
+        newLight.castShadow = light.castShadows;
+        newLight.position.set(x, y, z);
+        
+
+        this.nodes[light.id] = newLight;
+
+    }
+
+    addSpotligth(light) {
+        //const positionArray = positionString.split(" ").map(Number);
+
+        // Now, positionArray contains the individual components as numbers
+        const x = light.position[0];
+        const y = light.position[1];
+        const z = light.position[2];
+        console.log("x!: ", x);
+        console.log("y!: ", y);
+        console.log("z!: ", z);
+        const lightColor = new THREE.Color(light.color.r / 255, light.color.g / 255, light.color.b / 255);
+        const newLight = new THREE.SpotLight(
+            lightColor, 
+            light.intensity,
+            light.distance,
+            light.angle,
+            light.penumbra, 
+            light.decay);
+        newLight.castShadow = light.castShadows;
+        newLight.target.position.set(light.target[0], light.target[2]);
+        newLight.position.set(x, y, z);
+        
+
+        this.nodes[light.id] = newLight;
+
+    }
+
+    
+    addDirectionalligth(light) {
+        //const positionArray = positionString.split(" ").map(Number);
+
+        // Now, positionArray contains the individual components as numbers
+        const x = light.position[0];
+        const y = light.position[1];
+        const z = light.position[2];
+        console.log("x!: ", x);
+        console.log("y!: ", y);
+        console.log("z!: ", z);
+        const lightColor = new THREE.Color(light.color.r / 255, light.color.g / 255, light.color.b / 255);
+        const newLight = new THREE.DirectionalLight(
+            lightColor, 
+            light.intensity)
+
+        newLight.castShadow = light.castShadows;
+        newLight.position.set(x, y, z);
+        
+
+        this.nodes[light.id] = newLight;
+
+    }
+
 
     /**
      *
