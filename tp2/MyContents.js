@@ -189,13 +189,15 @@ class MyContents {
             specular: material.specular ? material.specular : "#000000",
             emissive: material.emissive ? material.emissive : "#000000",
             map: material.textureref ? this.textures[material.textureref] : undefined,
-                        
+            shininess: material.shininess ? material.shininess : 10,          
         });
 
         const materialMesh = new THREE.Mesh(
 
             newMaterial
         );
+
+        material.map.repeat.set(texlength_s, texlength_t)
 
         this.materials[material.id] = newMaterial;
     }
