@@ -510,7 +510,10 @@ class MyContents {
                 continue;
             }
 
-            if(node.materialIds !== undefined && node.materialIds.length > 0){
+
+
+            if(child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
+                console.log("child_node.materialIds no visitNode:", child_node.materialIds);
                 child_node.materialIds = node.materialIds;
                 console.log("entretanto child.node no visitNode");
             }
