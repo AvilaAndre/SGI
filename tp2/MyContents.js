@@ -103,6 +103,7 @@ class MyContents {
         for (var key in data.nodes) {
             console.log("data:", data)
             let node = data.nodes[key];
+            console.log("node!: ", node);
             this.output(node, 1);
 
             const nodeObj = new THREE.Object3D();
@@ -112,9 +113,8 @@ class MyContents {
             this.applyTransformations(nodeObj, node.transformations);
             for (let i = 0; i < node.children.length; i++) {
                 let child = node.children[i];
-                console.log("características child:", child)
-                console.log("caracteristicas node!:", node)
-                console.log("node.id: ", node.id);
+
+                console.log("child!: ", child);
 
                 if (child.type === "primitive") {
                     console.log(
@@ -141,46 +141,29 @@ class MyContents {
 
                     const geometry = this.createPrimitive(child);
 
-                    if (geometry !== undefined)
-                    console.log("materials!: ", this.materials);
-                    console.log("materials specific: ", this.materials["tableApp"]);
-                    console.log("dentro do último if:")
-                    console.log("child: ", child);
-                    console.log("nodeObj: ", nodeObj);
-                    console.log("node:", node);
-                    console.log("node materialsID:", node.materialIds);
-                    console.log("node materialIds 0: ", node.materialIds[0]);
-                    console.log("this.materials[node.materialIds[0]]: ", this.materials[node.materialIds[0]])
+                    if (geometry !== undefined){
+                   
                     if(node.materialIds.length > 0){
                         this.newMaterial = this.materials[node.materialIds[0]];
-                        console.log("newMaterial: ", this.newMaterial);
-                        console.log("texturas:", this.textures);
+
                         nodeObj.add(new THREE.Mesh(geometry, this.newMaterial));
+                        console.log("nodeObj!: ", nodeObj);
                         
                     } else{
                         nodeObj.add(new THREE.Mesh(geometry));
-                    }
+                    }}
                         
                 } else if(child.type === "pointlight"){
-                    console.log("child.type: ", child.type);
                     const light = this.addPointlight(child);
                     nodeObj.add(light);
-                    console.log("child: ", child);
-                    console.log("luzinha pointlight: ", this.nodes[child.id]);
-                    
-                    //this.lights[child.id];
-                    //this.app.scene.add(light);
-                } else if(child.type === "spotlight"){
 
+                } else if(child.type === "spotlight"){
                     const light = this.addSpotlight(child);
                     nodeObj.add(light);
-                    console.log("luzinha spotlight: ", this.nodes[child.id]);
 
                 } else if(child.type === "directionallight"){
-
                     const light = this.addDirectionallight(child);
                     nodeObj.add(light);
-                    console.log("luzinha directionallight: ", this.nodes[child.id]);
 
                 }else {
                     this.output(child, 2);
@@ -194,9 +177,6 @@ class MyContents {
         this.resolveHierarchy(data.rootId);
 
         this.app.scene.add(this.nodes[data.rootId]);
-        console.log("O que foi adicionado: ", this.nodes[data.rootId]);
-        //const ambientLight = new THREE.AmbientLight(0xffffff, 20);
-        //this.app.scene.add(ambientLight);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -229,24 +209,21 @@ class MyContents {
 
     addMaterial(material){
         // Create a THREE.Color object with RGB values
-        const materialColor = new THREE.Color(material.color.r / 255, material.color.g / 255, material.color.b / 255);
+        const materialColor = new THREE.Color(material.color.r, material.color.g, material.color.b);
 
+        console.log("Color has been added!: ", materialColor);
         // Get the hexadecimal representation of the color
         const hex = materialColor.getHexString();
-        console.log("Material!", material);
-        console.log("Material color!", material.color);
-        console.log("r!", material.color.r);
-        console.log("map: ", material.textureref);
-        console.log("map2: ", this.textures[material.textureref]);
-        if(material.twosided == "true"){
-            this.intSides= 2;
-        } else if (material.twosided == null){
-            this.intSides = 1;
+
+        if(material.twosided === true){
+            this.intSides= THREE.DoubleSide;
+        } else{
+            this.intSides = THREE.FrontSide;
         }
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
-            specular: material.specular,
-            emissive: material.emissive,
+            specular: material.emissive,
+            emissive: material.specular,
             map: this.textures[material.textureref],
             shininess: material.shininess,
    
@@ -254,24 +231,23 @@ class MyContents {
 
         newMaterial.side = this.intSides;
 
+        console.log("newMaterial has been added!: ", newMaterial);
+
         this.materials[material.id] = newMaterial;
     }
 
     
     addPointlight(light) {
-        //const positionArray = positionString.split(" ").map(Number);
 
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
-        console.log("x! pointlight: ", x);
-        console.log("y! pointlight: ", y);
-        console.log("z! pointlight: ", z);
+
         const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
         const newLight = new THREE.PointLight(
             lightColor, 
-            light.intensity * 1000,
+            light.intensity,
             light.distance, 
             light.decay);
         newLight.castShadow = light.castshadow;
@@ -283,50 +259,42 @@ class MyContents {
     }
 
     addSpotlight(light) {
-        //const positionArray = positionString.split(" ").map(Number);
 
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
-        console.log("x!: ", x);
-        console.log("y!: ", y);
-        console.log("z!: ", z);
+
         const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
         const newLight = new THREE.SpotLight(
             lightColor, 
-            light.intensity * 1000,
+            light.intensity,
             light.distance,
             light.angle,
             light.penumbra, 
             light.decay);
         newLight.castShadow = light.castshadow;
         newLight.target.position.set(light.target[0], light.target[1], light.target[2]);
-        console.log("target 0: ", light.target[0]);
-        console.log("target 1: ", light.target[1]);
-        console.log("target 2: ", light.target[2]);
+
         newLight.position.set(x, y, z);
         
-
         return newLight;
 
     }
 
     
     addDirectionallight(light) {
-        //const positionArray = positionString.split(" ").map(Number);
+
 
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
-        console.log("x!: ", x);
-        console.log("y!: ", y);
-        console.log("z!: ", z);
+
         const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
         const newLight = new THREE.DirectionalLight(
             lightColor, 
-            light.intensity * 1000)
+            light.intensity)
 
         newLight.castShadow = light.castshadow;
         newLight.position.set(x, y, z);
@@ -513,7 +481,7 @@ class MyContents {
 
     visitNode(node_ref) {
         const node = this.nodes[node_ref];
-        console.log("Visita!: ", node);
+
         if (node === undefined) {
             console.warn("node", node_ref, "not found");
             return;
