@@ -90,6 +90,7 @@ class MyContents {
             let material = data.materials[key];
             this.output(material, 1);
             this.addMaterial(material);
+            console.log("material usado!: ", material);
         }
 
         console.log("cameras:");
@@ -107,6 +108,8 @@ class MyContents {
             this.output(node, 1);
 
             const nodeObj = new THREE.Object3D();
+
+            nodeObj.materialIds = node.materialIds;
 
             nodeObj.children_refs = [];
 
@@ -142,16 +145,19 @@ class MyContents {
                     const geometry = this.createPrimitive(child);
 
                     if (geometry !== undefined){
-                   
-                    if(node.materialIds.length > 0){
+                    //A Fazer: se o node não tiver materials, ir buscar aos do parent
+                    /*if(node.materialIds.length > 0){
                         this.newMaterial = this.materials[node.materialIds[0]];
-
+                        console.log("no primeiro if:", this)
                         nodeObj.add(new THREE.Mesh(geometry, this.newMaterial));
                         console.log("nodeObj!: ", nodeObj);
                         
-                    } else{
-                        nodeObj.add(new THREE.Mesh(geometry));
-                    }}
+                    } else{*/
+                        console.log("nodeObj no else:", nodeObj)
+                        const mesh = new THREE.Mesh(geometry);
+                        nodeObj.add(mesh);
+
+                    }//}
                         
                 } else if(child.type === "pointlight"){
                     const light = this.addPointlight(child);
@@ -476,6 +482,8 @@ class MyContents {
     resolveHierarchy(rootId) {
         if (this.nodes === undefined) return;
 
+        console.log("rootId!: ", this.nodes[rootId]);
+
         this.visitNode(rootId);
     }
 
@@ -486,24 +494,58 @@ class MyContents {
             console.warn("node", node_ref, "not found");
             return;
         }
+
+        //as mesh não fazem parte das children_refs
+
         for (let i = 0; i < node.children_refs.length; i++) {
             const child_ref = node.children_refs[i];
 
-            this.visitNode(child_ref);
-
             const child_node = this.nodes[child_ref];
 
+            console.log("antes child.node no visitNode:", child_node);
+
+            
             if (child_node === undefined) {
                 console.warn("node", child_ref, "not found");
                 continue;
             }
+
+            if(node.materialIds !== undefined && node.materialIds.length > 0){
+                child_node.materialIds = node.materialIds;
+                console.log("entretanto child.node no visitNode");
+            }
+            
+            console.log("depois child.node no visitNode:", child_node);
+
+            this.visitNode(child_ref);
+
             if (child_node.parent === null) {
                 child_node.parent = node;
                 node.add(child_node);
+                
+
             } else {
                 const new_child_node = child_node.clone();
                 new_child_node.parent = node;
+                console.log("node no visitnode!: ", node);
+                console.log("new_child_node!: ", new_child_node);
                 node.add(new_child_node);
+
+            }
+        }
+
+
+
+        for(let j = 0; j < node.children.length; j++){
+            const child = node.children[j];
+
+            console.log("child no visitnode!: ", child);
+            console.log("child.isMesh!: ", child.isMesh);
+
+            //estou a indicar o material da mesh
+            if(child.isMesh === true && (node.materialIds !== undefined && node.materialIds.length > 0)){
+                child.material = this.materials[node.materialIds[0]];
+                console.log("child.material, ou seja, material da mesh!: ", child.material);
             }
         }
     }
