@@ -33,6 +33,10 @@
 		<texture id="floorTex" filepath="roomTextures/colorfulStones.png" />
 		<texture id="tableTex" filepath="roomTextures/wood4.jpg" />
         <texture id="sofaTex" filepath="roomTextures/light_leather.jpg" />
+        <texture id="blueYarnTex" filepath="roomTextures/blueYarn.jpg" />
+        <texture id="redYarnTex" filepath="roomTextures/redYarn.jpg" />
+        <texture id="yellowYarnTex" filepath="roomTextures/yellowYarn.avif" />
+        <texture id="greenYarnTex" filepath="roomTextures/greenYarn.jpg" />
 
     </textures> 
 
@@ -76,6 +80,42 @@
             texlength_t="15" 
             twosided = "true" />
 
+        <material id="blueYarnApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="blueYarnTex" 
+            texlength_s="15" 
+            texlength_t="15" />
+        
+        <material id="redYarnApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="redYarnTex" 
+            texlength_s="15" 
+            texlength_t="15" />
+
+        <material id="yellowYarnApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="yellowYarnTex" 
+            texlength_s="15" 
+            texlength_t="15" />
+
+        <material id="greenYarnApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="greenYarnTex" 
+            texlength_s="15" 
+            texlength_t="15" />
+
 			
     </materials> 
 
@@ -90,7 +130,10 @@
 				<noderef id="floor" /> 
 				<noderef id="table" />
                 <noderef id="sofa" /> 
-                <noderef id="yarn" />
+                <noderef id="blueYarn" />
+                <noderef id="redYarn" />
+                <noderef id="yellowYarn" />
+                <noderef id="greenYarn" />
 				 
 
                 <pointlight id="light1" enabled="true" 
@@ -144,8 +187,9 @@
         <node id="sphere"> 
 
             <transforms>
-				<translate value3="0 0 -0.5" />
+				<translate value3="3 0.4 5" />
 				<rotate value3="0 180.0 0.0" />
+                <scale value3="0.3 0.3 0.3" />
             </transforms> 
 
             <children>   
@@ -393,7 +437,7 @@
 
         </node>
 
-        <node id="yarn">
+        <node id="blueYarn">
 			<transforms>
 				<scale value3="1 1 1" />
             </transforms> 
@@ -401,6 +445,47 @@
             <children>             
                 <noderef id="sphere" />
             </children> 
+
+            <materialref id="blueYarnApp" />
+        </node>
+
+        <node id="redYarn">
+			<transforms>
+				<scale value3="1 1 1" />
+                <translate value3="9 0 7" />
+            </transforms> 
+
+            <children>             
+                <noderef id="sphere" />
+            </children> 
+
+            <materialref id="blueYarnApp" />
+        </node>
+
+        <node id="yellowYarn">
+			<transforms>
+				<scale value3="1 1 1" />
+                <translate value3="4 2.7 4.9" />
+            </transforms> 
+
+            <children>             
+                <noderef id="sphere" />
+            </children> 
+
+            <materialref id="blueYarnApp" />
+        </node>
+
+        <node id="greenYarn">
+			<transforms>
+				<scale value3="1 1 1" />
+                <translate value3="1 0 1" />
+            </transforms> 
+
+            <children>             
+                <noderef id="sphere" />
+            </children> 
+
+            <materialref id="blueYarnApp" />
         </node>
 
         <node id="sofa">
