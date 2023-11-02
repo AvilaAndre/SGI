@@ -31,7 +31,7 @@ class MyContents {
         this.lights = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open("scenes/demo/demo.xml");
+        this.reader.open("room.xml");
     }
 
     /**
@@ -148,18 +148,12 @@ class MyContents {
 
                     if (geometry !== undefined){
                     //A Fazer: se o node não tiver materials, ir buscar aos do parent
-                    /*if(node.materialIds.length > 0){
-                        this.newMaterial = this.materials[node.materialIds[0]];
-                        console.log("no primeiro if:", this)
-                        nodeObj.add(new THREE.Mesh(geometry, this.newMaterial));
-                        console.log("nodeObj!: ", nodeObj);
-                        
-                    } else{*/
+
                         console.log("nodeObj no else:", nodeObj)
                         const mesh = new THREE.Mesh(geometry);
                         nodeObj.add(mesh);
 
-                    }//}
+                    }
                         
                 } else if(child.type === "pointlight"){
                     const light = this.addPointlight(child);
@@ -185,6 +179,8 @@ class MyContents {
         this.resolveHierarchy(data.rootId);
 
         this.app.scene.add(this.nodes[data.rootId]);
+
+        console.log(this.nodes[data.rootId]);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -242,12 +238,20 @@ class MyContents {
         } else{
             this.intSides = THREE.FrontSide;
         }
+
+        if(material.shading === "flat"){
+            console.log("material shading é flat")
+            this.shadingBool = true;
+        } else{
+            this.shadingBool = false;
+        }
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
             specular: material.emissive,
             emissive: material.specular,
             map: this.textures[material.textureref],
             shininess: material.shininess,
+            flatShading: this.shadingBool,
    
         });
 
@@ -527,6 +531,12 @@ class MyContents {
             }
 
 
+            console.log("ARGH:", child_node);
+
+            if(child_node.materialIds.length == 0){
+                console.log("child_node no if para ver que não tem nada:", child_node);
+                console.log("materialIds no if: ", child_node, child_node.materialIds);
+            }
 
             if(child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
                 console.log("child_node.materialIds no visitNode:", child_node.materialIds);
@@ -549,6 +559,15 @@ class MyContents {
                 console.log("node no visitnode!: ", node);
                 console.log("new_child_node!: ", new_child_node);
                 node.add(new_child_node);
+
+                console.log("new_child_node: ", new_child_node, child_node);
+
+                
+                //if(new_child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
+                    //console.log("child_node.materialIds no visitNode:", new_child_node.materialIds);
+                    //new_child_node.materialIds = node.materialIds;
+                    //console.log("entretanto child.node no visitNode");
+                //}
 
             }
         }
