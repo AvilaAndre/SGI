@@ -78,6 +78,8 @@ class MyContents {
 
         this.setOptions(data.options);
 
+        console.log("data.options:", data.options);
+
         console.log("textures:");
         for (var key in data.textures) {
             let texture = data.textures[key];
@@ -196,8 +198,22 @@ class MyContents {
     update() {}
 
     setOptions(options) {
-        this.background = JSON.stringify(options.background) || 0;
-        this.ambient = JSON.stringify(options.ambient) || 0;
+        //this.background = JSON.stringify(options.background) || 0;
+        //this.ambient = JSON.stringify(options.ambient) || 0;
+        
+        const ambientColor = new THREE.Color(options.ambient.r, options.ambient.g, options.ambient.b);
+        const light = new THREE.AmbientLight({ 
+            color: ambientColor
+        });
+        console.log("ambientColor: ", ambientColor);
+        console.log("ambient intensity: ", options.ambient.intensity);
+
+        //Posso fazer assim? (Dúvida)
+        this.app.scene.add(light);
+
+        const backgroundColor = new THREE.Color(options.background.r, options.background.g, options.background.b);
+        console.log("backgroundColor: ", backgroundColor);
+        this.app.scene.background = backgroundColor;
     }
 
     addTexture(texture) {
