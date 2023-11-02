@@ -90,6 +90,7 @@
 				<noderef id="floor" /> 
 				<noderef id="table" />
                 <noderef id="sofa" /> 
+                <noderef id="yarn" />
 				 
 
                 <pointlight id="light1" enabled="true" 
@@ -137,6 +138,20 @@
                     castshadow="true"
                     position="2 2 4" 
                 /> 
+            </children> 
+        </node>
+
+        <node id="sphere"> 
+
+            <transforms>
+				<translate value3="0 0 -0.5" />
+				<rotate value3="0 180.0 0.0" />
+            </transforms> 
+
+            <children>   
+                <primitive>          
+                    <sphere radius="1.0" slices="32" stacks="32" />
+                </primitive> 
             </children> 
         </node>
 		
@@ -304,7 +319,8 @@
 
         <node id="bottomCushion">
 			<transforms>
-				<translate value3="0 0 -2.8" />
+				<translate value3="0 -0.2 -2.7" />
+                <scale value3="1.6 0.6 1.2" />
             </transforms> 
 
             <children>             
@@ -314,7 +330,8 @@
 
         <node id="rightCushion">
 			<transforms>
-				<translate value3="0 0 -2.8" />
+				<translate value3="0.9 0.1 -2.72" />
+                <scale value3="0.2 1.2 1.2" />
             </transforms> 
 
             <children>             
@@ -324,7 +341,8 @@
 
         <node id="leftCushion">
 			<transforms>
-				<translate value3="0 0 -2.8" />
+                <translate value3="-0.9 0.1 -2.72" />
+                <scale value3="0.2 1.2 1.2" />
             </transforms> 
 
             <children>             
@@ -334,7 +352,8 @@
 
         <node id="backCushion">
 			<transforms>
-				<translate value3="0 0 -2.8" />
+				<translate value3="0 0.5 -3.2" />
+                <scale value3="1.6 1.2 0.2" />
             </transforms> 
 
             <children>             
@@ -374,10 +393,20 @@
 
         </node>
 
+        <node id="yarn">
+			<transforms>
+				<scale value3="1 1 1" />
+            </transforms> 
+
+            <children>             
+                <noderef id="sphere" />
+            </children> 
+        </node>
+
         <node id="sofa">
 			<transforms>
 				<translate value3="7.5 0 10" />
-				<translate value3="0 1.5 0" />
+				<translate value3="0 1.38 0" />
 				
 				<scale value3="4.5 2.5 3" />
 				

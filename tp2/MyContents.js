@@ -247,8 +247,8 @@ class MyContents {
         }
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
-            specular: material.emissive,
-            emissive: material.specular,
+            specular: material.specular,
+            emissive: material.emissive,
             map: this.textures[material.textureref],
             shininess: material.shininess,
             flatShading: this.shadingBool,
