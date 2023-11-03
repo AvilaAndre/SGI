@@ -30,7 +30,7 @@
     <textures>        
         <texture id="leftWallTex" filepath="roomTextures/cats.jpg" />
 		<texture id="rightWallTex" filepath="scenes/demo/textures/bloodyWall.jpg" />
-		<texture id="floorTex" filepath="roomTextures/colorfulStones.png" />
+		<texture id="floorTex" filepath="roomTextures/pinkFloor.jpg" />
 		<texture id="tableTex" filepath="roomTextures/wood4.jpg" />
         <texture id="sofaTex" filepath="roomTextures/light_leather.jpg" />
         <texture id="blueYarnTex" filepath="roomTextures/blueYarn.jpg" />
@@ -134,6 +134,7 @@
                 <noderef id="redYarn" />
                 <noderef id="yellowYarn" />
                 <noderef id="greenYarn" />
+                <noderef id="stairs" />
 				 
 
                 <pointlight id="light1" enabled="true" 
@@ -404,6 +405,138 @@
                 <noderef id="cushion" />
             </children> 
         </node> 
+
+        <node id="firstStepHor">
+			<transforms>
+                <rotate value3="-90 0 0" />
+				<translate value3="0 0 0" />
+                <scale value3="0.3 0.3 0.1" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node>
+
+        <node id="firstStepVert">
+			<transforms>
+				<translate value3="0 -0.2 0.1" />
+                <scale value3="0.3 0.3 0.1" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node> 
+
+        <node id="firstStep">
+			<transforms>
+                <translate value3="0.15 0.37 4" />
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="secondStep">
+			<transforms>
+                <translate value3="0.15 0.67 3.7" />
+                
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="thirdStep">
+			<transforms>
+                <translate value3="0.15 0.97 3.4" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="fourthStep">
+			<transforms>
+				<translate value3="0.15 1.27 3.1" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="fifthStep">
+			<transforms>
+				<translate value3="0.15 1.57 2.8" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="sixthStep">
+			<transforms>
+				<translate value3="0.15 1.87 2.5" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="seventhStep">
+			<transforms>
+				<translate value3="0.15 2.27 2.2" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="eigthStep">
+			<transforms>
+				<translate value3="0.15 2.57 1.9" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+        <node id="ninthStep">
+			<transforms>
+				<translate value3="0.15 2.87 1.6" />
+
+            </transforms> 
+
+            <children>             
+                <noderef id="firstStepVert" />
+                <noderef id="firstStepHor" />
+            </children> 
+        </node> 
+
+
 		
 		<node id="tableTop">
 			<transforms>
@@ -415,6 +548,7 @@
                 <noderef id="unitCube" />
             </children> 
         </node>
+
 		
 		<node id="table">
 			<transforms>
@@ -433,6 +567,31 @@
 				<noderef id="leg2" />
 				<noderef id="leg3" />
 				<noderef id="leg4" />
+            </children> 
+
+        </node>
+
+        <node id="stairs">
+			<transforms>
+				
+                <translate value3="0 0 -4.4" />
+				
+				<scale value3="4.5 2.5 3" />
+				
+            </transforms> 
+
+			<materialref id="tableApp" />
+			
+            <children>             
+                <noderef id="firstStep" />
+				<noderef id="secondStep" />
+				<noderef id="thirdStep" />
+				<noderef id="fourthStep" />
+				<noderef id="fifthStep" />
+                <noderef id="sixthStep" />
+				<noderef id="seventhStep" />
+				<noderef id="eigthStep" />
+				<noderef id="ninthStep" />
             </children> 
 
         </node>
@@ -478,7 +637,7 @@
         <node id="greenYarn">
 			<transforms>
 				<scale value3="1 1 1" />
-                <translate value3="1 0 1" />
+                <translate value3="-2 5.7 -2.9" />
             </transforms> 
 
             <children>             
