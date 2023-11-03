@@ -179,6 +179,10 @@ class MyContents {
         this.resolveHierarchy(data.rootId);
 
         this.app.scene.add(this.nodes[data.rootId]);
+    
+        console.log("AAAAAAAA")
+        console.log("-----------------------------------------------")
+        console.log(this.app.scene)
 
         console.log(this.nodes[data.rootId]);
 
@@ -533,12 +537,12 @@ class MyContents {
 
             console.log("ARGH:", child_node);
 
-            if(child_node.materialIds.length == 0){
+            if(Object.keys(child_node.materialIds).length == 0){
                 console.log("child_node no if para ver que não tem nada:", child_node);
                 console.log("materialIds no if: ", child_node, child_node.materialIds);
             }
 
-            if(child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
+            if(Object.keys(child_node.materialIds).length == 0 && (node.materialIds !== undefined && Object.keys(node.materialIds).length > 0)){
                 console.log("child_node.materialIds no visitNode:", child_node.materialIds);
                 child_node.materialIds = node.materialIds;
                 console.log("entretanto child.node no visitNode");
@@ -562,12 +566,16 @@ class MyContents {
 
                 console.log("new_child_node: ", new_child_node, child_node);
 
+                new_child_node.materialIds = node.materialIds;
+
+                console.log("new_child_node.materialIds: ", new_child_node.materialIds);
+
                 
-                //if(new_child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
-                    //console.log("child_node.materialIds no visitNode:", new_child_node.materialIds);
-                    //new_child_node.materialIds = node.materialIds;
-                    //console.log("entretanto child.node no visitNode");
-                //}
+                /*if(Object.keys(new_child_node.materialIds).length == 0 && (node.materialIds !== undefined && Object.keys(node.materialIds).length > 0)){
+                    console.log("child_node.materialIds no visitNode:", new_child_node.materialIds);
+                    new_child_node.materialIds = node.materialIds;
+                    console.log("entretanto child.node no visitNode");
+                }*/
 
             }
         }

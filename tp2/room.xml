@@ -41,7 +41,7 @@
         <texture id="pineTex" filepath="roomTextures/pine.png" />
 		<texture id="vaseTex" filepath="roomTextures/vase.png" />
         <texture id="stairsTex" filepath="roomTextures/woodStairs.jpg" />
-        <texture id="catBoxTex" filepath="roomTextures/woodCtaBox.jpg" />
+        <texture id="catBoxTex" filepath="roomTextures/woodCatBox.jpg" />
 
     </textures> 
 
@@ -99,8 +99,8 @@
             twosided = "true"/>
 
         <material id="sofaApp" 
-            color="0.0 0.0 0.0 1.0"
-            emissive="0.0 0.0 0.0 0.0" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0" 
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="sofaTex" 
@@ -708,7 +708,7 @@
                 <noderef id="sphere" />
             </children> 
 
-            <materialref id="blueYarnApp" />
+            <materialref id="redYarnApp" />
         </node>
 
         <node id="yellowYarn">
@@ -721,7 +721,7 @@
                 <noderef id="sphere" />
             </children> 
 
-            <materialref id="blueYarnApp" />
+            <materialref id="yellowYarnApp" />
         </node>
 
         <node id="greenYarn">
@@ -734,7 +734,7 @@
                 <noderef id="sphere" />
             </children> 
 
-            <materialref id="blueYarnApp" />
+            <materialref id="greenYarnApp" />
         </node>
 
         <node id="sofa">
@@ -750,8 +750,8 @@
 			
             <children>             
                 <noderef id="bottomCushion" />
-				<noderef id="rightCushion" />
-				<noderef id="leftCushion" />
+				<!--<noderef id="rightCushion" />
+				<noderef id="leftCushion" />-->
 				<noderef id="backCushion" />
             </children> 
         </node>
@@ -884,6 +884,8 @@
 		
 
         <node id="catBox">
+
+
 			<transforms>
 				<translate value3="-4 -9.8 7.3" />
 
