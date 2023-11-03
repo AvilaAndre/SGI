@@ -15,7 +15,7 @@
             location="15 15 15" 
             target="0 0.0 0" /> 
 
-        <orthogonal id="cam2" 
+    <orthogonal id="cam2" 
             near="0.1" 
             far="1000" 
             location="0 15 15" 
@@ -23,13 +23,12 @@
             left="-5" 
             right="5" 
             bottom="-5" 
-            top="-5" /> 
+            top="5" />
     </cameras> 
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
-    <textures>        
-        <texture id="leftWallTex" filepath="roomTextures/cats.jpg" />
-		<texture id="rightWallTex" filepath="scenes/demo/textures/bloodyWall.jpg" />
+    <textures>
+        <texture id="leftWallTex" filepath="roomTextures/cats.jpg" />        
 		<texture id="floorTex" filepath="roomTextures/pinkFloor.jpg" />
 		<texture id="tableTex" filepath="roomTextures/wood4.jpg" />
         <texture id="sofaTex" filepath="roomTextures/light_leather.jpg" />
@@ -37,10 +36,37 @@
         <texture id="redYarnTex" filepath="roomTextures/redYarn.jpg" />
         <texture id="yellowYarnTex" filepath="roomTextures/yellowYarn.avif" />
         <texture id="greenYarnTex" filepath="roomTextures/greenYarn.jpg" />
+        <texture id="catScratcherTex" filepath="roomTextures/catScratcher.webp" />
+        <texture id="furTex" filepath="roomTextures/fur2.jpeg" />
+        <texture id="pineTex" filepath="roomTextures/pine.png" />
+		<texture id="vaseTex" filepath="roomTextures/vase.png" />
+        <texture id="stairsTex" filepath="roomTextures/woodStairs.jpg" />
+        <texture id="catBoxTex" filepath="roomTextures/woodCtaBox.jpg" />
 
     </textures> 
 
     <materials> 
+
+    		
+		<material id="pineApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="pineTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            wireframe = "true" />
+			
+		<material id="vaseApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="vaseTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            shading = "flat" />
 
         <material id="tableApp" 
             color="0.8 0.8 0.8 1.0" 
@@ -50,6 +76,27 @@
             textureref="tableTex" 
             texlength_s="1" 
             texlength_t="1" />
+
+
+        <material id="stairsApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="stairsTex" 
+            texlength_s="1" 
+            texlength_t="1" 
+            twosided = "true"/>
+
+        <material id="catBoxApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="catBoxTex" 
+            texlength_s="1" 
+            texlength_t="1" 
+            twosided = "true"/>
 
         <material id="sofaApp" 
             color="0.0 0.0 0.0 1.0"
@@ -116,6 +163,26 @@
             texlength_s="15" 
             texlength_t="15" />
 
+        <material id="catScratcherApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="catScratcherTex" 
+            texlength_s="15" 
+            texlength_t="15"
+            twosided = "true" />
+
+        <material id="furApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="furTex" 
+            texlength_s="15" 
+            texlength_t="15"
+            twosided = "true" />
+
 			
     </materials> 
 
@@ -135,6 +202,10 @@
                 <noderef id="yellowYarn" />
                 <noderef id="greenYarn" />
                 <noderef id="stairs" />
+                <noderef id="catBox" />
+                <noderef id="catRoll" />
+                <noderef id="catRollScratcher" />
+                <noderef id="tree" /> 
 				 
 
                 <pointlight id="light1" enabled="true" 
@@ -196,6 +267,25 @@
             <children>   
                 <primitive>          
                     <sphere radius="1.0" slices="32" stacks="32" />
+                </primitive> 
+            </children> 
+        </node>
+
+        <node id="cylinder"> 
+
+            <children>   
+                <primitive>          
+                    <cylinder top="0.5" base="0.5" height="2.0"  slices="32" stacks="32" />
+                </primitive> 
+            </children> 
+        </node>
+
+
+        <node id="openCylinder"> 
+
+            <children>   
+                <primitive>          
+                    <cylinder top="1" base="1" height="3"  slices="32" stacks="32" capsclose="true"/>
                 </primitive> 
             </children> 
         </node>
@@ -580,7 +670,7 @@
 				
             </transforms> 
 
-			<materialref id="tableApp" />
+			<materialref id="stairsApp" />
 			
             <children>             
                 <noderef id="firstStep" />
@@ -745,8 +835,194 @@
                 </primitive>
             </children> 
         </node>
+
+        <node id="bottomBox">
+			<transforms>
+                <rotate value3="90 0 0" />
+				<translate value3="5 10 5" />
+                <scale value3="2 2.5 0.2" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node> 
+
+        <node id="topBox">
+			<transforms>
+                <rotate value3="90 0 0" />
+				<translate value3="5 12 5" />
+                <scale value3="2 2.5 0.2" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node> 
+
+        <node id="rightBox">
+			<transforms>
+				<translate value3="5 11 3.7" />
+                <scale value3="2 2.2 0.2" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node> 
+
+        <node id="leftBox">
+			<transforms>
+				<translate value3="5 11 6.3" />
+                <scale value3="2 2.2 0.2" />
+            </transforms> 
+
+            <children>             
+                <noderef id="unitCube" />
+            </children> 
+        </node> 
 		
 
+        <node id="catBox">
+			<transforms>
+				<translate value3="-4 -9.8 7.3" />
+
+            </transforms> 
+
+			<materialref id="catBoxApp" />
+			
+            <children>             
+                <noderef id="bottomBox" />
+                <noderef id="topBox" />
+                <noderef id="rightBox" />
+                <noderef id="leftBox" />
+            </children> 
+        </node>
+
+
+        <node id="catRollScratcher">
+			<transforms>
+                <translate value3="1 3 12.3" />
+
+            </transforms> 
+
+			<materialref id="catScratcherApp" />
+			
+            <children>             
+                <noderef id="cylinder"/>
+            </children> 
+        </node>
+
+        <node id="catRoll">
+			<transforms>
+                <rotate value3="90 0 0" />
+                <translate value3="1 5 12.3" />
+
+            </transforms> 
+
+			<materialref id="furApp" />
+			
+            <children>             
+                <noderef id="openCylinder"/>
+            </children> 
+        </node>
+
+<node id="treeSeg1">
+			<transforms>
+				<translate value3="0 2.7 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="2" top="1" height="1.9" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="treeSeg2">
+			<transforms>
+				<translate value3="0 4.6 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>
+                <primitive >
+                    <cylinder base="1.5" top="0.75" height="2" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+		
+		<node id="treeSeg3">
+			<transforms>
+				<translate value3="0 6.6 0" />
+            </transforms> 
+			
+			<materialref id="pineApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="0.9" top="0" height="2" slices="32" stacks="32" />
+                </primitive>
+
+            </children> 
+        </node>
+		
+		<node id="vase">
+			<materialref id="vaseApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="0.75" top="1.3" height="1.9" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="trunk">
+			<transforms>
+				<translate value3="0 1.7 0" />
+			</transforms> 
+			
+			<materialref id="tableApp" />
+			
+            <children>             
+                <primitive>
+                    <cylinder base="0.4" top="0.4" height="3" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+		<node id="tree">
+			<transforms>
+                <rotate value3="90 0 0" />
+				<translate value3="13.4 1 2" />
+                <scale value3="0.6 0.6 0.6" />
+				<!--<rotate value3="0.0 0.0 -80"/>-->
+            </transforms> 
+			
+            <children>             
+                <noderef id="vase" />
+				<noderef id="trunk" />
+				<noderef id="treeSeg1" />
+				<noderef id="treeSeg2" />
+				<noderef id="treeSeg3" />
+                <primitive>
+                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="0" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="1" />
+                        <controlpoint xx="1" yy="0" zz="0" />
+                        <controlpoint xx="1" yy="0" zz="1" />
+                    </nurbs>
+                </primitive>
+                <primitive>
+                    <box xyz1="-0.5 -0.5 -0.5" xyz2="0.5 0.5 0.5" />
+                </primitive>
+
+            </children> 
+        </node>
+		
 
 
 		
