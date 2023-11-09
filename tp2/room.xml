@@ -99,7 +99,7 @@
             twosided = "true"/>
 
         <material id="sofaApp" 
-            color="0.0 0.0 0.0 1.0"
+            color="0.8 0.8 0.8 1.0"
             emissive="0.0 0.0 0.0 0.0" 
 			specular="0 0 0 0" 
             shininess="10" 
@@ -363,7 +363,7 @@
             <transforms>
 				<translate value3="0.5 0 0" />
 				<rotate value3="0.0 90.0 0.0" />
-            </transforms> 
+            </transforms>
 
             <children>             
                 <primitive>
@@ -384,7 +384,7 @@
 				<noderef id="rectangle4" />
 				<!-- Left -->				
 				<noderef id="rectangle5" />
-				 <!-- Right -->
+				<!-- Right -->
 				<noderef id="rectangle6" />
             </children> 
         </node>
@@ -708,7 +708,7 @@
                 <noderef id="sphere" />
             </children> 
 
-            <materialref id="blueYarnApp" />
+            <materialref id="redYarnApp" />
         </node>
 
         <node id="yellowYarn">
@@ -927,7 +927,7 @@
             </children> 
         </node>
 
-<node id="treeSeg1">
+        <node id="treeSeg1">
 			<transforms>
 				<translate value3="0 2.7 0" />
             </transforms> 
@@ -1000,7 +1000,9 @@
 				<translate value3="13.4 1 2" />
                 <scale value3="0.6 0.6 0.6" />
 				<!--<rotate value3="0.0 0.0 -80"/>-->
-            </transforms> 
+            </transforms>
+
+            <materialref id="pineApp" />
 			
             <children>             
                 <noderef id="vase" />
@@ -1008,17 +1010,6 @@
 				<noderef id="treeSeg1" />
 				<noderef id="treeSeg2" />
 				<noderef id="treeSeg3" />
-                <primitive>
-                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20" distance="0.0">
-                        <controlpoint xx="0" yy="0" zz="0" />
-                        <controlpoint xx="0" yy="0" zz="1" />
-                        <controlpoint xx="1" yy="0" zz="0" />
-                        <controlpoint xx="1" yy="0" zz="1" />
-                    </nurbs>
-                </primitive>
-                <primitive>
-                    <box xyz1="-0.5 -0.5 -0.5" xyz2="0.5 0.5 0.5" />
-                </primitive>
 
             </children> 
         </node>

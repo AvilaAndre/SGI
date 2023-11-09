@@ -103,84 +103,9 @@ class MyContents {
         }
 
         console.log("nodes:");
-        for (var key in data.nodes) {
-            console.log("data:", data)
-            let node = data.nodes[key];
-            console.log("node!: ", node);
-            this.output(node, 1);
+        const rootNode = this.instantiateNode(data.rootId, data);
 
-            const nodeObj = new THREE.Object3D();
-
-            nodeObj.materialIds = node.materialIds;
-
-            nodeObj.children_refs = [];
-
-            this.applyTransformations(nodeObj, node.transformations);
-            for (let i = 0; i < node.children.length; i++) {
-                let child = node.children[i];
-
-                console.log("child!: ", child);
-
-                if (child.type === "primitive") {
-                    console.log(
-                        "" +
-                            new Array(2 * 4).join(" ") +
-                            " - " +
-                            child.type +
-                            " with " +
-                            child.representations.length +
-                            " " +
-                            child.subtype +
-                            " representation(s)"
-                    );
-
-                    if (child.subtype === "nurbs") {
-                        console.log(
-                            "" +
-                                new Array(3 * 4).join(" ") +
-                                " - " +
-                                child.representations[0].controlpoints.length +
-                                " control points"
-                        );
-                    }
-
-                    const geometry = this.createPrimitive(child);
-
-                    if (geometry !== undefined){
-                    //A Fazer: se o node não tiver materials, ir buscar aos do parent
-
-                        console.log("nodeObj no else:", nodeObj)
-                        const mesh = new THREE.Mesh(geometry);
-                        nodeObj.add(mesh);
-
-                    }
-                        
-                } else if(child.type === "pointlight"){
-                    const light = this.addPointlight(child);
-                    nodeObj.add(light);
-
-                } else if(child.type === "spotlight"){
-                    const light = this.addSpotlight(child);
-                    nodeObj.add(light);
-
-                } else if(child.type === "directionallight"){
-                    const light = this.addDirectionallight(child);
-                    nodeObj.add(light);
-
-                }else {
-                    this.output(child, 2);
-
-                    nodeObj.children_refs.push(child.id);
-                }
-                this.nodes[key] = nodeObj;
-            }
-        }
-
-        this.resolveHierarchy(data.rootId);
-
-        this.app.scene.add(this.nodes[data.rootId]);
-
-        console.log(this.nodes[data.rootId]);
+        this.app.scene.add(rootNode);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -193,22 +118,78 @@ class MyContents {
 
     update() {}
 
-    setOptions(options) {
-        //this.background = JSON.stringify(options.background) || 0;
-        //this.ambient = JSON.stringify(options.ambient) || 0;
-        
-        const ambientColor = new THREE.Color(options.ambient.r, options.ambient.g, options.ambient.b);
-        const light = new THREE.AmbientLight({ 
-            color: ambientColor
-        });
-        console.log("ambientColor: ", ambientColor);
-        console.log("ambient intensity: ", options.ambient.intensity);
+    instantiateNode(nodeRef, data, parent = undefined) {
+        let node = data.nodes[nodeRef];
 
-        //Posso fazer assim? (Dúvida)
+        if (!node) return undefined;
+
+        this.output(node, 1);
+
+        const nodeObj = new THREE.Object3D();
+
+        if (node.materialIds.length != 0)
+            nodeObj.materialIds = node.materialIds;
+        else if (parent != undefined) nodeObj.materialIds = parent.materialIds;
+        else nodeObj.materialIds = [];
+
+        nodeObj.children_refs = [];
+
+        this.applyTransformations(nodeObj, node.transformations);
+
+        for (let i = 0; i < node.children.length; i++) {
+            let child = node.children[i];
+
+            if (child.type === "primitive") {
+                const geometry = this.createPrimitive(child);
+
+                if (geometry !== undefined) {
+                    if (nodeObj.materialIds) {
+                        const mesh = new THREE.Mesh(
+                            geometry,
+                            this.materials[nodeObj.materialIds[0]]
+                        );
+                        nodeObj.add(mesh);
+                    } else {
+                        console.error("Material Missing in", nodeRef);
+                    }
+                }
+            } else if (child.type === "pointlight") {
+                const light = this.addPointlight(child);
+                nodeObj.add(light);
+            } else if (child.type === "spotlight") {
+                const light = this.addSpotlight(child);
+                nodeObj.add(light);
+            } else if (child.type === "directionallight") {
+                const light = this.addDirectionallight(child);
+                nodeObj.add(light);
+            } else {
+                this.output(child, 2);
+
+                const newChild = this.instantiateNode(child.id, data, nodeObj);
+                if (newChild) nodeObj.add(newChild);
+            }
+        }
+
+        return nodeObj;
+    }
+
+    setOptions(options) {
+        const ambientColor = new THREE.Color(
+            options.ambient.r,
+            options.ambient.g,
+            options.ambient.b
+        );
+        const light = new THREE.AmbientLight({
+            color: ambientColor,
+        });
+
         this.app.scene.add(light);
 
-        const backgroundColor = new THREE.Color(options.background.r, options.background.g, options.background.b);
-        console.log("backgroundColor: ", backgroundColor);
+        const backgroundColor = new THREE.Color(
+            options.background.r,
+            options.background.g,
+            options.background.b
+        );
         this.app.scene.background = backgroundColor;
     }
 
@@ -220,29 +201,25 @@ class MyContents {
         newTexture.anisotropy = texture.anisotropy;
 
         this.textures[texture.id] = newTexture;
-
     }
 
-
-
-    addMaterial(material){
+    addMaterial(material) {
         // Create a THREE.Color object with RGB values
-        const materialColor = new THREE.Color(material.color.r, material.color.g, material.color.b);
+        const materialColor = new THREE.Color(
+            material.color.r,
+            material.color.g,
+            material.color.b
+        );
 
-        console.log("Color has been added!: ", materialColor);
-        // Get the hexadecimal representation of the color
-        const hex = materialColor.getHexString();
-
-        if(material.twosided === true){
-            this.intSides= THREE.DoubleSide;
-        } else{
+        if (material.twosided === true) {
+            this.intSides = THREE.DoubleSide;
+        } else {
             this.intSides = THREE.FrontSide;
         }
 
-        if(material.shading === "flat"){
-            console.log("material shading é flat")
+        if (material.shading === "flat") {
             this.shadingBool = true;
-        } else{
+        } else {
             this.shadingBool = false;
         }
         const newMaterial = new THREE.MeshPhongMaterial({
@@ -252,83 +229,88 @@ class MyContents {
             map: this.textures[material.textureref],
             shininess: material.shininess,
             flatShading: this.shadingBool,
-   
         });
 
         newMaterial.side = this.intSides;
 
-        console.log("newMaterial has been added!: ", newMaterial);
-
         this.materials[material.id] = newMaterial;
     }
 
-    
     addPointlight(light) {
-
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
 
-        const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
+        const lightColor = new THREE.Color(
+            light.color.r,
+            light.color.g,
+            light.color.b
+        );
         const newLight = new THREE.PointLight(
-            lightColor, 
+            lightColor,
             light.intensity,
-            light.distance, 
-            light.decay);
+            light.distance,
+            light.decay
+        );
         newLight.castShadow = light.castshadow;
         newLight.position.set(x, y, z);
-        
 
         return newLight;
-
     }
 
     addSpotlight(light) {
-
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
 
-        const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
+        const lightColor = new THREE.Color(
+            light.color.r,
+            light.color.g,
+            light.color.b
+        );
         const newLight = new THREE.SpotLight(
-            lightColor, 
+            lightColor,
             light.intensity,
             light.distance,
             light.angle,
-            light.penumbra, 
-            light.decay);
+            light.penumbra,
+            light.decay
+        );
         newLight.castShadow = light.castshadow;
-        newLight.target.position.set(light.target[0], light.target[1], light.target[2]);
+        newLight.target.position.set(
+            light.target[0],
+            light.target[1],
+            light.target[2]
+        );
 
         newLight.position.set(x, y, z);
-        
-        return newLight;
 
+        return newLight;
     }
 
-    
     addDirectionallight(light) {
-
-
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
         const y = light.position[1];
         const z = light.position[2];
 
-        const lightColor = new THREE.Color(light.color.r, light.color.g, light.color.b);
+        const lightColor = new THREE.Color(
+            light.color.r,
+            light.color.g,
+            light.color.b
+        );
         const newLight = new THREE.DirectionalLight(
-            lightColor, 
-            light.intensity)
+            lightColor,
+            light.intensity
+        );
 
         newLight.castShadow = light.castshadow;
         newLight.position.set(x, y, z);
-        
+
         return newLight;
-
     }
-
 
     /**
      *
@@ -497,95 +479,6 @@ class MyContents {
                     break;
             }
         });
-    }
-
-    resolveHierarchy(rootId) {
-        if (this.nodes === undefined) return;
-
-        console.log("rootId!: ", this.nodes[rootId]);
-
-        this.visitNode(rootId);
-    }
-
-    visitNode(node_ref) {
-        const node = this.nodes[node_ref];
-
-        if (node === undefined) {
-            console.warn("node", node_ref, "not found");
-            return;
-        }
-
-        //as mesh não fazem parte das children_refs
-
-        for (let i = 0; i < node.children_refs.length; i++) {
-            const child_ref = node.children_refs[i];
-
-            const child_node = this.nodes[child_ref];
-
-            console.log("antes child.node no visitNode:", child_node);
-
-            
-            if (child_node === undefined) {
-                console.warn("node", child_ref, "not found");
-                continue;
-            }
-
-
-            console.log("ARGH:", child_node);
-
-            if(child_node.materialIds.length == 0){
-                console.log("child_node no if para ver que não tem nada:", child_node);
-                console.log("materialIds no if: ", child_node, child_node.materialIds);
-            }
-
-            if(child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
-                console.log("child_node.materialIds no visitNode:", child_node.materialIds);
-                child_node.materialIds = node.materialIds;
-                console.log("entretanto child.node no visitNode");
-            }
-            
-            console.log("depois child.node no visitNode:", child_node);
-
-            this.visitNode(child_ref);
-
-            if (child_node.parent === null) {
-                child_node.parent = node;
-                node.add(child_node);
-                
-
-            } else {
-                const new_child_node = child_node.clone();
-                new_child_node.parent = node;
-                console.log("node no visitnode!: ", node);
-                console.log("new_child_node!: ", new_child_node);
-                node.add(new_child_node);
-
-                console.log("new_child_node: ", new_child_node, child_node);
-
-                
-                //if(new_child_node.materialIds.length == 0 && (node.materialIds !== undefined && node.materialIds.length > 0)){
-                    //console.log("child_node.materialIds no visitNode:", new_child_node.materialIds);
-                    //new_child_node.materialIds = node.materialIds;
-                    //console.log("entretanto child.node no visitNode");
-                //}
-
-            }
-        }
-
-
-
-        for(let j = 0; j < node.children.length; j++){
-            const child = node.children[j];
-
-            console.log("child no visitnode!: ", child);
-            console.log("child.isMesh!: ", child.isMesh);
-
-            //estou a indicar o material da mesh
-            if(child.isMesh === true && (node.materialIds !== undefined && node.materialIds.length > 0)){
-                child.material = this.materials[node.materialIds[0]];
-                console.log("child.material, ou seja, material da mesh!: ", child.material);
-            }
-        }
     }
 }
 
