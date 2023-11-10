@@ -750,8 +750,8 @@
 			
             <children>             
                 <noderef id="bottomCushion" />
-				<!--<noderef id="rightCushion" />
-				<noderef id="leftCushion" />-->
+				<noderef id="rightCushion" />
+				<noderef id="leftCushion" />
 				<noderef id="backCushion" />
             </children> 
         </node>
