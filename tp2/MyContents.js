@@ -255,11 +255,18 @@ class MyContents {
             light.decay || 2
         );
         newLight.castShadow = light.castshadow || false;
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
+        // TODO: changes degrees to radians
+        // TODO: change translate to position 
+        // TODO: skybox
+        // TODO: texlength 
+        // TODO: adicionar à UI wireframe e enable/disable
+        // TODO: castShadow
 
         return newLight;
     }
@@ -290,6 +297,7 @@ class MyContents {
             light.target[2]
         );
 
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
@@ -316,6 +324,7 @@ class MyContents {
         );
 
         newLight.castShadow = light.castshadow;
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: shadowleft default -5
