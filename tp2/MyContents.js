@@ -226,6 +226,12 @@ class MyContents {
             texlength_t: material.texlength_t || 1,
         });
 
+        if(material.color.a == 1){
+            newMaterial.opacity = 1;
+        } else{
+            newMaterial.opacity = material.color.a;
+        }
+
         newMaterial.side = intSides;
 
         this.materials[material.id] = newMaterial;
