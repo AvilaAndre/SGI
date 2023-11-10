@@ -26,22 +26,24 @@
             top="5" />
     </cameras> 
 
+    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
+
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>
-        <texture id="leftWallTex" filepath="roomTextures/cats.jpg" />        
-		<texture id="floorTex" filepath="roomTextures/pinkFloor.jpg" />
-		<texture id="tableTex" filepath="roomTextures/wood4.jpg" />
-        <texture id="sofaTex" filepath="roomTextures/light_leather.jpg" />
-        <texture id="blueYarnTex" filepath="roomTextures/blueYarn.jpg" />
-        <texture id="redYarnTex" filepath="roomTextures/redYarn.jpg" />
-        <texture id="yellowYarnTex" filepath="roomTextures/yellowYarn.avif" />
-        <texture id="greenYarnTex" filepath="roomTextures/greenYarn.jpg" />
-        <texture id="catScratcherTex" filepath="roomTextures/catScratcher.webp" />
-        <texture id="furTex" filepath="roomTextures/fur2.jpeg" />
-        <texture id="pineTex" filepath="roomTextures/pine.png" />
-		<texture id="vaseTex" filepath="roomTextures/vase.png" />
-        <texture id="stairsTex" filepath="roomTextures/woodStairs.jpg" />
-        <texture id="catBoxTex" filepath="roomTextures/woodCatBox.jpg" />
+        <texture id="leftWallTex" filepath="scenes/room/textures/cats.jpg" />        
+		<texture id="floorTex" filepath="scenes/room/textures/pinkFloor.jpg" />
+		<texture id="tableTex" filepath="scenes/room/textures/wood4.jpg" />
+        <texture id="sofaTex" filepath="scenes/room/textures/light_leather.jpg" />
+        <texture id="blueYarnTex" filepath="scenes/room/textures/blueYarn.jpg" />
+        <texture id="redYarnTex" filepath="scenes/room/textures/redYarn.jpg" />
+        <texture id="yellowYarnTex" filepath="scenes/room/textures/yellowYarn.avif" />
+        <texture id="greenYarnTex" filepath="scenes/room/textures/greenYarn.jpg" />
+        <texture id="catScratcherTex" filepath="scenes/room/textures/catScratcher.webp" />
+        <texture id="furTex" filepath="scenes/room/textures/fur2.jpeg" />
+        <texture id="pineTex" filepath="scenes/room/textures/pine.png" />
+		<texture id="vaseTex" filepath="scenes/room/textures/vase.png" />
+        <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
+        <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
 
     </textures> 
 
