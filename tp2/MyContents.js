@@ -92,7 +92,6 @@ class MyContents {
             let material = data.materials[key];
             this.output(material, 1);
             this.addMaterial(material);
-            console.log("material usado!: ", material);
         }
 
         console.log("cameras:");
@@ -211,30 +210,18 @@ class MyContents {
             material.color.b
         );
 
-        let intSides;
+        let intSides = material.twosided ? THREE.DoubleSide : THREE.FrontSide;
 
-        if (material.twosided === true) {
-            intSides = THREE.DoubleSide;
-        } else {
-            intSides = THREE.FrontSide;
-        }
-
-        let shadingBool;
-
-        if (material.shading === "flat") {
-            shadingBool = true;
-        } else {
-            shadingBool = false;
-        }
+        let shadingBool = material.shading === "flat";
 
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
             specular: material.specular,
             emissive: material.emissive,
-            map: this.textures[material.textureref],
+            map: this.textures[material.textureref || null],
             shininess: material.shininess,
             flatShading: shadingBool,
-            wireframe: material.wireframe,
+            wireframe: material.wireframe || false,
             texlength_s: material.texlength_s || 1,
             texlength_t: material.texlength_t || 1,
         });
@@ -257,12 +244,16 @@ class MyContents {
         );
         const newLight = new THREE.PointLight(
             lightColor,
-            light.intensity,
-            light.distance,
-            light.decay
+            light.intensity || 1,
+            light.distance || 1000,
+            light.decay || 2
         );
-        newLight.castShadow = light.castshadow;
+        newLight.castShadow = light.castshadow || false;
         newLight.position.set(x, y, z);
+
+        // TODO: enabled default true
+        // TODO: shadowFar default 500.0
+        // TODO: shadowmapsize default 512
 
         return newLight;
     }
@@ -280,11 +271,11 @@ class MyContents {
         );
         const newLight = new THREE.SpotLight(
             lightColor,
-            light.intensity,
-            light.distance,
+            light.intensity || 1,
+            light.distance || 1000,
             light.angle,
-            light.penumbra,
-            light.decay
+            light.penumbra || 1,
+            light.decay || 2
         );
         newLight.castShadow = light.castshadow;
         newLight.target.position.set(
@@ -294,6 +285,10 @@ class MyContents {
         );
 
         newLight.position.set(x, y, z);
+
+        // TODO: enabled default true
+        // TODO: shadowFar default 500.0
+        // TODO: shadowmapsize default 512
 
         return newLight;
     }
@@ -311,11 +306,20 @@ class MyContents {
         );
         const newLight = new THREE.DirectionalLight(
             lightColor,
-            light.intensity
+            light.intensity || 1
         );
 
         newLight.castShadow = light.castshadow;
         newLight.position.set(x, y, z);
+
+        // TODO: shadowleft default -5
+        // TODO: shadowright default 5
+        // TODO: shadowbottom default -5
+        // TODO: shadowtop default 5
+
+        // TODO: enabled default true
+        // TODO: shadowFar default false
+        // TODO: shadowmapsize default 512
 
         return newLight;
     }
@@ -372,7 +376,7 @@ class MyContents {
                 child.representations[0]["height"],
                 child.representations[0]["slices"],
                 child.representations[0]["stacks"],
-                child.representations[0]["capsclose"],
+                child.representations[0]["capsclose"] || false,
                 child.representations[0]["thetastart"],
                 child.representations[0]["thetalength"]
             );
