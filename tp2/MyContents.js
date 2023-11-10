@@ -264,11 +264,18 @@ class MyContents {
         );
 
         newLight.castShadow = light.castshadow || false;
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
+        // TODO: changes degrees to radians
+        // TODO: change translate to position 
+        // TODO: skybox
+        // TODO: texlength 
+        // TODO: adicionar à UI wireframe e enable/disable
+        // TODO: castShadow
 
         if (this.DEBUG) {
             const helper = new THREE.PointLightHelper(newLight, 0.5);
@@ -304,11 +311,16 @@ class MyContents {
             light.target[2]
         );
 
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
+        // TODO: enabled default true (luzes na GUI)
+        // TODO: changes degrees to radians
+        // TODO: change translate to position (fix room)
+        // TODO: skybox
 
         if (this.DEBUG) {
             const helper = new THREE.SpotLightHelper(newLight, lightColor);
@@ -334,6 +346,7 @@ class MyContents {
         );
 
         newLight.castShadow = light.castshadow;
+        newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
         // TODO: shadowleft default -5
