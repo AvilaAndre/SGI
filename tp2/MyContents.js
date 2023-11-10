@@ -312,6 +312,10 @@ class MyContents {
         // TODO: enabled default true
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
+        // TODO: enabled default true (luzes na GUI)
+        // TODO: changes degrees to radians
+        // TODO: change translate to position (fix room)
+        // TODO: skybox
 
         if (this.DEBUG) {
             const helper = new THREE.SpotLightHelper(newLight, lightColor);
