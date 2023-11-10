@@ -29,6 +29,9 @@ class MyContents {
 
         //lights
         this.lights = new Object();
+        
+        // show debug gizmos
+        this.DEBUG = true;
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/room/demo.xml");
@@ -226,9 +229,9 @@ class MyContents {
             texlength_t: material.texlength_t || 1,
         });
 
-        if(material.color.a == 1){
+        if (material.color.a == 1) {
             newMaterial.opacity = 1;
-        } else{
+        } else {
             newMaterial.opacity = material.color.a;
         }
 
@@ -254,12 +257,18 @@ class MyContents {
             light.distance || 1000,
             light.decay || 2
         );
+
         newLight.castShadow = light.castshadow || false;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
+
+        if (this.DEBUG) {
+            const helper = new THREE.PointLightHelper(newLight, 0.5);
+            this.app.scene.add(helper);
+        }
 
         return newLight;
     }
@@ -296,6 +305,10 @@ class MyContents {
         // TODO: shadowFar default 500.0
         // TODO: shadowmapsize default 512
 
+        if (this.DEBUG) {
+            const helper = new THREE.SpotLightHelper(newLight, lightColor);
+            this.app.scene.add(helper);
+        }
         return newLight;
     }
 
@@ -326,6 +339,14 @@ class MyContents {
         // TODO: enabled default true
         // TODO: shadowFar default false
         // TODO: shadowmapsize default 512
+
+        if (this.DEBUG) {
+            const helper = new THREE.DirectionalLightHelper(
+                newLight,
+                lightColor
+            );
+            this.app.scene.add(helper);
+        }
 
         return newLight;
     }
@@ -481,19 +502,19 @@ class MyContents {
         transformations.forEach((key) => {
             switch (key.type) {
                 case "T":
-                    node.position.x += key.translate[0];
-                    node.position.y += key.translate[1];
-                    node.position.z += key.translate[2];
+                    node.position.x = key.translate[0];
+                    node.position.y = key.translate[1];
+                    node.position.z = key.translate[2];
                     break;
                 case "S":
-                    node.scale.x *= key.scale[0];
-                    node.scale.y *= key.scale[1];
-                    node.scale.z *= key.scale[2];
+                    node.scale.x = key.scale[0];
+                    node.scale.y = key.scale[1];
+                    node.scale.z = key.scale[2];
                     break;
                 case "R":
-                    node.rotation.x += key.rotation[0] * (Math.PI / 180);
-                    node.rotation.y += key.rotation[1] * (Math.PI / 180);
-                    node.rotation.z += key.rotation[2] * (Math.PI / 180);
+                    node.rotation.x = key.rotation[0];
+                    node.rotation.y = key.rotation[1];
+                    node.rotation.z = key.rotation[2];
                     break;
             }
         });
