@@ -226,6 +226,7 @@ class MyContents {
         } else {
             shadingBool = false;
         }
+
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
             specular: material.specular,
@@ -234,6 +235,8 @@ class MyContents {
             shininess: material.shininess,
             flatShading: shadingBool,
             wireframe: material.wireframe,
+            texlength_s: material.texlength_s || 1,
+            texlength_t: material.texlength_t || 1,
         });
 
         newMaterial.side = intSides;
