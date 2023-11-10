@@ -31,7 +31,7 @@ class MyContents {
         this.lights = new Object();
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open("room.xml");
+        this.reader.open("scenes/demo/demo.xml");
     }
 
     /**
@@ -211,16 +211,20 @@ class MyContents {
             material.color.b
         );
 
+        let intSides;
+
         if (material.twosided === true) {
-            this.intSides = THREE.DoubleSide;
+            intSides = THREE.DoubleSide;
         } else {
-            this.intSides = THREE.FrontSide;
+            intSides = THREE.FrontSide;
         }
 
+        let shadingBool;
+
         if (material.shading === "flat") {
-            this.shadingBool = true;
+            shadingBool = true;
         } else {
-            this.shadingBool = false;
+            shadingBool = false;
         }
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
@@ -228,10 +232,11 @@ class MyContents {
             emissive: material.emissive,
             map: this.textures[material.textureref],
             shininess: material.shininess,
-            flatShading: this.shadingBool,
+            flatShading: shadingBool,
+            wireframe: material.wireframe,
         });
 
-        newMaterial.side = this.intSides;
+        newMaterial.side = intSides;
 
         this.materials[material.id] = newMaterial;
     }
