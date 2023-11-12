@@ -35,6 +35,7 @@ class MyContents {
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/room/demo.xml");
+        console.log("MyContents constructed");
     }
 
     /**
