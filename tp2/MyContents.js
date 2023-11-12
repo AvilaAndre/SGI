@@ -29,7 +29,7 @@ class MyContents {
 
         //lights
         this.lights = new Object();
-        
+
         // show debug gizmos
         this.DEBUG = true;
 
@@ -139,6 +139,9 @@ class MyContents {
 
         this.applyTransformations(nodeObj, node.transformations);
 
+        nodeObj.castShadow = node.castShadows || parent?.castShadow;
+        nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadows;
+
         for (let i = 0; i < node.children.length; i++) {
             let child = node.children[i];
 
@@ -151,6 +154,8 @@ class MyContents {
                             geometry,
                             this.materials[nodeObj.materialIds[0]]
                         );
+                        mesh.castShadow = nodeObj.castShadow;
+                        mesh.receiveShadow = nodeObj.receiveShadows;
                         nodeObj.add(mesh);
                     } else {
                         console.error("Material Missing in", nodeRef);
