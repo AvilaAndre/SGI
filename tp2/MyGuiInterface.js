@@ -36,6 +36,13 @@ class MyGuiInterface {
             .add(this.app, "activeCameraName", Object.keys(this.app.cameras))
             .name("active camera");
         cameraFolder.open();
+
+        this.datgui
+            .add(this.contents, "wireframe")
+            .onChange((value) => {
+                this.contents.toggleWireframe(value);
+            })
+            .name("Wireframe");
     }
 }
 
