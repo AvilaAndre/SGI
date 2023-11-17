@@ -266,11 +266,12 @@ class MyContents {
 
         newLight.castShadow = light.castshadow || false;
         newLight.shadowFar = light.shadowFar || 500.0;
+        newLight
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
-        // TODO: shadowFar default 500.0
-        // TODO: shadowmapsize default 512
+
+
         // TODO: changes degrees to radians
         // TODO: change translate to position 
         // TODO: skybox
@@ -521,9 +522,9 @@ class MyContents {
         transformations.forEach((key) => {
             switch (key.type) {
                 case "T":
-                    node.position.x = key.translate[0];
-                    node.position.y = key.translate[1];
-                    node.position.z = key.translate[2];
+                    node.translateX(key.translate[0]);
+                    node.translateY(key.translate[1]);
+                    node.translateZ(key.translate[2]);
                     break;
                 case "S":
                     node.scale.x = key.scale[0];
@@ -531,9 +532,9 @@ class MyContents {
                     node.scale.z = key.scale[2];
                     break;
                 case "R":
-                    node.rotation.x = key.rotation[0];
-                    node.rotation.y = key.rotation[1];
-                    node.rotation.z = key.rotation[2];
+                    node.rotation.x = key.rotation[0] * (Math.PI / 180);
+                    node.rotation.y = key.rotation[1] * (Math.PI / 180);
+                    node.rotation.z = key.rotation[2] * (Math.PI / 180);
                     break;
             }
         });
