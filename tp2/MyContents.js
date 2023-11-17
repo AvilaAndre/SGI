@@ -247,6 +247,8 @@ class MyContents {
 
         newMaterial.wireframeValue = material.wireframe || false;
 
+        console.log("DEBUG", material.id, material.wireframe, material);
+
         this.materials[material.id] = newMaterial;
     }
 
@@ -535,9 +537,9 @@ class MyContents {
                     node.scale.z = key.scale[2];
                     break;
                 case "R":
-                    node.rotation.x = key.rotation[0] * (Math.PI / 180);
-                    node.rotation.y = key.rotation[1] * (Math.PI / 180);
-                    node.rotation.z = key.rotation[2] * (Math.PI / 180);
+                    node.rotation.x = key.rotation[0];
+                    node.rotation.y = key.rotation[1];
+                    node.rotation.z = key.rotation[2];
                     break;
             }
         });
