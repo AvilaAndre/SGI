@@ -920,7 +920,7 @@
         <node id="catRoll">
 			<transforms>
                 <rotate value3="90 0 0" />
-                <translate value3="1 5 12.3" />
+                <translate value3="1 12.3 -5" />
 
             </transforms> 
 
