@@ -843,8 +843,8 @@
 
         <node id="bottomBox">
 			<transforms>
-                <rotate value3="0 1.57 0" />
-				<!--<translate value3="5 10 5" />-->
+                <rotate value3="1.57 0 0" />
+				<translate value3="5 5 -10" />
                 <scale value3="2 2.5 0.2" />
             </transforms> 
 
@@ -856,7 +856,7 @@
         <node id="topBox">
 			<transforms>
                 <rotate value3="1.57 0 0" />
-				<translate value3="5 12 5" />
+				<translate value3="5 5 -12" />
                 <scale value3="2 2.5 0.2" />
             </transforms> 
 
