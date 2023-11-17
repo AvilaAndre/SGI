@@ -33,6 +33,8 @@ class MyContents {
         // show debug gizmos
         this.DEBUG = true;
 
+        this.wireframe = false;
+
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open("scenes/room/demo.xml");
         console.log("MyContents constructed");
@@ -243,6 +245,8 @@ class MyContents {
 
         newMaterial.side = intSides;
 
+        newMaterial.wireframeValue = material.wireframe || false;
+
         this.materials[material.id] = newMaterial;
     }
 
@@ -266,16 +270,15 @@ class MyContents {
 
         newLight.castShadow = light.castshadow || false;
         newLight.shadowFar = light.shadowFar || 500.0;
-        newLight
+        newLight;
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
 
-
         // TODO: changes degrees to radians
-        // TODO: change translate to position 
+        // TODO: change translate to position
         // TODO: skybox
-        // TODO: texlength 
+        // TODO: texlength
         // TODO: adicionar à UI wireframe e enable/disable
         // TODO: castShadow
 
@@ -538,6 +541,23 @@ class MyContents {
                     break;
             }
         });
+    }
+
+    /**
+     *
+     * Turns on/off the wireframe in the this.materials array
+     */
+    toggleWireframe(value) {
+        console.log(this.materials);
+        for (
+            let index = 0;
+            index < Object.keys(this.materials).length;
+            index++
+        ) {
+            const material = this.materials[Object.keys(this.materials)[index]];
+
+            material.wireframe = value || material.wireframeValue;
+        }
     }
 }
 
