@@ -774,7 +774,7 @@
 		
 		<node id="leftWall">
 			<transforms>
-				<translate value3="-7.5 4 0" />
+				<translate value3="0 4 7.5" />
 				<rotate value3="0.0 1.57 0.0" />
             </transforms> 
 
@@ -802,7 +802,7 @@
 
 		<node id="frontRightWall">
 			<transforms>
-				<translate value3="-7.5 4 -15" />
+				<translate value3="7.5 4 15" />
 				<rotate value3="0.0 3.1416 0.0" />
             </transforms> 
 
@@ -817,7 +817,7 @@
 
         <node id="frontLeftWall">
 			<transforms>
-				<translate value3="7.5 4 -15" />
+				<translate value3="15 4 7.5" />
 				<rotate value3="0.0 -1.571 0.0" />
             </transforms> 
 
