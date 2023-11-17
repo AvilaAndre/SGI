@@ -262,7 +262,7 @@
 
             <transforms>
 				<translate value3="3 0.4 5" />
-				<rotate value3="0 180.0 0.0" />
+				<rotate value3="0 3.14 0.0" />
                 <scale value3="0.3 0.3 0.3" />
             </transforms> 
 
@@ -296,7 +296,7 @@
 
             <transforms>
 				<translate value3="0 0 -0.5" />
-				<rotate value3="0 180.0 0.0" />
+				<rotate value3="0 3.14 0.0" />
             </transforms> 
 
             <children>   
@@ -323,7 +323,7 @@
 
             <transforms>
 				<translate value3="0 -0.5 0" />
-				<rotate value3="90 0.0 0.0" />
+				<rotate value3="1.57 0.0 0.0" />
             </transforms> 
 
             <children>   
@@ -337,7 +337,7 @@
 
             <transforms>
 				<translate value3="0 0.5 0" />
-				<rotate value3="-90 0.0 0.0" />
+				<rotate value3="-1.57 0.0 0.0" />
             </transforms> 
 
             <children>             
@@ -351,7 +351,7 @@
 
             <transforms>
 				<translate value3="-0.5 0 0" />
-				<rotate value3="0.0 -90.0 0.0" />
+				<rotate value3="0.0 -1.57.0 0.0" />
             </transforms> 
 
             <children>             
@@ -364,7 +364,7 @@
 		<node id="rectangle6"> 
             <transforms>
 				<translate value3="0.5 0 0" />
-				<rotate value3="0.0 90.0 0.0" />
+				<rotate value3="0.0 1.57.0 0.0" />
             </transforms>
 
             <children>             
@@ -500,7 +500,7 @@
 
         <node id="firstStepHor">
 			<transforms>
-                <rotate value3="-90 0 0" />
+                <rotate value3="-1.57 0 0" />
 				<translate value3="0 0 0" />
                 <scale value3="0.3 0.3 0.1" />
             </transforms> 
@@ -761,7 +761,7 @@
 		<node id="floor">
 			<transforms>
 				<translate value3="0 0 15" />
-				<rotate value3="-90 0.0 0.0" />
+				<rotate value3="-1.57 0.0 0.0" />
             </transforms> 
 
 			<materialref id="floorApp" />
@@ -775,7 +775,7 @@
 		
 		<node id="wall">
 			<transforms>
-				<rotate value3="-90 0.0 0.0" />
+				<rotate value3="-1.57 0.0 0.0" />
             </transforms> 
 			
             <children>             
@@ -785,63 +785,66 @@
 		
 		<node id="leftWall">
 			<transforms>
-				<translate value3="0 0 15" />
-				<rotate value3="0.0 90 0.0" />
+				<rotate value3="0.0 1.57 0.0" />
+				<translate value3="-7.5 4 0" />
             </transforms> 
 
 			<materialref id="wallApp" />
 			
             <children>             
                 <primitive>
-                    <rectangle xy1="0 0" xy2="15 8" />
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
                 </primitive>
             </children> 
         </node>
 		
 		<node id="rightWall">
 			<materialref id="wallApp" />
+            <transforms>
+				<translate value3="7.5 4 0" />
+            </transforms> 
 			
             <children>             
                 <primitive>
-                    <rectangle xy1="0 0" xy2="15 8" />
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
                 </primitive>
             </children> 
         </node>
 
 		<node id="frontRightWall">
 			<transforms>
-				<rotate value3="0.0 -90 0.0" />
-				<translate value3="15 0 0" />
+				<rotate value3="0.0 3.1416 0.0" />
+				<translate value3="-7.5 4 -15" />
             </transforms> 
 
 			<materialref id="wallApp" />
 			
             <children>             
                 <primitive>
-                    <rectangle xy1="0 0" xy2="15 8" />
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
                 </primitive>
             </children> 
         </node>
 
         <node id="frontLeftWall">
 			<transforms>
-				<rotate value3="0.0 180 0.0" />
-				<translate value3="15 0 15" />
+				<rotate value3="0.0 -1.571 0.0" />
+				<translate value3="7.5 4 -15" />
             </transforms> 
 
 			<materialref id="wallApp" />
 			
             <children>             
                 <primitive>
-                    <rectangle xy1="0 0" xy2="15 8" />
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
                 </primitive>
             </children> 
         </node>
 
         <node id="bottomBox">
 			<transforms>
-                <rotate value3="90 0 0" />
-				<translate value3="5 10 5" />
+                <rotate value3="0 1.57 0" />
+				<!--<translate value3="5 10 5" />-->
                 <scale value3="2 2.5 0.2" />
             </transforms> 
 
@@ -852,7 +855,7 @@
 
         <node id="topBox">
 			<transforms>
-                <rotate value3="90 0 0" />
+                <rotate value3="1.57 0 0" />
 				<translate value3="5 12 5" />
                 <scale value3="2 2.5 0.2" />
             </transforms> 
@@ -919,7 +922,7 @@
 
         <node id="catRoll">
 			<transforms>
-                <rotate value3="90 0 0" />
+                <rotate value3="1.57 0 0" />
                 <translate value3="1 12.3 -5" />
 
             </transforms> 
@@ -1000,8 +1003,8 @@
 
 		<node id="tree">
 			<transforms>
-                <rotate value3="90 0 0" />
-				<translate value3="13.4 1 2" />
+                <rotate value3="1.57 0 0" />
+				<translate value3="13.4 1 -0.7" />
                 <scale value3="0.6 0.6 0.6" />
 				<!--<rotate value3="0.0 0.0 -80"/>-->
             </transforms>
