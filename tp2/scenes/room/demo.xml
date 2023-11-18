@@ -594,7 +594,7 @@
 
         <node id="seventhStep">
 			<transforms>
-				<translate value3="0.15 2.27 2.2" />
+				<translate value3="0.15 2.17 2.2" />
 
             </transforms> 
 
@@ -606,7 +606,7 @@
 
         <node id="eigthStep">
 			<transforms>
-				<translate value3="0.15 2.57 1.9" />
+				<translate value3="0.15 2.47 1.9" />
 
             </transforms> 
 
@@ -618,7 +618,7 @@
 
         <node id="ninthStep">
 			<transforms>
-				<translate value3="0.15 2.87 1.6" />
+				<translate value3="0.15 2.77 1.6" />
 
             </transforms> 
 
