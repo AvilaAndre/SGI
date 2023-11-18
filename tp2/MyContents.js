@@ -84,10 +84,20 @@ class MyContents {
         // to see the data structure for each item
 
         this.output(data.options);
-
         this.setOptions(data.options);
 
-        console.log("data.options:", data.options);
+        if (data.fog) {
+            const fogColor = new THREE.Color(
+                data.fog.r,
+                data.fog.g,
+                data.fog.b
+            );
+            this.app.scene.fog = new THREE.Fog(
+                fogColor,
+                data.fog.near,
+                data.fog.far
+            );
+        }
 
         console.log("textures:");
         for (var key in data.textures) {
