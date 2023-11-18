@@ -43,6 +43,13 @@ class MyGuiInterface {
                 this.contents.toggleWireframe(value);
             })
             .name("Wireframe");
+
+        this.datgui
+            .add(this.contents, "lightsOn")
+            .onChange((value) => {
+                this.contents.toggleLights(value);
+            })
+            .name("Toggle Lights");
     }
 }
 
