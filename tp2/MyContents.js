@@ -31,10 +31,14 @@ class MyContents {
         //lights
         this.lights = new Object();
 
+        this.lightsArray = [];
+
         // show debug gizmos
         this.DEBUG = true;
 
         this.wireframe = false;
+
+        this.lightsOn = true;
 
         this.scenePath = "scenes/room/";
 
@@ -288,19 +292,16 @@ class MyContents {
 
         newLight.position.set(x, y, z);
 
-        // TODO: enabled default true
-
-        // TODO: changes degrees to radians
-        // TODO: change translate to position
-        // TODO: skybox
-        // TODO: texlength
-        // TODO: adicionar à UI wireframe e enable/disable
-        // TODO: castShadow
 
         if (this.DEBUG) {
             const helper = new THREE.PointLightHelper(newLight, 0.5);
             this.app.scene.add(helper);
         }
+
+
+        this.lightsArray.push({prevIntensity: newLight.intensity,
+            light: newLight}
+        );
 
         return newLight;
     }
@@ -334,19 +335,16 @@ class MyContents {
         newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
-        // TODO: enabled default true
-        // TODO: shadowFar default 500.0
-        // TODO: shadowmapsize default 512
-        // TODO: enabled default true (luzes na GUI)
-        // TODO: changes degrees to radians
-        // TODO: change translate to position (fix room)
-        // TODO: skybox
-
         if (this.DEBUG) {
             const helper = new THREE.SpotLightHelper(newLight, lightColor);
 
             this.app.scene.add(helper);
         }
+
+        this.lightsArray.push({prevIntensity: newLight.intensity,
+            light: newLight}
+        );
+
         return newLight;
     }
 
@@ -370,15 +368,6 @@ class MyContents {
         newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
-        // TODO: shadowleft default -5
-        // TODO: shadowright default 5
-        // TODO: shadowbottom default -5
-        // TODO: shadowtop default 5
-
-        // TODO: enabled default true
-        // TODO: shadowFar default false
-        // TODO: shadowmapsize default 512
-
         if (this.DEBUG) {
             const helper = new THREE.DirectionalLightHelper(
                 newLight,
@@ -388,6 +377,10 @@ class MyContents {
 
             this.app.scene.add(helper);
         }
+
+        this.lightsArray.push({prevIntensity: newLight.intensity,
+            light: newLight}
+        );
 
         return newLight;
     }
@@ -664,6 +657,28 @@ class MyContents {
             material.wireframe = value || material.wireframeValue;
         }
     }
+
+    toggleLights(value) {
+        console.log("toggleLights", value);
+        if (value) {
+            for (let index = 0; index < this.lightsArray.length; index++) {
+                const lightInfo = this.lightsArray[index];
+    
+                if (lightInfo.light.intensity == 0)
+                    lightInfo.light.intensity = lightInfo.prevIntensity;
+            }
+        } else {
+
+            for (let index = 0; index < this.lightsArray.length; index++) {
+                const lightInfo = this.lightsArray[index];
+
+                lightInfo.prevIntensity = lightInfo.light.intensity;
+                lightInfo.light.intensity = 0;
+                
+            }
+        }
+    }
+    
 }
 
 export { MyContents };
