@@ -5,7 +5,7 @@
 	
     <globals background="0 0 0 1" ambient="0 0 0 1" /> 
 
-    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="1000.0" />
 
     <cameras initial="cam1" > 
         <perspective id="cam1" 
@@ -32,7 +32,7 @@
     <textures>
         <texture id="leftWallTex" filepath="scenes/room/textures/cats.jpg" />        
 		<texture id="floorTex" filepath="scenes/room/textures/carpet/carpet.png" />
-		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_normal.png" />
+		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_normal.png"/>
 		<texture id="floorSpecTex" filepath="scenes/room/textures/carpet/carpet_specular.png" />
 		<texture id="tableTex" filepath="scenes/room/textures/wood4.jpg" />
         <texture id="sofaTex" filepath="scenes/room/textures/light_leather.jpg" />
@@ -46,8 +46,7 @@
 		<texture id="vaseTex" filepath="scenes/room/textures/vase.png" />
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
-
-    </textures> 
+    </textures>
 
     <materials> 
 		<material id="pineApp" 
