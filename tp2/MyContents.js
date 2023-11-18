@@ -250,6 +250,11 @@ class MyContents {
 
         let shadingBool = material.shading === "flat";
 
+        // bumpscale="ff"              <!-- optional, default="1.0" -->
+        // specularref="ss"            <!-- optional, default="null" -->
+
+        console.log("debug", this.textures[material.bumpref || null]);
+
         const newMaterial = new THREE.MeshPhongMaterial({
             color: materialColor,
             specular: material.specular,
@@ -260,6 +265,9 @@ class MyContents {
             wireframe: material.wireframe || false,
             texlength_s: material.texlength_s || 1,
             texlength_t: material.texlength_t || 1,
+            bumpMap: this.textures[material.bumpref || null],
+            bumpScale: material.scale || 1.0,
+            specularMap: this.textures[material.specularref || null],
         });
 
         if (material.color.a == 1) {
