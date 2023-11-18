@@ -21,6 +21,8 @@ class MyContents {
         this.textures = new Object();
         // materials
         this.materials = new Object();
+        // primitive materials, polygon is the only primitive with a material assigned
+        this.primitiveMaterials = [];
         //skyboxes
         this.skyboxes = new Object();
         //cameras
@@ -173,21 +175,33 @@ class MyContents {
             let child = node.children[i];
 
             if (child.type === "primitive") {
-                const geometry = this.createPrimitive(child);
+                child.representations.forEach((representation) => {
+                    const geometry = this.createPrimitive(representation);
 
-                if (geometry !== undefined) {
-                    if (nodeObj.materialIds) {
-                        const mesh = new THREE.Mesh(
-                            geometry,
-                            this.materials[nodeObj.materialIds[0]]
-                        );
-                        mesh.castShadow = nodeObj.castShadow;
-                        mesh.receiveShadow = nodeObj.receiveShadows;
-                        nodeObj.add(mesh);
+                    /**
+                     * Polygon is the only primitive that has material defined in itself
+                     * this way, we need a special case to handle it
+                     */
+                    if (child.subtype === "polygon") {
+                        geometry.castShadow = nodeObj.castShadow;
+                        geometry.receiveShadow = nodeObj.receiveShadows;
+                        nodeObj.add(geometry);
                     } else {
-                        console.error("Material Missing in", nodeRef);
+                        if (geometry !== undefined) {
+                            if (nodeObj.materialIds) {
+                                const mesh = new THREE.Mesh(
+                                    geometry,
+                                    this.materials[nodeObj.materialIds[0]]
+                                );
+                                mesh.castShadow = nodeObj.castShadow;
+                                mesh.receiveShadow = nodeObj.receiveShadows;
+                                nodeObj.add(mesh);
+                            } else {
+                                console.error("Material Missing in", nodeRef);
+                            }
+                        }
                     }
-                }
+                });
             } else if (child.type === "pointlight") {
                 const light = this.addPointlight(child);
                 nodeObj.add(light);
@@ -592,27 +606,27 @@ class MyContents {
         this.cameras[camera.id] = newCamera;
     }
 
-    createPrimitive(child) {
-        if (child.subtype === "cylinder") {
+    createPrimitive(representation) {
+        if (representation.type === "cylinder") {
             return new THREE.CylinderGeometry(
-                child.representations[0]["top"],
-                child.representations[0]["base"],
-                child.representations[0]["height"],
-                child.representations[0]["slices"],
-                child.representations[0]["stacks"],
-                child.representations[0]["capsclose"] || false,
-                child.representations[0]["thetastart"],
-                child.representations[0]["thetalength"]
+                representation["top"],
+                representation["base"],
+                representation["height"],
+                representation["slices"],
+                representation["stacks"],
+                representation["capsclose"] || false,
+                representation["thetastart"],
+                representation["thetalength"]
             );
-        } else if (child.subtype === "rectangle") {
-            const point1 = child.representations[0]["xy1"];
-            const point2 = child.representations[0]["xy2"];
+        } else if (representation.type === "rectangle") {
+            const point1 = representation["xy1"];
+            const point2 = representation["xy2"];
 
             const geometry = new THREE.PlaneGeometry(
                 point2[0] - point1[0],
                 point2[1] - point1[1],
-                child.representations["parts_x"],
-                child.representations["parts_y"]
+                representation["parts_x"],
+                representation["parts_y"]
             );
 
             geometry.translate(
@@ -622,47 +636,45 @@ class MyContents {
             );
 
             return geometry;
-        } else if (child.subtype === "triangle") {
+        } else if (representation.type === "triangle") {
             return new THREE.Triangle(
                 new Vector3(
-                    child.representations[0]["xyz1"][0],
-                    child.representations[0]["xyz1"][1],
-                    child.representations[0]["xyz1"][2]
+                    representation["xyz1"][0],
+                    representation["xyz1"][1],
+                    representation["xyz1"][2]
                 ),
                 new Vector3(
-                    child.representations[0]["xyz2"][0],
-                    child.representations[0]["xyz2"][1],
-                    child.representations[0]["xyz2"][2]
+                    representation["xyz2"][0],
+                    representation["xyz2"][1],
+                    representation["xyz2"][2]
                 ),
                 new Vector3(
-                    child.representations[0]["xyz3"][0],
-                    child.representations[0]["xyz3"][1],
-                    child.representations[0]["xyz3"][2]
+                    representation["xyz3"][0],
+                    representation["xyz3"][1],
+                    representation["xyz3"][2]
                 )
             );
-        } else if (child.subtype === "sphere") {
+        } else if (representation.type === "sphere") {
             return new THREE.SphereGeometry(
-                child.representations["radius"],
-                child.representations["slices"],
-                child.representations["stacks"],
-                child.representations["phistart"],
-                child.representations["philength"],
-                child.representations["thetastart"],
-                child.representations["thetalength"]
+                representation["radius"],
+                representation["slices"],
+                representation["stacks"],
+                representation["phistart"],
+                representation["philength"],
+                representation["thetastart"],
+                representation["thetalength"]
             );
-        } else if (child.subtype === "nurbs") {
-            const degree_v = child.representations[0]["degree_v"];
-            const degree_u = child.representations[0]["degree_u"];
-            const num_pts = child.representations[0].controlpoints.length;
+        } else if (representation.type === "nurbs") {
+            const degree_v = representation["degree_v"];
+            const degree_u = representation["degree_u"];
+            const num_pts = representation.controlpoints.length;
             const controlpoints = [];
 
             for (let i = 0; i < num_pts / (degree_u + 1); i++) {
                 const pt_to_add = [];
                 for (let j = 0; j < degree_v + 1; j++) {
                     const point =
-                        child.representations[0].controlpoints[
-                            i * (degree_u + 1) + j
-                        ];
+                        representation.controlpoints[i * (degree_u + 1) + j];
                     pt_to_add.push([point.xx, point.yy, point.zz]);
                 }
                 controlpoints.push(pt_to_add);
@@ -672,27 +684,141 @@ class MyContents {
                 controlpoints,
                 degree_u,
                 degree_v,
-                child.representations[0]["parts_u"],
-                child.representations[0]["parts_v"]
+                representation["parts_u"],
+                representation["parts_v"]
             );
-        } else if (child.subtype === "box") {
-            const point1 = child.representations[0]["xyz1"];
-            const point2 = child.representations[0]["xyz2"];
+        } else if (representation.type === "box") {
+            const point1 = representation["xyz1"];
+            const point2 = representation["xyz2"];
 
             return new THREE.BoxGeometry(
                 point2[0] - point1[0],
                 point2[1] - point1[1],
                 point2[2] - point1[2],
-                child.representations["parts_x"],
-                child.representations["parts_y"],
-                child.representations["parts_z"]
+                representation["parts_x"],
+                representation["parts_y"],
+                representation["parts_z"]
             );
+        } else if (representation.type === "polygon") {
+            const { radius, stacks, slices } = representation;
+
+            const geometry = new THREE.BufferGeometry();
+
+            const colorCenter = new THREE.Color(
+                representation.color_c.r,
+                representation.color_c.g,
+                representation.color_c.b
+            );
+            const colorPoint = new THREE.Color(
+                representation.color_p.r,
+                representation.color_p.g,
+                representation.color_p.b
+            );
+
+            const vertices = [];
+
+            const colors = [];
+
+            for (let i = 1; i < slices + 1; i++) {
+                const len = radius / slices;
+                for (let j = 0; j < stacks; j++) {
+                    const angleA = (j * (2 * Math.PI)) / stacks;
+                    const angleB = ((j + 1) * (2 * Math.PI)) / stacks;
+
+                    const innerColor = new THREE.Color();
+
+                    const outterColor = new THREE.Color();
+
+                    innerColor.lerpColors(
+                        colorCenter,
+                        colorPoint,
+                        (i - 1) / slices
+                    );
+                    outterColor.lerpColors(colorCenter, colorPoint, i / slices);
+
+                    if (i == 1) {
+                        vertices.push(0, 0, 0);
+                        vertices.push(
+                            i * len * Math.cos(angleA),
+                            i * len * Math.sin(angleA),
+                            0
+                        );
+                        vertices.push(
+                            i * len * Math.cos(angleB),
+                            i * len * Math.sin(angleB),
+                            0
+                        );
+
+                        colors.push(...innerColor);
+                        colors.push(...outterColor);
+                        colors.push(...outterColor);
+                    } else {
+                        vertices.push(
+                            (i - 1) * len * Math.cos(angleA),
+                            (i - 1) * len * Math.sin(angleA),
+                            0
+                        );
+                        vertices.push(
+                            i * len * Math.cos(angleA),
+                            i * len * Math.sin(angleA),
+                            0
+                        );
+                        vertices.push(
+                            i * len * Math.cos(angleB),
+                            i * len * Math.sin(angleB),
+                            0
+                        );
+
+                        colors.push(...innerColor);
+                        colors.push(...outterColor);
+                        colors.push(...outterColor);
+
+                        vertices.push(
+                            (i - 1) * len * Math.cos(angleA),
+                            (i - 1) * len * Math.sin(angleA),
+                            0
+                        );
+                        vertices.push(
+                            i * len * Math.cos(angleB),
+                            i * len * Math.sin(angleB),
+                            0
+                        );
+                        vertices.push(
+                            (i - 1) * len * Math.cos(angleB),
+                            (i - 1) * len * Math.sin(angleB),
+                            0
+                        );
+
+                        colors.push(...innerColor);
+                        colors.push(...outterColor);
+                        colors.push(...innerColor);
+                    }
+                }
+            }
+
+            geometry.setAttribute(
+                "position",
+                new THREE.BufferAttribute(new Float32Array(vertices), 3)
+            );
+            geometry.setAttribute(
+                "color",
+                new THREE.BufferAttribute(new Float32Array(colors), 3)
+            );
+
+            const material = new THREE.MeshBasicMaterial({
+                vertexColors: true,
+                wireframe: false,
+            });
+
+            this.primitiveMaterials.push(material);
+
+            const mesh = new THREE.Mesh(geometry, material);
+
+            return mesh;
         } else {
-            console.error("Can't create primitive: ", child.subtype);
+            console.error("Can't create primitive: ", representation.type);
             return undefined;
         }
-        // ("model3d");
-        // ("skybox");
     }
 
     applyTransformations(node, transformations) {
@@ -731,6 +857,10 @@ class MyContents {
 
             material.wireframe = value || material.wireframeValue;
         }
+
+        this.primitiveMaterials.forEach(
+            (material) => (material.wireframe = value)
+        );
     }
 }
 
