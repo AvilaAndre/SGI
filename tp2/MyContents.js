@@ -88,10 +88,20 @@ class MyContents {
         // to see the data structure for each item
 
         this.output(data.options);
-
         this.setOptions(data.options);
 
-        console.log("data.options:", data.options);
+        if (data.fog) {
+            const fogColor = new THREE.Color(
+                data.fog.r,
+                data.fog.g,
+                data.fog.b
+            );
+            this.app.scene.fog = new THREE.Fog(
+                fogColor,
+                data.fog.near,
+                data.fog.far
+            );
+        }
 
         console.log("textures:");
         for (var key in data.textures) {
@@ -229,6 +239,61 @@ class MyContents {
         newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
         newTexture.anisotropy = texture.anisotropy;
 
+        if (texture.mipmap0) {
+            newTexture.generateMipmaps = false;
+            newTexture.needsUpdate = true;
+
+            const mipmaps = [
+                "mipmap0",
+                "mipmap1",
+                "mipmap2",
+                "mipmap3",
+                "mipmap4",
+                "mipmap5",
+                "mipmap6",
+                "mipmap7",
+            ];
+
+            for (let index = 0; index < mipmaps.length; index++) {
+                const name = mipmaps[index];
+
+                const mipmapText = texture[name];
+
+                if (!mipmapText) break;
+
+                new THREE.TextureLoader().load(
+                    mipmapText,
+                    function (mipmapTexture) {
+                        const canvas = document.createElement("canvas");
+                        const ctx = canvas.getContext("2d");
+                        ctx.scale(1, 1);
+
+                        // const fontSize = 48
+                        const img = mipmapTexture.image;
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+
+                        // first draw the image
+                        ctx.drawImage(img, 0, 0);
+
+                        // set the mipmap image in the parent texture in the appropriate level
+                        newTexture.mipmaps[index] = canvas;
+                    },
+                    undefined, // onProgress callback currently not supported
+                    function (err) {
+                        console.error(
+                            "Unable to load the image " +
+                                path +
+                                " as mipmap level " +
+                                level +
+                                ".",
+                            err
+                        );
+                    }
+                );
+            }
+        }
+
         this.textures[texture.id] = newTexture;
     }
 
@@ -254,6 +319,9 @@ class MyContents {
             wireframe: material.wireframe || false,
             texlength_s: material.texlength_s || 1,
             texlength_t: material.texlength_t || 1,
+            bumpMap: this.textures[material.bumpref || null],
+            bumpScale: material.bumpscale || 1.0,
+            specularMap: this.textures[material.specularref || null],
         });
 
         if (material.color.a == 1) {
