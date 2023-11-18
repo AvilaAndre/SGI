@@ -21,7 +21,8 @@ class MyContents {
         this.textures = new Object();
         // materials
         this.materials = new Object();
-
+        //skyboxes
+        this.skyboxes = new Object();
         //cameras
         this.cameras = new Object();
         //nodes
@@ -35,8 +36,10 @@ class MyContents {
 
         this.wireframe = false;
 
+        this.scenePath = "scenes/room/";
+
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open("scenes/room/demo.xml");
+        this.reader.open(this.scenePath + "demo.xml");
         console.log("MyContents constructed");
     }
 
@@ -99,6 +102,18 @@ class MyContents {
             this.output(material, 1);
             this.addMaterial(material);
         }
+
+        // first and only skybox is called "default"
+        this.output(data.skyboxes["default"]);
+
+        console.log("skyboxes:", data.skyboxes);
+        for (var key in data.skyboxes) {
+            let skybox = data.skyboxes[key];
+            this.output(skybox, 1);
+            this.addSkybox(skybox);
+        }
+
+        this.app.scene.add(this.skyboxes["default"]);
 
         console.log("cameras:");
         for (var key in data.cameras) {
@@ -247,8 +262,6 @@ class MyContents {
 
         newMaterial.wireframeValue = material.wireframe || false;
 
-        console.log("DEBUG", material.id, material.wireframe, material);
-
         this.materials[material.id] = newMaterial;
     }
 
@@ -272,7 +285,7 @@ class MyContents {
 
         newLight.castShadow = light.castshadow || false;
         newLight.shadowFar = light.shadowFar || 500.0;
-        newLight;
+
         newLight.position.set(x, y, z);
 
         // TODO: enabled default true
@@ -331,6 +344,7 @@ class MyContents {
 
         if (this.DEBUG) {
             const helper = new THREE.SpotLightHelper(newLight, lightColor);
+
             this.app.scene.add(helper);
         }
         return newLight;
@@ -368,12 +382,102 @@ class MyContents {
         if (this.DEBUG) {
             const helper = new THREE.DirectionalLightHelper(
                 newLight,
+                5,
                 lightColor
             );
+
             this.app.scene.add(helper);
         }
 
         return newLight;
+    }
+
+    /**
+     *
+     * @param {SkyboxData} camera
+     * creates a skybox based on the data received and adds to the skyboxes array
+     */
+    addSkybox(skybox) {
+        const skyboxObj = new THREE.Object3D();
+
+        const sizeX = skybox.size[0];
+        const sizeY = skybox.size[1];
+        const sizeZ = skybox.size[2];
+
+        const center = skybox.center;
+        const emissiveIntensity = skybox.emissiveIntensity;
+
+        const emissiveColor = new THREE.Color(
+            skybox.emissive.r,
+            skybox.emissive.g,
+            skybox.emissive.b
+        );
+
+        const skyboxBuildInfo = [
+            // back
+            {
+                textPath: skybox.back,
+                trans: [0, 0, -sizeZ / 2],
+                rotate: [0, 0, 0],
+            },
+            // front
+            {
+                textPath: skybox.front,
+                trans: [0, 0, sizeZ / 2],
+                rotate: [0, 3.1416, 0],
+            },
+            // left
+            {
+                textPath: skybox.left,
+                trans: [-sizeX / 2, 0, 0],
+                rotate: [0, 1.5708, 0],
+            },
+            // right
+            {
+                textPath: skybox.right,
+                trans: [sizeX / 2, 0, 0],
+                rotate: [0, -1.5708, 0],
+            },
+            // up
+            {
+                textPath: skybox.up,
+                trans: [0, sizeY / 2, 0],
+                rotate: [1.5708, 0, 0],
+            },
+            // down
+            {
+                textPath: skybox.down,
+                trans: [0, -sizeY / 2, 0],
+                rotate: [-1.5708, 0, 0],
+            },
+        ];
+
+        const materials = [];
+
+        ["right", "left", "up", "down", "front", "back"].forEach((side) => {
+            const texture = new THREE.TextureLoader().load(
+                this.scenePath + skybox[side]
+            );
+            const material = new THREE.MeshPhongMaterial({
+                map: texture,
+                emissiveMap: texture,
+                emissive: emissiveColor,
+                emissiveIntensity,
+                side: THREE.BackSide,
+            });
+
+            materials.push(material);
+        });
+
+        const geo = new THREE.BoxGeometry(sizeX, sizeY, sizeZ);
+
+        skyboxObj.add(new THREE.Mesh(geo, materials));
+
+        skyboxObj.translateX(center[0]);
+        skyboxObj.translateY(center[1]);
+        skyboxObj.translateZ(center[2]);
+
+        this.skyboxes[skybox.id] = skyboxObj;
     }
 
     /**
@@ -550,7 +654,6 @@ class MyContents {
      * Turns on/off the wireframe in the this.materials array
      */
     toggleWireframe(value) {
-        console.log(this.materials);
         for (
             let index = 0;
             index < Object.keys(this.materials).length;
