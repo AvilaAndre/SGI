@@ -212,48 +212,58 @@
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
                     intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="33.75 37.3 33.75" 
+                    distance="20"
+                    decay="0.2"
+                    castshadow="true"
+                    position="11 7.5 11" 
                 /> 
 
                 <pointlight id="light2" enabled="true" 
                     color="0.5 0.6 0.8 1" 
                     intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"
+                    distance="20"
+                    decay="0.2"
+                    castshadow="true"
+                    position="4 7.5 11"
                 /> 
                 
                 <pointlight id="light3" enabled="true" 
                     color="0.5 0.6 0.8 1" 
                     intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"  
+                    distance="20"
+                    decay="0.2"
+                    castshadow="true"
+                    position="11 7.5 4"  
                 /> 
 
-                <spotlight id="light4" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
+                <pointlight id="light4" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
                     intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
+                    distance="20"
+                    decay="0.2"
                     castshadow="true"
-                    position="2 2 4" 
-                    target="0 0 0"
+                    position="4 7.5 4"  
+                />
+
+                <spotlight id="light5" enabled="true" 
+                    color="1.0 0.2 0.2 1" 
+                    intensity="10.0"
+                    distance="20"
+                    decay="1.0"
+                    castshadow="true"
+                    position="12.5 4 11" 
+                    target="12.5 0 11"
                     penumbra="1.0"
-                    angle="10.0" 
+                    angle="0.393" 
                 /> 
 
-                <directionallight id="light5" enabled="true" 
+                <!--
+                <directionallight id="light6" enabled="true" 
                     color="1.0 1.0 1.0 1" 
                     intensity="1.0"
                     castshadow="true"
                     position="2 2 4" 
-                /> 
+                /> -->
             </children> 
         </node>
 

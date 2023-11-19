@@ -232,9 +232,7 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight({
-            color: ambientColor,
-        });
+        const light = new THREE.AmbientLight(ambientColor, 1);
 
         this.app.scene.add(light);
 
@@ -374,16 +372,15 @@ class MyContents {
 
         newLight.position.set(x, y, z);
 
-
         if (this.DEBUG) {
             const helper = new THREE.PointLightHelper(newLight, 0.5);
             this.app.scene.add(helper);
         }
 
-
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -423,9 +420,10 @@ class MyContents {
             this.app.scene.add(helper);
         }
 
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -460,9 +458,10 @@ class MyContents {
             this.app.scene.add(helper);
         }
 
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -861,22 +860,19 @@ class MyContents {
         if (value) {
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];
-    
+
                 if (lightInfo.light.intensity == 0)
                     lightInfo.light.intensity = lightInfo.prevIntensity;
             }
         } else {
-
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];
 
                 lightInfo.prevIntensity = lightInfo.light.intensity;
                 lightInfo.light.intensity = 0;
-                
             }
         }
     }
-    
 }
 
 export { MyContents };
