@@ -47,6 +47,8 @@
 		<texture id="vaseTex" filepath="scenes/room/textures/vase.png" />
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
+        <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
+
     </textures>
 
     <materials> 
@@ -86,6 +88,16 @@
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="stairsTex" 
+            texlength_s="1" 
+            texlength_t="1" 
+            twosided = "true"/>
+
+        <material id="windowApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="windowWoodTex" 
             texlength_s="1" 
             texlength_t="1" 
             twosided = "true"/>
@@ -202,7 +214,13 @@
 		<node id="scene"> 
             <children> 
                 <noderef id="leftWall" /> 
-				<noderef id="rightWall" />
+				<noderef id="rightWall1" />
+                <noderef id="rightWall2" />
+                <noderef id="rightWall3" />
+                <noderef id="rightWall4" />
+                <noderef id="leftWindow" />
+                <noderef id="centerWindow" />
+                <noderef id="rightWindow" />
                 <noderef id="frontRightWall" />
                 <noderef id="frontLeftWall" />            
 				<noderef id="floor" /> 
@@ -219,7 +237,8 @@
                 <noderef id="catRoll" />
                 <noderef id="catRollScratcher" />
                 <noderef id="tree" /> 
-                <noderef id="polygon" />
+                <noderef id="leftPolygon" />
+                <noderef id="rightPolygon" />
 
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
@@ -269,10 +288,30 @@
             </children> 
         </node>
 
-        <node id="polygon">
+        <node id="leftPolygon">
             <transforms>
-                <translate value3="7.5 7 -7.41" />
-                <scale value3="2.2 2.2 2.2" />
+                <translate value3="3.15 7 -7.41" />
+                <scale value3="2 2 2" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <polygon 
+                        radius="1"
+                        stacks="5"
+                        slices="3"
+                        color_c="1 0 0 1"
+                        color_p="0 0 1 1"
+                    />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="rightPolygon">
+            <transforms>
+                <translate value3="11.4 7 -7.41" />
+                <scale value3="2 2 2" />
             </transforms>
 
             <children>
@@ -853,11 +892,11 @@
             </children> 
         </node>
 		
-		<node id="rightWall">
+		<node id="rightWall1">
 			<materialref id="wallApp" />
             <transforms>
-				<translate value3="7.5 5.2 -7.5" />
-                <scale value3="2 1.8 2" />
+				<translate value3="-5.25 5.2 -7.5" />
+                <scale value3="0.3 1.8 0.3" />
             </transforms> 
 			
             <children>             
@@ -866,6 +905,50 @@
                 </primitive>
             </children> 
         </node>
+
+        <node id="rightWall2">
+			<materialref id="wallApp" />
+            <transforms>
+				<translate value3="3.25 5.2 -7.5" />
+                <scale value3="0.27 1.8 0.3" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightWall3">
+			<materialref id="wallApp" />
+            <transforms>
+				<translate value3="11.525 5.2 -7.5" />
+                <scale value3="0.27 1.8 0.3" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightWall4">
+			<materialref id="wallApp" />
+            <transforms>
+				<translate value3="20.14 5.2 -7.5" />
+                <scale value3="0.318 1.8 0.3" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-7.5 -4" xy2="7.5 4" />
+                </primitive>
+            </children> 
+        </node>
+
+        
 
 		<node id="frontRightWall">
 			<transforms>
@@ -882,6 +965,58 @@
                 </primitive>
             </children> 
         </node>
+
+
+
+        <node id="leftWindow">
+			<materialref id="windowApp" />
+            <transforms>
+				<translate value3="-5.25 0 -7.5" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="2.25 12.4" xy2="6.0 11.9" />
+                    <rectangle xy1="2.25 -1.5" xy2="6.0 -2" />
+                    <rectangle xy1="2.25 12.4" xy2="2.75 -2" />
+                    <rectangle xy1="6.0 12.4" xy2="6.5 -2" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="centerWindow">
+			<materialref id="windowApp" />
+            <transforms>
+				<translate value3="3 0 -7.5" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="2.25 12.4" xy2="6.0 11.9" />
+                    <rectangle xy1="2.25 -1.5" xy2="6.0 -2" />
+                    <rectangle xy1="2.25 12.4" xy2="2.75 -2" />
+                    <rectangle xy1="6.0 12.4" xy2="6.5 -2" />
+                </primitive>
+            </children> 
+        </node>
+
+                
+        <node id="rightWindow">
+			<materialref id="windowApp" />
+            <transforms>
+				<translate value3="11.25 0 -7.5" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="2.25 12.4" xy2="6.0 11.9" />
+                    <rectangle xy1="2.25 -1.5" xy2="6.0 -2" />
+                    <rectangle xy1="2.25 12.4" xy2="2.75 -2" />
+                    <rectangle xy1="6.0 12.4" xy2="6.5 -2" />
+                </primitive>
+            </children> 
+        </node>
+
 
         <node id="frontLeftWall">
 			<transforms>
