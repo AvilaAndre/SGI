@@ -47,7 +47,6 @@ class MyContents {
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open(this.scenePath + "demo.xml");
         //this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
-
     }
 
     /**
@@ -306,7 +305,7 @@ class MyContents {
                     }
                 );
             }
-        } else if(texture.isVideo){
+        } else if (texture.isVideo) {
             console.log("is video");
             const video = document.createElement("video");
             video.id = "video";
@@ -708,8 +707,9 @@ class MyContents {
             for (let i = 1; i < stacks + 1; i++) {
                 const len = radius / stacks;
                 for (let j = 0; j < slices; j++) {
-                    const angleA = (j * (2 * Math.PI)) / slices + Math.PI/2;
-                    const angleB = ((j + 1) * (2 * Math.PI)) / slices + Math.PI/2;
+                    const angleA = (j * (2 * Math.PI)) / slices + Math.PI / 2;
+                    const angleB =
+                        ((j + 1) * (2 * Math.PI)) / slices + Math.PI / 2;
 
                     const innerColor = new THREE.Color();
 
@@ -850,7 +850,6 @@ class MyContents {
     }
 
     toggleLights(value) {
-
         if (value) {
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];

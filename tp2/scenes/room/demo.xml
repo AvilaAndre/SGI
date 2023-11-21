@@ -48,9 +48,9 @@
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
         <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
-        <texture id="ollie1Tex" filepath="scenes/room/textures/videos/ollie1.mp4" isVideo="true"/>
-        <texture id="ollie2Tex" filepath="scenes/room/textures/videos/ollie2.mp4" isVideo="true"/>
-        <texture id="ollie3Tex" filepath="scenes/room/textures/videos/ollie3.mp4" isVideo="true"/>
+        <texture id="ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" isVideo="true"/>
+        <texture id="ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" isVideo="true"/>
+        <texture id="ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" isVideo="true"/>
 
 
     </textures>
@@ -174,8 +174,18 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="leftWallTex" 
-            texlength_s="300" 
-            texlength_t="300" 
+            texlength_s="3" 
+            texlength_t="2" 
+            twosided = "false" />
+
+        <material id="wallAppShort" 
+            emissive="0.0 0.0 0.0 1" 
+			color="0.8 0.8 0.8 1.0" 
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="leftWallTex" 
+            texlength_s="0.5" 
+            texlength_t="2" 
             twosided = "false" />
 		
 		<material id="floorApp" 
@@ -944,7 +954,7 @@
         </node>
 		
 		<node id="rightWall1">
-			<materialref id="wallApp" />
+			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="-5.25 5.2 -7.5" />
                 <scale value3="0.3 1.8 0.3" />
@@ -958,7 +968,7 @@
         </node>
 
         <node id="rightWall2">
-			<materialref id="wallApp" />
+			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="3.25 5.2 -7.5" />
                 <scale value3="0.27 1.8 0.3" />
@@ -972,7 +982,7 @@
         </node>
 
         <node id="rightWall3">
-			<materialref id="wallApp" />
+			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="11.525 5.2 -7.5" />
                 <scale value3="0.27 1.8 0.3" />
@@ -986,7 +996,7 @@
         </node>
 
         <node id="rightWall4">
-			<materialref id="wallApp" />
+			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="20.14 5.2 -7.5" />
                 <scale value3="0.318 1.8 0.3" />
