@@ -251,7 +251,7 @@ class MyContents {
         newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
         newTexture.anisotropy = texture.anisotropy;
 
-        if (texture.mipmap0) {
+        if (!texture.mipmaps && texture.mipmap0) {
             newTexture.generateMipmaps = false;
             newTexture.needsUpdate = true;
 
@@ -304,6 +304,15 @@ class MyContents {
                     }
                 );
             }
+        } else {
+            newTexture.generateMipmaps = true;
+            if (!texture.mipmaps)
+                // mipmaps should be true if no mipmap textures are given
+                console.error(
+                    "texture",
+                    texture.id,
+                    "has mipmaps false but has no mipmap textures"
+                );
         }
 
         this.textures[texture.id] = newTexture;

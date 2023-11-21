@@ -47,8 +47,7 @@
 		<texture id="vaseTex" filepath="scenes/room/textures/vase.png" />
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
-        <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
-
+        <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp"/>
     </textures>
 
     <materials> 
@@ -308,8 +307,8 @@
                 <primitive>
                     <polygon 
                         radius="1"
-                        stacks="5"
-                        slices="3"
+                        stacks="3"
+                        slices="5"
                         color_c="1 0 0 1"
                         color_p="0 0 1 1"
                     />
@@ -328,8 +327,8 @@
                 <primitive>
                     <polygon 
                         radius="1"
-                        stacks="5"
-                        slices="3"
+                        stacks="3"
+                        slices="5"
                         color_c="1 0 0 1"
                         color_p="0 0 1 1"
                     />
