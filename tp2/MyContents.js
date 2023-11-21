@@ -487,45 +487,6 @@ class MyContents {
             skybox.emissive.b
         );
 
-        const skyboxBuildInfo = [
-            // back
-            {
-                textPath: skybox.back,
-                trans: [0, 0, -sizeZ / 2],
-                rotate: [0, 0, 0],
-            },
-            // front
-            {
-                textPath: skybox.front,
-                trans: [0, 0, sizeZ / 2],
-                rotate: [0, 3.1416, 0],
-            },
-            // left
-            {
-                textPath: skybox.left,
-                trans: [-sizeX / 2, 0, 0],
-                rotate: [0, 1.5708, 0],
-            },
-            // right
-            {
-                textPath: skybox.right,
-                trans: [sizeX / 2, 0, 0],
-                rotate: [0, -1.5708, 0],
-            },
-            // up
-            {
-                textPath: skybox.up,
-                trans: [0, sizeY / 2, 0],
-                rotate: [1.5708, 0, 0],
-            },
-            // down
-            {
-                textPath: skybox.down,
-                trans: [0, -sizeY / 2, 0],
-                rotate: [-1.5708, 0, 0],
-            },
-        ];
-
         const materials = [];
 
         ["right", "left", "up", "down", "front", "back"].forEach((side) => {
@@ -711,11 +672,11 @@ class MyContents {
 
             const colors = [];
 
-            for (let i = 1; i < slices + 1; i++) {
-                const len = radius / slices;
-                for (let j = 0; j < stacks; j++) {
-                    const angleA = (j * (2 * Math.PI)) / stacks;
-                    const angleB = ((j + 1) * (2 * Math.PI)) / stacks;
+            for (let i = 1; i < stacks + 1; i++) {
+                const len = radius / stacks;
+                for (let j = 0; j < slices; j++) {
+                    const angleA = (j * (2 * Math.PI)) / slices;
+                    const angleB = ((j + 1) * (2 * Math.PI)) / slices;
 
                     const innerColor = new THREE.Color();
 
@@ -724,9 +685,9 @@ class MyContents {
                     innerColor.lerpColors(
                         colorCenter,
                         colorPoint,
-                        (i - 1) / slices
+                        (i - 1) / stacks
                     );
-                    outterColor.lerpColors(colorCenter, colorPoint, i / slices);
+                    outterColor.lerpColors(colorCenter, colorPoint, i / stacks);
 
                     if (i == 1) {
                         vertices.push(0, 0, 0);
