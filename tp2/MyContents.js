@@ -233,9 +233,7 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight({
-            color: ambientColor,
-        });
+        const light = new THREE.AmbientLight(ambientColor, 1);
 
         this.app.scene.add(light);
 
@@ -255,7 +253,7 @@ class MyContents {
         newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
         newTexture.anisotropy = texture.anisotropy;
 
-        if (texture.mipmap0) {
+        if (!texture.mipmaps && texture.mipmap0) {
             newTexture.generateMipmaps = false;
             newTexture.needsUpdate = true;
 
@@ -308,6 +306,7 @@ class MyContents {
                     }
                 );
             }
+<<<<<<< HEAD
         } else if(texture.isVideo){
             console.log("is video");
             const video = document.createElement("video");
@@ -326,6 +325,17 @@ class MyContents {
             document.body.appendChild(video);
 
             newTexture = new THREE.VideoTexture(video);
+=======
+        } else {
+            newTexture.generateMipmaps = true;
+            if (!texture.mipmaps)
+                // mipmaps should be true if no mipmap textures are given
+                console.error(
+                    "texture",
+                    texture.id,
+                    "has mipmaps false but has no mipmap textures"
+                );
+>>>>>>> 6dfcbf4adb4dafb8b214dcf204222f05e004eda7
         }
 
         this.textures[texture.id] = newTexture;
@@ -394,16 +404,15 @@ class MyContents {
 
         newLight.position.set(x, y, z);
 
-
         if (this.DEBUG) {
             const helper = new THREE.PointLightHelper(newLight, 0.5);
             this.app.scene.add(helper);
         }
 
-
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -443,9 +452,10 @@ class MyContents {
             this.app.scene.add(helper);
         }
 
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -480,9 +490,10 @@ class MyContents {
             this.app.scene.add(helper);
         }
 
-        this.lightsArray.push({prevIntensity: newLight.intensity,
-            light: newLight}
-        );
+        this.lightsArray.push({
+            prevIntensity: newLight.intensity,
+            light: newLight,
+        });
 
         return newLight;
     }
@@ -507,45 +518,6 @@ class MyContents {
             skybox.emissive.g,
             skybox.emissive.b
         );
-
-        const skyboxBuildInfo = [
-            // back
-            {
-                textPath: skybox.back,
-                trans: [0, 0, -sizeZ / 2],
-                rotate: [0, 0, 0],
-            },
-            // front
-            {
-                textPath: skybox.front,
-                trans: [0, 0, sizeZ / 2],
-                rotate: [0, 3.1416, 0],
-            },
-            // left
-            {
-                textPath: skybox.left,
-                trans: [-sizeX / 2, 0, 0],
-                rotate: [0, 1.5708, 0],
-            },
-            // right
-            {
-                textPath: skybox.right,
-                trans: [sizeX / 2, 0, 0],
-                rotate: [0, -1.5708, 0],
-            },
-            // up
-            {
-                textPath: skybox.up,
-                trans: [0, sizeY / 2, 0],
-                rotate: [1.5708, 0, 0],
-            },
-            // down
-            {
-                textPath: skybox.down,
-                trans: [0, -sizeY / 2, 0],
-                rotate: [-1.5708, 0, 0],
-            },
-        ];
 
         const materials = [];
 
@@ -732,11 +704,11 @@ class MyContents {
 
             const colors = [];
 
-            for (let i = 1; i < slices + 1; i++) {
-                const len = radius / slices;
-                for (let j = 0; j < stacks; j++) {
-                    const angleA = (j * (2 * Math.PI)) / stacks;
-                    const angleB = ((j + 1) * (2 * Math.PI)) / stacks;
+            for (let i = 1; i < stacks + 1; i++) {
+                const len = radius / stacks;
+                for (let j = 0; j < slices; j++) {
+                    const angleA = (j * (2 * Math.PI)) / slices;
+                    const angleB = ((j + 1) * (2 * Math.PI)) / slices;
 
                     const innerColor = new THREE.Color();
 
@@ -745,9 +717,9 @@ class MyContents {
                     innerColor.lerpColors(
                         colorCenter,
                         colorPoint,
-                        (i - 1) / slices
+                        (i - 1) / stacks
                     );
-                    outterColor.lerpColors(colorCenter, colorPoint, i / slices);
+                    outterColor.lerpColors(colorCenter, colorPoint, i / stacks);
 
                     if (i == 1) {
                         vertices.push(0, 0, 0);
@@ -881,22 +853,19 @@ class MyContents {
         if (value) {
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];
-    
+
                 if (lightInfo.light.intensity == 0)
                     lightInfo.light.intensity = lightInfo.prevIntensity;
             }
         } else {
-
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];
 
                 lightInfo.prevIntensity = lightInfo.light.intensity;
                 lightInfo.light.intensity = 0;
-                
             }
         }
     }
-    
 }
 
 export { MyContents };
