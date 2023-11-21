@@ -40,7 +40,7 @@
             target="-7 3 0" /> 
     </cameras> 
 
-    <SGI_TP2_XML_T04_G06_v02/textures>
+    <textures>
         <texture id="backSofa" filepath="SGI_TP2_XML_T04_G06_v02/textures/leather_couch_2.avif" />
         <texture id="lotrFrontCover1" 
             filepath="SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover0.jpg"
@@ -98,7 +98,7 @@
         <texture id="video" filepath="SGI_TP2_XML_T04_G06_v02/textures/video.mp4" isVideo="true"/>
         <texture id="christmasTree" filepath="SGI_TP2_XML_T04_G06_v02/textures/polygon_texture.png" />
         <texture id="wood" filepath="SGI_TP2_XML_T04_G06_v02/textures/wood.jpeg" />
-    </SGI_TP2_XML_T04_G06_v02/textures>
+    </textures>
 
     <materials>
         <!-- Add more materials here -->        
@@ -1312,7 +1312,7 @@
             </children>
         </node>
 
-        <node id="display" castshadows="true" receiveshadows="true">
+        <!--<node id="display" castshadows="true" receiveshadows="true">
             <materialref id="video"/>
             <transforms>
                 <translate value3="-0.7 2.6 0" />
@@ -1323,7 +1323,7 @@
                     <rectangle xy1="-0.45 -0.7" xy2="0.45 0.7" parts_x="20" parts_y="20" />
                 </primitive>
             </children>
-        </node>
+        </node>-->
 
         <node id="computerScreenStructure" castshadows="true" receiveshadows="true">
             <transforms>

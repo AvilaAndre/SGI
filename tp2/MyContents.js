@@ -42,12 +42,12 @@ class MyContents {
 
         this.lightsOn = true;
 
-        //this.scenePath = "scenes/room/";
+        this.scenePath = "scenes/room/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        //this.reader.open(this.scenePath + "demo.xml");
-        this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
-        console.log("MyContents constructed");
+        this.reader.open(this.scenePath + "demo.xml");
+        //this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
+
     }
 
     /**
@@ -248,7 +248,8 @@ class MyContents {
     }
 
     addTexture(texture) {
-        const newTexture = new THREE.TextureLoader().load(texture.filepath);
+        console.log("adding texture", texture);
+        let newTexture = new THREE.TextureLoader().load(texture.filepath);
 
         newTexture.magFilter = Utils.getMagFilterFromString(texture.magFilter);
         newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
@@ -308,6 +309,7 @@ class MyContents {
                 );
             }
         } else if(texture.isVideo){
+            console.log("is video");
             const video = document.createElement("video");
             video.id = "video";
             video.playsinline = true;
@@ -317,12 +319,13 @@ class MyContents {
             video.autoplay = true;
             video.width = 640;
             video.height = 360;
-            video.src = "./" + texture.filepath;
+            video.src = texture.filepath;
+            console.log("src:" + video.src);
             video.style.display = "none";
 
             document.body.appendChild(video);
 
-            texObject = new THREE.VideoTexture(video);
+            newTexture = new THREE.VideoTexture(video);
         }
 
         this.textures[texture.id] = newTexture;
@@ -874,7 +877,7 @@ class MyContents {
     }
 
     toggleLights(value) {
-        console.log("toggleLights", value);
+
         if (value) {
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];

@@ -48,9 +48,9 @@
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
         <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
-        <texture id="Ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" />
-        <texture id="Ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" />
-        <texture id="Ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" />
+        <texture id="ollie1Tex" filepath="scenes/room/textures/videos/ollie1.mp4" isVideo="true"/>
+        <texture id="ollie2Tex" filepath="scenes/room/textures/videos/ollie2.mp4" isVideo="true"/>
+        <texture id="ollie3Tex" filepath="scenes/room/textures/videos/ollie3.mp4" isVideo="true"/>
 
 
     </textures>
@@ -68,15 +68,37 @@
             texlength_t="1"
             wireframe = "true" />
 
-        <material id="Ollie1App" 
+        <material id="ollie1App" 
             emissive="0.0 0.0 0.0 1" 
             color="0.8 0.8 0.8 1.0"  
             specular="0 0 0 0" 
             shininess="0" 
-            textureref="Ollie1Tex" 
+            textureref="ollie1Tex" 
             texlength_s="1" 
             texlength_t="1"
-            wireframe = "true" />
+            wireframe = "false" />
+
+        
+        <material id="ollie2App" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="ollie2Tex" 
+            texlength_s="1" 
+            texlength_t="1"
+            wireframe = "false" />
+
+        
+        <material id="ollie3App" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="ollie3Tex" 
+            texlength_s="1" 
+            texlength_t="1"
+            wireframe = "false" />
 			
 		<material id="vaseApp" 
             emissive="0.0 0.0 0.0 1" 
@@ -255,6 +277,9 @@
                 <noderef id="tree" /> 
                 <noderef id="leftPolygon" />
                 <noderef id="rightPolygon" />
+                <noderef id="ollie1" />
+                <noderef id="ollie2" />
+                <noderef id="ollie3" />
 
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
@@ -1225,6 +1250,46 @@
 				<noderef id="treeSeg3" />
 
             </children> 
+        </node>
+
+
+
+        <node id="ollie1">
+            <materialref id="ollie1App"/>
+            <transforms>
+                <rotate value3="-3.14 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="3 3" xy2="6 -1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="ollie2">
+            <materialref id="ollie2App"/>
+            <transforms>
+                <translate value3="4 0 0" />
+                <rotate value3="-3.14 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="3 3" xy2="6 -1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="ollie3">
+            <materialref id="ollie3App"/>
+            <transforms>
+                <translate value3="8 0 0" />
+                <rotate value3="-3.14 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="3 3" xy2="6 -1" />
+                </primitive>
+            </children>
         </node>
     </graph> 
 </yaf> 
