@@ -334,16 +334,21 @@ class MyContents {
             color: materialColor,
             specular: material.specular,
             emissive: material.emissive,
-            map: this.textures[material.textureref || null],
+            map: this.textures[material.textureref || null]?.clone(),
             shininess: material.shininess,
             flatShading: shadingBool,
             wireframe: material.wireframe || false,
-            texlength_s: material.texlength_s || 1,
-            texlength_t: material.texlength_t || 1,
             bumpMap: this.textures[material.bumpref || null],
             bumpScale: material.bumpscale || 1.0,
             specularMap: this.textures[material.specularref || null],
         });
+
+        const texlength_s = material.texlength_s || 1;
+        const texlength_t = material.texlength_t || 1;
+
+        newMaterial.map.repeat.set(texlength_s, texlength_t);
+        newMaterial.map.wrapS = THREE.RepeatWrapping;
+        newMaterial.map.wrapT = THREE.RepeatWrapping;
 
         if (material.color.a == 1) {
             newMaterial.opacity = 1;
@@ -352,7 +357,6 @@ class MyContents {
         }
 
         newMaterial.side = intSides;
-
         newMaterial.wireframeValue = material.wireframe || false;
 
         this.materials[material.id] = newMaterial;
