@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<scene>
+    <globals background="0 0 0 1" ambient="1 1 1 1" /> 
+    <fog color="0.0 0.0 0.0 0.0" near="1000.0" far="1000.0" />
+    <skybox
+       size="300 300 300"
+       center="0 0 0"
+       emissive="0.2 0.2 0.2 1" 
+       intensity="10"
+       front="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png"
+       back="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png"
+       up="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png"
+       down="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png"
+       left="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png"
+       right="SGI_TP2_XML_T04_G06_v02/textures/background_sky_square.png" />
+
+    <cameras initial="corner" > 
+        <perspective id="corner" 
+            angle="1.047" 
+            near="0.1" 
+            far="1000" 
+            location="10 8 10.8" 
+            target="-1 0 -1" /> 
+
+        <orthogonal id="OrthogonalView" 
+            near="0.1" 
+            far="1000" 
+            location="0 30 0" 
+            target="0 0 0" 
+            left="-150" 
+            right="150" 
+            bottom="-150" 
+            top="150" />
+        
+        <perspective id="Video" 
+            angle="1.047" 
+            near="0.1" 
+            far="1000" 
+            location="-3 5 0" 
+            target="-7 3 0" /> 
+    </cameras> 
+
+    <textures>
+        <texture id="backSofa" filepath="SGI_TP2_XML_T04_G06_v02/textures/leather_couch_2.avif" />
+        <texture id="lotrFrontCover1" 
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover0.jpg"
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover2.jpg"
+            mipmap3 = "SGI_TP2_XML_T04_G06_v02/textures/lotr_front_cover3.jpg" />
+        <texture id="lotrBookSpine1" filepath="SGI_TP2_XML_T04_G06_v02/textures/lotr_book_spine.png" />
+        <texture id="gotFrontCover"
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/got_front0.jpg" 
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/got_front0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/got_front1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/got_front2.jpg"
+            mipmap3 = "SGI_TP2_XML_T04_G06_v02/textures/got_front3.jpg"
+            mipmap4 = "SGI_TP2_XML_T04_G06_v02/textures/got_front4.jpg"
+            mipmap5 = "SGI_TP2_XML_T04_G06_v02/textures/got_front5.jpg" />
+        <texture id="gotBookSpine" filepath="SGI_TP2_XML_T04_G06_v02/textures/got_book_spine.png" />
+        <texture id="sun" filepath="SGI_TP2_XML_T04_G06_v02/textures/sun2.jpg" />
+        <texture id="earth"
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/earth0.jpg"
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/earth0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/earth1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/earth2.jpg"
+            mipmap3 = "SGI_TP2_XML_T04_G06_v02/textures/earth3.jpg"
+            mipmap4 = "SGI_TP2_XML_T04_G06_v02/textures/earth4.jpg"
+            mipmap5 = "SGI_TP2_XML_T04_G06_v02/textures/earth5.jpg"
+            mipmap6 = "SGI_TP2_XML_T04_G06_v02/textures/earth6.jpg"
+            mipmap7 = "SGI_TP2_XML_T04_G06_v02/textures/earth7.jpg" />
+        <texture id="earthbump" filepath="SGI_TP2_XML_T04_G06_v02/textures/earth/earthbump.jpg" />
+        <texture id="earthSpec" filepath="SGI_TP2_XML_T04_G06_v02/textures/earth/2k_earth_specular_map.tif" />
+        <texture id="jupyter" filepath="SGI_TP2_XML_T04_G06_v02/textures/jupyter.jpg" />
+        <texture id="keyboard" filepath="SGI_TP2_XML_T04_G06_v02/textures/keyboard.jpg" />
+        <texture id="vent" filepath="SGI_TP2_XML_T04_G06_v02/textures/vent.avif" />
+        <texture id="walls"
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/wall_0.jpg"
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/wall_0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/wall_1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/wall_2.jpg"/>
+        <texture id="walls1"
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/wall1_0.jpg"
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/wall1_0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/wall1_1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/wall1_2.jpg"
+            mipmap3 = "SGI_TP2_XML_T04_G06_v02/textures/wall1_3.jpg"/>
+        <texture id="walls2"
+            filepath="SGI_TP2_XML_T04_G06_v02/textures/wall2_0.jpg" 
+            mipmap0 = "SGI_TP2_XML_T04_G06_v02/textures/wall2_0.jpg"
+            mipmap1= "SGI_TP2_XML_T04_G06_v02/textures/wall2_1.jpg"
+            mipmap2 = "SGI_TP2_XML_T04_G06_v02/textures/wall2_2.jpg"
+            mipmap3 = "SGI_TP2_XML_T04_G06_v02/textures/wall2_3.jpg"
+            mipmap4 = "SGI_TP2_XML_T04_G06_v02/textures/wall2_4.jpg" />
+        <texture id="walls2bump" filepath="SGI_TP2_XML_T04_G06_v02/textures/wall2bump.jpeg" />
+        <texture id="door" filepath="SGI_TP2_XML_T04_G06_v02/textures/door.jpg" />
+        <texture id="floor" filepath="SGI_TP2_XML_T04_G06_v02/textures/floor.jpg" />
+        <texture id="video" filepath="SGI_TP2_XML_T04_G06_v02/textures/video.mp4" isVideo="true"/>
+        <texture id="christmasTree" filepath="SGI_TP2_XML_T04_G06_v02/textures/polygon_texture.png" />
+        <texture id="wood" filepath="SGI_TP2_XML_T04_G06_v02/textures/wood.jpeg" />
+    </textures>
+
+    <materials>
+        <!-- Add more materials here -->        
+        <material id="ceilingLightMaterial" color="0.0 0.2 1.0 1.0" specular="0 0 0 1" emissive="0.0 0.2 1.0 1"  shininess="12" twosided = "true"/>
+        <material id="sofaBaseMaterial" textureref="backSofa" color="0.1333 0.1333 0.1333 1" specular="0.0666 0.0666 0.0666 1" emissive="0.0 0.0 0.0 1"  shininess="20" />
+        <material id="armrestMaterial" textureref="backSofa" color="0.2666 0.2666 0.2666 1" specular="0.2 0.2 0.2 1" emissive="0.0 0.0 0.0 1"  shininess="16" />
+        <material id="backrestMaterial" textureref="backSofa" color="0.1333 0.1333 0.1333 1" specular="0.0666 0.0666 0.0666 1" emissive="0.0 0.0 0.0 1"  shininess="20" />
+        
+        <material id="roomMaterial" color="0.1 0.1 0.1 1" specular="0.1333 0.1333 0.1333 1" emissive="0.0 0.0 0.0 1"  shininess="12" twosided="false"/>
+        <material id="roomMaterial0" textureref="walls" texlength_s="7" texlength_t="23" color="0.2 0.2 0.2 1" specular="0.1333 0.1333 0.1333 1" emissive="0.0 0.0 0.0 1"  shininess="12" twosided="false"/>
+        <material id="roomMaterial1" textureref="walls1" texlength_s="23" texlength_t="7" color="0.2 0.2 0.2 1" specular="0.1333 0.1333 0.1333 1" emissive="0.0 0.0 0.0 1"  shininess="12" twosided="false"/>
+        <material id="roomMaterial2" textureref="walls2" texlength_s="7" texlength_t="23" color="0.2 0.2 0.2 1" specular="0.1333 0.1333 0.1333 1" emissive="0.0 0.0 0.0 1"  shininess="12" twosided="false" bumpref="walls2bump"/>
+
+        <material id="tableMaterial" textureref="wood" texlength_s="2.5" texlength_t="5" color="0.1 0.1 0.1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="30" />
+        
+        <material id="bookBody1" color="0.78 0.69 0.33 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" />
+        <material id="lotrFrontCover1" texlength_s="1.1" texlength_t="1.5" textureref="lotrFrontCover1" color="1 1 1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "false"/>
+        <material id="lotrBookSpine1" textureref="lotrBookSpine1" color="1 1 1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "true"/>
+        <material id="bookBackCover1" color="0.024 0.24 0.17 1" specular="0.024 0.38 0.17 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "true" />
+        
+        <material id="bookBody2" color="0.8 0.8 0.8 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" />
+        <material id="gotFrontCover" textureref="gotFrontCover" texlength_s="1.1" texlength_t="1.5" color="1 1 1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "false"/>
+        <material id="gotBookSpine" textureref="gotBookSpine" color="1 1 1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "true"/>
+        <material id="gotBookBackCover2" color="0.59 0.18 0.13 1" specular="0.59 0.18 0.13 1" emissive="0.0 0.0 0.0 1" shininess="40" twosided = "true" />
+        
+        <material id="tableLeg" color="0.01 0.01 0.01 1" specular="0.01 0.01 0.01 1" emissive="0.0 0.0 0.0 1" shininess="40" />
+        <material id="windowFrame" color="0.4 0.4 0.4 1" specular="0.7 0.7 0.7 1" emissive="0.0 0.0 0.0 1" shininess="40" />
+
+        <material id="sun" textureref="sun" texlength_s="19" texlength_t="19" color="1 0.54 0 1" specular="0 0 0 1" emissive="1 0.54 0 1" shininess="40" />
+
+        <material id="earth" textureref="earth" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="40" bumpscale="1" bumpref="earthbump" specularref="earthSpec" texlength_s="19" texlength_t="19"/>
+
+        <material id="jupyter" textureref="jupyter" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="40" texlength_s="31" texlength_t="31"/>
+
+        <material id="wire1" color="1 0 0 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" />
+        <material id="wire2" color="0 1 0 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" />
+        <material id="wire3" color="0 0 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" />
+
+        <material id="computer" color="0.1 0.1 0.1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" />
+        <material id="joint" color="0.1 0.1 0.1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" twosided="true"/>
+        <material id="keyboard" textureref="keyboard" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12" />
+
+        <material id="vent" texlength_s="2" texlength_t="1" textureref="vent" color="0.2 0.2 0.2 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1"  shininess="12"/>
+
+        <material id="door" texlength_s="25" texlength_t="25" textureref="door" color="0.2 0.2 0.2 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1"  shininess="12"/>
+        <material id="wall" textureref="walls" color="0.2 0.2 0.2 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1"  shininess="12" />
+        <material id="floor" color="0.1 0.1 0.1 1" specular="0 0 0 1" emissive="0.0 0.0 0.0 1"  shininess="12" />
+
+        <material id="christmasTree" texlength_s="6" texlength_t="1" textureref="christmasTree" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1"  shininess="12" twosided="true"/>
+
+        <material id="video" textureref="video" texlength_s="0.9" texlength_t="1.4" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12"/>
+    </materials>
+
+    <graph rootid="scene">
+        <node id="scene" castshadows="false" receiveshadows="false">
+            <transforms>
+            </transforms>
+            <children>
+                <lodref id="scene" />
+                <noderef id="sun"/>
+                <noderef id="earth"/>
+                <noderef id="jupyter"/>
+            </children>
+        </node>
+
+        <node id="futuristicChristmasTree" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="7 0 -7" />
+            </transforms>
+            <materialref id="christmasTree" />
+            <children>
+                <primitive>
+                    <cylinder base="1" top="1" height="1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+                <noderef id="fctBase"/>
+                <noderef id="fctFirst"/>
+                <noderef id="fctSecond"/>
+                <noderef id="fctThird"/>
+                <noderef id="fctFourth"/>
+                <noderef id="fctFifth"/>
+                <noderef id="fctSixth"/>
+                <noderef id="fctSeventh"/>
+                <noderef id="fctEighth"/>
+                <noderef id="fctNineth"/>
+                <noderef id="fctTenth"/>
+                <noderef id="fctTop"/>
+            </children>
+        </node>
+
+        <node id="fctBase" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 0.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="2.7" stacks="1" slices="14" color_c="0.38 0.76 0.44 1" color_p="0.88 0.0 1.0 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctFirst" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 1.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="2.5" stacks="2" slices="13" color_p="0.42 0.77 0.40 1" color_c="0.82 0.10 0.93 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctSecond" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 1.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="2.3" stacks="3" slices="12" color_c="0.47 0.78 0.73 1" color_p="0.75 0.20 0.85 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctThird" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 2.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="2.1" stacks="4" slices="11" color_p="0.53 0.79 0.33 1" color_c="0.69 0.29 0.78 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctFourth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 2.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="1.9" stacks="5" slices="10" color_c="0.57 0.80 0.29 1" color_p="0.62 0.39 0.71 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctFifth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 3.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="1.7" stacks="6" slices="9" color_p="0.62 0.80 0.26 1" color_c="0.55 0.49 0.64 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctSixth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 3.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="1.5" stacks="7" slices="8" color_c="0.69 0.82 0.22 1" color_p="0.57 0.64 0.55 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctSeventh" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 4.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="1.3" stacks="8" slices="7" color_p="0.74 0.82 0.18 1" color_c="0.65 0.70 0.53 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctEighth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 4.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="1.1" stacks="9" slices="6" color_c="0.78 0.83 0.15 1" color_p="0.73 0.75 0.52 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctNineth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 5.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="0.9" stacks="10" slices="5" color_p="0.84 0.84 0.11 1" color_c="0.82 0.81 0.51 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctTenth" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 5.8 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="0.7" stacks="11" slices="4" color_c="0.89 0.85 0.07 1" color_p="0.90 0.88 0.49 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fctTop" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 6.3 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <polygon radius="0.5" stacks="12" slices="3" color_p="1.0 1.0 0.0 1" color_c="1.0 0.93 0.48 1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="sceneFull" castshadows="false" receiveshadows="true">
+            <transforms>
+            </transforms>
+            <materialref id="roomMaterial" />
+            <children>
+                <noderef id="room" />
+                <noderef id="walls" />
+                <lodref id="PCtable" />
+                <lodref id="door"/>
+                <noderef id="futuristicChristmasTree"/>
+            </children>
+        </node>
+
+        <node id="sceneFarFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+            </transforms>
+            <materialref id="roomMaterial" />
+            <children>
+                <primitive>
+                    <box xyz1="-12 0 -12" xyz2="12 12 12" />
+                </primitive>
+            </children>
+        </node>
+
+        <lod id="scene">
+            <noderef id="sceneFull" mindist="0"/>
+            <noderef id="sceneFarFarAway" mindist="60"/>
+        </lod>
+
+        <node id="topBorderAux" castshadow="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <noderef id="border"/>
+            </children>
+        </node>
+
+        <node id="windowTopBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10.25 9 0" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="topBorderAux"/>
+            </children>
+        </node>
+
+        <node id="rightTopBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 9 -10.25" />
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="topBorderAux"/>
+            </children>
+        </node>
+
+        <node id="leftTopBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 9 10.25" />
+                <rotate value3="0 3.14 0" />
+            </transforms>
+            <children>
+                <noderef id="topBorderAux"/>
+            </children>
+        </node>
+
+        <node id="backTopBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="10.25 9 0" />
+                <rotate value3="0 -1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="topBorderAux"/>
+            </children>
+        </node>
+
+        <node id="windowBottomBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10.25 0.75 0" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="border"/>
+            </children>
+        </node>
+
+        <node id="leftBottomBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.75 10.25" />
+                <rotate value3="0 3.14 0" />
+            </transforms>
+            <children>
+                <noderef id="border"/>
+            </children>
+        </node>
+
+        <node id="rightBottomBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.75 -10.25" />
+            </transforms>
+            <children>
+                <noderef id="border"/>
+            </children>
+        </node>
+
+        <node id="backBottomBorder" castshadow="true" receiveshadows="true">
+            <transforms>
+                <translate value3="10.25 0.75 0" />
+                <rotate value3="0 -1.57 0" />
+            </transforms>
+            <children>
+                <noderef id="border"/>
+            </children>
+        </node>
+
+        <node id="sun" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-15 5 0"/>
+            </transforms>
+            <materialref id="sun" />
+            <children>
+                <primitive>
+                    <sphere radius="3" slices="32" stacks="32"/>
+                </primitive>
+                <pointlight id="sun" enabled="true" 
+                    color="1 0.54 0 1" 
+                    intensity="300.0"
+                    distance="1000"
+                    decay="1.0"
+                    castshadow="true"
+                    position="0 0 0" 
+                    shadowmapsize="2048"
+                />
+            </children>
+        </node>
+
+        <node id="earth" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-40 5 0"/>
+            </transforms>
+            <materialref id="earth" />
+            <children>
+                <primitive>
+                    <sphere radius="3" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="jupyter" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-60 5 -40"/>
+            </transforms>
+            <materialref id="jupyter" />
+            <children>
+                <primitive>
+                    <sphere radius="5" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="walls" castshadows="true" receiveshadows="true">
+            <transforms>
+            </transforms>
+            <children>
+                <noderef id="floor"/>
+                <noderef id="rightWall"/>
+                <noderef id="leftWall"/>
+                <noderef id="ceiling"/>
+                <noderef id="backWall"/>
+                <noderef id="windowFrame"/>
+                <noderef id="windowBottomBorder"/>
+                <noderef id="leftBottomBorder"/>
+                <noderef id="rightBottomBorder"/>
+                <noderef id="windowTopBorder"/>
+                <noderef id="leftTopBorder"/>
+                <noderef id="rightTopBorder"/>
+                <noderef id="backTopBorder"/>
+                <noderef id="windowLeftWall"/>
+                <noderef id="windowRightWall"/>
+            </children>
+        </node>
+
+        <node id="floor" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-1.57 0 0" />
+            </transforms>
+            <materialref id="floor" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-11.25 -11.25" xy2="11.25 11.25" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="rightWall" castshadows="true" receiveshadows="true">
+            <materialref id="roomMaterial0"/>
+            <transforms>
+                <rotate value3="0 0 1.57" />
+                <translate value3="4.85 0 -11"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-3.35 -11.25" xy2="3.35 11.25" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="border" castshadow="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-0.785 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-11.25 -1.25" xy2="11.25 1.25" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="leftWall" castshadows="true" receiveshadows="true">
+            <materialref id="roomMaterial2"/>
+            <transforms>
+                <rotate value3="0 0 -1.57" />
+                <translate value3="-4.85 0 11"/>
+                <scale value3="1 1 -1"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-3.35 -11.25" xy2="3.35 11.25" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="ceiling" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="1.57 0 0" />
+                <translate value3="0 0 -10.5"/>
+            </transforms>
+            <materialref id="roomMaterial" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-9.75 -9.75" xy2="9.75 9.75" parts_x="20" parts_y="20" />
+                </primitive>
+                <noderef id="ceiling_lights"/>
+            </children>
+        </node>
+
+        <node id="ceiling_lights" castshadows="true" receiveshadows="false">
+            <materialref id="ceilingLightMaterial"/>
+            <transforms>
+                <scale value3="1 1 -1"/>
+                <rotate value3="1.57 0.785 0"/>
+                <translate value3="0 0.25 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="14" top="14" height="0.7" slices="4" stacks="4"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="backWall" castshadows="true" receiveshadows="true">
+        <materialref id="roomMaterial1"/>
+            <transforms>
+                <rotate value3="0 1.57 0" />
+                <translate value3="0 4.05 11"/>
+                <scale value3="1 1 -1"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-11.25 -4.15" xy2="11.25 4.15" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wire_group" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-9.2 4.88 -10.97"/>
+            </transforms>
+            <children>
+                <noderef id="wire1"/>
+                <noderef id="wire2"/>
+                <noderef id="wire3"/>
+            </children>
+        </node>
+
+        <node id="wire" castshadows="true" receiveshadows="true">
+            <transforms>
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.08" top="0.08" height="6.7" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bottomwire" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-0.785 0 0"/>
+                <scale value3="1 0.37 1"/>
+                <translate value3="0 -3.5 -2.3"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.08" top="0.08" height="6.7" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="upperTopWire" castshadows="true" receiveshadows="true">
+            <transforms>
+                <scale value3="1 0.12 1"/>
+                <translate value3="0 5.3 1.7"/>
+            </transforms>
+            <children>
+                <noderef id="wire"/>
+            </children>
+        </node>
+
+        <node id="topwire" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="0.785 0 0"/>
+                <scale value3="1 0.37 1"/>
+                <translate value3="0 3.5 -2.3"/>
+            </transforms>
+            <children>
+                <noderef id="wire"/>
+            </children>
+        </node>
+
+        <node id="wire1" castshadows="true" receiveshadows="true">
+            <materialref id="wire1"/>
+            <transforms>
+            </transforms>
+            <children>
+                <noderef id="wire"/>
+                <noderef id="bottomwire"/>
+                <noderef id="topwire"/>
+                <noderef id="upperTopWire"/>
+            </children>
+        </node>
+
+        <node id="wire2" castshadows="true" receiveshadows="true">
+        <materialref id="wire2"/>
+            <transforms>
+                <translate value3="0.2 0 0"/>
+            </transforms>
+            <children>
+                <noderef id="wire"/>
+                <noderef id="bottomwire"/>
+                <noderef id="topwire"/>
+                <noderef id="upperTopWire"/>
+            </children>
+        </node>
+
+        <node id="wire3" castshadows="true" receiveshadows="true">
+        <materialref id="wire3"/>
+            <transforms>
+                <translate value3="0.4 0 0"/>
+            </transforms>
+            <children>
+                <noderef id="wire"/>
+                <noderef id="bottomwire"/>
+                <noderef id="topwire"/>
+                <noderef id="upperTopWire"/>
+            </children>
+        </node>
+        
+
+        <node id="room" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+            <pointlight id="light1" enabled="true" 
+                    color="1 1 1 1" 
+                    intensity="20.0"
+                    distance="1000"
+                    decay="1"
+                    castshadow="false"
+                    position="0 13 0" 
+                /> 
+                <lodref id="table" />
+                <noderef id="wire_group"/>
+                <noderef id="sofas" />
+                <noderef id="vent" />
+            </children>
+        </node>
+
+        <node id="sofas" castshadows="false" receiveshadows="true">
+        <materialref id="sofaBaseMaterial"/>
+            <transforms>
+                <translate value3="0 0.55 0" />
+            </transforms>
+            <children>
+                <noderef id="sofa_left" />
+                <noderef id="sofa_near" />
+                <noderef id="sofa_far" />
+            </children>
+        </node>
+
+        <node id="sofa_left" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 4" />
+                <rotate value3="0 3.14 0"/>
+            </transforms>
+            <children>
+                <lodref id="sofa" />
+            </children>
+        </node>
+
+        <node id="sofa_near" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="4 0 0" />
+                <rotate value3="0 -1.57 0"/>
+                <scale value3="0.5 1 1"/>
+            </transforms>
+            <children>
+                <lodref id="sofa" />
+            </children>
+        </node>
+
+        <node id="sofa_far" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-4 0 0" />
+                <rotate value3="0 1.57 0"/>
+                <scale value3="0.5 1 1"/>
+            </transforms>
+            <children>
+                <lodref id="sofa" />
+            </children>
+        </node>
+
+        <node id="sofaFull" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+                <scale value3="1.75 1 1.75"/>
+            </transforms>
+            <materialref id="sofaBaseMaterial" />
+            <children>
+                <noderef id="rightArmRest" />
+                <noderef id="leftArmRest" />
+                <noderef id="backSofa" />
+                <noderef id="baseSofa" />
+            </children>
+        </node>
+
+        <node id="sofaFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 0 0" />
+                <scale value3="1.75 1 1.75"/>
+            </transforms>
+            <materialref id="sofaBaseMaterial" />
+            <children>
+                <primitive>
+                    <box xyz1="-1.5 -0.5 -0.5" xyz2="1.5 0.5 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <lod id="sofa">
+            <noderef id="sofaFull" mindist="0"/>
+            <noderef id="sofaFarAway" mindist="20"/>
+        </lod>
+
+        <node id="baseSofa" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+                <scale value3="0.835 1 1"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1.5 -0.5 -0.5" xyz2="1.5 0.5 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="rightArmRest" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="1.5 0.15 0" />
+                <rotate value3="0 0 1.57"/>
+                <scale value3="0.65 0.5 1"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1 -0.5 -0.5" xyz2="1.5 0.5 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="leftArmRest" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-1.5 0.15 0" />
+                <rotate value3="0 0 1.57"/>
+                <scale value3="0.65 0.5 1"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1 -0.5 -0.5" xyz2="1.5 0.5 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="backSofa" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.7 -0.55" />
+                <rotate value3="1.57 0 0" />
+                <scale value3="1.17 0.1 2"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1.5 -1 -0.6" xyz2="1.5 1 0.6" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="tableFull" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.1 0" />
+            </transforms>
+            <materialref id="tableMaterial" />
+            <children>
+                <noderef id="tableTop" />
+                <noderef id="tableLeg" />
+            </children>
+        </node>
+
+        <node id="tableFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 0.1 0" />
+            </transforms>
+            <materialref id="tableMaterial" />
+            <children>
+                <noderef id="tableTop" />
+                <primitive>
+                    <cylinder base="1.5" top="1.5" height="0.1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <lod id="table">
+            <noderef id="tableFull" mindist="0"/>
+            <noderef id="tableFarAway" mindist="20"/>
+        </lod>
+
+        <node id="tableLeg" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.8 0" />
+            </transforms>
+            <materialref id="tableLeg" />
+            <children>
+                <primitive>
+                    <cylinder base="0.75" top="0.75" height="1.7" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="tableTop" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 1.7 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="1.5" top="1.5" height="0.1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+                <noderef id="book1" />
+                <noderef id="book2" />
+            </children>
+        </node>
+
+        <node id="book1" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-0.35 0.01 -0.5" />
+                <rotate value3="0 0.349 0" />
+                <scale value3="0.75 0.75 0.75"/>
+            </transforms>
+            <children>
+                <noderef id="bookCover1" />
+                <noderef id="bookBack1" />
+                <noderef id="bookBody1" />
+                <noderef id="bookBorder1" />
+            </children>
+        </node>
+
+        <node id="bookCover1" castshadows="true" receiveshadows="true">
+            <materialref id="lotrFrontCover1" />
+            <transforms>
+                <translate value3="0 0.4 0" />
+                <rotate value3="-1.57 0 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.55 -0.75" xy2="0.55 0.75" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBody1" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-0.05 0.245 0" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <materialref id="bookBody1" />
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.65 -0.15" xyz2="0.5 0.65 0.15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBack1" castshadows="true" receiveshadows="true">
+            <materialref id="bookBackCover1" />
+            <transforms>
+                <translate value3="0 0.08 0" />
+                <rotate value3="1.57 0 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.55 -0.75" xy2="0.55 0.75" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBorder1" castshadows="true" receiveshadows="true">
+        <materialref id="lotrBookSpine1" />
+            <transforms>
+                <translate value3="-0.54 0.24 0" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.16" top="0.16" height="1.5" slices="32" stacks="32" thetastart="3.14" thetalength="3.14"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="book2" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0.7 0.01 0.5" />
+                <rotate value3="0 -0.349 0" />
+                <scale value3="0.75 0.75 0.75"/>
+            </transforms>
+            <children>
+                <noderef id="bookCover2" />
+                <noderef id="bookBack2" />
+                <noderef id="bookBody2" />
+                <noderef id="bookBorder2" />
+            </children>
+        </node>
+
+        <node id="bookCover2" castshadows="true" receiveshadows="true">
+            <materialref id="gotFrontCover" />
+            <transforms>
+                <translate value3="0 0.4 0" />
+                <rotate value3="-1.57 0 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.55 -0.75" xy2="0.55 0.75" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBody2" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-0.05 0.245 0" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <materialref id="bookBody2" />
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.65 -0.15" xyz2="0.5 0.65 0.15" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBack2" castshadows="true" receiveshadows="true">
+            <materialref id="gotBookBackCover2" />
+            <transforms>
+                <translate value3="0 0.08 0" />
+                <rotate value3="1.57 0 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.55 -0.75" xy2="0.55 0.75" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="bookBorder2" castshadows="true" receiveshadows="true">
+        <materialref id="gotBookSpine" />
+            <transforms>
+                <translate value3="-0.54 0.24 0" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.16" top="0.16" height="1.5" slices="32" stacks="32" thetastart="3.14" thetalength="3.14"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="windowFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-1 -3.5 3.8" />
+                <scale value3="1 1.1 0.75"/>
+            </transforms>
+            <materialref id="windowFrame" />
+            <children>
+                <noderef id="upperFrame"/>
+                <noderef id="lowerFrame"/>
+                <noderef id="middleLeftHorizontalFrame"/>
+                <noderef id="middleRightHorizontalFrame"/>
+                <noderef id="leftVerticalFrame"/>
+                <noderef id="rightVerticalFrame"/>
+                <noderef id="leftMiddleVerticalFrame"/>
+                <noderef id="rightMiddleVerticalFrame"/>
+            </children>
+        </node>
+
+        <node id="windowLeftWall" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-11 4.9 10.5" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.75 -3.4" xy2="0.75 3.4" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="windowRightWall" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-11 4.9 -10.3" />
+                <rotate value3="0 1.57 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.75 -3.4" xy2="0.75 3.4" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="upperFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 10.5 -5" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="26" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="lowerFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 4.5 -5" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="26" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="middleLeftHorizontalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 4" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="8" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="middleRightHorizontalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 -14" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="8" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="leftVerticalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 7.8" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="6" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="rightVerticalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 -17.8" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="6" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="leftMiddleVerticalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="6" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="rightMiddleVerticalFrame" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-10 7.5 -10" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.2" height="6" slices="32" stacks="32"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="PCtableFull" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-8.35 0.13 0" />
+            </transforms>
+            <materialref id="tableMaterial" />
+            <children>
+                <noderef id="PCtableTop" />
+                <noderef id="tableLeg1" />
+                <noderef id="tableLeg2" />
+                <noderef id="tableLeg3" />
+                <noderef id="tableLeg4" />
+                <lodref id="computer" />
+            </children>
+        </node>
+
+        <node id="PCtableFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="-8.35 0.13 0" />
+            </transforms>
+            <materialref id="tableMaterial" />
+            <children>
+                <primitive>
+                    <box xyz1="-1.25 -0.1 -2.5" xyz2="1.25 2.2 2.5" />
+                </primitive>
+                <lodref id="computer" />
+            </children>
+        </node>
+
+        <lod id="PCtable">
+            <noderef id="PCtableFull" mindist="0"/>
+            <noderef id="PCtableFarAway" mindist="20"/>
+        </lod>
+
+        <node id="PCtableTop" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 2 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1.25 -0.1 -2.5" xyz2="1.25 0.1 2.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="tableLeg1" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-1 0 -2.25" />
+            </transforms>
+            <children>
+                <noderef id="PCtableLegs"/>
+            </children>
+        </node>
+
+        <node id="tableLeg2" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="1 0 -2.25" />
+            </transforms>
+            <children>
+                <noderef id="PCtableLegs"/>
+            </children>
+        </node>
+
+        <node id="tableLeg3" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="-1 0 2.25" />
+            </transforms>
+            <children>
+                <noderef id="PCtableLegs"/>
+            </children>
+        </node>
+
+        <node id="tableLeg4" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="1 0 2.25" />
+            </transforms>
+            <children>
+                <noderef id="PCtableLegs"/>
+            </children>
+        </node>
+
+        <node id="PCtableLegs" castshadows="false" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0.9 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="2" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="computerFull" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <materialref id="computer"/>
+            <children>
+                <noderef id="computerBase"/>
+                <noderef id="computerScreen"/>
+                <noderef id="computerJoint"/>
+            </children>
+        </node>
+
+        <node id="computerFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <materialref id="computer"/>
+            <children>
+                <noderef id="computerScreen"/>
+                <noderef id="computerJoint"/>
+            </children>
+        </node>
+
+        <lod id="computer">
+            <noderef id="computerFull" mindist="0"/>
+            <noderef id="computerFarAway" mindist="20"/>
+        </lod>
+
+        <node id="computerBase" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 2.1 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.05 -0.75" xyz2="0.5 0.05 0.75" />
+                </primitive>
+                <noderef id="keyboard"/>
+            </children>
+        </node>
+
+        <node id="keyboard" castshadows="true" receiveshadows="true">
+            <materialref id="keyboard"/>
+            <transforms>
+                <translate value3="0 0.07 0" />
+                <rotate value3="-1.57 0 0"/>
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.3 -0.7" xy2="0.3 0.7" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="computerScreen" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="display"/>
+                <noderef id="computerScreenStructure"/>
+            </children>
+        </node>
+
+        <!--<node id="display" castshadows="true" receiveshadows="true">
+            <materialref id="video"/>
+            <transforms>
+                <translate value3="-0.7 2.6 0" />
+                <rotate value3="-1.57 1.13 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-0.45 -0.7" xy2="0.45 0.7" parts_x="20" parts_y="20" />
+                </primitive>
+            </children>
+        </node>-->
+
+        <node id="computerScreenStructure" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-0.75 2.6 0" />
+                <rotate value3="0 0 -1.13" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.035 -0.75" xyz2="0.5 0.035 0.75" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="computerJoint" castshadows="true" receiveshadows="true">
+            <materialref id="joint"/>
+            <transforms>
+                <translate value3="-0.525 2.125 0" />
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder base="0.025" top="0.025" height="1.5" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="doorFull" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="11 3 0" />
+            </transforms>
+            <children>
+                <noderef id="doorPanel" />
+                <noderef id="doorRight" />
+                <noderef id="doorBorder"/>
+            </children>
+        </node>
+
+        <node id="doorFarAway" castshadows="false" receiveshadows="false">
+            <transforms>
+                <translate value3="11 0 0" />
+            </transforms>
+            <materialref id="door"/>
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 0 -4" xyz2="0.5 7 4" />
+                </primitive>
+            </children>
+        </node>
+
+        <lod id="door">
+            <noderef id="doorFull" mindist="0"/>
+            <noderef id="doorFarAway" mindist="20"/>
+        </lod>
+
+        <node id="doorPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="0.393 0 1.57" />
+            </transforms>
+            <materialref id="door"/>
+            <children>
+                <primitive>
+                    <cylinder base="3.2482" top="3.2482" height="0.1" slices="8" stacks="32" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="doorBorder" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="leftBottomPanel" />
+                <noderef id="leftCenterPanel" />
+                <noderef id="leftTopPanel" />
+                <noderef id="TopPanel" />
+                <noderef id="rightTopPanel" />
+                <noderef id="rightCenterPanel" />
+                <noderef id="rightBottomPanel" />
+            </children>
+        </node>
+
+        <node id="leftBottomPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-3.93 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="leftCenterPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-3.14 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="leftTopPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-2.36 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="TopPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-1.57 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="rightTopPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="-0.785 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="rightCenterPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="rightBottomPanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <rotate value3="0.785 0 0" />
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="sidePanel"/>
+            </children>
+        </node>
+
+        <node id="sidePanel" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-0.75 -1.243 -0.05" xyz2="0.75 1.243 0.05" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="vent" castshadows="true" receiveshadows="true">
+            <materialref id="vent"/>
+            <transforms>
+                <rotate value3="0 0 0"/>
+                <translate value3="9.75 7.7 -11" />
+            </transforms>
+            <children>
+                <primitive>
+                    <box xyz1="-1 -0.5 0" xyz2="1 0.5 0.1" />
+                </primitive>
+            </children>
+        </node>
+    </graph>
+</scene>

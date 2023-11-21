@@ -46,7 +46,8 @@ class MyContents {
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open(this.scenePath + "demo.xml");
-        console.log("MyContents constructed");
+        //this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
+
     }
 
     /**
@@ -245,7 +246,8 @@ class MyContents {
     }
 
     addTexture(texture) {
-        const newTexture = new THREE.TextureLoader().load(texture.filepath);
+        console.log("adding texture", texture);
+        let newTexture = new THREE.TextureLoader().load(texture.filepath);
 
         newTexture.magFilter = Utils.getMagFilterFromString(texture.magFilter);
         newTexture.minFilter = Utils.getMinFilterFromString(texture.minFilter);
@@ -304,6 +306,24 @@ class MyContents {
                     }
                 );
             }
+        } else if(texture.isVideo){
+            console.log("is video");
+            const video = document.createElement("video");
+            video.id = "video";
+            video.playsinline = true;
+            video.setAttribute("webkit-playsinline", ""); // Webkit specific attribute
+            video.muted = true;
+            video.loop = true;
+            video.autoplay = true;
+            video.width = 640;
+            video.height = 360;
+            video.src = texture.filepath;
+            console.log("src:" + video.src);
+            video.style.display = "none";
+
+            document.body.appendChild(video);
+
+            newTexture = new THREE.VideoTexture(video);
         } else {
             newTexture.generateMipmaps = true;
             if (!texture.mipmaps)
@@ -830,7 +850,7 @@ class MyContents {
     }
 
     toggleLights(value) {
-        console.log("toggleLights", value);
+
         if (value) {
             for (let index = 0; index < this.lightsArray.length; index++) {
                 const lightInfo = this.lightsArray[index];
