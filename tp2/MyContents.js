@@ -42,10 +42,11 @@ class MyContents {
 
         this.lightsOn = true;
 
-        this.scenePath = "scenes/room/";
+        //this.scenePath = "scenes/room/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "demo.xml");
+        //this.reader.open(this.scenePath + "demo.xml");
+        this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
         console.log("MyContents constructed");
     }
 
@@ -306,6 +307,22 @@ class MyContents {
                     }
                 );
             }
+        } else if(texture.isVideo){
+            const video = document.createElement("video");
+            video.id = "video";
+            video.playsinline = true;
+            video.setAttribute("webkit-playsinline", ""); // Webkit specific attribute
+            video.muted = true;
+            video.loop = true;
+            video.autoplay = true;
+            video.width = 640;
+            video.height = 360;
+            video.src = "./" + texture.filepath;
+            video.style.display = "none";
+
+            document.body.appendChild(video);
+
+            texObject = new THREE.VideoTexture(video);
         }
 
         this.textures[texture.id] = newTexture;

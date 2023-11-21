@@ -48,16 +48,32 @@
         <texture id="stairsTex" filepath="scenes/room/textures/woodStairs.jpg" />
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
         <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
+        <texture id="Ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" />
+        <texture id="Ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" />
+        <texture id="Ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" />
+
 
     </textures>
 
     <materials> 
+
+        textureref="video" texlength_s="0.9" texlength_t="1.4" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12"
 		<material id="pineApp" 
             emissive="0.0 0.0 0.0 1" 
             color="0.8 0.8 0.8 1.0"  
             specular="0 0 0 0" 
             shininess="0" 
             textureref="pineTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            wireframe = "true" />
+
+        <material id="Ollie1App" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="Ollie1Tex" 
             texlength_s="1" 
             texlength_t="1"
             wireframe = "true" />

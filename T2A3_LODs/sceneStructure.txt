@@ -1,0 +1,16 @@
+lod
+    walls: d>30
+    group: d>20
+        walls
+        pilar
+        pilar2 (pilar clone)
+        sublod
+            door: d>20
+            subGroup: d>10                // overrides the above "group: d>20" ???
+                door2 (door clone)
+                window
+                window2 (window clone)
+            subGroup2: d>0                // overrides the above "group: d>20" ???
+                door3 (clone door)
+                groupWindow
+                groupWindow2 (clone groupWindow)
