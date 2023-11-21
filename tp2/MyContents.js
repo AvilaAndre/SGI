@@ -306,7 +306,6 @@ class MyContents {
                     }
                 );
             }
-<<<<<<< HEAD
         } else if(texture.isVideo){
             console.log("is video");
             const video = document.createElement("video");
@@ -325,7 +324,6 @@ class MyContents {
             document.body.appendChild(video);
 
             newTexture = new THREE.VideoTexture(video);
-=======
         } else {
             newTexture.generateMipmaps = true;
             if (!texture.mipmaps)
@@ -335,7 +333,6 @@ class MyContents {
                     texture.id,
                     "has mipmaps false but has no mipmap textures"
                 );
->>>>>>> 6dfcbf4adb4dafb8b214dcf204222f05e004eda7
         }
 
         this.textures[texture.id] = newTexture;
