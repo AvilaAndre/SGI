@@ -32,8 +32,8 @@
     <textures>
         <texture id="leftWallTex" filepath="scenes/room/textures/cats.jpg" />        
 		<texture id="floorTex" filepath="scenes/room/textures/carpet/carpet.png" />
-		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_normal.png"/>
-		<texture id="floorSpecTex" filepath="scenes/room/textures/carpet/carpet_specular.png" />
+		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_bump.png"/>
+		<texture id="floorSpecTex" filepath="scenes/room/textures/carpet/carpet_modified.png" />
 		<texture id="tableTex" filepath="scenes/room/textures/wood4.jpg" />
         <texture id="sofaTex" filepath="scenes/room/textures/light_leather.jpg" />
         <texture id="greyLeatherTex" filepath="scenes/room/textures/greyLeather.jpg" />
@@ -293,38 +293,38 @@
 
                 <pointlight id="light1" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="11 7.5 11" 
+                    position="11 10 11" 
                 /> 
 
                 <pointlight id="light2" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="4 7.5 11"
+                    position="4 10 11"
                 /> 
                 
                 <pointlight id="light3" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="11 7.5 4"  
+                    position="11 10 4"  
                 /> 
 
                 <pointlight id="light4" enabled="true" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="4 7.5 4"  
+                    position="4 10 4"  
                 />
 
                 <spotlight id="light5" enabled="true" 
