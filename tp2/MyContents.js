@@ -624,23 +624,23 @@ class MyContents {
 
             return geometry;
         } else if (representation.type === "triangle") {
-            return new THREE.Triangle(
-                new Vector3(
+            return new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(
                     representation["xyz1"][0],
                     representation["xyz1"][1],
                     representation["xyz1"][2]
                 ),
-                new Vector3(
+                new THREE.Vector3(
                     representation["xyz2"][0],
                     representation["xyz2"][1],
                     representation["xyz2"][2]
                 ),
-                new Vector3(
+                new THREE.Vector3(
                     representation["xyz3"][0],
                     representation["xyz3"][1],
                     representation["xyz3"][2]
-                )
-            );
+                ),
+            ]);
         } else if (representation.type === "sphere") {
             return new THREE.SphereGeometry(
                 representation["radius"],
