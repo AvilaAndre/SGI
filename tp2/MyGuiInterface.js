@@ -50,6 +50,15 @@ class MyGuiInterface {
                 this.contents.toggleLights(value);
             })
             .name("Toggle Lights");
+
+        if (this.contents.curtains != []) {
+            const customFolder = this.datgui.addFolder("Custom");
+
+            const curtainValue = { value: 1 };
+            customFolder
+                .add(curtainValue, "value", 0.2, 3.5)
+                .onChange((value) => this.contents.moveCurtains(value));
+        }
     }
 }
 

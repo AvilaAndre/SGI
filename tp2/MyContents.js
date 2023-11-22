@@ -30,6 +30,9 @@ class MyContents {
         //nodes
         this.nodes = new Object();
 
+        // custom parameter for our scene
+        this.curtains = [];
+
         //lights
         this.lights = new Object();
 
@@ -163,6 +166,8 @@ class MyContents {
 
         const nodeObj = new THREE.Object3D();
 
+        nodeObj.name = node.id;
+
         if (node.materialIds.length != 0)
             nodeObj.materialIds = node.materialIds;
         else if (parent != undefined) nodeObj.materialIds = parent.materialIds;
@@ -173,7 +178,16 @@ class MyContents {
         this.applyTransformations(nodeObj, node.transformations);
 
         nodeObj.castShadow = node.castShadows || parent?.castShadow;
-        nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadows;
+        nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadow;
+
+        // Thios is a custom parameter for our team
+        if (
+            nodeObj.name == "curtain1" ||
+            nodeObj.name == "curtain2" ||
+            nodeObj.name == "curtain3"
+        ) {
+            this.curtains.push(nodeObj);
+        }
 
         for (let i = 0; i < node.children.length; i++) {
             let child = node.children[i];
@@ -188,7 +202,7 @@ class MyContents {
                      */
                     if (child.subtype === "polygon") {
                         geometry.castShadow = nodeObj.castShadow;
-                        geometry.receiveShadow = nodeObj.receiveShadows;
+                        geometry.receiveShadow = nodeObj.receiveShadow;
                         nodeObj.add(geometry);
                     } else {
                         if (geometry !== undefined) {
@@ -198,7 +212,7 @@ class MyContents {
                                     this.materials[nodeObj.materialIds[0]]
                                 );
                                 mesh.castShadow = nodeObj.castShadow;
-                                mesh.receiveShadow = nodeObj.receiveShadows;
+                                mesh.receiveShadow = nodeObj.receiveShadow;
                                 nodeObj.add(mesh);
                             } else {
                                 console.error("Material Missing in", nodeRef);
@@ -245,7 +259,6 @@ class MyContents {
     }
 
     addTexture(texture) {
-        console.log("adding texture", texture);
         let newTexture = new THREE.TextureLoader().load(texture.filepath);
 
         newTexture.magFilter = Utils.getMagFilterFromString(texture.magFilter);
@@ -394,7 +407,7 @@ class MyContents {
         );
         const newLight = new THREE.PointLight(
             lightColor,
-            light.intensity || 1,
+            light.enabled ? light.intensity || 1 : 0,
             light.distance || 1000,
             light.decay || 2
         );
@@ -410,7 +423,7 @@ class MyContents {
         }
 
         this.lightsArray.push({
-            prevIntensity: newLight.intensity,
+            originalIntensity: light.intensity || 1,
             light: newLight,
         });
 
@@ -453,7 +466,7 @@ class MyContents {
         }
 
         this.lightsArray.push({
-            prevIntensity: newLight.intensity,
+            originalIntensity: newLight.intensity,
             light: newLight,
         });
 
@@ -478,6 +491,12 @@ class MyContents {
 
         newLight.castShadow = light.castshadow;
         newLight.shadowFar = light.shadowFar || 500.0;
+
+        newLight.shadow.camera.left = light.shadowleft || -5;
+        newLight.shadow.camera.right = light.shadowright || 5;
+        newLight.shadow.camera.top = light.shadowtop || 5;
+        newLight.shadow.camera.bottom = light.shadowbottom || -5;
+
         newLight.position.set(x, y, z);
 
         if (this.DEBUG) {
@@ -491,7 +510,7 @@ class MyContents {
         }
 
         this.lightsArray.push({
-            prevIntensity: newLight.intensity,
+            originalIntensity: newLight.intensity,
             light: newLight,
         });
 
@@ -849,21 +868,19 @@ class MyContents {
         );
     }
 
+    moveCurtains(value) {
+        for (let index = 0; index < this.curtains.length; index++) {
+            const curtain = this.curtains[index];
+
+            curtain.scale.y = value;
+        }
+    }
+
     toggleLights(value) {
-        if (value) {
-            for (let index = 0; index < this.lightsArray.length; index++) {
-                const lightInfo = this.lightsArray[index];
+        for (let index = 0; index < this.lightsArray.length; index++) {
+            const lightInfo = this.lightsArray[index];
 
-                if (lightInfo.light.intensity == 0)
-                    lightInfo.light.intensity = lightInfo.prevIntensity;
-            }
-        } else {
-            for (let index = 0; index < this.lightsArray.length; index++) {
-                const lightInfo = this.lightsArray[index];
-
-                lightInfo.prevIntensity = lightInfo.light.intensity;
-                lightInfo.light.intensity = 0;
-            }
+            lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
     }
 }
