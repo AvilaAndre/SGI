@@ -1340,10 +1340,11 @@
         <node id="topFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
+                <translate value3="0 4.125 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3 4" xy2="-3 4.25"/>
+                    <rectangle xy1="-3 -0.125" xy2="3 0.125"/>
                 </primitive>
             </children>
         </node>
@@ -1351,10 +1352,11 @@
         <node id="bottomFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
+                <translate value3="0 -4.125 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3 -4.25" xy2="-3 -4" />
+                    <rectangle xy1="-3 -0.125" xy2="3 0.125" />
                 </primitive>
             </children>
         </node>
@@ -1362,11 +1364,11 @@
         <node id="leftFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
-                <rotate value3="0 3.14 0" />
+                <translate value3="3 0 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-3 -4.25" xy2="-3.25 4.25"/>
+                    <rectangle xy1="-0.125 -4.25" xy2="0.125 4.25"/>
                 </primitive>
             </children>
         </node>
@@ -1374,11 +1376,11 @@
         <node id="rightFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
-                <rotate value3="0 3.14 0" />
+                <translate value3="-3 0 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3.25 -4.25" xy2="3 4.25"/>
+                    <rectangle xy1="-0.125 -4.25" xy2="0.125 4.25"/>
                 </primitive>
             </children>
         </node>

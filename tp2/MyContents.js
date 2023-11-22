@@ -306,7 +306,6 @@ class MyContents {
                 );
             }
         } else if (texture.isVideo) {
-            console.log("is video");
             const video = document.createElement("video");
             video.id = "video";
             video.playsinline = true;
@@ -318,7 +317,6 @@ class MyContents {
             video.height = 360;
 
             video.src = texture.filepath;
-            console.log("src:" + video.src);
             video.style.display = "none";
 
             document.body.appendChild(video);
