@@ -30,10 +30,12 @@
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>
-        <texture id="leftWallTex" filepath="scenes/room/textures/cats.jpg" />        
+        <texture id="leftWallTex" filepath="scenes/room/textures/cats.jpg" />
+        <texture id="curtainTex" filepath="scenes/room/textures/curtains/curtain.jpg" /> 
 		<texture id="floorTex" filepath="scenes/room/textures/carpet/carpet.png" />
-		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_normal.png"/>
-		<texture id="floorSpecTex" filepath="scenes/room/textures/carpet/carpet_specular.png" />
+		<texture id="roofTex" filepath="scenes/room/textures/roof/wood.jpg" />
+		<texture id="floorBumpTex" filepath="scenes/room/textures/carpet/carpet_bump.png"/>
+		<texture id="floorSpecTex" filepath="scenes/room/textures/carpet/carpet_modified.png" />
 		<texture id="tableTex" filepath="scenes/room/textures/wood4.jpg" />
         <texture id="sofaTex" filepath="scenes/room/textures/light_leather.jpg" />
         <texture id="greyLeatherTex" filepath="scenes/room/textures/greyLeather.jpg" />
@@ -60,8 +62,6 @@
     </textures>
 
     <materials> 
-
-        textureref="video" texlength_s="0.9" texlength_t="1.4" color="1 1 1 1" specular="0 0 0 1" emissive="0 0 0 1" shininess="12"
 		<material id="pineApp" 
             emissive="0.0 0.0 0.0 1" 
             color="0.8 0.8 0.8 1.0"  
@@ -81,7 +81,6 @@
             texlength_s="1" 
             texlength_t="1"
             wireframe = "false" />
-
         
         <material id="ollie2App" 
             emissive="0.0 0.0 0.0 1" 
@@ -201,6 +200,16 @@
             texlength_s="0.5" 
             texlength_t="2" 
             twosided = "false" />
+
+        <material id="curtainApp" 
+            emissive="0.0 0.0 0.0 1" 
+			color="1.0 0.8 0.8 1.0" 
+            specular="0.4 0 0 0" 
+            shininess="1"
+            textureref="curtainTex" 
+            texlength_s="1" 
+            texlength_t="1" 
+            twosided = "true" />
 		
 		<material id="floorApp" 
             emissive="0.0 0.0 0.0 1" 
@@ -213,6 +222,16 @@
             texlength_s="1" 
             texlength_t="1" 
             twosided = "true" />
+
+        <material id="roofApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="roofTex"
+            texlength_s="4" 
+            texlength_t="4"
+            />
 
         <material id="blueYarnApp" 
             emissive="0.0 0.0 0.0 1" 
@@ -297,8 +316,11 @@
             <children> 
                 <noderef id="leftWall" /> 
 				<noderef id="rightWall1" />
+                <noderef id="curtain1" />
                 <noderef id="rightWall2" />
+                <noderef id="curtain2" />
                 <noderef id="rightWall3" />
+                <noderef id="curtain3" />
                 <noderef id="rightWall4" />
                 <noderef id="leftWindow" />
                 <noderef id="centerWindow" />
@@ -306,6 +328,7 @@
                 <noderef id="frontRightWall" />
                 <noderef id="frontLeftWall" />            
 				<noderef id="floor" /> 
+				<noderef id="roof" /> 
 				<noderef id="table" />
                 <noderef id="leftSofa" />
                 <noderef id="rightSofa" /> 
@@ -326,40 +349,40 @@
                 <noderef id="ollie3Frame" />
                 <noderef id="cat" />
 
-                <pointlight id="light1" enabled="true" 
+                <pointlight id="light1" enabled="false" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="0.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="11 7.5 11" 
+                    position="11 10 11" 
                 /> 
 
-                <pointlight id="light2" enabled="true" 
+                <pointlight id="light2" enabled="false" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="10.0"
+                    intensity="1.0"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="4 7.5 11"
+                    position="4 10 11"
                 /> 
                 
-                <pointlight id="light3" enabled="true" 
+                <pointlight id="light3" enabled="false" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="11 7.5 4"  
+                    position="11 10 4"  
                 /> 
 
-                <pointlight id="light4" enabled="true" 
+                <pointlight id="light4" enabled="false" 
                     color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
+                    intensity="4"
                     distance="20"
                     decay="0.2"
                     castshadow="true"
-                    position="4 7.5 4"  
+                    position="4 10 4"  
                 />
 
                 <spotlight id="light5" enabled="true" 
@@ -374,13 +397,16 @@
                     angle="0.393" 
                 /> 
 
-                <!--
                 <directionallight id="light6" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
+                    color="1.0 0.5 0.0 1" 
                     intensity="1.0"
                     castshadow="true"
-                    position="2 2 4" 
-                /> -->
+                    position="5 7 -34"
+                    shadowleft="-50"
+                    shadowright="50"
+                    shadowbottom="-50"
+                    shadowtop="50"
+                />
             </children> 
         </node>
 
@@ -497,7 +523,6 @@
         </node>
 
 		<node id="rectangle4"> 
-
             <transforms>
 				<translate value3="0 0.5 0" />
 				<rotate value3="-1.57 0.0 0.0" />
@@ -511,7 +536,6 @@
         </node>
 		
 		<node id="rectangle5"> 
-
             <transforms>
 				<translate value3="-0.5 0 0" />
 				<rotate value3="0.0 -1.57.0 0.0" />
@@ -805,7 +829,7 @@
         </node>
 
 		
-		<node id="table">
+		<node id="table" receiveshadows="true">
 			<transforms>
 				<translate value3="7.5 -0.14 10" />				
 				<scale value3="7 4 5" />
@@ -823,7 +847,7 @@
 
         </node>
 
-        <node id="stairs">
+        <node id="stairs" castshadows="true" receiveshadows="true">
 			<transforms>
                 <translate value3="-7.5 -2.03 -16.25" />
 				<scale value3="9 4 6" />
@@ -845,7 +869,7 @@
 
         </node>
 
-        <node id="blueYarn">
+        <node id="blueYarn" castshadows="true">
 			<transforms>
                 <translate value3="-0.5 -2 -0.5" />
                 <scale value3="1.5 1.5 1.5" />
@@ -858,7 +882,7 @@
             <materialref id="blueYarnApp" />
         </node>
 
-        <node id="redYarn">
+        <node id="redYarn" castshadows="true">
 			<transforms>
                 <translate value3="11 -2 5" />
 				<scale value3="1.5 1.5 1.5" />
@@ -871,7 +895,7 @@
             <materialref id="redYarnApp" />
         </node>
 
-        <node id="yellowYarn">
+        <node id="yellowYarn" castshadows="true">
 			<transforms>
                 <translate value3="4 1.9 2.9" />
                 <scale value3="1.5 1.5 1.5" />
@@ -897,7 +921,7 @@
             <materialref id="greenYarnApp" />
         </node>
 
-        <node id="leftSofa">
+        <node id="leftSofa" castshadows="true" receiveshadows="true">
 			<transforms>
 				<translate value3="1.5 -0.47 2.5" />				
 				<scale value3="3 3 3" />
@@ -913,7 +937,7 @@
             </children> 
         </node>
 
-        <node id="centerSofa">
+        <node id="centerSofa" castshadows="true" receiveshadows="true">
 			<transforms>
 				<translate value3="7.5 -0.47 2.5" />				
 				<scale value3="3 3 3" />
@@ -929,7 +953,7 @@
             </children> 
         </node>
 
-        <node id="rightSofa">
+        <node id="rightSofa" castshadows="true" receiveshadows="true" >
 			<transforms>
 				<translate value3="13.5 -0.47 2.5" />				
 				<scale value3="3 3 3" />
@@ -945,7 +969,7 @@
             </children> 
         </node>
 		
-		<node id="floor">
+		<node id="floor" receiveshadows="true">
 			<transforms>
 				<translate value3="-7.5 -2 22.5" />
 				<rotate value3="-1.57 0.0 0.0" />
@@ -957,6 +981,22 @@
             <children>             
                 <primitive>
                     <rectangle xy1="0 0" xy2="15 15" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="roof" castshadows="true">
+			<transforms>
+				<translate value3="7.5 12.35 7.5" />
+				<rotate value3="1.57 0.0 0" />
+                <scale value3="2 2 2" />
+            </transforms> 
+
+			<materialref id="roofApp" />
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-7.5 -7.5" xy2="7.5 7.5" />
                 </primitive>
             </children> 
         </node>
@@ -972,7 +1012,7 @@
             </children> 
         </node>
 		
-		<node id="leftWall">
+		<node id="leftWall" receiveshadows="true" >
 			<transforms>
 				<translate value3="-7.5 5.2 7.5" />
 				<rotate value3="0.0 1.57 0.0" />
@@ -988,7 +1028,7 @@
             </children> 
         </node>
 		
-		<node id="rightWall1">
+		<node id="rightWall1" receiveshadows="false" castshadows="true">
 			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="-5.25 5.2 -7.5" />
@@ -1002,7 +1042,7 @@
             </children> 
         </node>
 
-        <node id="rightWall2">
+        <node id="rightWall2" receiveshadows="false" castshadows="true">
 			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="3.25 5.2 -7.5" />
@@ -1016,7 +1056,7 @@
             </children> 
         </node>
 
-        <node id="rightWall3">
+        <node id="rightWall3" receiveshadows="false" castshadows="true">
 			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="11.525 5.2 -7.5" />
@@ -1030,7 +1070,7 @@
             </children> 
         </node>
 
-        <node id="rightWall4">
+        <node id="rightWall4" receiveshadows="false" castshadows="true">
 			<materialref id="wallAppShort" />
             <transforms>
 				<translate value3="20.14 5.2 -7.5" />
@@ -1044,9 +1084,51 @@
             </children> 
         </node>
 
+        <node id="curtain1" castshadows="true">
+			<materialref id="curtainApp" />
+            <transforms>
+				<translate value3="-0.85 12.3 -7.45" />
+                <scale value3="1 1 1" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-2 -4" xy2="2 0" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="curtain2" castshadows="true" receiveshadows="false">
+			<materialref id="curtainApp" />
+            <transforms>
+				<translate value3="7.4 12.3 -7.45" />
+                <scale value3="1 1 1" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-2 -4" xy2="2 0" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="curtain3" castshadows="true">
+			<materialref id="curtainApp" />
+            <transforms>
+				<translate value3="15.65 12.3 -7.45" />
+                <scale value3="1 1 1" />
+            </transforms> 
+			
+            <children>             
+                <primitive>
+                    <rectangle xy1="-2 -4" xy2="2 0" />
+                </primitive>
+            </children> 
+        </node>
+
         
 
-		<node id="frontRightWall">
+		<node id="frontRightWall" receiveshadows="true">
 			<transforms>
 				<translate value3="7.5 5.2 22.5" />
 				<rotate value3="0.0 3.1416 0.0" />
@@ -1064,7 +1146,7 @@
 
 
 
-        <node id="leftWindow">
+        <node id="leftWindow" receiveshadows="false" castshadows="true">
 			<materialref id="windowApp" />
             <transforms>
 				<translate value3="-5.25 0 -7.5" />
@@ -1080,7 +1162,7 @@
             </children> 
         </node>
 
-        <node id="centerWindow">
+        <node id="centerWindow" receiveshadows="false" castshadows="true">
 			<materialref id="windowApp" />
             <transforms>
 				<translate value3="3 0 -7.5" />
@@ -1097,7 +1179,7 @@
         </node>
 
                 
-        <node id="rightWindow">
+        <node id="rightWindow" castshadows="true">
 			<materialref id="windowApp" />
             <transforms>
 				<translate value3="11.25 0 -7.5" />
@@ -1364,10 +1446,11 @@
         <node id="topFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
+                <translate value3="0 4.125 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3 4" xy2="-3 4.25"/>
+                    <rectangle xy1="-3 -0.125" xy2="3 0.125"/>
                 </primitive>
             </children>
         </node>
@@ -1375,10 +1458,11 @@
         <node id="bottomFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
+                <translate value3="0 -4.125 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3 -4.25" xy2="-3 -4" />
+                    <rectangle xy1="-3 -0.125" xy2="3 0.125" />
                 </primitive>
             </children>
         </node>
@@ -1386,11 +1470,11 @@
         <node id="leftFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
-                <rotate value3="0 3.14 0" />
+                <translate value3="3 0 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-3 -4.25" xy2="-3.25 4.25"/>
+                    <rectangle xy1="-0.125 -4.25" xy2="0.125 4.25"/>
                 </primitive>
             </children>
         </node>
@@ -1398,11 +1482,11 @@
         <node id="rightFrame">
             <materialref id="greyFrameApp"/>
             <transforms>
-                <rotate value3="0 3.14 0" />
+                <translate value3="-3 0 0"/>
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="3.25 -4.25" xy2="3 4.25"/>
+                    <rectangle xy1="-0.125 -4.25" xy2="0.125 4.25"/>
                 </primitive>
             </children>
         </node>
