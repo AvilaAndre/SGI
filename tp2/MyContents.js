@@ -316,6 +316,7 @@ class MyContents {
             video.autoplay = true;
             video.width = 640;
             video.height = 360;
+
             video.src = texture.filepath;
             console.log("src:" + video.src);
             video.style.display = "none";
@@ -323,6 +324,7 @@ class MyContents {
             document.body.appendChild(video);
 
             newTexture = new THREE.VideoTexture(video);
+            newTexture.needsUpdate = true;
         } else {
             newTexture.generateMipmaps = true;
             if (!texture.mipmaps)
