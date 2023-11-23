@@ -211,6 +211,21 @@ class MyContents {
                                     geometry,
                                     this.materials[nodeObj.materialIds[0]]
                                 );
+
+                                if (child.subtype == "rectangle") {
+                                    mesh.material.map.repeat.set(
+                                        mesh.material.texlength_s /
+                                            mesh.geometry.parameters.width,
+                                        mesh.material.texlength_t /
+                                            mesh.geometry.parameters.height
+                                    );
+
+                                    mesh.material.map.wrapS =
+                                        THREE.RepeatWrapping;
+                                    mesh.material.map.wrapT =
+                                        THREE.RepeatWrapping;
+                                }
+
                                 mesh.castShadow = nodeObj.castShadow;
                                 mesh.receiveShadow = nodeObj.receiveShadow;
                                 nodeObj.add(mesh);
@@ -375,12 +390,8 @@ class MyContents {
             specularMap: this.textures[material.specularref || null],
         });
 
-        const texlength_s = material.texlength_s || 1;
-        const texlength_t = material.texlength_t || 1;
-
-        newMaterial.map.repeat.set(texlength_s, texlength_t);
-        newMaterial.map.wrapS = THREE.RepeatWrapping;
-        newMaterial.map.wrapT = THREE.RepeatWrapping;
+        newMaterial.texlength_s = material.texlength_s || 1;
+        newMaterial.texlength_t = material.texlength_t || 1;
 
         if (material.color.a == 1) {
             newMaterial.opacity = 1;

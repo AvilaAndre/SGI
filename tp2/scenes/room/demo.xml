@@ -184,8 +184,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="leftWallTex" 
-            texlength_s="3" 
-            texlength_t="2" 
+            texlength_s="24" 
+            texlength_t="8" 
             twosided = "false" />
 
         <material id="wallAppShort" 
@@ -194,8 +194,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="leftWallTex" 
-            texlength_s="0.5" 
-            texlength_t="2" 
+            texlength_s="4" 
+            texlength_t="8" 
             twosided = "false" />
 
         <material id="curtainApp" 
@@ -226,8 +226,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="roofTex"
-            texlength_s="4" 
-            texlength_t="4"
+            texlength_s="24" 
+            texlength_t="24"
             />
 
         <material id="blueYarnApp" 
