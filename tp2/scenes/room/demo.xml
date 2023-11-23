@@ -51,6 +51,9 @@
         <texture id="catBoxTex" filepath="scenes/room/textures/woodCatBox.jpg" />
         <texture id="windowWoodTex" filepath="scenes/room/textures/windowWood.webp" />
         <texture id="greyFrameTex" filepath="scenes/room/textures/greyFrame.jpg" />
+        <texture id="blackCatTex" filepath="scenes/room/textures/blackCatFur.jpg" />
+        <texture id="whiteEyeTex" filepath="scenes/room/textures/white.avif" />
+        <texture id="noseTex" filepath="scenes/room/textures/pinkNose.jpg" />
         <texture id="ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" isVideo="true"/>
         <texture id="ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" isVideo="true"/>
         <texture id="ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" isVideo="true"/>
@@ -285,6 +288,26 @@
             texlength_s="15" 
             texlength_t="15"
             twosided = "true" />
+
+        <material id="noseApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="noseTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            twosided = "true" />
+
+        <material id="blackCatFurApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="blackCatTex" 
+            texlength_s="1" 
+            texlength_t="1"
+            twosided = "true" />
     </materials> 
 
     <graph rootid="scene"> 
@@ -324,6 +347,7 @@
                 <noderef id="ollie1Frame" />
                 <noderef id="ollie2Frame" />
                 <noderef id="ollie3Frame" />
+                <noderef id="cat" />
 
                 <pointlight id="light1" enabled="false" 
                     color="0.5 0.6 0.8 1" 
@@ -1493,5 +1517,321 @@
                 </primitive>
             </children>
         </node>
+
+
+        <node id="catBody">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <rotate value3="1.57 0 0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.8" top="0.8" height="2" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="catTail">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0 1.3 -1.25" />
+                <rotate value3="-0.52 0 0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="1.4" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="catTailSmall">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0 1.85 -1.88" />
+                <rotate value3="-1.57 0 0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+                
+        <node id="leftBackPaw">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="-0.4 -1 -0.8" />
+
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>        
+        
+        
+        <node id="leftFrontPaw">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="-0.4 -1 0.8" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>        
+        
+        
+        <node id="rightBackPaw">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0.4 -1 -0.8" />
+
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>         
+        
+
+        <node id="rightFrontPaw">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0.4 -1 0.8" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.15" top="0.15" height="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+
+        <node id="catChest">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0 0 0.8" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.8" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="catHead">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0 1.3 1.1" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.75" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="leftEyeWhite">
+            <materialref id="whiteEyeApp"/>
+            <transforms>
+                <translate value3="-0.25 1.6 1.75" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.09" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightEyeWhite">
+            <materialref id="whiteEyeApp"/>
+            <transforms>
+                <translate value3="0.25 1.6 1.75" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.09" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="leftEyeBlack">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="-0.25 1.6 1.845" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.03" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightEyeBlack">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0.25 1.6 1.845" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.03" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+
+        <node id="catLeftEar">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="-0.55 1.8 1.3" />
+                <rotate value3="0 0 0.22" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <triangle xyz1="0 0 0" xyz2="0.25 0.5 0"  xyz3="0.5 0 0" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="catRightEar">
+            <materialref id="blackCatFurApp"/>
+            <transforms>
+                <translate value3="0.55 1.8 1.3" />
+                <rotate value3="0 0 -0.22" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <triangle xyz1="0 0 0" xyz2="-0.25 0.5 0"  xyz3="-0.5 0 0" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="catNose">
+            <materialref id="noseApp"/>
+            <transforms>
+                <translate value3="0 1.3 1.85" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <sphere radius="0.075" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="leftCenterWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="-0.35 1.3 1.85" />
+                <rotate value3="0 0 1.54" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="leftTopWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="-0.35 1.4 1.85" />
+                <rotate value3="0 0 1.24" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="leftBottomWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="-0.35 1.2 1.85" />
+                <rotate value3="0 0 1.84" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightCenterWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="0.35 1.3 1.85" />
+                <rotate value3="0 0 -1.54" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightTopWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="0.35 1.4 1.85" />
+                <rotate value3="0 0 -1.24" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="rightBottomWhisker">
+            <materialref id="whiteApp"/>
+            <transforms>
+                <translate value3="0.35 1.2 1.85" />
+                <rotate value3="0 0 -1.84" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <cylinder base="0.01" top="0.01" height="0.6" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="cat">
+
+            <transforms>
+
+            </transforms>
+            <children>             
+                <noderef id="catBody" />
+                <noderef id="catTail" />
+                <noderef id="catTailSmall"/>
+                <noderef id="leftBackPaw"/>
+                <noderef id="rightBackPaw"/>
+                <noderef id="leftFrontPaw"/>
+                <noderef id="rightFrontPaw"/>
+                <noderef id="catChest"/>
+                <noderef id="catHead"/>
+                <noderef id="catLeftEar"/>
+                <noderef id="catRightEar"/>
+                <noderef id="leftEyeWhite"/>
+                <noderef id="rightEyeWhite"/>
+                <noderef id="leftEyeBlack"/>
+                <noderef id="rightEyeBlack"/>
+                <noderef id="catNose"/>
+                <noderef id="leftCenterWhisker"/>
+                <noderef id="leftTopWhisker"/>
+                <noderef id="leftBottomWhisker"/>
+                <noderef id="rightCenterWhisker"/>
+                <noderef id="rightTopWhisker"/>
+                <noderef id="rightBottomWhisker"/>
+            </children> 
+        </node>
+
+
     </graph> 
 </yaf> 
