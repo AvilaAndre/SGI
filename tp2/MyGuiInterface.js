@@ -51,14 +51,27 @@ class MyGuiInterface {
             })
             .name("Toggle Lights");
 
-        if (this.contents.curtains != []) {
-            const customFolder = this.datgui.addFolder("Custom");
+        const curtainValue = { curtains: 1 };
 
-            const curtainValue = { curtains: 1 };
-            customFolder
+        const customFolder = this.datgui.addFolder("Custom");
+
+        let curtainController = undefined;
+
+        // A folder for custom properties
+        if (this.contents.curtains != []) {
+            curtainController = customFolder
                 .add(curtainValue, "curtains", 0.2, 3.5)
-                .onChange((value) => this.contents.moveCurtains(value));
+                .onChange((value) => this.contents.moveCurtains(value))
+                .name("Curtains");
         }
+
+        const resetButton = {
+            reset: () => {
+                this.contents.resetLights();
+                if (curtainController) curtainController.setValue(1);
+            },
+        };
+        customFolder.add(resetButton, "reset").name("Reset");
     }
 }
 
