@@ -52,7 +52,7 @@ class MyContents {
     }
 
     /**
-     * initializes the contents
+     * Initializes the contents
      */
     init() {
         // create once
@@ -76,6 +76,11 @@ class MyContents {
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
+    /**
+     * Output the object to the console
+     * @param {*} obj
+     * @param {*} indent
+     */
     output(obj, indent = 0) {
         console.log(
             "" +
@@ -87,6 +92,10 @@ class MyContents {
         );
     }
 
+    /**
+     * Actual loading of the scene
+     * @param {*} data
+     */
     onAfterSceneLoadedAndBeforeRender(data) {
         // refer to descriptors in class MySceneData.js
         // to see the data structure for each item
@@ -152,6 +161,14 @@ class MyContents {
 
     update() {}
 
+    /**
+     * Instantiates nodes, having in consideration if it is a primitive,
+     * a kind of light, a LOD or none of this options
+     * @param {*} nodeRef
+     * @param {*} data
+     * @param {*} parent
+     * @returns
+     */
     instantiateNode(nodeRef, data, parent = undefined) {
         let node = data.nodes[nodeRef];
 
@@ -270,6 +287,10 @@ class MyContents {
         return nodeObj;
     }
 
+    /**
+     * Does the necessary changes to the scene based on the options received
+     * @param {*} options
+     */
     setOptions(options) {
         const ambientColor = new THREE.Color(
             options.ambient.r,
@@ -288,6 +309,10 @@ class MyContents {
         this.app.scene.background = backgroundColor;
     }
 
+    /**
+     * Adds a texture to the textures array
+     * @param {*} texture
+     */
     addTexture(texture) {
         let newTexture = new THREE.TextureLoader().load(texture.filepath);
 
@@ -380,6 +405,10 @@ class MyContents {
         this.textures[texture.id] = newTexture;
     }
 
+    /**
+     * Adds a material to the materials array
+     * @param {*} material
+     */
     addMaterial(material) {
         // Create a THREE.Color object with RGB values
         const materialColor = new THREE.Color(
@@ -420,6 +449,11 @@ class MyContents {
         this.materials[material.id] = newMaterial;
     }
 
+    /**
+     * Adds a Pointlight to the Pointlights array
+     * @param {*} light
+     * @returns newLight
+     */
     addPointlight(light) {
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
@@ -457,6 +491,11 @@ class MyContents {
         return newLight;
     }
 
+    /**
+     * Adds a Spotlight to the Spotlights array
+     * @param {*} light
+     * @returns newLight
+     */
     addSpotlight(light) {
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
@@ -502,6 +541,11 @@ class MyContents {
         return newLight;
     }
 
+    /**
+     * Adds a Directionallight to the Directionallights array
+     * @param {*} light
+     * @returns
+     */
     addDirectionallight(light) {
         // Now, positionArray contains the individual components as numbers
         const x = light.position[0];
@@ -646,6 +690,11 @@ class MyContents {
         this.cameras[camera.id] = newCamera;
     }
 
+    /**
+     * Creates a primitive based on the representation received
+     * @param {*} representation
+     * @returns
+     */
     createPrimitive(representation) {
         if (representation.type === "cylinder") {
             return new THREE.CylinderGeometry(
@@ -928,6 +977,11 @@ class MyContents {
         }
     }
 
+    /**
+     * Applies the transformations (translate, scale and rotate) to the node
+     * @param {*} node
+     * @param {*} transformations
+     */
     applyTransformations(node, transformations) {
         transformations.forEach((key) => {
             switch (key.type) {
@@ -971,7 +1025,8 @@ class MyContents {
     }
 
     /**
-     * Moves the curtains on the scene, this is a custom parameter
+     * Allows the movement of the curtains through the GUI
+     * @param {*} value
      */
     moveCurtains(value) {
         for (let index = 0; index < this.curtains.length; index++) {
@@ -995,7 +1050,8 @@ class MyContents {
     }
 
     /**
-     * Toggles the lights on and off
+     * Allows the alternation of the scene's lights
+     * @param {*} value
      */
     toggleLights(value) {
         for (let index = 0; index < this.lightsArray.length; index++) {
