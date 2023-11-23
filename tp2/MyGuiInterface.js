@@ -59,15 +59,27 @@ class MyGuiInterface {
             camIdx < this.contents.lightsArray.length;
             camIdx++
         ) {
-            individualLightsFolder
+            const thisLightFolder = individualLightsFolder.addFolder(
+                this.contents.lightsArray[camIdx].light.name ||
+                    this.contents.lightsArray[camIdx].light.type
+            );
+
+            thisLightFolder
                 .add(
                     this.contents.lightsArray[camIdx].light,
                     "intensity",
                     0,
                     20
                 )
-                .name(this.contents.lightsArray[camIdx].light.name);
+                .name("Intensity");
+
+            thisLightFolder
+                .addColor(this.contents.lightsArray[camIdx].light, "color")
+                .name("Color");
+
+            thisLightFolder.close();
         }
+        individualLightsFolder.close();
 
         const customFolder = this.datgui.addFolder("Custom");
 

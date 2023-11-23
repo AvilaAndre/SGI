@@ -2027,7 +2027,6 @@
         </node>
 
         <lod id="cat">
-
             <noderef id="catClose" mindist="0"/>
             <noderef id="catMedium" mindist="35"/>
             <noderef id="catFar" mindist="50"/>            
