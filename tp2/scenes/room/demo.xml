@@ -33,7 +33,7 @@
                 top="20" />
     </cameras> 
 
-    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.png" down="./textures/pine.png" left="./textures/pine.png" right="./textures/pine.png" front="./textures/pine.png" back="./textures/pine.png"/>
+    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/skybox/cat-god.jpg" down="./textures/skybox/pine.png" left="./textures/skybox/serra-do-cume.jpg" right="./textures/skybox/serra-do-cume.jpg" front="./textures/skybox/serra-do-cume.jpg" back="./textures/skybox/serra-do-cume.jpg"/>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
     <textures>
