@@ -454,6 +454,7 @@ class MyContents {
         this.lightsArray.push({
             originalIntensity: light.intensity || 1,
             light: newLight,
+            defaultEnabled: light.enabled,
         });
 
         return newLight;
@@ -472,7 +473,7 @@ class MyContents {
         );
         const newLight = new THREE.SpotLight(
             lightColor,
-            light.intensity || 1,
+            light.enabled ? light.intensity || 1 : 0,
             light.distance || 1000,
             light.angle,
             light.penumbra || 1,
@@ -497,6 +498,7 @@ class MyContents {
         this.lightsArray.push({
             originalIntensity: newLight.intensity,
             light: newLight,
+            defaultEnabled: light.enabled,
         });
 
         return newLight;
@@ -515,7 +517,7 @@ class MyContents {
         );
         const newLight = new THREE.DirectionalLight(
             lightColor,
-            light.intensity || 1
+            light.enabled ? light.intensity || 1 : 0
         );
 
         newLight.castShadow = light.castshadow;
@@ -541,6 +543,7 @@ class MyContents {
         this.lightsArray.push({
             originalIntensity: newLight.intensity,
             light: newLight,
+            defaultEnabled: light.enabled,
         });
 
         return newLight;
@@ -969,6 +972,19 @@ class MyContents {
             const curtain = this.curtains[index];
 
             curtain.scale.y = value;
+        }
+    }
+
+    /**
+     * Resets the lights to their original value
+     */
+    resetLights() {
+        for (let index = 0; index < this.lightsArray.length; index++) {
+            const lightInfo = this.lightsArray[index];
+
+            lightInfo.light.intensity = lightInfo.defaultEnabled
+                ? lightInfo.originalIntensity
+                : 0;
         }
     }
 
