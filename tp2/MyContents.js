@@ -180,7 +180,7 @@ class MyContents {
         nodeObj.castShadow = node.castShadows || parent?.castShadow;
         nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadow;
 
-        // Thios is a custom parameter for our team
+        // This is a custom parameter for our team
         if (
             nodeObj.name == "curtain1" ||
             nodeObj.name == "curtain2" ||
@@ -229,6 +229,8 @@ class MyContents {
             } else if (child.type === "directionallight") {
                 const light = this.addDirectionallight(child);
                 nodeObj.add(light);
+            } else if (child.type === "lod") {
+                console.log("lod!:", child);
             } else {
                 this.output(child, 2);
 
