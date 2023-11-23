@@ -54,6 +54,7 @@
         <texture id="blackCatTex" filepath="scenes/room/textures/blackCatFur.jpg" />
         <texture id="whiteEyeTex" filepath="scenes/room/textures/white.avif" />
         <texture id="noseTex" filepath="scenes/room/textures/pinkNose.jpg" />
+        <texture id="catOfTheMonthTex" filepath="scenes/room/textures/jinx.jpg"/>
         <texture id="ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" isVideo="true"/>
         <texture id="ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" isVideo="true"/>
         <texture id="ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" isVideo="true"/>
@@ -187,8 +188,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="leftWallTex" 
-            texlength_s="3" 
-            texlength_t="2" 
+            texlength_s="24" 
+            texlength_t="8" 
             twosided = "false" />
 
         <material id="wallAppShort" 
@@ -197,8 +198,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="leftWallTex" 
-            texlength_s="0.5" 
-            texlength_t="2" 
+            texlength_s="4" 
+            texlength_t="8" 
             twosided = "false" />
 
         <material id="curtainApp" 
@@ -229,8 +230,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="roofTex"
-            texlength_s="4" 
-            texlength_t="4"
+            texlength_s="24" 
+            texlength_t="24"
             />
 
         <material id="blueYarnApp" 
@@ -308,6 +309,16 @@
             texlength_s="1" 
             texlength_t="1"
             twosided = "true" />
+
+        <material id="catOfTheMonthApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="catOfTheMonthTex" 
+            texlength_s="3" 
+            texlength_t="4"
+            twosided="false" />
     </materials> 
 
     <graph rootid="scene"> 
@@ -351,6 +362,8 @@
                 <noderef id="catMedium" />
                 <!--<lodref id="catFar" />-->
                 <lodref id="cat" />
+                <!--<noderef id="cat" />-->
+                <noderef id="catofthemonth" />
 
                 <pointlight id="light1" enabled="false" 
                     color="0.5 0.6 0.8 1" 
@@ -1513,6 +1526,20 @@
             <transforms>
             <rotate value3="0 3.14 0" />
                 <scale value3="2 2 2" />
+            </transforms>
+            <children>
+                <primitive>
+                    <rectangle xy1="-1.5 -2" xy2="1.5 2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="catofthemonth">
+            <materialref id="catOfTheMonthApp"/>
+            <transforms>
+                <translate value3="22.48 7 7.5"/>
+                <rotate value3="0 -1.57 0" />
+                <scale value3="1 1 1" />
             </transforms>
             <children>
                 <primitive>
