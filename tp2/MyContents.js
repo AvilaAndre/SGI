@@ -245,10 +245,22 @@ class MyContents {
                 const light = this.addDirectionallight(child);
                 nodeObj.add(light);
             } else if (child.type === "lod") {
-                console.log("lod!:", child);
-                console.log("lod child 0!:", child.children[0]);
                 const lod = new THREE.LOD();
-                lod.addLevel()
+                for (
+                    let lodChild = 0;
+                    lodChild < child.children.length;
+                    lodChild++
+                ) {
+                    const element = child.children[lodChild];
+                    const newChild = this.instantiateNode(
+                        element.node.id,
+                        data,
+                        nodeObj
+                    );
+                    lod.addLevel(newChild, element.mindist);
+                }
+
+                nodeObj.add(lod);
             } else {
                 this.output(child, 2);
 
@@ -256,6 +268,7 @@ class MyContents {
                 if (newChild) nodeObj.add(newChild);
             }
         }
+
 
         return nodeObj;
     }

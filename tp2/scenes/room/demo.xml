@@ -358,11 +358,8 @@
                 <noderef id="ollie1Frame" />
                 <noderef id="ollie2Frame" />
                 <noderef id="ollie3Frame" />
-                <noderef id="catClose" />
-                <noderef id="catMedium" />
-                <!--<lodref id="catFar" />-->
-                <lodref id="cat" />
                 <!--<noderef id="cat" />-->
+                <lodref id="cat" />
                 <noderef id="catofthemonth" />
 
                 <pointlight id="light1" enabled="false" 
@@ -1829,16 +1826,13 @@
         </node>
 
 
-        <lod id="cat">
-            <noderef id="catClose" mindist="0"/>
-            <noderef id="catMedium" mindist="20"/>
-            <!--<noderef id="catFar" mindist="40"/>-->            
-        </lod> 
+
 
         <node id="catClose">
 
             <transforms>
-
+                <translate value3="15.5 -0.55 15"/>
+                <rotate value3="0 3.14 0" />
             </transforms>
             <children>             
                 <noderef id="catBody" />
@@ -1869,7 +1863,8 @@
         <node id="catMedium">
 
             <transforms>
-
+                <translate value3="15.5 -0.55 15"/>
+                <rotate value3="0 3.14 0" />
             </transforms>
             <children>             
                 <noderef id="catBody" />
@@ -1884,6 +1879,28 @@
                 <noderef id="catNose"/>
             </children> 
         </node>
+
+        <node id="catFar">
+
+            <transforms>
+                <translate value3="15.5 -0.55 15"/>
+                <rotate value3="0 3.14 0" />
+            </transforms>
+            <children>             
+                <noderef id="catBody" />
+                <noderef id="catTail" />
+                <noderef id="catHead"/>
+                <noderef id="leftEyeWhite"/>
+                <noderef id="rightEyeWhite"/>
+            </children> 
+        </node>
+
+        <lod id="cat">
+
+            <noderef id="catClose" mindist="0"/>
+            <noderef id="catMedium" mindist="30"/>
+            <noderef id="catFar" mindist="50"/>            
+        </lod> 
 
     </graph> 
 </yaf> 
