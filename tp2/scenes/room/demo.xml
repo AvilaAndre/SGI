@@ -65,7 +65,7 @@
         <texture id="ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" isVideo="true"/>
         <texture id="ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" isVideo="true"/>
         <texture id="ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" isVideo="true"/>
-        <texture id="metalTEx" filepath="scenes/room/textures/metal.jpg"/>
+        <texture id="metalTex" filepath="scenes/room/textures/metal.jpg"/>
 
 
     </textures>
@@ -376,9 +376,9 @@
                 <noderef id="ollie1Frame" />
                 <noderef id="ollie2Frame" />
                 <noderef id="ollie3Frame" />
-                <!--<noderef id="cat" />-->
                 <lodref id="cat" />
                 <noderef id="catofthemonth" />
+                <noderef id="lightPiece"/>
 
                 <pointlight id="light1" enabled="false" 
                     color="0.5 0.6 0.8 1" 
@@ -1844,9 +1844,6 @@
         </node>
 
 
-
-
-
         <node id="lightPiece">
             <transforms>
                 <translate value3="15 12 7.5"/>
@@ -1932,7 +1929,6 @@
                 <noderef id="rightCenterWhisker"/>
                 <noderef id="rightTopWhisker"/>
                 <noderef id="rightBottomWhisker"/>
-                <noderef id="lightPiece"/>
             </children> 
         </node>
 

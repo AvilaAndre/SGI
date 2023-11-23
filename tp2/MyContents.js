@@ -148,10 +148,6 @@ class MyContents {
         // add cameras to the app object
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
-
-        // reinitialize gui
-
-        //this.app.gui.init();
     }
 
     update() {}
@@ -236,12 +232,15 @@ class MyContents {
                 });
             } else if (child.type === "pointlight") {
                 const light = this.addPointlight(child);
+                light.name = child.id;
                 nodeObj.add(light);
             } else if (child.type === "spotlight") {
                 const light = this.addSpotlight(child);
+                light.name = child.id;
                 nodeObj.add(light);
             } else if (child.type === "directionallight") {
                 const light = this.addDirectionallight(child);
+                light.name = child.id;
                 nodeObj.add(light);
             } else if (child.type === "lod") {
                 const lod = new THREE.LOD();
@@ -267,7 +266,6 @@ class MyContents {
                 if (newChild) nodeObj.add(newChild);
             }
         }
-
 
         return nodeObj;
     }
@@ -488,9 +486,10 @@ class MyContents {
         newLight.shadowFar = light.shadowFar || 500.0;
         newLight.position.set(x, y, z);
 
-        if (this.DEBUG) {
-            const helper = new THREE.SpotLightHelper(newLight, lightColor);
+        // for some strange reason, this line keeps the light position in the right place
+        const helper = new THREE.SpotLightHelper(newLight, lightColor);
 
+        if (this.DEBUG) {
             this.app.scene.add(helper);
         }
 
@@ -971,6 +970,9 @@ class MyContents {
         );
     }
 
+    /**
+     * Moves the curtains on the scene, this is a custom parameter
+     */
     moveCurtains(value) {
         for (let index = 0; index < this.curtains.length; index++) {
             const curtain = this.curtains[index];
@@ -992,6 +994,9 @@ class MyContents {
         }
     }
 
+    /**
+     * Toggles the lights on and off
+     */
     toggleLights(value) {
         for (let index = 0; index < this.lightsArray.length; index++) {
             const lightInfo = this.lightsArray[index];

@@ -50,6 +50,25 @@ class MyGuiInterface {
             .add(this.app, "activeCameraName", Object.keys(this.app.cameras))
             .name("active camera");
         cameraFolder.open();
+
+        const individualCameraFolder =
+            cameraFolder.addFolder("Individual Cameras");
+
+        for (
+            let camIdx = 0;
+            camIdx < this.contents.lightsArray.length;
+            camIdx++
+        ) {
+            individualCameraFolder
+                .add(
+                    this.contents.lightsArray[camIdx].light,
+                    "intensity",
+                    0,
+                    20
+                )
+                .name(this.contents.lightsArray[camIdx].light.name);
+        }
+
         const customFolder = this.datgui.addFolder("Custom");
 
         // A controller for the curtain custom field
@@ -70,7 +89,6 @@ class MyGuiInterface {
                 if (curtainController) curtainController.setValue(1);
             },
         };
-        customFolder.add(this.contents, "DEBUG").name("DebugMode");
         customFolder.add(resetButton, "reset").name("Reset");
     }
 }
