@@ -359,9 +359,7 @@
 				<noderef id="floor" /> 
 				<noderef id="roof" /> 
 				<noderef id="table" />
-                <noderef id="leftSofa" />
-                <noderef id="rightSofa" /> 
-                <noderef id="centerSofa" /> 
+                <lodref id="sofas" />
                 <noderef id="blueYarn" />
                 <noderef id="redYarn" />
                 <noderef id="yellowYarn" />
@@ -952,7 +950,7 @@
             <materialref id="greenYarnApp" />
         </node>
 
-        <node id="leftSofa" castshadows="true" receiveshadows="true">
+        <node id="leftSofaClose" castshadows="true" receiveshadows="true">
 			<transforms>
 				<translate value3="1.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
@@ -968,7 +966,7 @@
             </children> 
         </node>
 
-        <node id="centerSofa" castshadows="true" receiveshadows="true">
+        <node id="centerSofaClose" castshadows="true" receiveshadows="true">
 			<transforms>
 				<translate value3="7.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
@@ -984,7 +982,7 @@
             </children> 
         </node>
 
-        <node id="rightSofa" castshadows="true" receiveshadows="true" >
+        <node id="rightSofaClose" castshadows="true" receiveshadows="true" >
 			<transforms>
 				<translate value3="13.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
@@ -999,6 +997,67 @@
 				<noderef id="backCushion" />
             </children> 
         </node>
+
+        <node id="leftSofaMedium" castshadows="true" receiveshadows="true">
+			<transforms>
+				<translate value3="1.5 -0.47 2.55" />				
+				<scale value3="3.7 3 3" />
+            </transforms> 
+
+			<materialref id="sofaApp" />
+			
+            <children>             
+                <noderef id="bottomCushion" />
+				<noderef id="backCushion" />
+            </children> 
+        </node>
+
+        <node id="centerSofaMedium" castshadows="true" receiveshadows="true">
+			<transforms>
+				<translate value3="7.5 -0.47 2.55" />				
+				<scale value3="3.7 3 3" />
+            </transforms> 
+
+			<materialref id="greySofaApp" />
+			
+            <children>             
+                <noderef id="bottomCushion" />
+				<noderef id="backCushion" />
+            </children> 
+        </node>
+
+        <node id="rightSofaMedium" castshadows="true" receiveshadows="true" >
+			<transforms>
+				<translate value3="13.5 -0.47 2.55" />				
+				<scale value3="3.7 3 3" />
+            </transforms> 
+
+			<materialref id="sofaApp" />
+			
+            <children>             
+                <noderef id="bottomCushion" />
+				<noderef id="backCushion" />
+            </children> 
+        </node>
+
+        <node id="sofasClose" >
+
+            <children>             
+                <noderef id="rightSofaClose" />
+				<noderef id="centerSofaClose" />
+				<noderef id="leftSofaClose" />
+            </children> 
+        </node>
+
+        <node id="sofasMedium" >
+            <children>             
+                <noderef id="rightSofaMedium" />
+				<noderef id="centerSofaMedium" />
+				<noderef id="leftSofaMedium" />
+            </children> 
+        </node>
+
+
 		
 		<node id="floor" receiveshadows="true">
 			<transforms>
@@ -1979,10 +2038,8 @@
         </lod>
 
         <lod id="sofas">
-
             <noderef id="sofasClose" mindist="0"/>
-            <noderef id="sofasMedium" mindist="35"/>
-            <noderef id="sofasFar" mindist="50"/>            
+            <noderef id="sofasMedium" mindist="50"/>            
         </lod>  
 
     </graph> 
