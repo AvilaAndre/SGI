@@ -79,8 +79,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="ollie1Tex" 
-            texlength_s="1" 
-            texlength_t="1"
+            texlength_s="6" 
+            texlength_t="8"
             wireframe = "false" />
         
         <material id="ollie2App" 
@@ -89,8 +89,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="ollie2Tex" 
-            texlength_s="1" 
-            texlength_t="1"
+            texlength_s="6" 
+            texlength_t="8"
             wireframe = "false" />
 
         
@@ -100,8 +100,8 @@
             specular="0 0 0 0" 
             shininess="0" 
             textureref="ollie3Tex" 
-            texlength_s="1" 
-            texlength_t="1"
+            texlength_s="6" 
+            texlength_t="8"
             wireframe = "false" />
 			
 		<material id="vaseApp" 
@@ -1406,11 +1406,11 @@
             <materialref id="ollie1App"/>
             <transforms>
                 <rotate value3="0 3.14 0" />
-                <scale value3="2 2 2" />
+                <scale value3="1 1 1" />
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-1.5 -2" xy2="1.5 2" />
+                    <rectangle xy1="-3 -4" xy2="3 4" />
                 </primitive>
             </children>
         </node>
@@ -1508,11 +1508,10 @@
             <materialref id="ollie2App"/>
             <transforms>
                 <rotate value3="0 3.14 0" />
-                <scale value3="2 2 2" />
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-1.5 -2" xy2="1.5 2" />
+                    <rectangle xy1="-3 -4" xy2="3 4" />
                 </primitive>
             </children>
         </node>
@@ -1520,12 +1519,11 @@
         <node id="ollie3">
             <materialref id="ollie3App"/>
             <transforms>
-            <rotate value3="0 3.14 0" />
-                <scale value3="2 2 2" />
+                <rotate value3="0 3.14 0" />
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="-1.5 -2" xy2="1.5 2" />
+                    <rectangle xy1="-3 -4" xy2="3 4" />
                 </primitive>
             </children>
         </node>
@@ -1543,7 +1541,6 @@
                 </primitive>
             </children>
         </node>
-
 
         <node id="catBody">
             <materialref id="blackCatFurApp"/>

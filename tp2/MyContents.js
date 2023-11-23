@@ -652,23 +652,90 @@ class MyContents {
 
             return geometry;
         } else if (representation.type === "triangle") {
-            return new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(
-                    representation["xyz1"][0],
-                    representation["xyz1"][1],
-                    representation["xyz1"][2]
-                ),
-                new THREE.Vector3(
-                    representation["xyz2"][0],
-                    representation["xyz2"][1],
-                    representation["xyz2"][2]
-                ),
-                new THREE.Vector3(
-                    representation["xyz3"][0],
-                    representation["xyz3"][1],
-                    representation["xyz3"][2]
-                ),
+            const point1 = new THREE.Vector3(
+                representation["xyz1"][0],
+                representation["xyz1"][1],
+                representation["xyz1"][2]
+            );
+
+            const point2 = new THREE.Vector3(
+                representation["xyz2"][0],
+                representation["xyz2"][1],
+                representation["xyz2"][2]
+            );
+
+            const point3 = new THREE.Vector3(
+                representation["xyz3"][0],
+                representation["xyz3"][1],
+                representation["xyz3"][2]
+            );
+
+            //CALCULATING NORMALS
+            var vectorAx = point2.x - point1.x;
+            var vectorAy = point2.y - point1.y;
+            var vectorAz = point2.z - point1.z;
+
+            var vectorBx = point3.x - point1.x;
+            var vectorBy = point3.y - point1.y;
+            var vectorBz = point3.z - point1.z;
+
+            var crossProductX = vectorAy * vectorBz - vectorBy * vectorAz;
+            var crossProductY = vectorBx * vectorAz - vectorAx * vectorBz;
+            var crossProductZ = vectorAx * vectorBy - vectorBx * vectorAy;
+
+            var normal = new THREE.Vector3(
+                crossProductX,
+                crossProductY,
+                crossProductZ
+            );
+            normal.normalize();
+
+            //TEXTURE COORDINATES
+            let a = point1.distanceTo(point2);
+            let b = point2.distanceTo(point3);
+            let c = point1.distanceTo(point3);
+
+            let cos_ac = (a * a - b * b + c * c) / (2 * a * c);
+            let sin_ac = Math.sqrt(1 - cos_ac * cos_ac);
+
+            const vertices = new Float32Array([
+                ...point1.toArray(), //0
+                ...point2.toArray(), //1
+                ...point3.toArray(), //2
             ]);
+
+            const indices = [0, 1, 2];
+
+            const normals = [
+                ...normal.toArray(),
+                ...normal.toArray(),
+                ...normal.toArray(),
+            ];
+
+            // prettier-ignore
+            const uvs = [
+                0, 0,
+                1, 0,
+                1 * cos_ac, 1 * sin_ac
+            ];
+
+            const geometry = new THREE.BufferGeometry();
+
+            geometry.setIndex(indices);
+            geometry.setAttribute(
+                "position",
+                new THREE.Float32BufferAttribute(vertices, 3)
+            );
+            geometry.setAttribute(
+                "normal",
+                new THREE.Float32BufferAttribute(normals, 3)
+            );
+            geometry.setAttribute(
+                "uv",
+                new THREE.Float32BufferAttribute(uvs, 2)
+            );
+
+            return geometry;
         } else if (representation.type === "sphere") {
             return new THREE.SphereGeometry(
                 representation["radius"],
