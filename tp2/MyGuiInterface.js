@@ -51,15 +51,15 @@ class MyGuiInterface {
             .name("active camera");
         cameraFolder.open();
 
-        const individualCameraFolder =
-            cameraFolder.addFolder("Individual Cameras");
+        const individualLightsFolder =
+            this.datgui.addFolder("Individual Lights");
 
         for (
             let camIdx = 0;
             camIdx < this.contents.lightsArray.length;
             camIdx++
         ) {
-            individualCameraFolder
+            individualLightsFolder
                 .add(
                     this.contents.lightsArray[camIdx].light,
                     "intensity",
