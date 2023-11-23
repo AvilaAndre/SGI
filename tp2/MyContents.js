@@ -670,6 +670,12 @@ class MyContents {
                 camera.near,
                 camera.far
             );
+
+            newCamera.targetCoords = new THREE.Vector3(
+                camera.target[0],
+                camera.target[1],
+                camera.target[2]
+            );
         } else return;
 
         newCamera.position.set(
