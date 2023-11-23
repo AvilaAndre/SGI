@@ -14,16 +14,23 @@
             far="1000" 
             location="15 15 15" 
             target="0 0.0 0" /> 
-
-    <orthogonal id="cam2" 
+            
+        <perspective id="award" 
+            angle="60" 
             near="0.1" 
             far="1000" 
-            location="0 15 15" 
-            target="0.0 15 0.0" 
-            left="-5" 
-            right="5" 
-            bottom="-5" 
-            top="5" />
+            location="15 7 7.5" 
+            target="22.48 7 7.5" /> 
+
+        <orthogonal id="cam2" 
+                near="0.1" 
+                far="1000" 
+                location="0 15 15" 
+                target="0.0 15 0.0" 
+                left="-5" 
+                right="5" 
+                bottom="-5" 
+                top="5" />
     </cameras> 
 
     <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.png" down="./textures/pine.png" left="./textures/pine.png" right="./textures/pine.png" front="./textures/pine.png" back="./textures/pine.png"/>
@@ -58,6 +65,7 @@
         <texture id="ollie1Tex" filepath="scenes/room/textures/videos/Ollie1.mp4" isVideo="true"/>
         <texture id="ollie2Tex" filepath="scenes/room/textures/videos/Ollie2.mp4" isVideo="true"/>
         <texture id="ollie3Tex" filepath="scenes/room/textures/videos/Ollie3.mp4" isVideo="true"/>
+        <texture id="metalTEx" filepath="scenes/room/textures/metal.jpg"/>
 
 
     </textures>
@@ -319,6 +327,16 @@
             texlength_s="3" 
             texlength_t="4"
             twosided="false" />
+
+        <material id="lightPieceApp" 
+            emissive="0.0 0.0 0.0 1" 
+            color="0.8 0.8 0.8 1.0"  
+            specular="0 0 0 0" 
+            shininess="0" 
+            textureref="metalTex" 
+            texlength_s="3" 
+            texlength_t="4"
+            twosided="true" />
     </materials> 
 
     <graph rootid="scene"> 
@@ -399,13 +417,13 @@
                 />
 
                 <spotlight id="light5" enabled="true" 
-                    color="1.0 0.2 0.2 1" 
+                    color="1.0 0.6 0.6 1" 
                     intensity="10.0"
                     distance="20"
                     decay="1.0"
                     castshadow="true"
-                    position="12.5 4 11" 
-                    target="12.5 0 11"
+                    position="15 12 7.5" 
+                    target="22.48 7 7.5"
                     penumbra="1.0"
                     angle="0.393" 
                 /> 
@@ -1828,6 +1846,63 @@
 
 
 
+
+        <node id="lightPiece">
+            <transforms>
+                <translate value3="15 12 7.5"/>
+                <rotate value3="0 0 -2.15" />
+            </transforms>
+
+			<materialref id="lightPieceApp" />
+
+            <children>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="-0.7" yy="1.4" zz="0" />
+                        <controlpoint xx="-0.5" yy="0.8" zz="0" />
+                        <controlpoint xx="-1" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="-0.7" yy="1.4" zz="0.9" />
+                        <controlpoint xx="-0.5" yy="0.8" zz="0.65" />
+                        <controlpoint xx="-1" yy="0" zz="1.3" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="0.7" yy="1.4" zz="0.9" />
+                        <controlpoint xx="0.5" yy="0.8" zz="0.65" />
+                        <controlpoint xx="1" yy="0" zz="1.3" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="0.7" yy="1.4" zz="0" />
+                        <controlpoint xx="0.5" yy="0.8" zz="0" />
+                        <controlpoint xx="1" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+                    </nurbs>
+                    <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20" distance="0.0">
+                        <controlpoint xx="-0.7" yy="1.4" zz="0" />
+                        <controlpoint xx="-0.5" yy="0.8" zz="0" />
+                        <controlpoint xx="-1" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="-0.7" yy="1.4" zz="-0.9" />
+                        <controlpoint xx="-0.5" yy="0.8" zz="-0.65" />
+                        <controlpoint xx="-1" yy="0" zz="-1.3" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="0.7" yy="1.4" zz="-0.9" />
+                        <controlpoint xx="0.5" yy="0.8" zz="-0.65" />
+                        <controlpoint xx="1" yy="0" zz="-1.3" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+
+                        <controlpoint xx="0.7" yy="1.4" zz="0" />
+                        <controlpoint xx="0.5" yy="0.8" zz="0" />
+                        <controlpoint xx="1" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="0" />
+                    </nurbs>
+                </primitive>
+            </children>
+        </node>
+
         <node id="catClose">
 
             <transforms>
@@ -1857,6 +1932,7 @@
                 <noderef id="rightCenterWhisker"/>
                 <noderef id="rightTopWhisker"/>
                 <noderef id="rightBottomWhisker"/>
+                <noderef id="lightPiece"/>
             </children> 
         </node>
 

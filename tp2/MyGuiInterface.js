@@ -31,12 +31,6 @@ class MyGuiInterface {
         if (this.datgui != undefined) this.datgui.destroy();
         this.datgui = new GUI();
 
-        const cameraFolder = this.datgui.addFolder("Camera");
-        cameraFolder
-            .add(this.app, "activeCameraName", Object.keys(this.app.cameras))
-            .name("active camera");
-        cameraFolder.open();
-
         this.datgui
             .add(this.contents, "wireframe")
             .onChange((value) => {
@@ -51,11 +45,16 @@ class MyGuiInterface {
             })
             .name("Toggle Lights");
 
-        const curtainValue = { curtains: 1 };
-
+        const cameraFolder = this.datgui.addFolder("Camera");
+        cameraFolder
+            .add(this.app, "activeCameraName", Object.keys(this.app.cameras))
+            .name("active camera");
+        cameraFolder.open();
         const customFolder = this.datgui.addFolder("Custom");
 
+        // A controller for the curtain custom field
         let curtainController = undefined;
+        const curtainValue = { curtains: 1 };
 
         // A folder for custom properties
         if (this.contents.curtains != []) {
@@ -71,6 +70,7 @@ class MyGuiInterface {
                 if (curtainController) curtainController.setValue(1);
             },
         };
+        customFolder.add(this.contents, "DEBUG").name("DebugMode");
         customFolder.add(resetButton, "reset").name("Reset");
     }
 }
