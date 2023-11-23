@@ -935,7 +935,7 @@
 
         <node id="leftSofa" castshadows="true" receiveshadows="true">
 			<transforms>
-				<translate value3="1.5 -0.47 2.5" />				
+				<translate value3="1.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
             </transforms> 
 
@@ -951,7 +951,7 @@
 
         <node id="centerSofa" castshadows="true" receiveshadows="true">
 			<transforms>
-				<translate value3="7.5 -0.47 2.5" />				
+				<translate value3="7.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
             </transforms> 
 
@@ -967,7 +967,7 @@
 
         <node id="rightSofa" castshadows="true" receiveshadows="true" >
 			<transforms>
-				<translate value3="13.5 -0.47 2.5" />				
+				<translate value3="13.5 -0.47 2.55" />				
 				<scale value3="3 3 3" />
             </transforms> 
 
@@ -1208,7 +1208,7 @@
         </node>
 
 
-        <node id="frontLeftWall">
+        <node id="frontLeftWall" receiveshadows="true" castshadows="true">
 			<transforms>
 				<translate value3="22.5 5.2 7.5" />
 				<rotate value3="0.0 -1.571 0.0" />

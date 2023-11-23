@@ -54,9 +54,9 @@ class MyGuiInterface {
         if (this.contents.curtains != []) {
             const customFolder = this.datgui.addFolder("Custom");
 
-            const curtainValue = { value: 1 };
+            const curtainValue = { curtains: 1 };
             customFolder
-                .add(curtainValue, "value", 0.2, 3.5)
+                .add(curtainValue, "curtains", 0.2, 3.5)
                 .onChange((value) => this.contents.moveCurtains(value));
         }
     }
