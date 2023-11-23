@@ -39,7 +39,7 @@ class MyContents {
         this.lightsArray = [];
 
         // show debug gizmos
-        this.DEBUG = true;
+        this.DEBUG = false;
 
         this.wireframe = false;
 
@@ -49,7 +49,6 @@ class MyContents {
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
         this.reader.open(this.scenePath + "demo.xml");
-        //this.reader.open("SGI_TP2_XML_T04_G06_v02/SGI_TP2_XML_T04_G06_v01.xml");
     }
 
     /**
@@ -595,6 +594,12 @@ class MyContents {
                 camera.near,
                 camera.far
             );
+
+            newCamera.targetCoords = new THREE.Vector3(
+                camera.target[0],
+                camera.target[1],
+                camera.target[2]
+            );
         } else if (camera.type == "orthogonal") {
             newCamera = new THREE.OrthographicCamera(
                 camera.left,
@@ -752,15 +757,14 @@ class MyContents {
         } else if (representation.type === "nurbs") {
             const degree_v = representation["degree_v"];
             const degree_u = representation["degree_u"];
-            const num_pts = representation.controlpoints.length;
             const controlpoints = [];
 
-            for (let i = 0; i < num_pts / (degree_u + 1); i++) {
+            for (let i = 0; i < degree_u + 1; i++) {
                 const pt_to_add = [];
                 for (let j = 0; j < degree_v + 1; j++) {
                     const point =
-                        representation.controlpoints[i * (degree_u + 1) + j];
-                    pt_to_add.push([point.xx, point.yy, point.zz]);
+                        representation.controlpoints[i * (degree_v + 1) + j];
+                    pt_to_add.push([point.xx, point.yy, point.zz, 1]);
                 }
                 controlpoints.push(pt_to_add);
             }
