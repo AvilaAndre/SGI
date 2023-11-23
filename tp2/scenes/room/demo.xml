@@ -1898,9 +1898,16 @@
         <lod id="cat">
 
             <noderef id="catClose" mindist="0"/>
-            <noderef id="catMedium" mindist="30"/>
+            <noderef id="catMedium" mindist="35"/>
             <noderef id="catFar" mindist="50"/>            
-        </lod> 
+        </lod>
+
+        <lod id="sofas">
+
+            <noderef id="sofasClose" mindist="0"/>
+            <noderef id="sofasMedium" mindist="35"/>
+            <noderef id="sofasFar" mindist="50"/>            
+        </lod>  
 
     </graph> 
 </yaf> 
