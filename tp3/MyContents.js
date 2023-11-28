@@ -149,6 +149,9 @@ class MyContents {
             this.addCamera(camera);
         }
 
+        console.log("racetrack", data.racetrack.id);
+        // instantiateRacetrack();
+
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);
 

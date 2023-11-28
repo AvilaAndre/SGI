@@ -1230,7 +1230,99 @@ class MyFileReader {
         // get the id of the Racetrack
         let id = this.getString(racetrackElement, "id");
 
-        // let racetrack = this.data.createEmptyRacetrack(id);
+        let racetrackObj = this.data.createEmptyRacetrack(id);
+
+        // path
+        let pathElements = racetrackElement.getElementsByTagName("path");
+
+        if (pathElements == null || pathElements.length != 1) {
+            throw new Error(
+                "There should be exactly one path in the racetrack"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            pathElements[0],
+            racetrackObj,
+            "path",
+            "point"
+        );
+
+        if (racetrackObj.path.length < 3) {
+            throw new Error("The racetrack path should have at least 3 points"); // TODO: 3?
+        }
+
+        // powerups
+        let powerUpElements = racetrackElement.getElementsByTagName("powerups");
+
+        if (powerUpElements == null || powerUpElements.length != 1) {
+            throw new Error(
+                "There should be exactly one path in the racetrack"
+            );
+        } else {
+            this.loadChildElementsOfType(
+                powerUpElements[0],
+                racetrackObj,
+                "powerups",
+                "powerup"
+            );
+        }
+
+        //obstacles
+        let obstacleElements =
+            racetrackElement.getElementsByTagName("obstacles");
+
+        if (obstacleElements == null || obstacleElements.length != 1) {
+            throw new Error(
+                "There should be exactly one obstacle in the racetrack"
+            );
+        } else {
+            this.loadChildElementsOfType(
+                obstacleElements[0],
+                racetrackObj,
+                "obstacles",
+                "obstacle"
+            );
+        }
+
+        let routesElements = racetrackElement.getElementsByTagName("routes");
+
+        if (routesElements == null || routesElements.length < 1) {
+            throw new Error(
+                "There should be at least one route in the racetrack"
+            );
+        }
+
+        for (let i = 0; i < routesElements.length; i++) {
+            const route = routesElements[i];
+
+            let routeElements = route.getElementsByTagName("route");
+
+            if (routeElements == null || routeElements.length != 1) {
+                throw new Error(
+                    "There should be at least one route in the racetrack"
+                );
+            }
+
+            let thisRoute = { route: null };
+
+            this.loadChildElementsOfType(
+                routeElements[0],
+                thisRoute,
+                "route",
+                "point"
+            );
+
+            if (thisRoute.route.length < 2) {
+                throw new Error(
+                    "The racetrack route should have at least 2 points"
+                );
+            }
+
+            racetrackObj.routes.push(thisRoute.route);
+        }
+
+        this.data.setRacetrack(racetrackObj);
     }
 }
 

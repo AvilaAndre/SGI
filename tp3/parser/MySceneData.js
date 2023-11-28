@@ -29,6 +29,8 @@ class MySceneData {
 
         this.descriptors = [];
 
+        this.racetrack = null;
+
         this.customAttributeName = "custom";
 
         this.descriptors["globals"] = [
@@ -399,6 +401,18 @@ class MySceneData {
             },
         ];
 
+        this.descriptors["point"] = [{ name: "value2", type: "vector2" }];
+
+        this.descriptors["powerup"] = [
+            { name: "value2", type: "vector2" },
+            { name: "radius", type: "float" },
+        ];
+
+        this.descriptors["obstacle"] = [
+            { name: "value2", type: "vector2" },
+            { name: "radius", type: "float" },
+        ];
+
         this.primaryNodeIds = [
             "globals",
             "fog",
@@ -673,6 +687,14 @@ class MySceneData {
         this.lods[lod.id] = lod;
         this.createCustomAttributeIfNotExists(lod);
         console.debug("added lod " + JSON.stringify(lod));
+    }
+
+    setRacetrack(racetrack) {
+        this.racetrack = racetrack;
+    }
+
+    createEmptyRacetrack(id) {
+        return { id, path: [], powerups: [], obstacles: [], routes: [] };
     }
 }
 export { MySceneData };
