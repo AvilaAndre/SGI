@@ -3,6 +3,7 @@ import { MyAxis } from "./MyAxis.js";
 import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
+import { MyTrack } from "./MyTrack.js";
 /**
  *  This class contains the contents of out application
  */
@@ -150,7 +151,8 @@ class MyContents {
         }
 
         console.log("racetrack", data.racetrack.id);
-        // instantiateRacetrack();
+        this.track = new MyTrack(this, data.racetrack, 10);
+        this.app.scene.add(this.track);
 
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);

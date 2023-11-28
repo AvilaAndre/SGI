@@ -1232,6 +1232,11 @@ class MyFileReader {
 
         let racetrackObj = this.data.createEmptyRacetrack(id);
 
+        racetrackObj.width = this.getFloat(racetrackElement, "width");
+
+        if (racetrackObj.width == null)
+            throw new Error("The track should have a float width");
+
         // path
         let pathElements = racetrackElement.getElementsByTagName("path");
 

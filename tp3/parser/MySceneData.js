@@ -401,6 +401,8 @@ class MySceneData {
             },
         ];
 
+        this.descriptors["track"] = [{ name: "width", type: "float" }];
+
         this.descriptors["point"] = [{ name: "value2", type: "vector2" }];
 
         this.descriptors["powerup"] = [
@@ -694,7 +696,14 @@ class MySceneData {
     }
 
     createEmptyRacetrack(id) {
-        return { id, path: [], powerups: [], obstacles: [], routes: [] };
+        return {
+            id,
+            path: [],
+            powerups: [],
+            obstacles: [],
+            routes: [],
+            width: null,
+        };
     }
 }
 export { MySceneData };
