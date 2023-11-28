@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf>
+    <node id="miata">
+        <children>
+            <noderef id="miata-headlights"/>
+        </children>
+    </node>
+
+    <node id="miata-headlights">
+    
+    </node>
+
+    <car>
+        <cameras initial="cam1">
+            <perspective id="cam1" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="15 15 15" 
+                target="0 0.0 0" />
+        </cameras>
+
+        <noderef id="miata"/>
+    </car>
+
+    <racetrack>
+        <path>
+            <point value3="0 0 0"/>
+            <point value3="1 0 1"/>
+            <point value3="3 0 1"/>
+            <point value3="6 0 0"/>
+            <point value3="3 0 -1"/>
+            <point value3="1 0 -1"/>
+        </path>
+
+        <powerups>
+
+        </powerups>
+        <obstacles>
+
+        </obstacles>
+        <routes>
+
+        </routes>
+
+        <materialref id="roadApp"/>
+    </racetrack>
+
+
+    <animation name="miata-hello" duration="3" repeat="false">
+        <tracks>
+            <track id="headlights">
+                <noderef value="miata-headlight-l"/>
+                <noderef value="miata-headlight-r"/>
+            </track>
+            <track id="wheels">
+                <noderef value="miata-wheel-fl"/>
+                <noderef value="miata-wheel-fr"/>
+            </track>
+        </tracks>
+
+        <timestamps>
+            <timestamp value="0">
+                <key id="headlights">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+                <key noderef="wheels">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="1">
+                <key id="headlights">
+                    <translate value3=""/>
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="2">
+                <key id="headlights">
+                    <translate value3=""/>
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+                <key noderef="wheels">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+        </timestamps>
+    </animation>
+</yaf>

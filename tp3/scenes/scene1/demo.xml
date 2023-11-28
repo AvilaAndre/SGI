@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf>
+
+    <globals background="0 0 0 1" ambient="0 0 0 1" /> 
+
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
+
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
+            angle="60" 
+            near="0.1" 
+            far="1000" 
+            location="15 15 15" 
+            target="0 0.0 0" /> 
+
+        <orthogonal id="cam2" 
+            near="0.1" 
+            far="1000" 
+            location="0 15 15" 
+            target="0.0 15 0.0" 
+            left="-5" 
+            right="5" 
+            bottom="-5" 
+            top="-5" /> 
+    </cameras> 
+
+
+    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
+
+    <textures>        
+        <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
+    </textures> 
+
+
+    <materials> 
+        <material id="racetrackApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="racetrackTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+    </materials> 
+
+
+    <racetrack>
+        <path>
+            <point value3="0 0 0"/>
+            <point value3="1 0 1"/>
+            <point value3="3 0 1"/>
+            <point value3="6 0 0"/>
+            <point value3="3 0 -1"/>
+            <point value3="1 0 -1"/>
+        </path>
+
+        <powerups>
+
+        </powerups>
+        <obstacles>
+
+        </obstacles>
+        <routes>
+
+        </routes>
+    </racetrack>
+
+    <graph rootid="scene"> 
+        <node id="scene" castshadows = "true" receiveshadows="true"> 
+            <children> 
+                <noderef id="leftWall" /> 
+				<noderef id="rightWall" /> 
+				<noderef id="floor" /> 
+				<noderef id="table" /> 
+				 
+				<noderef id="tree" /> 
+				<noderef id="policeWarning1" /> 
+				<noderef id="policeWarning2" />
+				<noderef id="crimeWeapon" />
+
+                <pointlight id="light1" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="33.75 37.3 33.75" 
+                /> 
+
+                <pointlight id="light2" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"
+                /> 
+                
+                <pointlight id="light3" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"  
+                /> 
+			              
+                <spotlight id="light4" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                    target="0 0 0"
+                    penumbra="1.0"
+                    angle="10.0" 
+                /> 
+
+                <directionallight id="light5" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                /> 
+            </children> 
+        </node>
+    </graph> 
+</yaf>
