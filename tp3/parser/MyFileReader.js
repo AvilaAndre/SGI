@@ -971,6 +971,12 @@ class MyFileReader {
 
         // There is only one racetrack
         this.loadRacetrack(racetracks[0]);
+
+		// load HUD
+		let hud = rootElement.getElementsByTagName("hud");
+
+		// There is only one hud
+		this.loadHud(hud);
     }
 
     /**
@@ -1324,6 +1330,45 @@ class MyFileReader {
 
         this.data.setRacetrack(racetrackObj);
     }
+
+	/**
+     * Load the data for a hud element
+     * @param {*} racetrackElement the xml racetrack element
+     */
+    loadHud(hudElement) {
+        // get the id of the Racetrack
+        let id = this.getString(hudElement, "id");
+
+		//creates an empty hud, with all its attributes
+        let hudObj = this.data.createEmptyHud(id);
+
+        // timeElapsed
+        let timeElapsedElements = hudElement.getElementsByTagName("timeElapsed");
+
+        if (timeElapsedElements == null || timeElapsedElements.length != 1) {
+            throw new Error(
+                "There should be exactly one time elapsed element in the racetrack"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            timeElapsedElements[0],
+            hudObj,
+            "timeElapsed",
+            "time"
+        );
+
+        
+        if (hudObj.timeElapsed.length < 1) {
+            throw new Error("The time elapsed should have a value"); 
+        }
+
+
+        this.data.setHud(hudObj);
+    }
+
+
+
 }
 
 export { MyFileReader };

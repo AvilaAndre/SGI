@@ -696,5 +696,13 @@ class MySceneData {
     createEmptyRacetrack(id) {
         return { id, path: [], powerups: [], obstacles: [], routes: [] };
     }
+
+    setHud(hud) {
+        this.hud = hud;
+    }
+
+    createEmptyHud(id) {
+        return { id, timeElapsed, completeRounds, maxVelocity, timeLeftBen, timeLeftPen, state };
+    }
 }
 export { MySceneData };

@@ -78,6 +78,14 @@
         </routes>
     </racetrack>
 
+    <hud>
+
+        <timeElapsed>
+            <time value1="0"> 
+        </timeElapsed>
+
+    </hud>
+
     <graph rootid="scene"> 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
