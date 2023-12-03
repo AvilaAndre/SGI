@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <yaf>
-
     <globals background="0 0 0 1" ambient="0 0 0 1" /> 
 
-    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
 
     <cameras initial="cam1" > 
         <perspective id="cam1" 
@@ -25,7 +24,7 @@
     </cameras> 
 
 
-    <skybox size="100 100 100" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
+    <skybox size="400 400 400" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
 
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
@@ -44,14 +43,91 @@
     </materials> 
 
 
-    <racetrack id="track1">
+    <racetrack id="track1" width="1.0">
         <path>
-            <point value2="0 0"/>
-            <point value2="1 1"/>
-            <point value2="3 1"/>
-            <point value2="6 0"/>
-            <point value2="3 -1"/>
-            <point value2="1 -1"/>
+            <point value2="-24.58 -31.86"/>
+            <point value2="-40.38 -59.01"/>
+            <point value2="-41.03 -59.51"/>
+            <point value2="-42.16 -59.71"/>
+            <point value2="-43.14 -59.54"/>
+            <point value2="-44.07 -58.97"/>
+            <point value2="-47.26 -54.9"/>
+            <point value2="-53.07 -50.9"/>
+            <point value2="-57.75 -47.97"/>
+            <point value2="-58.71 -47.04"/>
+            <point value2="-59.05 -46.18"/>
+            <point value2="-58.9 -44.98"/>
+            <point value2="-56.57 -38.83"/>
+            <point value2="-53.55 -32.1"/>
+            <point value2="-52.78 -31.34"/>
+            <point value2="-51.58 -30.92"/>
+            <point value2="-50.08 -31.05"/>
+            <point value2="-48.78 -31.64"/>
+            <point value2="-47.88 -32.66"/>
+            <point value2="-47.6 -33.9"/>
+            <point value2="-47.91 -36.18"/>
+            <point value2="-50.25 -43.76"/>
+            <point value2="-50.14 -44.73"/>
+            <point value2="-49.94 -45.54"/>
+            <point value2="-49.1 -46.46"/>
+            <point value2="-47.86 -46.98"/>
+            <point value2="-46.82 -47.14"/>
+            <point value2="-45.27 -46.99"/>
+            <point value2="-44.06 -46.36"/>
+            <point value2="-43.18 -45.41"/>
+            <point value2="-42.79 -44.46"/>
+            <point value2="-38.47 -27.96"/>
+            <point value2="-38.08 -27.23"/>
+            <point value2="-37.32 -26.46"/>
+            <point value2="-11.12 -0.58"/>
+            <point value2="-10.58 0.41"/>
+            <point value2="-10.58 1.2"/>
+            <point value2="-10.86 2.06"/>
+            <point value2="-11.71 3.02"/>
+            <point value2="-12.56 3.55"/>
+            <point value2="-14.06 4.02"/>
+            <point value2="-15.61 4.23"/>
+            <point value2="-17.18 4.23"/>
+            <point value2="-18.48 4.02"/>
+            <point value2="-19.95 3.51"/>
+            <point value2="-21.1 2.85"/>
+            <point value2="-40.43 -15.94"/>
+            <point value2="-41.39 -16.38"/>
+            <point value2="-42.75 -16.62"/>
+            <point value2="-43.79 -16.56"/>
+            <point value2="-44.95 -16.3"/>
+            <point value2="-45.79 -15.82"/>
+            <point value2="-46.73 -15.04"/>
+            <point value2="-47.38 -13.97"/>
+            <point value2="-47.82 -12.78"/>
+            <point value2="-50.11 2.25"/>
+            <point value2="-50.08 3.19"/>
+            <point value2="-49.86 4.12"/>
+            <point value2="-49.38 5.1"/>
+            <point value2="-48.16 6.1"/>
+            <point value2="-46.36 7.02"/>
+            <point value2="-41.11 8.58"/>
+            <point value2="-34.6 9.99"/>
+            <point value2="-31.66 9.93"/>
+            <point value2="-26.22 8.65"/>
+            <point value2="-24.66 8.62"/>
+            <point value2="-23.36 9.08"/>
+            <point value2="-22.29 10.31"/>
+            <point value2="-20.23 14.78"/>
+            <point value2="-18.99 16.1"/>
+            <point value2="-17.04 17.33"/>
+            <point value2="-15.13 18.12"/>
+            <point value2="-12.28 18.47"/>
+            <point value2="-9.94 18.18"/>
+            <point value2="-7.29 17.39"/>
+            <point value2="-5.17 16.18"/>
+            <point value2="-3.48 14.66"/>
+            <point value2="-2.38 13.22"/>
+            <point value2="-1.7 11.19"/>
+            <point value2="-1.54 9.56"/>
+            <point value2="-1.84 7.62"/>
+            <point value2="-2.72 5.78"/>
+            <point value2="-24.58 -31.86"/>
         </path>
 
         <powerups>
@@ -78,13 +154,13 @@
         </routes>
     </racetrack>
 
-    <hud>
+    <!--<hud>
 
         <timeElapsed>
             <time value1="0"> 
         </timeElapsed>
 
-    </hud>
+    </hud>-->
 
     <graph rootid="scene"> 
         <node id="scene" castshadows = "true" receiveshadows="true"> 

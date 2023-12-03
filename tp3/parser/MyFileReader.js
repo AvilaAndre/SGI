@@ -971,12 +971,6 @@ class MyFileReader {
 
         // There is only one racetrack
         this.loadRacetrack(racetracks[0]);
-
-		// load HUD
-		let hud = rootElement.getElementsByTagName("hud");
-
-		// There is only one hud
-		this.loadHud(hud);
     }
 
     /**
@@ -1238,6 +1232,11 @@ class MyFileReader {
 
         let racetrackObj = this.data.createEmptyRacetrack(id);
 
+        racetrackObj.width = this.getFloat(racetrackElement, "width");
+
+        if (racetrackObj.width == null)
+            throw new Error("The track should have a float width");
+
         // path
         let pathElements = racetrackElement.getElementsByTagName("path");
 
@@ -1335,7 +1334,7 @@ class MyFileReader {
      * Load the data for a hud element
      * @param {*} racetrackElement the xml racetrack element
      */
-    loadHud(hudElement) {
+    /*loadHud(hudElement) {
         // get the id of the Racetrack
         let id = this.getString(hudElement, "id");
 
@@ -1360,12 +1359,12 @@ class MyFileReader {
 
         
         if (hudObj.timeElapsed.length < 1) {
-            throw new Error("The time elapsed should have a value"); 
+            throw new Error("The time elapsed should have a value");
         }
 
 
         this.data.setHud(hudObj);
-    }
+    }*/
 
 
 
