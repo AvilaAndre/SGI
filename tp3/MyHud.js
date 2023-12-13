@@ -3,7 +3,7 @@ import { MyApp } from "./MyApp.js";
 /**
  * This class contains a race track made with catmull curves
  */
-class MyTrack extends THREE.Object3D {
+class MyHud extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
@@ -89,6 +89,6 @@ class MyTrack extends THREE.Object3D {
     }
 }
 
-MyTrack.prototype.isGroup = true;
+MyHud.prototype.isGroup = true;
 
-export { MyTrack };
+export { MyHud };

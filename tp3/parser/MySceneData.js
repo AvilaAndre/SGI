@@ -711,7 +711,13 @@ class MySceneData {
     }
 
     createEmptyHud(id) {
-        return { id, timeElapsed, completeRounds, maxVelocity, timeLeftBen, timeLeftPen, state };
+        return { id, 
+            timeElapsed, 
+            completeRounds, 
+            maxVelocity, 
+            timeLeftBen, 
+            timeLeftPen, 
+            state };
     }
 }
 export { MySceneData };

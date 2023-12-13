@@ -3,6 +3,9 @@ import { MyAxis } from "./MyAxis.js";
 import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
 import { MyNurbsBuilder } from "./MyNurbsBuilder.js";
+import { MyTrack } from "./MyTrack.js";
+import { MyHud } from "./MyHud.js";
+
 /**
  *  This class contains the contents of out application
  */
@@ -150,7 +153,12 @@ class MyContents {
         }
 
         console.log("racetrack", data.racetrack.id);
-        // instantiateRacetrack();
+        this.track = new MyTrack(this, data.racetrack, 10);
+        this.app.scene.add(this.track);
+
+        console.log("hud", data.hud.id);
+        //this.hud = new MyHud(this, data.hud); TODO
+        //this.app.scene.add(this.hud);
 
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);

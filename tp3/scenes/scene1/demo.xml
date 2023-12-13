@@ -154,7 +154,7 @@
         </routes>
     </racetrack>
 
-    <!--<hud>
+    <!--<hud id="hud1">
 
         <timeElapsed>
             <time value1="0"> 
