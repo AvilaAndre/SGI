@@ -24,18 +24,25 @@ class MyTrack extends THREE.Object3D {
 
         /* Uncomment this block to see where are the points located
         this.path.forEach((elem) => {
-            console.log(elem)
-            const msh = new THREE.Mesh(new THREE.SphereGeometry(0.2));
-        
+            console.log(elem);
+            const msh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.2),
+                app.materials[data.materialId]
+            );
+            
             msh.position.set(...elem);
-        
+            
             this.add(msh);
-        })
+        });
         */
 
         this.startingLine = this.path[0];
 
-        const curve = new THREE.CatmullRomCurve3(this.path, true, "centripetal");
+        const curve = new THREE.CatmullRomCurve3(
+            this.path,
+            true,
+            "centripetal"
+        );
 
         curve.arcLengthDivisions = this.divisions;
         curve.updateArcLengths();
@@ -45,10 +52,15 @@ class MyTrack extends THREE.Object3D {
         const vertices = [];
         const indices = [];
         const normals = [];
+        const uvs = [];
 
         const curveLength = curve.getLength();
 
         const spacedLengths = curve.getLengths(this.divisions);
+
+        // To calculate the UV mapping
+        let lastPoint = new THREE.Vector3(0, 0, 0);
+        let dist = 0;
 
         for (let i = 0; i < this.divisions; i++) {
             const progress = spacedLengths[i] / curveLength;
@@ -61,13 +73,12 @@ class MyTrack extends THREE.Object3D {
                 .cross(new THREE.Vector3(0, 1, 0))
                 .normalize();
 
-
             const pointIn = point
                 .clone()
                 .add(
                     perpendicularToTangent
                         .clone()
-                        .multiplyScalar(-this.trackWidth)
+                        .multiplyScalar(-this.trackWidth / 2)
                 );
 
             const pointOut = point
@@ -75,30 +86,42 @@ class MyTrack extends THREE.Object3D {
                 .add(
                     perpendicularToTangent
                         .clone()
-                        .multiplyScalar(this.trackWidth)
+                        .multiplyScalar(this.trackWidth / 2)
                 );
 
             vertices.push(...pointIn);
             vertices.push(...pointOut);
             normals.push(0, -1, 0);
             normals.push(0, -1, 0);
-        }
 
-        //        for (let i = 42; i < 45; i++) {
-        for (let i = 0; i < this.divisions; i++) {
-            if (i == this.divisions - 1) {
-                indices.push(...calcOrder(vertices, 2 * i, 2 * i + 1, 0));
-                indices.push(...calcOrder(vertices, 2 * i + 1, 1, 0));
-                continue;
+            if (i == 0) {
+                lastPoint = point;
             }
 
+            dist += lastPoint.distanceTo(point);
+
+            uvs.push(0, dist);
+            uvs.push(this.trackWidth, dist);
+
+            lastPoint = point;
+        }
+
+        for (let i = 0; i < this.divisions; i++) {
             const idx0 = 0 + 2 * i;
             const idx1 = 1 + 2 * i;
-            const idx2 = 2 + 2 * i;
-            const idx3 = 3 + 2 * i;
+            let idx2 = 2 + 2 * i;
+            let idx3 = 3 + 2 * i;
 
-            indices.push(...calcOrder(vertices, idx0, idx1, idx2));
-            indices.push(...calcOrder(vertices, idx1, idx2, idx3));
+            if (i == this.divisions - 1) {
+                idx2 = 0;
+                idx3 = 1;
+            }
+
+            const ordered1 = calcOrder(vertices, idx0, idx1, idx2);
+            const ordered2 = calcOrder(vertices, idx1, idx2, idx3);
+
+            indices.push(...ordered1);
+            indices.push(...ordered2);
         }
 
         trackGeometry.setIndex(indices);
@@ -110,8 +133,22 @@ class MyTrack extends THREE.Object3D {
             "normal",
             new THREE.BufferAttribute(new Float32Array(normals), 3)
         );
+        trackGeometry.setAttribute(
+            "uv",
+            new THREE.BufferAttribute(new Float32Array(uvs), 2)
+        );
 
-        const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x222222 }); // TODO: Track Material
+        const trackTexture = new THREE.TextureLoader().load(data.texturePath);
+        trackTexture.wrapS = THREE.RepeatWrapping;
+        trackTexture.wrapT = THREE.RepeatWrapping;
+
+        const trackMaterial = new THREE.MeshBasicMaterial({
+            map: trackTexture,
+        });
+        trackMaterial.wireframeValue = false;
+
+        app.materials["track"] = trackMaterial;
+
         const trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
 
         this.add(trackMesh);

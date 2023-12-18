@@ -698,6 +698,7 @@ class MySceneData {
     createEmptyRacetrack(id) {
         return {
             id,
+            materialId: null,
             path: [],
             powerups: [],
             obstacles: [],

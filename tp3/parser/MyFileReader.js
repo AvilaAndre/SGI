@@ -1237,6 +1237,12 @@ class MyFileReader {
         if (racetrackObj.width == null)
             throw new Error("The track should have a float width");
 
+        // track texture
+        racetrackObj.texturePath = this.getString(
+            racetrackElement,
+            "texture"
+        );
+
         // path
         let pathElements = racetrackElement.getElementsByTagName("path");
 

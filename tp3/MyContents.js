@@ -151,7 +151,7 @@ class MyContents {
         }
 
         console.log("racetrack", data.racetrack.id);
-        this.track = new MyTrack(this, data.racetrack, 10);
+        this.track = new MyTrack(this, data.racetrack, 100);
         this.app.scene.add(this.track);
 
         console.log("nodes:");
