@@ -31,6 +31,8 @@ class MySceneData {
 
         this.racetrack = null;
 
+        this.cars = [];
+
         this.customAttributeName = "custom";
 
         this.descriptors["globals"] = [
@@ -424,6 +426,7 @@ class MySceneData {
             "cameras",
             "graph",
             "racetrack",
+            "car",
         ];
 
         this.primitiveIds = [

@@ -43,7 +43,7 @@
     </materials> 
 
 
-    <racetrack id="track1" width="2" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
+    <racetrack id="track1" width="8" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
         <path>
             <point value2="11.42 -22.48"/>
             <point value2="-20.18 -76.78"/>
@@ -155,6 +155,14 @@
     </racetrack>
 
     <graph rootid="scene"> 
+        <node id="hatchback">
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
                 <pointlight id="light1" enabled="true" 
@@ -201,8 +209,33 @@
                     intensity="1.0"
                     castshadow="true"
                     position="2 2 4" 
-                /> 
+                />
+
+                <noderef id="hatchback" />
             </children> 
         </node>
-    </graph> 
+
+    </graph>
+
+    <car id="hatchback">
+        <carcameras initial="cam1">
+            <perspective id="cam1" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="15 15 15" 
+                target="0 0.0 0" />
+        </carcameras>
+
+
+        <collider pos="0 0 0" size="5 2 3" />
+
+        <body>
+            <noderef id="hatchback" />
+        </body> 
+
+        <wheels>
+
+        </wheels>
+    </car>
 </yaf>

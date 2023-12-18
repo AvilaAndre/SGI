@@ -20,7 +20,15 @@
                 target="0 0.0 0" />
         </cameras>
 
-        <noderef id="miata"/>
+        <collider pos="0 0 0" size="5 2 3"/>
+
+        <body>
+            <noderef id="miata"/>
+        </body>
+
+        <wheels>
+
+        </wheels>
     </car>
 
     <racetrack>
