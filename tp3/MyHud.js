@@ -68,6 +68,11 @@ class MyHud extends THREE.Object3D {
 
     updateHud(number){
 
+
+        if(number <= 99){
+            number = "0" + number;
+        }
+
         this.numberDigits = this.getDigits(number);
             
         console.log("Hud numberDigits no MyHud: ", this.numberDigits);
@@ -106,9 +111,17 @@ class MyHud extends THREE.Object3D {
             const sprite = new THREE.Sprite(material);
 
             // Set the position of each sprite
-            sprite.position.set(i * 1.2, 0, 0); // Adjust the position based on your requirements
+            sprite.position.set((-i * 1.2)-10, 10, 0); // Adjust the position based on your requirements
 
             console.log("Hud position no MyHud: ", sprite.position);
+
+            let zindex = 10; // Set your desired zindex here
+
+            sprite.renderOrder = zindex || 999
+            sprite.material.depthTest = false 
+            // UPDATED If you using some models with transparent materials
+            sprite.material.transparent = true
+            //sprite.onBeforeRender = function (renderer) { renderer.clearDepth(); };
 
             // Add the sprite to the scene
             this.add(sprite);

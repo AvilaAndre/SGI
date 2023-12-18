@@ -171,7 +171,7 @@ class MyContents {
     }
 
     update() {
-        this.hud.updateHud(152);
+        this.hud.updateHud(752);
     }
 
     /**
