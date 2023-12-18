@@ -157,8 +157,8 @@ class MyContents {
         this.app.scene.add(this.track);
 
         console.log("hud", data.hud.id);
-        //this.hud = new MyHud(this, data.hud); TODO
-        //this.app.scene.add(this.hud);
+        this.hud = new MyHud(this, data.hud); 
+        this.app.scene.add(this.hud);
 
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);
@@ -170,7 +170,9 @@ class MyContents {
         this.app.setActiveCamera(data.activeCameraId);
     }
 
-    update() {}
+    update() {
+        this.hud.updateHud(152);
+    }
 
     /**
      * Instantiates nodes, having in consideration if it is a primitive,

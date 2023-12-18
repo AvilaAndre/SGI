@@ -1,92 +1,136 @@
 import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
 /**
- * This class contains a race track made with catmull curves
+ * This class contains a hud 
  */
 class MyHud extends THREE.Object3D {
     /**
      *
      * @param {MyApp} app the application object
-     * @param {Object} data the path of the racetrack
-     * @param {number} divisions the number of divisions on the racetrack creating the polygons
+     * @param {Object} data the path of the hud
      */
-    constructor(app, data, divisions) {
+    constructor(app, data) {
         super();
         this.app = app;
         this.type = "Group";
         this.path = data.path;
-        this.trackWidth = data.width;
-        this.divisions = divisions || 50;
+        this.timeElapsed = data.timeElapsed[0].timeFloat;
+        this.laps = data.laps[0].value;
+        this.speed = data.speedometer[0].value;
+        this.timeLeftBenefit = data.timeLeftBenefit[0].timeFloat;
+        this.timeLeftPenalty = data.timeLeftPenalty[0].timeFloat;
+        this.states = data.states[0].stateValue;
 
-        this.path = this.path.map(
-            (elem) => new THREE.Vector3(elem.value2[0], 0, elem.value2[1])
-        );
+        
+        console.log("Hud data no MyHud: ", data);
+        console.log("Hud laps no MyHud: ", this.laps);
+        console.log("Hud speed no MyHud: ", this.speed);
+        console.log("Hud timeLeftBenefit no MyHud: ", this.timeLeftBenefit);
+        console.log("Hud timeLeftPenalty no MyHud: ", this.timeLeftPenalty);
+        console.log("Hud states no MyHud: ", this.states);
+        console.log("Hud timeElapsed no MyHud: ", this.timeElapsed);
 
-        this.startingLine = this.path[0];
 
-        const curve = new THREE.CatmullRomCurve3(this.path, true, "catmullrom");
 
-        curve.arcLengthDivisions = this.divisions;
-        curve.updateArcLengths();
+        
+                    
+        /*// Load the texture
+        const texture = new THREE.TextureLoader().load('scenes/scene1/textures/numbers.png');
 
-        const trackGeometry = new THREE.BufferGeometry();
+        // Calculate the width of a single sprite on the spritesheet
+        const spriteWidth = 1 / 11; // There are 11 sprites in the spritesheet
 
-        const vertices = [];
-        const indices = [];
+        // Create a loop to instantiate three sprites with different offsets
+        for (let i = 0; i < 3; i++) {
+            // Create a new sprite material for each sprite
+            const material = new THREE.SpriteMaterial({ map: texture });
 
-        const curveLength = curve.getLength();
+            // Calculate the offset for each sprite
+            const offset = (1.7 / 11) % 1; // Adjust the offset based on your requirements
 
-        const spacedLengths = curve.getLengths(this.divisions);
+            // Set the horizontal repeat to the sprite's width (in proportion to the whole image)
+            texture.repeat.set(spriteWidth, 1);
 
-        for (let i = 0; i < this.divisions; i++) {
-            const progress = spacedLengths[i] / curveLength;
+            // Use the offset to select a specific sprite
+            texture.offset.x = offset;
 
-            const point = curve.getPointAt(progress);
-            const tangent = curve.getTangentAt(progress);
+            // Create the sprite
+            const sprite = new THREE.Sprite(material);
 
-            const perpendicularToTangent = tangent
-                .clone()
-                .cross(new THREE.Vector3(0, 1, 0))
-                .normalize();
+            // Set the position of each sprite
+            sprite.position.set(i * 0.95, 0, 0); // Adjust the position based on your requirements
 
-            const pointIn = point
-                .clone()
-                .add(
-                    perpendicularToTangent
-                        .clone()
-                        .multiplyScalar(-this.trackWidth)
-                );
+            // Add the sprite to the scene
+            this.add(sprite);
+        }*/
 
-            const pointOut = point
-                .clone()
-                .add(
-                    perpendicularToTangent
-                        .clone()
-                        .multiplyScalar(this.trackWidth)
-                );
+    }
 
-            vertices.push(...pointIn);
-            vertices.push(...pointOut);
-            if (i == this.divisions - 1) {
-                indices.push(0 + 2 * i, 1 + 2 * i, 0);
-                indices.push(1 + 2 * i, 1, 0);
-            } else {
-                indices.push(0 + 2 * i, 1 + 2 * i, 2 + 2 * i);
-                indices.push(1 + 2 * i, 3 + 2 * i, 2 + 2 * i); //TODO: existem faces viradas ao contrario
-            }
+    updateHud(number){
+
+        this.numberDigits = this.getDigits(number);
+            
+        console.log("Hud numberDigits no MyHud: ", this.numberDigits);
+        console.log("Hud numberDigits no MyHud length: ", this.numberDigits.length);
+
+
+        // Create a loop to instantiate three sprites with different offsets
+        for (let i = 0; i < this.numberDigits.length; i++) {
+
+            console.log("i:", i);
+
+            console.log("Hud numberDigits no MyHud: ", this.numberDigits[i]);
+
+
+            // Load the texture
+            const texture = new THREE.TextureLoader().load('scenes/scene1/textures/numbers.png');
+
+            // Calculate the width of a single sprite on the spritesheet
+            const spriteWidth = 1 / 10; // There are 10 sprites in the spritesheet
+
+            // Create a new sprite material for each sprite
+            const material = new THREE.SpriteMaterial({ map: texture });
+
+            // Calculate the offset for each sprite
+            const offset = ((1 * this.numberDigits[i]) / 10) % 1; // Adjust the offset based on your requirements
+
+            console.log("Hud offset no MyHud: ", offset);
+
+            // Set the horizontal repeat to the sprite's width (in proportion to the whole image)
+            texture.repeat.set(spriteWidth, 1);
+
+            // Use the offset to select a specific sprite
+            texture.offset.x = offset;
+
+            // Create the sprite
+            const sprite = new THREE.Sprite(material);
+
+            // Set the position of each sprite
+            sprite.position.set(i * 1.2, 0, 0); // Adjust the position based on your requirements
+
+            console.log("Hud position no MyHud: ", sprite.position);
+
+            // Add the sprite to the scene
+            this.add(sprite);
+        }
+    }
+
+    getDigits(number) {
+        const numberString = number.toString();
+
+        // Convert the string to an array of digits
+        const digitsArray = numberString.split('').map(digit => parseInt(digit) || 0);
+
+        // Pad the array with leading zeros if needed
+        while (digitsArray.length < 3) {
+            digitsArray.unshift(0);
         }
 
-        trackGeometry.setIndex(indices);
-        trackGeometry.setAttribute(
-            "position",
-            new THREE.BufferAttribute(new Float32Array(vertices), 3)
-        );
-
-        const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x222222 }); // TODO: Track Material
-        const trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
-
-        this.add(trackMesh);
+        return digitsArray;
     }
+      
+
+    
 }
 
 MyHud.prototype.isGroup = true;

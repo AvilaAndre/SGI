@@ -147,6 +147,7 @@ class MyFileReader {
      * @param {Array} list an array of strings with the valid node names
      */
     checkForUnknownNodes(parentElem, list) {
+        console.log("parentElem:", parentElem);
         // for each of the elem's children
         for (let i = 0; i < parentElem.children.length; i++) {
             let elem = parentElem.children[i];
@@ -971,6 +972,19 @@ class MyFileReader {
 
         // There is only one racetrack
         this.loadRacetrack(racetracks[0]);
+
+        // load hud
+        let hud = rootElement.getElementsByTagName("hud");
+
+        console.log("hud[0]:", hud);
+        if (hud.length < 1)
+            throw new Error(
+                "At least one hud should be specified in the YAF XML!"
+            );
+
+        // There is only one hud
+        
+        this.loadHUD(hud[0]);
     }
 
     /**
@@ -1332,21 +1346,23 @@ class MyFileReader {
 
 	/**
      * Load the data for a hud element
-     * @param {*} racetrackElement the xml racetrack element
+     * @param {*} hudElement the xml hud element
      */
-    /*loadHud(hudElement) {
-        // get the id of the Racetrack
+    loadHUD(hudElement) {
+        // get the id of the HUD
         let id = this.getString(hudElement, "id");
 
 		//creates an empty hud, with all its attributes
         let hudObj = this.data.createEmptyHud(id);
 
-        // timeElapsed
+        // TIMEELAPSED
         let timeElapsedElements = hudElement.getElementsByTagName("timeElapsed");
 
-        if (timeElapsedElements == null || timeElapsedElements.length != 1) {
+        console.log("timeElapsedElements:", timeElapsedElements);
+
+        if (timeElapsedElements == null) {
             throw new Error(
-                "There should be exactly one time elapsed element in the racetrack"
+                "There should be exactly one time elapsed element in the hud"
             );
         }
 
@@ -1357,14 +1373,107 @@ class MyFileReader {
             "time"
         );
 
-        
-        if (hudObj.timeElapsed.length < 1) {
-            throw new Error("The time elapsed should have a value");
+    
+
+        //LAPS
+
+        let lapsElements = hudElement.getElementsByTagName("laps");
+
+        console.log("lapsElements:", lapsElements);
+
+        if (lapsElements == null) {
+            throw new Error(
+                "There should be exactly one laps element in the hud"
+            );
         }
 
+        this.loadChildElementsOfType(
+            lapsElements[0],
+            hudObj,
+            "laps",
+            "lap"
+        );
+
+
+        //SPEEDOMETER
+
+        let speedometerElements = hudElement.getElementsByTagName("speedometer");
+
+        console.log("speedometerElements:", speedometerElements);
+
+        if (speedometerElements == null) {
+            throw new Error(
+                "There should be exactly one speedometer element in the hud"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            speedometerElements[0],
+            hudObj,
+            "speedometer",
+            "speed"
+        );
+
+        //TIMELEFTBENEFIT
+
+        let timeLeftBenefitElements = hudElement.getElementsByTagName("timeLeftBenefit");
+
+        console.log("timeLeftBenefitElements:", timeLeftBenefitElements);
+
+        if (timeLeftBenefitElements == null) {
+            throw new Error(
+                "There should be exactly one timeLeftBenefit element in the hud"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            timeLeftBenefitElements[0],
+            hudObj,
+            "timeLeftBenefit",
+            "time"
+        );
+
+
+        //TIMELEFTPENALTY
+
+        let timeLeftPenaltyElements = hudElement.getElementsByTagName("timeLeftPenalty");
+
+        console.log("timeLeftPenaltyElements:", timeLeftPenaltyElements);
+
+        if (timeLeftPenaltyElements == null) {
+            throw new Error(
+                "There should be exactly one timeLeftPenalty element in the hud"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            timeLeftPenaltyElements[0],
+            hudObj,
+            "timeLeftPenalty",
+            "time"
+        );
+
+        //STATES
+
+        let statesElements = hudElement.getElementsByTagName("states");
+
+        console.log("statesElements:", statesElements);
+
+        if (statesElements == null) {
+            throw new Error(
+                "There should be exactly one states element in the hud"
+            );
+        }
+
+        this.loadChildElementsOfType(
+            statesElements[0],
+            hudObj,
+            "states",
+            "state"
+        );
 
         this.data.setHud(hudObj);
-    }*/
+    }
 
 
 

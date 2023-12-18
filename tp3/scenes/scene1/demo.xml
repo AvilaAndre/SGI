@@ -28,6 +28,7 @@
 
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
+        <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
     </textures> 
 
 
@@ -38,6 +39,15 @@
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="racetrackTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="hudApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="hudTex" 
             texlength_s="1" 
             texlength_t="1" />
     </materials> 
@@ -154,13 +164,33 @@
         </routes>
     </racetrack>
 
-    <!--<hud id="hud1">
+    <hud id="hud1">
 
         <timeElapsed>
-            <time value1="0"> 
+            <time timeFloat="0.0"/> 
         </timeElapsed>
 
-    </hud>-->
+        <laps>
+            <lap value="1" />
+        </laps>
+
+        <speedometer>
+            <speed value="0" />
+        </speedometer>
+
+        <timeLeftBenefit>
+            <time timeFloat="0.0" />
+        </timeLeftBenefit>
+
+        <timeLeftPenalty>
+            <time timeFloat="0.0" />
+        </timeLeftPenalty>
+            
+        <states>
+            <state stateValue="pause" />
+        </states>
+
+    </hud>
 
     <graph rootid="scene"> 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
