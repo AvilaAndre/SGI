@@ -4,6 +4,7 @@ import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
 import { MyTrack } from "./MyTrack.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
+import { MyHud } from "./MyHud.js";
 
 /**
  *  This class contains the contents of out application
@@ -155,6 +156,10 @@ class MyContents {
         this.track = new MyTrack(this, data.racetrack, 100);
         this.app.scene.add(this.track);
 
+        console.log("hud", data.hud.id);
+        this.hud = new MyHud(this, data.hud); 
+        this.app.scene.add(this.hud);
+
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);
 
@@ -165,7 +170,9 @@ class MyContents {
         this.app.setActiveCamera(data.activeCameraId);
     }
 
-    update() {}
+    update() {
+        this.hud.updateHud(752);
+    }
 
     /**
      * Instantiates nodes, having in consideration if it is a primitive,

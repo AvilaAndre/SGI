@@ -33,6 +33,8 @@ class MySceneData {
 
         this.cars = [];
 
+        this.hud = null;
+
         this.customAttributeName = "custom";
 
         this.descriptors["globals"] = [
@@ -417,6 +419,14 @@ class MySceneData {
             { name: "radius", type: "float" },
         ];
 
+        this.descriptors["time"] = [{ name: "timeFloat", type: "float" }];
+
+        this.descriptors["lap"] = [{ name: "value", type: "integer" }];
+
+        this.descriptors["speed"] = [{ name: "value", type: "integer" }];
+
+        this.descriptors["state"] = [{ name: "stateValue", type: "string" }];
+
         this.primaryNodeIds = [
             "globals",
             "fog",
@@ -427,6 +437,7 @@ class MySceneData {
             "graph",
             "racetrack",
             "car",
+            "hud",
         ];
 
         this.primitiveIds = [
@@ -698,6 +709,11 @@ class MySceneData {
         this.racetrack = racetrack;
     }
 
+    /**
+     * Creates an empty racetrack instance
+     * @param {*} id
+     * @returns
+     */
     createEmptyRacetrack(id) {
         return {
             id,
@@ -707,6 +723,22 @@ class MySceneData {
             obstacles: [],
             routes: [],
             width: null,
+        };
+    }
+
+    setHud(hud) {
+        this.hud = hud;
+    }
+
+    createEmptyHud(id) {
+        return {
+            id,
+            timeElapsed: 0.0,
+            laps: 0,
+            speedometer: 0.0,
+            timeLeftBenefit: 0.0,
+            timeLeftPenalty: 0.0,
+            states: "pause",
         };
     }
 }
