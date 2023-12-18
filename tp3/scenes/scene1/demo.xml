@@ -27,12 +27,8 @@
     <skybox size="400 400 400" center="0 0 0" emissive="1.0 1.0 1.0 1.0" intensity="1.0" up="./textures/pine.jpg" down="./textures/pine.jpg" left="./textures/pine.jpg" right="./textures/pine.jpg" front="./textures/pine.jpg" back="./textures/pine.jpg"/>
 
     <textures>        
-<<<<<<< HEAD
-        <texture id="racetrackTex" filepath="scenes/scene1/textures/uvmapping.jpg" />
-=======
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
->>>>>>> da894a1e2cfd321760116b10a3addb61efb4f778
     </textures> 
 
 
