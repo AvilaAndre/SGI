@@ -22,9 +22,20 @@ class MyTrack extends THREE.Object3D {
             (elem) => new THREE.Vector3(elem.value2[0], 0, elem.value2[1])
         );
 
+        /* Uncomment this block to see where are the points located
+        this.path.forEach((elem) => {
+            console.log(elem)
+            const msh = new THREE.Mesh(new THREE.SphereGeometry(0.2));
+        
+            msh.position.set(...elem);
+        
+            this.add(msh);
+        })
+        */
+
         this.startingLine = this.path[0];
 
-        const curve = new THREE.CatmullRomCurve3(this.path, true, "catmullrom");
+        const curve = new THREE.CatmullRomCurve3(this.path, true, "centripetal");
 
         curve.arcLengthDivisions = this.divisions;
         curve.updateArcLengths();
@@ -33,6 +44,7 @@ class MyTrack extends THREE.Object3D {
 
         const vertices = [];
         const indices = [];
+        const normals = [];
 
         const curveLength = curve.getLength();
 
@@ -48,6 +60,7 @@ class MyTrack extends THREE.Object3D {
                 .clone()
                 .cross(new THREE.Vector3(0, 1, 0))
                 .normalize();
+
 
             const pointIn = point
                 .clone()
@@ -67,19 +80,35 @@ class MyTrack extends THREE.Object3D {
 
             vertices.push(...pointIn);
             vertices.push(...pointOut);
+            normals.push(0, -1, 0);
+            normals.push(0, -1, 0);
+        }
+
+        //        for (let i = 42; i < 45; i++) {
+        for (let i = 0; i < this.divisions; i++) {
             if (i == this.divisions - 1) {
-                indices.push(0 + 2 * i, 1 + 2 * i, 0);
-                indices.push(1 + 2 * i, 1, 0);
-            } else {
-                indices.push(0 + 2 * i, 1 + 2 * i, 2 + 2 * i);
-                indices.push(1 + 2 * i, 3 + 2 * i, 2 + 2 * i); //TODO: existem faces viradas ao contrario
+                indices.push(...calcOrder(vertices, 2 * i, 2 * i + 1, 0));
+                indices.push(...calcOrder(vertices, 2 * i + 1, 1, 0));
+                continue;
             }
+
+            const idx0 = 0 + 2 * i;
+            const idx1 = 1 + 2 * i;
+            const idx2 = 2 + 2 * i;
+            const idx3 = 3 + 2 * i;
+
+            indices.push(...calcOrder(vertices, idx0, idx1, idx2));
+            indices.push(...calcOrder(vertices, idx1, idx2, idx3));
         }
 
         trackGeometry.setIndex(indices);
         trackGeometry.setAttribute(
             "position",
             new THREE.BufferAttribute(new Float32Array(vertices), 3)
+        );
+        trackGeometry.setAttribute(
+            "normal",
+            new THREE.BufferAttribute(new Float32Array(normals), 3)
         );
 
         const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x222222 }); // TODO: Track Material
@@ -88,6 +117,54 @@ class MyTrack extends THREE.Object3D {
         this.add(trackMesh);
     }
 }
+
+const calcOrder = (vertices, idx1, idx2, idx3) => {
+    const v1 = new THREE.Vector3(
+        vertices[idx1 * 3],
+        vertices[idx1 * 3 + 1],
+        vertices[idx1 * 3 + 2]
+    );
+    const v2 = new THREE.Vector3(
+        vertices[idx2 * 3],
+        vertices[idx2 * 3 + 1],
+        vertices[idx2 * 3 + 2]
+    );
+    const v3 = new THREE.Vector3(
+        vertices[idx3 * 3],
+        vertices[idx3 * 3 + 1],
+        vertices[idx3 * 3 + 2]
+    );
+
+    if (v2.x == v1.x) {
+        // division by zero;
+
+        if (v2.z < v1.z) {
+            return [idx1, idx2, idx3];
+        } else {
+            return [idx1, idx3, idx2];
+        }
+    } else {
+        const alpha = (v2.z - v1.z) / (v2.x - v1.x);
+
+        const m1 = v1.z - alpha * v1.x;
+
+        const m2 = v3.z - alpha * v3.x;
+
+        if (v2.x < v1.x) {
+            if (m1 < m2) {
+                return [idx1, idx2, idx3];
+            } else {
+                return [idx1, idx3, idx2];
+            }
+        } else {
+            if (m1 < m2) {
+                return [idx1, idx3, idx2];
+            } else {
+                return [idx1, idx2, idx3];
+            }
+        }
+    }
+};
 
 MyTrack.prototype.isGroup = true;
 
