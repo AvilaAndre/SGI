@@ -34,6 +34,11 @@ class GameManager {
         this.state = state;
     }
 
+    update(delta) {
+        this.state.update(delta);
+        this.keyboard.update();
+    }
+
     addCar(car) {
         this.cars.push(car);
 

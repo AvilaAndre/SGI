@@ -35,7 +35,6 @@ class MyContents {
         this.cameras = new Object();
         //nodes
         this.nodes = new Object();
-        
 
         // custom parameter for our scene
         this.curtains = [];
@@ -183,7 +182,7 @@ class MyContents {
         this.app.scene.add(this.hud);
 
         console.log("floor", data.hud.id);
-        this.floor = new MyFloor(this); 
+        this.floor = new MyFloor(this);
         this.app.scene.add(this.floor);
 
         console.log("nodes:");
@@ -196,11 +195,11 @@ class MyContents {
         this.app.setActiveCamera(data.activeCameraId);
     }
 
-    update() {
+    update(delta) {
         this.hud.updateHud(752);
 
         if (this.manager.state) {
-            this.manager.state.update();
+            this.manager.update(delta);
         }
     }
 

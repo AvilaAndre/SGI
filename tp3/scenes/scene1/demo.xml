@@ -216,6 +216,11 @@
 
 
         <node id="hatchback">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
             <children>
                 <primitive>
                     <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
@@ -225,7 +230,7 @@
 
         <node id="hatchback-fl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 -0.81" />
+                <translate value3="-0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -234,7 +239,7 @@
         </node>
         <node id="hatchback-fr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 -0.81" />
+                <translate value3="0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -243,7 +248,7 @@
         </node>
         <node id="hatchback-rl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 0.81" />
+                <translate value3="-0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelLeft" />
@@ -251,7 +256,7 @@
         </node>
         <node id="hatchback-rr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 0.81" />
+                <translate value3="0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelRight" />

@@ -6,7 +6,11 @@ import { GameState } from "../GameState.js";
 class RaceState extends GameState {
     update(delta) {
         if (this.manager.keyboard.isKeyDown("w")) {
-            // move car
+            this.manager.car.accelerate(delta);
+        } else if (this.manager.keyboard.isKeyDown("s")) {
+            this.manager.car.brake(delta);
+        } else if (this.manager.keyboard.isKeyJustUp("s")) {
+            this.manager.car.brakeReleased();
         }
 
         if (this.manager.keyboard.isKeyDown("a")) {
@@ -16,6 +20,10 @@ class RaceState extends GameState {
         } else {
             this.manager.car.turnTo(0);
         }
+
+        this.manager.car.calculateNextMove(delta);
+
+        this.manager.car.move();
     }
 }
 
