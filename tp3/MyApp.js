@@ -59,6 +59,9 @@ class MyApp {
 
         // manage window resizes
         window.addEventListener("resize", this.onResize.bind(this), false);
+
+        // A clock to get DeltaTime
+        this.clock = new THREE.Clock(true);
     }
 
     /**
@@ -164,7 +167,7 @@ class MyApp {
 
         // update the animation if contents were provided
         if (this.activeCamera !== undefined && this.activeCamera !== null) {
-            this.contents.update();
+            this.contents.update(this.clock.getDelta());
         }
 
         // required if controls.enableDamping or controls.autoRotate are set to true

@@ -29,6 +29,7 @@
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
+        <texture id="floorTex" filepath="scenes/scene1/textures/grass.jpg" />
     </textures> 
 
 
@@ -50,6 +51,15 @@
             textureref="hudTex" 
             texlength_s="1" 
             texlength_t="1" />
+
+        <material id="grassApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="floorTex" 
+            texlength_s="20000" 
+            texlength_t="20000" />
     </materials> 
 
 
@@ -218,6 +228,11 @@
 
 
         <node id="hatchback">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
             <children>
                 <primitive>
                     <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
@@ -227,7 +242,7 @@
 
         <node id="hatchback-fl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 -0.81" />
+                <translate value3="-0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -236,7 +251,7 @@
         </node>
         <node id="hatchback-fr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 -0.81" />
+                <translate value3="0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -245,7 +260,7 @@
         </node>
         <node id="hatchback-rl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 0.81" />
+                <translate value3="-0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelLeft" />
@@ -253,7 +268,7 @@
         </node>
         <node id="hatchback-rr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 0.81" />
+                <translate value3="0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelRight" />
@@ -1030,6 +1045,19 @@
                 </children>
         </node>
 
+        <node id="floor">
+            <transforms>
+                <translate value3="0 -0.05 0" />
+                <rotate value3="-1.570795 0 0" />
+            </transforms>
+            <children>
+                <primitive>       
+                    <rectangle xy1="-200 -200" xy2="200 200" />
+                </primitive>
+            </children>
+            <materialref id="grassApp" /> <!-- Reference to the floor material -->
+        </node>
+
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
                 <pointlight id="light1" enabled="true" 
@@ -1142,6 +1170,7 @@
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
                 <noderef id="fencePlayerLeft1" />
+                <noderef id="floor" />
 
             </children> 
         </node>

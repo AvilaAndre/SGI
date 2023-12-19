@@ -963,20 +963,18 @@ class MyFileReader {
 
         // load racetrack
 
-        if(this.data.racetrackId !== undefined){
-            if(this.data.racetrackId !== null){
 
-                let racetracks = rootElement.getElementsByTagName("racetrack");
 
-                if (racetracks.length < 1)
-                    throw new Error(
-                        "At least one racetrack should be specified in the YAF XML!"
-                    );
+        let racetracks = rootElement.getElementsByTagName("racetrack");
 
-                // There is only one racetrack
-                this.loadRacetrack(racetracks[0]);
-            }
-        }
+        if (racetracks.length < 1)
+            throw new Error(
+                "At least one racetrack should be specified in the YAF XML!"
+            );
+
+        // There is only one racetrack
+        this.loadRacetrack(racetracks[0]);
+
         // load racetrack
         let cars = rootElement.getElementsByTagName("car");
 
@@ -1285,8 +1283,11 @@ class MyFileReader {
             "point"
         );
 
-        if (racetrackObj.path.length < 3) {
-            throw new Error("The racetrack path should have at least 3 points"); // TODO: 3?
+        // Check for empty path and set a flag or property accordingly
+        if (racetrackObj.path.length === 0) {
+            racetrackObj.isEmpty = true; // This property indicates an empty racetrack
+        } else if (racetrackObj.path.length < 3) {
+            throw new Error("The racetrack path should have at least 3 points");
         }
 
         // powerups

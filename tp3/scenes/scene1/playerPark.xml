@@ -24,11 +24,12 @@
     </cameras> 
 
 
-    <skybox size="400 400 400" center="0 0 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/darkSky.jpg" down="./textures/skyWithSea.png" left="./textures/skyWithSea.png" right="./textures/skyWithSea.png" front="./textures/skyWithSea.png" back="./textures/skyWithSea.png"/>
+    <skybox size="90 90 90" center="0 0 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/superMarioKart.png" down="./textures/colours.avif" left="./textures/colours.avif" right="./textures/colours.avif" front="./textures/colours3.png" back="./textures/colours3.png"/>
 
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
+        <texture id="floorTex" filepath="scenes/scene1/textures/greyRocks.avif" />
     </textures> 
 
 
@@ -50,10 +51,44 @@
             textureref="hudTex" 
             texlength_s="1" 
             texlength_t="1" />
+
+        <material id="floorApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="floorTex" 
+            texlength_s="700" 
+            texlength_t="700" />
     </materials> 
 
 
-    
+    <racetrack id="track1" width="8" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
+        <path>
+            <!--<point value2="0 0"/>
+            <point value2="0 1"/>
+            <point value2="0 0"/>-->
+        </path>
+
+        <powerups>
+            
+        </powerups>
+
+        <obstacles>
+            
+        </obstacles>
+        
+        <routes>
+            <route>
+                <point value2="0 0"/>
+                <point value2="1 1"/>
+                <point value2="3 1"/>
+                <point value2="6 0"/>
+                <point value2="3 -1"/>
+                <point value2="1 -1"/>
+            </route>
+        </routes>
+    </racetrack>
 
     <hud id="hud1">
 
@@ -104,11 +139,142 @@
                 </primitive>
             </children>
         </node>
-      
 
+
+
+        <node id="floor">
+            <transforms>
+                <rotate value3="-1.5708 0 0" />
+            </transforms>
+            <children>
+                <primitive>       
+                    <rectangle xy1="-45 -45" xy2="45 45" />
+                </primitive>
+            </children>
+            <materialref id="floorApp" /> <!-- Reference to the floor material -->
+        </node>
+
+    
+        <node id="fenceLeft1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceLeft2">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight2">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <translate value3="-13.3 0 -17.05" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack2">
+                <transforms>
+                    <scale value3="20.4 7 7" />
+                    <translate value3="6.9 0 -17.05" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront1">
+                <transforms>
+                    <scale value3="10 7 7" />
+                    <translate value3="-18.4 0 23" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront2">
+                <transforms>
+                    <scale value3="10 7 7" />
+                    <translate value3="12 0 23" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="entrance">
+                <transforms>
+                    <scale value3="10 7 7" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="0 0 0" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/wallDoorwayRound.glb" />
+                    </primitive>
+                </children>
+        </node>
 
 
         <node id="hatchback">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
             <children>
                 <primitive>
                     <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
@@ -118,7 +284,7 @@
 
         <node id="hatchback-fl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 -0.81" />
+                <translate value3="-0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -127,7 +293,7 @@
         </node>
         <node id="hatchback-fr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 -0.81" />
+                <translate value3="0.50 0.3 1.62" />
             </transforms>
 
             <children>
@@ -136,7 +302,7 @@
         </node>
         <node id="hatchback-rl-wheel">
             <transforms>
-                <translate value3="-0.50 0.3 0.81" />
+                <translate value3="-0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelLeft" />
@@ -144,24 +310,11 @@
         </node>
         <node id="hatchback-rr-wheel">
             <transforms>
-                <translate value3="0.50 0.3 0.81" />
+                <translate value3="0.50 0.3 0" />
             </transforms>
             <children>
                 <noderef id="defaultWheelRight" />
             </children>
-        </node>
-
-
-        <node id="fencePlayerLeft1">
-                <transforms>
-                    <scale value3="20 7 7" />
-                    <translate value3="50 0.1 -62" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
-                    </primitive>
-                </children>
         </node>
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
@@ -212,12 +365,20 @@
                     position="2 2 4" 
                 />
 
-            
-                <noderef id="fencePlayerLeft1" />
+                <!-- <noderef id="hatchback" /> -->
+                <noderef id="floor" />
+                <noderef id="fenceLeft1" />
+                <noderef id="fenceLeft2" />
+                <noderef id="fenceRight1" />
+                <noderef id="fenceRight2" />
+                <noderef id="fenceBack1" />
+                <noderef id="fenceBack2" />
+                <noderef id="fenceFront1" />
+                <noderef id="fenceFront2" />
+                <noderef id="entrance" />
 
             </children> 
         </node>
-
     </graph>
 
     <car id="hatchback">

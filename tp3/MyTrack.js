@@ -18,6 +18,13 @@ class MyTrack extends THREE.Object3D {
         this.trackWidth = data.width;
         this.divisions = divisions || 50;
 
+        console.log("track", data);
+
+        //Check if isEmpty is set to true
+        if (data.isEmpty) {
+            return;
+        };
+
         this.path = this.path.map(
             (elem) => new THREE.Vector3(elem.value2[0], 0, elem.value2[1])
         );
