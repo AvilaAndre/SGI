@@ -32,7 +32,7 @@ class MyFloor extends THREE.Object3D {
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
 
         plane.rotation.x = -Math.PI / 2;
-        plane.position.set(0, -0.2, 0);
+        plane.position.set(0, -0.015, 0);
 
         this.add(plane);
 
