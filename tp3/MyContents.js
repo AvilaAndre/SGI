@@ -160,8 +160,10 @@ class MyContents {
         for (let carIdx = 0; carIdx < data.cars.length; carIdx++) {
             const carData = data.cars[carIdx];
 
-            this.car = new MyCar(this, carData);
+            this.car = new MyCar(this, data, carData);
         }
+
+        console.log(this.car);
 
         this.app.scene.add(this.car);
 

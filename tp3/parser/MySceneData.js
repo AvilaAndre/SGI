@@ -419,6 +419,11 @@ class MySceneData {
             { name: "radius", type: "float" },
         ];
 
+        this.descriptors["carcollider"] = [
+            { name: "pos", type: "vector3" },
+            { name: "size", type: "vector3" },
+        ];
+
         this.descriptors["time"] = [{ name: "timeFloat", type: "float" }];
 
         this.descriptors["lap"] = [{ name: "value", type: "integer" }];
@@ -723,6 +728,27 @@ class MySceneData {
             obstacles: [],
             routes: [],
             width: null,
+        };
+    }
+
+    addCar(car) {
+        this.cars.push(car);
+    }
+
+    /**
+     * Creates an empty car instance
+     * @param {*} id
+     * @returns
+     */
+    createEmptyCar(id) {
+        return {
+            id,
+            body: [],
+            turningWheels: [],
+            stationaryWheels: [],
+            collider: null,
+            initialCamera: "",
+            cameras: [],
         };
     }
 
