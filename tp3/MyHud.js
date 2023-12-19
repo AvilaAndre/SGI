@@ -21,15 +21,6 @@ class MyHud extends THREE.Object3D {
         this.timeLeftPenalty = data.timeLeftPenalty[0].timeFloat;
         this.states = data.states[0].stateValue;
 
-        
-        console.log("Hud data no MyHud: ", data);
-        console.log("Hud laps no MyHud: ", this.laps);
-        console.log("Hud speed no MyHud: ", this.speed);
-        console.log("Hud timeLeftBenefit no MyHud: ", this.timeLeftBenefit);
-        console.log("Hud timeLeftPenalty no MyHud: ", this.timeLeftPenalty);
-        console.log("Hud states no MyHud: ", this.states);
-        console.log("Hud timeElapsed no MyHud: ", this.timeElapsed);
-
 
 
         
@@ -75,16 +66,15 @@ class MyHud extends THREE.Object3D {
 
         this.numberDigits = this.getDigits(number);
             
-        console.log("Hud numberDigits no MyHud: ", this.numberDigits);
-        console.log("Hud numberDigits no MyHud length: ", this.numberDigits.length);
+
 
 
         // Create a loop to instantiate three sprites with different offsets
         for (let i = 0; i < this.numberDigits.length; i++) {
 
-            console.log("i:", i);
 
-            console.log("Hud numberDigits no MyHud: ", this.numberDigits[i]);
+
+
 
 
             // Load the texture
@@ -99,7 +89,7 @@ class MyHud extends THREE.Object3D {
             // Calculate the offset for each sprite
             const offset = ((1 * this.numberDigits[i]) / 10) % 1; // Adjust the offset based on your requirements
 
-            console.log("Hud offset no MyHud: ", offset);
+
 
             // Set the horizontal repeat to the sprite's width (in proportion to the whole image)
             texture.repeat.set(spriteWidth, 1);
@@ -113,7 +103,7 @@ class MyHud extends THREE.Object3D {
             // Set the position of each sprite
             sprite.position.set((-i * 1.2)-10, 10, 0); // Adjust the position based on your requirements
 
-            console.log("Hud position no MyHud: ", sprite.position);
+
 
             let zindex = 10; // Set your desired zindex here
 

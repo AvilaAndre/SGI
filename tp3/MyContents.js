@@ -5,6 +5,7 @@ import * as Utils from "./MyUtils.js";
 import { MyTrack } from "./MyTrack.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
 import { MyHud } from "./MyHud.js";
+import { MyFloor } from "./MyFloor.js";
 
 /**
  *  This class contains the contents of out application
@@ -32,6 +33,7 @@ class MyContents {
         this.cameras = new Object();
         //nodes
         this.nodes = new Object();
+        
 
         // custom parameter for our scene
         this.curtains = [];
@@ -159,6 +161,10 @@ class MyContents {
         console.log("hud", data.hud.id);
         this.hud = new MyHud(this, data.hud); 
         this.app.scene.add(this.hud);
+
+        console.log("floor", data.hud.id);
+        this.floor = new MyFloor(this); 
+        this.app.scene.add(this.floor);
 
         console.log("nodes:");
         const rootNode = this.instantiateNode(data.rootId, data);
