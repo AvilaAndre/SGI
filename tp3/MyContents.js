@@ -6,6 +6,7 @@ import { MyTrack } from "./MyTrack.js";
 import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
+import { GameManager } from "./manager/GameManager.js";
 
 /**
  *  This class contains the contents of out application
@@ -41,6 +42,9 @@ class MyContents {
         this.lights = new Object();
 
         this.lightsArray = [];
+
+        // game manager
+        this.manager = new GameManager(this);
 
         // show debug gizmos
         this.DEBUG = false;
@@ -78,6 +82,15 @@ class MyContents {
                 ". visit MySceneData javascript class to check contents for each data item."
         );
         this.onAfterSceneLoadedAndBeforeRender(data);
+
+        // register when keys are down
+        document.addEventListener("keydown", (keyData) =>
+            this.manager.keyboard.setKeyDown(keyData.key)
+        );
+        // register when keys are up
+        document.addEventListener("keyup", (keyData) =>
+            this.manager.keyboard.setKeyUp(keyData.key)
+        );
     }
 
     /**
@@ -160,12 +173,8 @@ class MyContents {
         for (let carIdx = 0; carIdx < data.cars.length; carIdx++) {
             const carData = data.cars[carIdx];
 
-            this.car = new MyCar(this, data, carData);
+            this.manager.addCar(new MyCar(this, data, carData));
         }
-
-        console.log(this.car);
-
-        this.app.scene.add(this.car);
 
         console.log("hud", data.hud.id);
         this.hud = new MyHud(this, data.hud);
@@ -183,6 +192,10 @@ class MyContents {
 
     update() {
         this.hud.updateHud(752);
+
+        if (this.manager.state) {
+            this.manager.state.update();
+        }
     }
 
     /**
