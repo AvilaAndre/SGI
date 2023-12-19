@@ -103,7 +103,11 @@ class MyCar extends THREE.Object3D {
     move() {
         this.position.set(...this.nextPosition);
 
-        this.speed = Math.max(0, this.speed - 0.01);
+        if (this.speed >= 0) {
+            this.speed = Math.max(0, this.speed - 0.01);
+        } else {
+            this.speed = Math.min(0, this.speed + 0.01);
+        }
     }
 }
 
