@@ -3,8 +3,9 @@ import { MyAxis } from "./MyAxis.js";
 import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
 import { MyTrack } from "./MyTrack.js";
-import { createPrimitive } from "./PrimitiveBuilder.js";
+import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
+import { MyCar } from "./MyCar.js";
 
 /**
  *  This class contains the contents of out application
@@ -156,12 +157,20 @@ class MyContents {
         this.track = new MyTrack(this, data.racetrack, 100);
         this.app.scene.add(this.track);
 
+        for (let carIdx = 0; carIdx < data.cars.length; carIdx++) {
+            const carData = data.cars[carIdx];
+
+            this.car = new MyCar(this, carData);
+        }
+
+        this.app.scene.add(this.car);
+
         console.log("hud", data.hud.id);
-        this.hud = new MyHud(this, data.hud); 
+        this.hud = new MyHud(this, data.hud);
         this.app.scene.add(this.hud);
 
         console.log("nodes:");
-        const rootNode = this.instantiateNode(data.rootId, data);
+        const rootNode = instantiateNode(data.rootId, data, this);
 
         this.app.scene.add(rootNode);
 
@@ -172,134 +181,6 @@ class MyContents {
 
     update() {
         this.hud.updateHud(752);
-    }
-
-    /**
-     * Instantiates nodes, having in consideration if it is a primitive,
-     * a kind of light, a LOD or none of this options
-     * @param {*} nodeRef
-     * @param {*} data
-     * @param {*} parent
-     * @returns
-     */
-    instantiateNode(nodeRef, data, parent = undefined) {
-        let node = data.nodes[nodeRef];
-
-        if (!node) return undefined;
-
-        this.output(node, 1);
-
-        const nodeObj = new THREE.Object3D();
-
-        nodeObj.name = node.id;
-
-        if (node.materialIds.length != 0)
-            nodeObj.materialIds = node.materialIds;
-        else if (parent != undefined) nodeObj.materialIds = parent.materialIds;
-        else nodeObj.materialIds = [];
-
-        nodeObj.children_refs = [];
-
-        this.applyTransformations(nodeObj, node.transformations);
-
-        nodeObj.castShadow = node.castShadows || parent?.castShadow;
-        nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadow;
-
-        // This is a custom parameter for our team
-        if (
-            nodeObj.name == "curtain1" ||
-            nodeObj.name == "curtain2" ||
-            nodeObj.name == "curtain3"
-        ) {
-            this.curtains.push(nodeObj);
-        }
-
-        for (let i = 0; i < node.children.length; i++) {
-            let child = node.children[i];
-
-            if (child.type === "primitive") {
-                child.representations.forEach((representation) => {
-                    const geometry = createPrimitive(representation, this);
-
-                    /**
-                     * Polygon and Model3d are the only primitives that has material defined in itself
-                     * this way, we need a special case to handle it
-                     */
-                    if (child.subtype === "polygon") {
-                        geometry.castShadow = nodeObj.castShadow;
-                        geometry.receiveShadow = nodeObj.receiveShadow;
-                        nodeObj.add(geometry);
-                    } else if (child.subtype === "model3d") {
-                        nodeObj.add(geometry);
-                    } else {
-                        if (geometry !== undefined) {
-                            if (nodeObj.materialIds) {
-                                const mesh = new THREE.Mesh(
-                                    geometry,
-                                    this.materials[nodeObj.materialIds[0]]
-                                );
-
-                                if (child.subtype == "rectangle") {
-                                    mesh.material.map.repeat.set(
-                                        mesh.material.texlength_s /
-                                            mesh.geometry.parameters.width,
-                                        mesh.material.texlength_t /
-                                            mesh.geometry.parameters.height
-                                    );
-
-                                    mesh.material.map.wrapS =
-                                        THREE.RepeatWrapping;
-                                    mesh.material.map.wrapT =
-                                        THREE.RepeatWrapping;
-                                }
-
-                                mesh.castShadow = nodeObj.castShadow;
-                                mesh.receiveShadow = nodeObj.receiveShadow;
-                                nodeObj.add(mesh);
-                            } else {
-                                console.error("Material Missing in", nodeRef);
-                            }
-                        }
-                    }
-                });
-            } else if (child.type === "pointlight") {
-                const light = this.addPointlight(child);
-                light.name = child.id;
-                nodeObj.add(light);
-            } else if (child.type === "spotlight") {
-                const light = this.addSpotlight(child);
-                light.name = child.id;
-                nodeObj.add(light);
-            } else if (child.type === "directionallight") {
-                const light = this.addDirectionallight(child);
-                light.name = child.id;
-                nodeObj.add(light);
-            } else if (child.type === "lod") {
-                const lod = new THREE.LOD();
-                for (
-                    let lodChild = 0;
-                    lodChild < child.children.length;
-                    lodChild++
-                ) {
-                    const element = child.children[lodChild];
-                    const newChild = this.instantiateNode(
-                        element.node.id,
-                        data,
-                        nodeObj
-                    );
-                    lod.addLevel(newChild, element.mindist);
-                }
-
-                nodeObj.add(lod);
-            } else {
-                this.output(child, 2);
-
-                const newChild = this.instantiateNode(child.id, data, nodeObj);
-                if (newChild) nodeObj.add(newChild);
-            }
-        }
-
-        return nodeObj;
     }
 
     /**
@@ -465,148 +346,6 @@ class MyContents {
     }
 
     /**
-     * Adds a Pointlight to the Pointlights array
-     * @param {*} light
-     * @returns newLight
-     */
-    addPointlight(light) {
-        // Now, positionArray contains the individual components as numbers
-        const x = light.position[0];
-        const y = light.position[1];
-        const z = light.position[2];
-
-        const lightColor = new THREE.Color(
-            light.color.r,
-            light.color.g,
-            light.color.b
-        );
-        const newLight = new THREE.PointLight(
-            lightColor,
-            light.enabled ? light.intensity || 1 : 0,
-            light.distance || 1000,
-            light.decay || 2
-        );
-
-        newLight.castShadow = light.castshadow || false;
-        newLight.shadowFar = light.shadowFar || 500.0;
-
-        newLight.position.set(x, y, z);
-
-        if (this.DEBUG) {
-            const helper = new THREE.PointLightHelper(newLight, 0.5);
-            this.app.scene.add(helper);
-        }
-
-        this.lightsArray.push({
-            originalIntensity: light.intensity || 1,
-            light: newLight,
-            defaultEnabled: light.enabled,
-        });
-
-        return newLight;
-    }
-
-    /**
-     * Adds a Spotlight to the Spotlights array
-     * @param {*} light
-     * @returns newLight
-     */
-    addSpotlight(light) {
-        // Now, positionArray contains the individual components as numbers
-        const x = light.position[0];
-        const y = light.position[1];
-        const z = light.position[2];
-
-        const lightColor = new THREE.Color(
-            light.color.r,
-            light.color.g,
-            light.color.b
-        );
-        const newLight = new THREE.SpotLight(
-            lightColor,
-            light.enabled ? light.intensity || 1 : 0,
-            light.distance || 1000,
-            light.angle,
-            light.penumbra || 1,
-            light.decay || 2
-        );
-        newLight.castShadow = light.castshadow;
-        newLight.target.position.set(
-            light.target[0],
-            light.target[1],
-            light.target[2]
-        );
-
-        newLight.shadowFar = light.shadowFar || 500.0;
-        newLight.position.set(x, y, z);
-
-        // for some strange reason, this line keeps the light position in the right place
-        const helper = new THREE.SpotLightHelper(newLight, lightColor);
-
-        if (this.DEBUG) {
-            this.app.scene.add(helper);
-        }
-
-        this.lightsArray.push({
-            originalIntensity: newLight.intensity,
-            light: newLight,
-            defaultEnabled: light.enabled,
-        });
-
-        return newLight;
-    }
-
-    /**
-     * Adds a Directionallight to the Directionallights array
-     * @param {*} light
-     * @returns
-     */
-    addDirectionallight(light) {
-        // Now, positionArray contains the individual components as numbers
-        const x = light.position[0];
-        const y = light.position[1];
-        const z = light.position[2];
-
-        const lightColor = new THREE.Color(
-            light.color.r,
-            light.color.g,
-            light.color.b
-        );
-        const newLight = new THREE.DirectionalLight(
-            lightColor,
-            light.enabled ? light.intensity || 1 : 0
-        );
-
-        newLight.castShadow = light.castshadow;
-        newLight.shadowFar = light.shadowFar || 500.0;
-
-        newLight.shadow.camera.left = light.shadowleft || -5;
-        newLight.shadow.camera.right = light.shadowright || 5;
-        newLight.shadow.camera.top = light.shadowtop || 5;
-        newLight.shadow.camera.bottom = light.shadowbottom || -5;
-
-        newLight.position.set(x, y, z);
-
-        if (this.DEBUG) {
-            const helper = new THREE.DirectionalLightHelper(
-                newLight,
-                5,
-                lightColor
-            );
-
-            this.app.scene.add(helper);
-        }
-
-        this.lightsArray.push({
-            originalIntensity: newLight.intensity,
-            light: newLight,
-            defaultEnabled: light.enabled,
-        });
-
-        return newLight;
-    }
-
-    /**
      *
      * @param {SkyboxData} camera
      * creates a skybox based on the data received and adds to the skyboxes array
@@ -709,39 +448,6 @@ class MyContents {
         newCamera.target = target;
 
         this.cameras[camera.id] = newCamera;
-    }
-
-    /**
-     * Creates a primitive based on the representation received
-     * @param {*} representation
-     * @returns
-     */
-
-    /**
-     * Applies the transformations (translate, scale and rotate) to the node
-     * @param {*} node
-     * @param {*} transformations
-     */
-    applyTransformations(node, transformations) {
-        transformations.forEach((key) => {
-            switch (key.type) {
-                case "T":
-                    node.translateX(key.translate[0]);
-                    node.translateY(key.translate[1]);
-                    node.translateZ(key.translate[2]);
-                    break;
-                case "S":
-                    node.scale.x = key.scale[0];
-                    node.scale.y = key.scale[1];
-                    node.scale.z = key.scale[2];
-                    break;
-                case "R":
-                    node.rotation.x = key.rotation[0];
-                    node.rotation.y = key.rotation[1];
-                    node.rotation.z = key.rotation[2];
-                    break;
-            }
-        });
     }
 
     /**
