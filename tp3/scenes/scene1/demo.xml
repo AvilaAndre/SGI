@@ -192,12 +192,69 @@
 
     </hud>
 
-    <graph rootid="scene"> 
+    <graph rootid="scene">
+        <node id="defaultWheelLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="defaultWheelRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                </primitive>
+            </children>
+        </node>
+
+
         <node id="hatchback">
             <children>
                 <primitive>
                     <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
                 </primitive>
+            </children>
+        </node>
+
+        <node id="hatchback-fl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 -0.81" />
+            </transforms>
+
+            <children>
+                <noderef id="defaultWheelLeft" />
+            </children>
+        </node>
+        <node id="hatchback-fr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 -0.81" />
+            </transforms>
+
+            <children>
+                <noderef id="defaultWheelRight" />
+            </children>
+        </node>
+        <node id="hatchback-rl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 0.81" />
+            </transforms>
+            <children>
+                <noderef id="defaultWheelLeft" />
+            </children>
+        </node>
+        <node id="hatchback-rr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 0.81" />
+            </transforms>
+            <children>
+                <noderef id="defaultWheelRight" />
             </children>
         </node>
 
@@ -249,7 +306,7 @@
                     position="2 2 4" 
                 />
 
-                <noderef id="hatchback" />
+                <!-- <noderef id="hatchback" /> -->
             </children> 
         </node>
 
@@ -270,10 +327,15 @@
 
         <body>
             <noderef id="hatchback" />
-        </body> 
+        </body>
 
-        <wheels>
-
-        </wheels>
+        <turnwheels>
+            <noderef id="hatchback-fl-wheel" />
+            <noderef id="hatchback-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="hatchback-rl-wheel" />
+            <noderef id="hatchback-rr-wheel" />
+        </statwheels>
     </car>
 </yaf>

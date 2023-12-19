@@ -147,7 +147,6 @@ class MyFileReader {
      * @param {Array} list an array of strings with the valid node names
      */
     checkForUnknownNodes(parentElem, list) {
-        console.log("parentElem:", parentElem);
         // for each of the elem's children
         for (let i = 0; i < parentElem.children.length; i++) {
             let elem = parentElem.children[i];
@@ -973,17 +972,28 @@ class MyFileReader {
         // There is only one racetrack
         this.loadRacetrack(racetracks[0]);
 
+        // load racetrack
+        let cars = rootElement.getElementsByTagName("car");
+
+        if (cars.length < 1)
+            throw new Error(
+                "At least one car should be specified in the YAF XML!"
+            );
+
+        // Load car data
+        this.loadCars(cars);
+
         // load hud
         let hud = rootElement.getElementsByTagName("hud");
 
-        console.log("hud[0]:", hud);
+        // console.log("hud[0]:", hud); FIXME:
         if (hud.length < 1)
             throw new Error(
                 "At least one hud should be specified in the YAF XML!"
             );
 
         // There is only one hud
-        
+
         this.loadHUD(hud[0]);
     }
 
@@ -1252,10 +1262,7 @@ class MyFileReader {
             throw new Error("The track should have a float width");
 
         // track texture
-        racetrackObj.texturePath = this.getString(
-            racetrackElement,
-            "texture"
-        );
+        racetrackObj.texturePath = this.getString(racetrackElement, "texture");
 
         // path
         let pathElements = racetrackElement.getElementsByTagName("path");
@@ -1350,7 +1357,154 @@ class MyFileReader {
         this.data.setRacetrack(racetrackObj);
     }
 
-	/**
+    /**
+     * Load the carcameras element
+     * @param {*} elem
+     */
+    loadCarCameras(elem, car) {
+        car.initialCamera = this.getString(elem, "initial");
+
+        let orthogonals = elem.getElementsByTagName("orthogonal");
+        let perspectives = elem.getElementsByTagName("perspective");
+        if (orthogonals === null && perspectives === null) {
+            throw new Error(
+                "at least one camera (ortho/perspective) is required"
+            );
+        }
+
+        if (
+            orthogonals != null &&
+            perspectives != null &&
+            orthogonals.length + perspectives.length == 0
+        ) {
+            throw new Error(
+                "at least one camera (ortho/perspective) is required"
+            );
+        }
+
+        for (let i = 0; i < orthogonals.length; i++) {
+            const orth = orthogonals[i];
+            let orthogonal = this.loadXmlItem({
+                elem: orth,
+                descriptor: this.data.descriptors["orthogonal"],
+                extras: [],
+            });
+
+            car.cameras.push(orthogonal);
+        }
+
+        for (let i = 0; i < perspectives.length; i++) {
+            const perp = perspectives[i];
+            let perspective = this.loadXmlItem({
+                elem: perp,
+                descriptor: this.data.descriptors["perspective"],
+                extras: [],
+            });
+
+            car.cameras.push(perspective);
+        }
+    }
+
+    /**
+     * Load the data for a racetrack element
+     * @param {*} racetrackElement the xml racetrack element
+     */
+    loadCars(carElements) {
+        console.log(carElements);
+
+        for (let elemIdx = 0; elemIdx < carElements.length; elemIdx++) {
+            const element = carElements[elemIdx];
+
+            console.log("new car", element);
+
+            const id = this.getString(element, "id");
+
+            const car = this.data.createEmptyCar(id);
+
+            /* BODY */
+            const body = this.data.createEmptyNode(id + "_body");
+
+            // load children (primitives or other node references) these are the car's parts
+            let childrens = element.getElementsByTagName("body");
+            if (childrens == null || childrens.length != 1) {
+                throw new Error("in car " + id + ", a body node is required");
+            }
+
+            this.loadChildren(body, childrens[0]);
+
+            car.body = body;
+
+            /* WHEELS */ // TODO: this;
+
+            const turningWheels = this.data.createEmptyNode(
+                id + "_turning_wheels"
+            );
+
+            // load children (primitives or other node references) these are the car's parts
+            let twChildrens = element.getElementsByTagName("turnwheels");
+            if (twChildrens == null || twChildrens.length != 1) {
+                throw new Error("in car " + id + ", a body node is required");
+            }
+
+            this.loadChildren(turningWheels, twChildrens[0]);
+
+            for (let i = 0; i < turningWheels.children.length; i++) {
+                const element = turningWheels.children[i];
+                car.turningWheels.push(element);
+            }
+
+            const stationaryWheels = this.data.createEmptyNode(
+                id + "_stationary_wheels"
+            );
+
+            // load children (primitives or other node references) these are the car's parts
+            let stChildrens = element.getElementsByTagName("statwheels");
+            if (stChildrens == null || stChildrens.length != 1) {
+                throw new Error("in car " + id + ", a body node is required");
+            }
+
+            this.loadChildren(stationaryWheels, stChildrens[0]);
+
+            for (let i = 0; i < stationaryWheels.children.length; i++) {
+                const element = stationaryWheels.children[i];
+                car.stationaryWheels.push(element);
+            }
+
+            /* COLLIDER */
+
+            let colliders = element.getElementsByTagName("collider");
+
+            if (colliders == null || colliders.length != 1) {
+                throw new Error(
+                    "in car " + id + ", a unique collider node is required"
+                );
+            }
+
+            let descriptor = this.data.descriptors["carcollider"];
+            let collider = this.loadXmlItem({
+                elem: colliders[0],
+                descriptor: descriptor,
+                extras: [],
+            });
+
+            car.collider = collider;
+
+            /* CAR CAMERAS */
+
+            let carcameras = element.getElementsByTagName("carcameras");
+            if (carcameras == null || carcameras.length != 1) {
+                throw new Error(
+                    "in car " + id + ", a carcameras node is required"
+                );
+            }
+
+            this.loadCarCameras(carcameras[0], car);
+
+            this.data.addCar(car);
+        }
+    }
+
+    /**
      * Load the data for a hud element
      * @param {*} hudElement the xml hud element
      */
@@ -1358,13 +1512,14 @@ class MyFileReader {
         // get the id of the HUD
         let id = this.getString(hudElement, "id");
 
-		//creates an empty hud, with all its attributes
+        //creates an empty hud, with all its attributes
         let hudObj = this.data.createEmptyHud(id);
 
         // TIMEELAPSED
-        let timeElapsedElements = hudElement.getElementsByTagName("timeElapsed");
+        let timeElapsedElements =
+            hudElement.getElementsByTagName("timeElapsed");
 
-        console.log("timeElapsedElements:", timeElapsedElements);
+        // console.log("timeElapsedElements:", timeElapsedElements); // FIXME:
 
         if (timeElapsedElements == null) {
             throw new Error(
@@ -1379,13 +1534,11 @@ class MyFileReader {
             "time"
         );
 
-    
-
         //LAPS
 
         let lapsElements = hudElement.getElementsByTagName("laps");
 
-        console.log("lapsElements:", lapsElements);
+        // console.log("lapsElements:", lapsElements); // FIXME:
 
         if (lapsElements == null) {
             throw new Error(
@@ -1393,19 +1546,14 @@ class MyFileReader {
             );
         }
 
-        this.loadChildElementsOfType(
-            lapsElements[0],
-            hudObj,
-            "laps",
-            "lap"
-        );
-
+        this.loadChildElementsOfType(lapsElements[0], hudObj, "laps", "lap");
 
         //SPEEDOMETER
 
-        let speedometerElements = hudElement.getElementsByTagName("speedometer");
+        let speedometerElements =
+            hudElement.getElementsByTagName("speedometer");
 
-        console.log("speedometerElements:", speedometerElements);
+        // console.log("speedometerElements:", speedometerElements); // TODO:
 
         if (speedometerElements == null) {
             throw new Error(
@@ -1422,9 +1570,10 @@ class MyFileReader {
 
         //TIMELEFTBENEFIT
 
-        let timeLeftBenefitElements = hudElement.getElementsByTagName("timeLeftBenefit");
+        let timeLeftBenefitElements =
+            hudElement.getElementsByTagName("timeLeftBenefit");
 
-        console.log("timeLeftBenefitElements:", timeLeftBenefitElements);
+        // console.log("timeLeftBenefitElements:", timeLeftBenefitElements); // FIXME:
 
         if (timeLeftBenefitElements == null) {
             throw new Error(
@@ -1439,12 +1588,12 @@ class MyFileReader {
             "time"
         );
 
-
         //TIMELEFTPENALTY
 
-        let timeLeftPenaltyElements = hudElement.getElementsByTagName("timeLeftPenalty");
+        let timeLeftPenaltyElements =
+            hudElement.getElementsByTagName("timeLeftPenalty");
 
-        console.log("timeLeftPenaltyElements:", timeLeftPenaltyElements);
+        // console.log("timeLeftPenaltyElements:", timeLeftPenaltyElements); //FIXME:
 
         if (timeLeftPenaltyElements == null) {
             throw new Error(
@@ -1463,7 +1612,7 @@ class MyFileReader {
 
         let statesElements = hudElement.getElementsByTagName("states");
 
-        console.log("statesElements:", statesElements);
+        // console.log("statesElements:", statesElements); // FIXME:
 
         if (statesElements == null) {
             throw new Error(
@@ -1480,9 +1629,6 @@ class MyFileReader {
 
         this.data.setHud(hudObj);
     }
-
-
-
 }
 
 export { MyFileReader };
