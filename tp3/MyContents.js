@@ -58,7 +58,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "demo.xml");
+        this.reader.open(this.scenePath + "playerPark.xml");
     }
 
     /**
@@ -197,7 +197,9 @@ class MyContents {
     }
 
     update() {
-        this.hud.updateHud(752);
+        if (this.hud) {
+            this.hud.updateHud(752);
+        }
 
         if (this.manager.state) {
             this.manager.state.update();

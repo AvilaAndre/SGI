@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf>
+    <globals background="0 0 0 1" ambient="1 1 1 1" /> 
+
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
+
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
+            angle="60" 
+            near="0.1" 
+            far="1000" 
+            location="15 15 15" 
+            target="0 0.0 0" /> 
+
+        <orthogonal id="cam2" 
+            near="0.1" 
+            far="1000" 
+            location="0 15 15" 
+            target="0.0 15 0.0" 
+            left="-5" 
+            right="5" 
+            bottom="-5" 
+            top="-5" /> 
+    </cameras> 
+
+
+    <skybox size="400 400 400" center="0 0 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/darkSky.jpg" down="./textures/skyWithSea.png" left="./textures/skyWithSea.png" right="./textures/skyWithSea.png" front="./textures/skyWithSea.png" back="./textures/skyWithSea.png"/>
+
+    <textures>        
+        <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
+        <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
+    </textures> 
+
+
+    <materials> 
+        <material id="racetrackApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="racetrackTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="hudApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="hudTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+    </materials> 
+
+
+    
+
+    <hud id="hud1">
+
+        <timeElapsed>
+            <time timeFloat="0.0"/> 
+        </timeElapsed>
+
+        <laps>
+            <lap value="1" />
+        </laps>
+
+        <speedometer>
+            <speed value="0" />
+        </speedometer>
+
+        <timeLeftBenefit>
+            <time timeFloat="0.0" />
+        </timeLeftBenefit>
+
+        <timeLeftPenalty>
+            <time timeFloat="0.0" />
+        </timeLeftPenalty>
+            
+        <states>
+            <state stateValue="pause" />
+        </states>
+
+    </hud>
+
+    <graph rootid="scene">
+        <node id="defaultWheelLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="defaultWheelRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                </primitive>
+            </children>
+        </node>
+      
+
+
+
+        <node id="hatchback">
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="hatchback-fl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 -0.81" />
+            </transforms>
+
+            <children>
+                <noderef id="defaultWheelLeft" />
+            </children>
+        </node>
+        <node id="hatchback-fr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 -0.81" />
+            </transforms>
+
+            <children>
+                <noderef id="defaultWheelRight" />
+            </children>
+        </node>
+        <node id="hatchback-rl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 0.81" />
+            </transforms>
+            <children>
+                <noderef id="defaultWheelLeft" />
+            </children>
+        </node>
+        <node id="hatchback-rr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 0.81" />
+            </transforms>
+            <children>
+                <noderef id="defaultWheelRight" />
+            </children>
+        </node>
+
+
+        <node id="fencePlayerLeft1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <translate value3="50 0.1 -62" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="scene" castshadows = "true" receiveshadows="true"> 
+            <children> 
+                <pointlight id="light1" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="33.75 37.3 33.75" 
+                /> 
+
+                <pointlight id="light2" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"
+                /> 
+                
+                <pointlight id="light3" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"  
+                /> 
+
+                <spotlight id="light4" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                    target="0 0 0"
+                    penumbra="1.0"
+                    angle="10.0" 
+                /> 
+
+                <directionallight id="light5" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                />
+
+            
+                <noderef id="fencePlayerLeft1" />
+
+            </children> 
+        </node>
+
+    </graph>
+
+    <car id="hatchback">
+        <carcameras initial="cam1">
+            <perspective id="cam1" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="15 15 15" 
+                target="0 0.0 0" />
+        </carcameras>
+
+
+        <collider pos="0 0 0" size="5 2 3" />
+
+        <body>
+            <noderef id="hatchback" />
+        </body>
+
+        <turnwheels>
+            <noderef id="hatchback-fl-wheel" />
+            <noderef id="hatchback-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="hatchback-rl-wheel" />
+            <noderef id="hatchback-rr-wheel" />
+        </statwheels>
+    </car>
+
+
+</yaf>

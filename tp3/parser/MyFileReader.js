@@ -962,16 +962,21 @@ class MyFileReader {
         }
 
         // load racetrack
-        let racetracks = rootElement.getElementsByTagName("racetrack");
 
-        if (racetracks.length < 1)
-            throw new Error(
-                "At least one racetrack should be specified in the YAF XML!"
-            );
+        if(this.data.racetrackId !== undefined){
+            if(this.data.racetrackId !== null){
 
-        // There is only one racetrack
-        this.loadRacetrack(racetracks[0]);
+                let racetracks = rootElement.getElementsByTagName("racetrack");
 
+                if (racetracks.length < 1)
+                    throw new Error(
+                        "At least one racetrack should be specified in the YAF XML!"
+                    );
+
+                // There is only one racetrack
+                this.loadRacetrack(racetracks[0]);
+            }
+        }
         // load racetrack
         let cars = rootElement.getElementsByTagName("car");
 

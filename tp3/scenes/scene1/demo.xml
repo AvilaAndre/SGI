@@ -861,7 +861,7 @@
                 </children>
         </node>
 
-        <node id="bush1">
+        <!--<node id="bush1">
                 <transforms>
                     <scale value3="7 7 7" />
                     <translate value3="-9 0.1 -75" />
@@ -871,7 +871,7 @@
                         <model3d filepath="scenes/scene1/models/trees/_bush_1.fbx" />
                     </primitive>
                 </children>
-        </node>
+        </node>-->
 
         <node id="grandStand1">
                 <transforms>
@@ -1018,6 +1018,18 @@
                 </children>
         </node>
 
+        <node id="fencePlayerLeft1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <translate value3="50 0.1 -62" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
                 <pointlight id="light1" enabled="true" 
@@ -1129,7 +1141,8 @@
                 <noderef id="largeTree1" />
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
-                <noderef id="bush1" />
+                <noderef id="fencePlayerLeft1" />
+
             </children> 
         </node>
 
