@@ -81,8 +81,6 @@ class MyCar extends THREE.Object3D {
         }
 
         app.app.scene.add(camTarget);
-
-        console.log(app.app.activeCameraName);
     }
 
     turnTo(angle) {
@@ -100,6 +98,8 @@ class MyCar extends THREE.Object3D {
     accelerate(delta) {
         this.speed += this.acceleration * delta;
         this.speed = Math.min(this.speed, this.maxSpeedForward);
+
+        this.isAccelerating = true;
     }
 
     brake(delta) {
@@ -144,14 +144,6 @@ class MyCar extends THREE.Object3D {
             const camInfo = this.cameras[i];
 
             if (this.app.app.activeCameraName == camInfo.id) {
-                const carDirection = new THREE.Vector3();
-
-                this.getWorldDirection(carDirection);
-
-                carDirection.normalize();
-
-                const angle = carDirection.angleTo(new THREE.Vector3(0, 0, 1));
-
                 camInfo.cam.camTarget.position.set(
                     ...this.position
                         .clone()
@@ -162,8 +154,32 @@ class MyCar extends THREE.Object3D {
                             )
                         )
                 );
+
+                if (this.isAccelerating) {
+                    const carDirection = new THREE.Vector3();
+
+                    this.getWorldDirection(carDirection);
+
+                    camInfo.cam.camTarget.position.set(
+                        ...camInfo.cam.camTarget.position
+                            .clone()
+                            .add(carDirection.multiplyScalar(0.1))
+                    );
+                } else if (this.isBraking) {
+                    const carDirection = new THREE.Vector3();
+
+                    this.getWorldDirection(carDirection);
+
+                    camInfo.cam.camTarget.position.set(
+                        ...camInfo.cam.camTarget.position
+                            .clone()
+                            .add(carDirection.multiplyScalar(-0.1))
+                    );
+                }
             }
         }
+
+        this.isAccelerating = false;
     }
 }
 
