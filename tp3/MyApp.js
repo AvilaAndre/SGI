@@ -94,6 +94,7 @@ class MyApp {
      */
     updateCameraIfRequired() {
         // camera changed?
+
         if (this.lastCameraName !== this.activeCameraName) {
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName];
@@ -187,7 +188,7 @@ class MyApp {
         // subsequent async calls to the render loop
         requestAnimationFrame(this.render.bind(this));
 
-        this.lastCameraName = this.activeCameraName;
+        // this.lastCameraName = this.activeCameraName;
         this.stats.end();
     }
 }

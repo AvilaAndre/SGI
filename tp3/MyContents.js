@@ -5,7 +5,6 @@ import * as Utils from "./MyUtils.js";
 import { MyTrack } from "./MyTrack.js";
 import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
-import { MyFloor } from "./MyFloor.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { addCamera } from "./ComponentBuilder.js";
@@ -168,9 +167,12 @@ class MyContents {
             addCamera(camera, this);
         }
 
-        console.log("racetrack", data.racetrack.id);
-        this.track = new MyTrack(this, data.racetrack, 100);
-        this.app.scene.add(this.track);
+        console.log("data:", data);
+        if (data.racetrack.id != null) {
+            console.log("racetrack", data.racetrack.id);
+            this.track = new MyTrack(this, data.racetrack, 100);
+            this.app.scene.add(this.track);
+        }
 
         for (let carIdx = 0; carIdx < data.cars.length; carIdx++) {
             const carData = data.cars[carIdx];
@@ -182,23 +184,20 @@ class MyContents {
         // this.hud = new MyHud(this, data.hud);
         // this.app.scene.add(this.hud);
 
-        console.log("floor", data.hud.id);
-        this.floor = new MyFloor(this);
-        this.app.scene.add(this.floor);
-
         console.log("nodes:");
         const rootNode = instantiateNode(data.rootId, data, this);
 
         this.app.scene.add(rootNode);
 
         // add cameras to the app object
-        console.log("this.cameras", this.cameras);
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
     }
 
     update(delta) {
-        // this.hud.updateHud(752);
+        if (this.hud) {
+            this.hud.updateHud(752);
+        }
 
         if (this.manager.state) {
             this.manager.update(delta);

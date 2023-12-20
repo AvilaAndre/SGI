@@ -29,6 +29,7 @@
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
+        <texture id="floorTex" filepath="scenes/scene1/textures/grass.jpg" />
     </textures> 
 
 
@@ -50,6 +51,15 @@
             textureref="hudTex" 
             texlength_s="1" 
             texlength_t="1" />
+
+        <material id="grassApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="floorTex" 
+            texlength_s="20000" 
+            texlength_t="20000" />
     </materials> 
 
 
@@ -213,6 +223,8 @@
                 </primitive>
             </children>
         </node>
+      
+
 
         <node id="racingWheelLeft">
             <transforms>
@@ -332,6 +344,788 @@
                 <noderef id="racingWheelRight" />
             </children>
         </node>
+        
+        <node id="defaultTreeR1">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="2 0.1 -3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR2">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="4 0.1 -1" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR3">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="6 0.1 1" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR4">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="8 0.1 3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR5">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="10 0.1 5" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR6">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="12 0.1 7" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR7">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="14 0.1 9" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR8">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="16 0.1 11" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR9">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="18 0.1 13" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR10">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="20 0.1 15" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR11">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="22 0.1 17" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR12">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="24 0.1 19" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR13">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="26 0.1 21" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR14">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="28 0.1 23" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR15">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="30 0.1 25" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR16">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="32 0.1 27" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR17">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="0 0.1 -5" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR18">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-2 0.1 -7" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR19">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-4 0.1 -9" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR20">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-6 0.1 -11" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeR21">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-8 0.1 -13" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL1">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-2 0.1 7" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL2">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="0 0.1 9" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL3">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="2 0.1 11" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL4">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="4 0.1 13" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL5">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="6 0.1 15" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL6">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="8 0.1 17" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL7">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="10 0.1 19" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL8">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="12 0.1 21" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL9">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="14 0.1 23" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL10">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="16 0.1 25" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL11">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="18 0.1 27" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL12">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="20 0.1 29" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL13">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="22 0.1 31" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL14">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="24 0.1 33" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL15">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="26 0.1 35" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL16">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="28 0.1 37" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL17">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="30 0.1 39" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL18">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="32 0.1 41" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL19">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="34 0.1 43" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL20">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-4 0.1 5" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL21">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-6 0.1 3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL22">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-8 0.1 1" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL23">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-10 0.1 -1" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL25">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-12 0.1 -3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL26">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-14 0.1 -5" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="defaultTreeL27">
+                <transforms>
+                    <scale value3="3 3 3" />
+                    <translate value3="-16 0.1 -7" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="largeTree1">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <translate value3="-15 0.1 -85" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="largeTree2">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <translate value3="-12 0.1 -80" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="largeTree3">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <translate value3="-9 0.1 -75" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <!--<node id="bush1">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <translate value3="-9 0.1 -75" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/_bush_1.fbx" />
+                    </primitive>
+                </children>
+        </node>-->
+
+        <node id="grandStand1">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-65 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand2">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-58 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand3">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-51 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand4">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-44 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand5">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-37 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+
+        <node id="grandStand6">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-30 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand7">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-23 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand8">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-16 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand9">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-9 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="grandStand10">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 -1.06 0" />
+                    <translate value3="-2 0.1 -22" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+
+        <node id="grandStandRound1">
+                <transforms>
+                    <scale value3="7 7 7" />
+                    <rotate value3="0 0.86 0" /> 
+                    <translate value3="50 0.1 -69" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/racing/grandStandRound.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fencePlayerLeft1">
+                <transforms>
+                    <scale value3="20 7 7" />
+                    <translate value3="50 0.1 -62" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="floor">
+            <transforms>
+                <translate value3="0 -0.05 0" />
+                <rotate value3="-1.570795 0 0" />
+            </transforms>
+            <children>
+                <primitive>       
+                    <rectangle xy1="-200 -200" xy2="200 200" />
+                </primitive>
+            </children>
+            <materialref id="grassApp" /> <!-- Reference to the floor material -->
+        </node>
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
@@ -382,6 +1176,71 @@
                 />
 
                 <!-- <noderef id="hatchback" /> -->
+                <noderef id="defaultTreeR1" />
+                <noderef id="defaultTreeR2" />
+                <noderef id="defaultTreeR3" />
+                <noderef id="defaultTreeR4" />
+                <noderef id="defaultTreeR5" />
+                <noderef id="defaultTreeR6" />
+                <noderef id="defaultTreeR7" />
+                <noderef id="defaultTreeR8" />
+                <noderef id="defaultTreeR9" />
+                <noderef id="defaultTreeR10" />
+                <noderef id="defaultTreeR11" />
+                <noderef id="defaultTreeR12" />
+                <noderef id="defaultTreeR13" />
+                <noderef id="defaultTreeR14" />
+                <noderef id="defaultTreeR15" />
+                <noderef id="defaultTreeR16" />
+                <noderef id="defaultTreeR17" />
+                <noderef id="defaultTreeR18" />
+                <noderef id="defaultTreeR19" />
+                <noderef id="defaultTreeR20" />
+                <noderef id="defaultTreeR21" />
+                <noderef id="defaultTreeL1" />
+                <noderef id="defaultTreeL2" />
+                <noderef id="defaultTreeL3" />
+                <noderef id="defaultTreeL4" />
+                <noderef id="defaultTreeL5" />
+                <noderef id="defaultTreeL6" />
+                <noderef id="defaultTreeL7" />
+                <noderef id="defaultTreeL8" />
+                <noderef id="defaultTreeL9" />
+                <noderef id="defaultTreeL10" />
+                <noderef id="defaultTreeL11" />
+                <noderef id="defaultTreeL12" />
+                <noderef id="defaultTreeL13" />
+                <noderef id="defaultTreeL14" />
+                <noderef id="defaultTreeL15" />
+                <noderef id="defaultTreeL16" />
+                <noderef id="defaultTreeL17" />
+                <noderef id="defaultTreeL18" />
+                <noderef id="defaultTreeL19" />
+                <noderef id="defaultTreeL20" />
+                <noderef id="defaultTreeL21" />
+                <noderef id="defaultTreeL22" />
+                <noderef id="defaultTreeL23" />
+                <noderef id="defaultTreeL24" />
+                <noderef id="defaultTreeL25" />
+                <noderef id="defaultTreeL26" />
+                <noderef id="defaultTreeL27" />
+                <noderef id="grandStand1" />
+                <noderef id="grandStand2" />
+                <noderef id="grandStand3" />
+                <noderef id="grandStand4" />
+                <noderef id="grandStand5" />
+                <noderef id="grandStand6" />
+                <noderef id="grandStand7" />
+                <noderef id="grandStand8" />
+                <noderef id="grandStand9" />
+                <noderef id="grandStand10" />
+                <noderef id="grandStandRound1" />
+                <noderef id="largeTree1" />
+                <noderef id="largeTree2" />
+                <noderef id="largeTree3" />
+                <noderef id="fencePlayerLeft1" />
+                <noderef id="floor" />
+
             </children> 
         </node>
 
@@ -458,4 +1317,6 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
     </car>
+
+
 </yaf>

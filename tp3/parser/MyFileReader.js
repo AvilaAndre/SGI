@@ -962,6 +962,9 @@ class MyFileReader {
         }
 
         // load racetrack
+
+
+
         let racetracks = rootElement.getElementsByTagName("racetrack");
 
         if (racetracks.length < 1)
@@ -1280,8 +1283,11 @@ class MyFileReader {
             "point"
         );
 
-        if (racetrackObj.path.length < 3) {
-            throw new Error("The racetrack path should have at least 3 points"); // TODO: 3?
+        // Check for empty path and set a flag or property accordingly
+        if (racetrackObj.path.length === 0) {
+            racetrackObj.isEmpty = true; // This property indicates an empty racetrack
+        } else if (racetrackObj.path.length < 3) {
+            throw new Error("The racetrack path should have at least 3 points");
         }
 
         // powerups
