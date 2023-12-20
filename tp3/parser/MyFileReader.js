@@ -1638,7 +1638,7 @@ class MyFileReader {
         // load animations
         let animationElements = rootElement.getElementsByTagName("animation");
 
-        if (animations.length < 1) return;
+        if (animationElements.length < 1) return;
 
         for (let animIdx = 0; animIdx < animationElements.length; animIdx++) {
             const animElement = animationElements[animIdx];
