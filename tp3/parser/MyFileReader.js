@@ -136,6 +136,9 @@ class MyFileReader {
             this.loadMaterials(rootElement);
             this.loadCameras(rootElement);
             this.loadNodes(rootElement);
+            this.loadRacetrack(rootElement);
+            this.loadCars(rootElement);
+            this.loadHUD(rootElement);
         } catch (error) {
             this.errorMessage = error;
         }
@@ -960,44 +963,6 @@ class MyFileReader {
                 this.loadLOD(lodElement);
             }
         }
-
-        // load racetrack
-
-
-
-        let racetracks = rootElement.getElementsByTagName("racetrack");
-
-        if (racetracks.length < 1)
-            throw new Error(
-                "At least one racetrack should be specified in the YAF XML!"
-            );
-
-        // There is only one racetrack
-        this.loadRacetrack(racetracks[0]);
-
-        // load racetrack
-        let cars = rootElement.getElementsByTagName("car");
-
-        if (cars.length < 1)
-            throw new Error(
-                "At least one car should be specified in the YAF XML!"
-            );
-
-        // Load car data
-        this.loadCars(cars);
-
-        // load hud
-        let hud = rootElement.getElementsByTagName("hud");
-
-        // console.log("hud[0]:", hud); FIXME:
-        if (hud.length < 1)
-            throw new Error(
-                "At least one hud should be specified in the YAF XML!"
-            );
-
-        // There is only one hud
-
-        this.loadHUD(hud[0]);
     }
 
     /**
@@ -1250,10 +1215,21 @@ class MyFileReader {
     }
 
     /**
-     * Load the data for a racetrack element
-     * @param {*} racetrackElement the xml racetrack element
+     * Load the data for a racetrack
+     * @param {*} rootElement
      */
-    loadRacetrack(racetrackElement) {
+    loadRacetrack(rootElement) {
+        // load racetrack
+        let racetracks = rootElement.getElementsByTagName("racetrack");
+
+        if (racetracks.length < 1)
+            throw new Error(
+                "At least one racetrack should be specified in the YAF XML!"
+            );
+
+        // There is only one racetrack
+        const racetrackElement = racetracks[0];
+
         // get the id of the Racetrack
         let id = this.getString(racetrackElement, "id");
 
@@ -1412,11 +1388,20 @@ class MyFileReader {
     }
 
     /**
-     * Load the data for a racetrack element
-     * @param {*} racetrackElement the xml racetrack element
+     * Load the data for the cars
+     * @param {*} racetrackElement
      */
-    loadCars(carElements) {
-        console.log(carElements);
+    loadCars(rootElement) {
+        // load cars
+        let cars = rootElement.getElementsByTagName("car");
+
+        if (cars.length < 1)
+            throw new Error(
+                "At least one car should be specified in the YAF XML!"
+            );
+
+        // Load car data
+        const carElements = cars;
 
         for (let elemIdx = 0; elemIdx < carElements.length; elemIdx++) {
             const element = carElements[elemIdx];
@@ -1512,9 +1497,20 @@ class MyFileReader {
 
     /**
      * Load the data for a hud element
-     * @param {*} hudElement the xml hud element
+     * @param {*} rootElement
      */
-    loadHUD(hudElement) {
+    loadHUD(rootElement) {
+        // load hud
+        let hud = rootElement.getElementsByTagName("hud");
+
+        if (hud.length < 1)
+            throw new Error(
+                "At least one hud should be specified in the YAF XML!"
+            );
+
+        // There is only one hud
+        const hudElement = hud[0];
+
         // get the id of the HUD
         let id = this.getString(hudElement, "id");
 
