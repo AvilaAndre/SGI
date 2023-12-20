@@ -88,12 +88,16 @@ class MyCar extends THREE.Object3D {
     turnTo(angle) {
         angle = Math.sign(angle) * this.turnAngle;
 
-        this.wheelRotation = angle;
+        this.wheelRotation = THREE.MathUtils.lerp(
+            this.wheelRotation,
+            angle,
+            0.1
+        );
 
         for (let i = 0; i < this.turningWheels.length; i++) {
             const wheel = this.turningWheels[i];
 
-            wheel.rotation.y = angle / 2;
+            wheel.rotation.y = this.wheelRotation / 2;
         }
     }
 
