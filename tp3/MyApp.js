@@ -115,10 +115,18 @@ class MyApp {
             } else {
                 this.controls.object = this.activeCamera;
 
-                this.controls.target.copy(
-                    this.cameras[this.activeCameraName].targetCoords ||
-                        new THREE.Vector3(0, 0, 0)
-                );
+                if (this.cameras[this.activeCameraName].targetFollow) {
+                    this.controls.enabled = false;
+
+                    this.controls.target =
+                        this.cameras[this.activeCameraName].camTarget.position;
+                } else {
+                    this.controls.enabled = true;
+                    this.controls.target.copy(
+                        this.cameras[this.activeCameraName].targetCoords ||
+                            new THREE.Vector3(0, 0, 0)
+                    );
+                }
             }
         }
     }
@@ -171,7 +179,7 @@ class MyApp {
         }
 
         // required if controls.enableDamping or controls.autoRotate are set to true
-        this.controls.update();
+        this.controls?.update();
 
         // render the scene
         this.renderer.render(this.scene, this.activeCamera);

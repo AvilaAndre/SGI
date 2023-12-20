@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
 import { instantiateNode } from "./GraphBuilder.js";
+import { addCamera } from "./ComponentBuilder.js";
 /**
  * This class contains a car
  */
@@ -20,13 +21,15 @@ class MyCar extends THREE.Object3D {
 
         this.intention = new THREE.Vector3();
         this.speed = 0;
-        this.maxSpeedForward = 40;
+        this.maxSpeedForward = 60;
         this.maxSpeedBackwards = -8;
         this.acceleration = 20;
         this.brakeValue = 20;
         this.maxSpeed = 100;
         this.nextPosition = this.position;
         this.turnAngle = 1;
+
+        this.cameras = [];
 
         // signals if is braking
         this.isBraking = false;
@@ -52,6 +55,34 @@ class MyCar extends THREE.Object3D {
             this.add(wheelNode);
         }
         // TODO: Collider
+
+        const camTarget = new THREE.Object3D();
+
+        camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // DEBUG
+
+        for (let i = 0; i < carData.cameras.length; i++) {
+            const camera = carData.cameras[i];
+
+            camera.id = carData.id + "_" + camera.id;
+
+            const newCam = addCamera(camera, this.app, this);
+
+            newCam.camTarget = camTarget;
+
+            const carCamInfo = {
+                id: camera.id,
+                cam: newCam,
+                offset: camera.target,
+            };
+
+            this.cameras.push(carCamInfo);
+
+            bodyNode.add(newCam);
+        }
+
+        app.app.scene.add(camTarget);
+
+        console.log(app.app.activeCameraName);
     }
 
     turnTo(angle) {
@@ -62,7 +93,7 @@ class MyCar extends THREE.Object3D {
         for (let i = 0; i < this.turningWheels.length; i++) {
             const wheel = this.turningWheels[i];
 
-            wheel.rotation.y = angle;
+            wheel.rotation.y = angle / 2;
         }
     }
 
@@ -107,6 +138,31 @@ class MyCar extends THREE.Object3D {
             this.speed = Math.max(0, this.speed - 0.01);
         } else {
             this.speed = Math.min(0, this.speed + 0.01);
+        }
+
+        for (let i = 0; i < this.cameras.length; i++) {
+            const camInfo = this.cameras[i];
+
+            if (this.app.app.activeCameraName == camInfo.id) {
+                const carDirection = new THREE.Vector3();
+
+                this.getWorldDirection(carDirection);
+
+                carDirection.normalize();
+
+                const angle = carDirection.angleTo(new THREE.Vector3(0, 0, 1));
+
+                camInfo.cam.camTarget.position.set(
+                    ...this.position
+                        .clone()
+                        .add(
+                            new THREE.Vector3(...camInfo.offset).applyAxisAngle(
+                                new THREE.Vector3(0, 1, 0),
+                                this.rotation.y
+                            )
+                        )
+                );
+            }
         }
     }
 }

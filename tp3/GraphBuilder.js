@@ -106,7 +106,7 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
                 lodChild++
             ) {
                 const element = child.children[lodChild];
-                const newChild = this.instantiateNode(
+                const newChild = app.instantiateNode(
                     element.node.id,
                     data,
                     app,

@@ -1387,7 +1387,7 @@ class MyFileReader {
             let orthogonal = this.loadXmlItem({
                 elem: orth,
                 descriptor: this.data.descriptors["orthogonal"],
-                extras: [],
+                extras: [["type", "orthogonal"]],
             });
 
             car.cameras.push(orthogonal);
@@ -1398,7 +1398,7 @@ class MyFileReader {
             let perspective = this.loadXmlItem({
                 elem: perp,
                 descriptor: this.data.descriptors["perspective"],
-                extras: [],
+                extras: [["type", "perspective"]],
             });
 
             car.cameras.push(perspective);

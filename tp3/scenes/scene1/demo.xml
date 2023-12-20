@@ -214,6 +214,27 @@
             </children>
         </node>
 
+        <node id="racingWheelLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="racingWheelRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
+                </primitive>
+            </children>
+        </node>
+
 
         <node id="hatchback">
             <transforms>
@@ -260,6 +281,55 @@
             </transforms>
             <children>
                 <noderef id="defaultWheelRight" />
+            </children>
+        </node>
+
+
+        <node id="race">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/race.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="race-fl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 1.46" />
+            </transforms>
+
+            <children>
+                <noderef id="racingWheelLeft" />
+            </children>
+        </node>
+        <node id="race-fr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 1.46" />
+            </transforms>
+
+            <children>
+                <noderef id="racingWheelRight" />
+            </children>
+        </node>
+        <node id="race-rl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 0" />
+            </transforms>
+            <children>
+                <noderef id="racingWheelLeft" />
+            </children>
+        </node>
+        <node id="race-rr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 0" />
+            </transforms>
+            <children>
+                <noderef id="racingWheelRight" />
             </children>
         </node>
 
@@ -317,14 +387,59 @@
 
     </graph>
 
-    <car id="hatchback">
+    <car id="race">
         <carcameras initial="cam1">
-            <perspective id="cam1" 
+            <perspective id="third-person" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="15 15 15" 
+                location="0 5 10" 
                 target="0 0.0 0" />
+                <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1 -1" 
+                target="0 0.0 0" />
+        </carcameras>
+
+
+        <collider pos="0 0 0" size="5 2 3" />
+
+        <body>
+            <noderef id="race" />
+        </body>
+
+        <turnwheels>
+            <noderef id="race-fl-wheel" />
+            <noderef id="race-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="race-rl-wheel" />
+            <noderef id="race-rr-wheel" />
+        </statwheels>
+    </car>
+
+    <car id="hatchback">
+        <carcameras initial="cam1">
+            <perspective id="follow-perpective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 5 10" 
+                target="0 0.0 0" />
+            <perspective id="roof-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1.4 0.2" 
+                target="0 0.4 5" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.9 -0.7" 
+                target="0 0.4 5" />
         </carcameras>
 
 
