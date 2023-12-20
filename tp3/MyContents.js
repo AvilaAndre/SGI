@@ -7,6 +7,7 @@ import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
+import { PickingManager } from "./manager/PickingManager.js";
 
 /**
  *  This class contains the contents of out application
@@ -45,6 +46,8 @@ class MyContents {
 
         // game manager
         this.manager = new GameManager(this);
+
+        
 
         // show debug gizmos
         this.DEBUG = false;
@@ -91,6 +94,8 @@ class MyContents {
         document.addEventListener("keyup", (keyData) =>
             this.manager.keyboard.setKeyUp(keyData.key)
         );
+
+        document.addEventListener("pointermove", this.pickingManager.onPointerMove);
     }
 
     /**
@@ -182,13 +187,17 @@ class MyContents {
 
         console.log("hud", data.hud.id);
         this.hud = new MyHud(this, data.hud);
-        this.app.scene.add(this.hud);
+        //this.app.scene.add(this.hud);
 
 
         console.log("nodes:");
         const rootNode = instantiateNode(data.rootId, data, this);
 
         this.app.scene.add(rootNode);
+
+        //picking manager
+
+        this.pickingManager = new PickingManager(this, data);
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -203,6 +212,8 @@ class MyContents {
         if (this.manager.state) {
             this.manager.update(delta);
         }
+
+        //this.pickingManager.update();
     }
 
     /**
@@ -528,6 +539,7 @@ class MyContents {
             lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
     }
+
 }
 
 export { MyContents };

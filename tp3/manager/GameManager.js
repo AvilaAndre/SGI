@@ -3,6 +3,7 @@ import { MyApp } from "../MyApp.js";
 import { RaceState } from "./states/RaceState.js";
 import { GameState } from "./GameState.js";
 import { KeyboardManager } from "./KeyboardManager.js";
+import { PlayerParkState } from "./states/PlayerParkState.js";
 /**
  * This class contains and manages information about the game
  */
@@ -25,6 +26,9 @@ class GameManager {
         switch (state) {
             case "race":
                 this.state = new RaceState(this.app, this);
+                break;
+            case "pickingPlayer":
+                this.state = new PlayerParkState(this.app, this);
                 break;
 
             default:
