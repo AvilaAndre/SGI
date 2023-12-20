@@ -139,6 +139,7 @@ class MyFileReader {
             this.loadRacetrack(rootElement);
             this.loadCars(rootElement);
             this.loadHUD(rootElement);
+            this.loadAnimations(rootElement);
         } catch (error) {
             this.errorMessage = error;
         }
@@ -1389,7 +1390,7 @@ class MyFileReader {
 
     /**
      * Load the data for the cars
-     * @param {*} racetrackElement
+     * @param {*} rootElement
      */
     loadCars(rootElement) {
         // load cars
@@ -1405,8 +1406,6 @@ class MyFileReader {
 
         for (let elemIdx = 0; elemIdx < carElements.length; elemIdx++) {
             const element = carElements[elemIdx];
-
-            console.log("new car", element);
 
             const id = this.getString(element, "id");
 
@@ -1481,7 +1480,6 @@ class MyFileReader {
             car.collider = collider;
 
             /* CAR CAMERAS */
-
             let carcameras = element.getElementsByTagName("carcameras");
             if (carcameras == null || carcameras.length != 1) {
                 throw new Error(
@@ -1630,6 +1628,133 @@ class MyFileReader {
         );
 
         this.data.setHud(hudObj);
+    }
+
+    /**
+     * Load the data for the animations
+     * @param {*} rootElement
+     */
+    loadAnimations(rootElement) {
+        // load animations
+        let animationElements = rootElement.getElementsByTagName("animation");
+
+        if (animations.length < 1) return;
+
+        for (let animIdx = 0; animIdx < animationElements.length; animIdx++) {
+            const animElement = animationElements[animIdx];
+
+            let descriptor = this.data.descriptors["animation"];
+            let animation = this.loadXmlItem({
+                elem: animElement,
+                descriptor: descriptor,
+                extras: [],
+            });
+
+            const tracksElements = animElement.getElementsByTagName("tracks");
+
+            if (tracksElements.length != 1) {
+                throw new Error(
+                    "There should be exactly one tracks element in the " +
+                        animation.id +
+                        " animation"
+                );
+            }
+
+            const trackElem = tracksElements[0];
+
+            const trackElements = trackElem.getElementsByTagName("track");
+
+            const tracks = [];
+
+            for (let i = 0; i < trackElements.length; i++) {
+                const track = trackElements[i];
+
+                const trackId = this.getString(track, "id");
+
+                let noderefElements = track.getElementsByTagName("noderef");
+
+                const trackNodes = [];
+
+                for (let j = 0; j < noderefElements.length; j++) {
+                    const noderef = noderefElements[j];
+
+                    trackNodes.push(this.getString(noderef, "value"));
+                }
+
+                tracks.push({
+                    id: trackId,
+                    nodes: trackNodes,
+                });
+            }
+
+            animation.tracks = tracks;
+
+            const timestampsElements =
+                animElement.getElementsByTagName("timestamps");
+
+            if (timestampsElements.length != 1) {
+                throw new Error(
+                    "There should be exactly one timestamps element in the " +
+                        animation.id +
+                        " animation"
+                );
+            }
+
+            const timestampElem = timestampsElements[0];
+
+            const timestampElements =
+                timestampElem.getElementsByTagName("timestamp");
+
+            const timestamps = [];
+
+            for (let i = 0; i < timestampElements.length; i++) {
+                const timestamp = timestampElements[i];
+
+                const timestampValue = this.getFloat(timestamp, "value");
+
+                let keyElements = timestamp.getElementsByTagName("key");
+
+                const timestampKeys = [];
+
+                for (let j = 0; j < keyElements.length; j++) {
+                    const key = keyElements[j];
+
+                    const keyId = this.getString(key, "id");
+                    let foundTrack = false;
+                    tracks.forEach((track) => {
+                        if (track.id == keyId) {
+                            foundTrack = true;
+                        }
+                    });
+
+                    if (!foundTrack) {
+                        throw new Error(
+                            "Animation " +
+                                animation.id +
+                                " has a key with id " +
+                                keyId +
+                                " but no track with the same id"
+                        );
+                    }
+
+                    const keyObj = {
+                        id: keyId,
+                        transformations: [],
+                    };
+                    this.loadTransforms(keyObj, key);
+                    timestampKeys.push(keyObj);
+                }
+
+                timestamps.push({
+                    value: timestampValue,
+                    keys: timestampKeys,
+                });
+            }
+
+            animation.timestamps = timestamps;
+
+            this.data.addAnimation(animation);
+        }
     }
 }
 

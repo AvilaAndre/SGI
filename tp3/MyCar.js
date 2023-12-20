@@ -187,7 +187,7 @@ class MyCar extends THREE.Object3D {
         this.bodyNode.rotation.x = THREE.MathUtils.lerp(
             this.bodyNode.rotation.x,
             angle,
-            0.1
+            0.05
         );
     }
 
