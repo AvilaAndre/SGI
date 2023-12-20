@@ -24,7 +24,7 @@ class MyCar extends THREE.Object3D {
         this.maxSpeedForward = 60;
         this.maxSpeedBackwards = -8;
         this.acceleration = 20;
-        this.brakeValue = 20;
+        this.brakeValue = 30;
         this.maxSpeed = 100;
         this.nextPosition = this.position;
         this.turnAngle = 1;
@@ -37,6 +37,8 @@ class MyCar extends THREE.Object3D {
         console.log("carData", carData);
 
         const bodyNode = instantiateNode(carData.id, data, app);
+
+        this.bodyNode = bodyNode;
         this.add(bodyNode);
 
         for (let i = 0; i < carData.turningWheels.length; i++) {
@@ -77,7 +79,7 @@ class MyCar extends THREE.Object3D {
 
             this.cameras.push(carCamInfo);
 
-            bodyNode.add(newCam);
+            this.add(newCam);
         }
 
         app.app.scene.add(camTarget);
@@ -131,7 +133,7 @@ class MyCar extends THREE.Object3D {
         );
     }
 
-    move() {
+    move(delta) {
         this.position.set(...this.nextPosition);
 
         if (this.speed >= 0) {
@@ -154,32 +156,47 @@ class MyCar extends THREE.Object3D {
                             )
                         )
                 );
-
-                if (this.isAccelerating) {
-                    const carDirection = new THREE.Vector3();
-
-                    this.getWorldDirection(carDirection);
-
-                    camInfo.cam.camTarget.position.set(
-                        ...camInfo.cam.camTarget.position
-                            .clone()
-                            .add(carDirection.multiplyScalar(0.1))
-                    );
-                } else if (this.isBraking) {
-                    const carDirection = new THREE.Vector3();
-
-                    this.getWorldDirection(carDirection);
-
-                    camInfo.cam.camTarget.position.set(
-                        ...camInfo.cam.camTarget.position
-                            .clone()
-                            .add(carDirection.multiplyScalar(-0.1))
-                    );
-                }
             }
         }
 
+        if (this.isAccelerating) {
+            this.tiltCarX(-0.02);
+        } else if (this.isBraking) {
+            this.tiltCarX(0.04 * Math.sign(this.speed));
+        } else {
+            this.tiltCarX(0);
+        }
+        if (Math.sign(this.speed) != 0) {
+            this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.05);
+        } else {
+            this.tiltCarZ(0);
+        }
+
         this.isAccelerating = false;
+    }
+
+    /**
+     * tilts the car in the X axis (simulates braking and acceleration)
+     * @param {number} angle
+     */
+    tiltCarX(angle) {
+        this.bodyNode.rotation.x = THREE.MathUtils.lerp(
+            this.bodyNode.rotation.x,
+            angle,
+            0.15
+        );
+    }
+
+    /**
+     * tilts the car in the Z axis (simulates turning)
+     * @param {number} angle
+     */
+    tiltCarZ(angle) {
+        this.bodyNode.rotation.z = THREE.MathUtils.lerp(
+            this.bodyNode.rotation.z,
+            angle,
+            0.1
+        );
     }
 }
 
