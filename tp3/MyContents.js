@@ -170,7 +170,7 @@ class MyContents {
         console.log("data:", data);
         if (data.racetrack.id != null) {
             console.log("racetrack", data.racetrack.id);
-            this.track = new MyTrack(this, data.racetrack, 100);
+            this.track = new MyTrack(this, data.racetrack, 200);
             this.app.scene.add(this.track);
         }
 
