@@ -162,12 +162,12 @@ class MyCar extends THREE.Object3D {
         if (this.isAccelerating) {
             this.tiltCarX(-0.02);
         } else if (this.isBraking) {
-            this.tiltCarX(0.04 * Math.sign(this.speed));
+            this.tiltCarX(0.03 * Math.sign(this.speed));
         } else {
             this.tiltCarX(0);
         }
         if (Math.sign(this.speed) != 0) {
-            this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.05);
+            this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.02);
         } else {
             this.tiltCarZ(0);
         }
@@ -183,7 +183,7 @@ class MyCar extends THREE.Object3D {
         this.bodyNode.rotation.x = THREE.MathUtils.lerp(
             this.bodyNode.rotation.x,
             angle,
-            0.15
+            0.1
         );
     }
 
