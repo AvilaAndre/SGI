@@ -223,9 +223,9 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight(ambientColor, 1);
+        const light = new THREE.AmbientLight(ambientColor, .2);
 
-        // this.app.scene.add(light);
+        this.app.scene.add(light);
 
         const backgroundColor = new THREE.Color(
             options.background.r,

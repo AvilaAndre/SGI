@@ -1489,6 +1489,22 @@ class MyFileReader {
 
             this.loadCarCameras(carcameras[0], car);
 
+            /* CAR FRONTLIGHTS */
+            let frontlights = element.getElementsByTagName("frontlights");
+
+            if (frontlights == null || frontlights.length != 1) {
+                throw new Error(
+                    "in car " + id + ", a frontlights node is required"
+                );
+            }
+
+            for (let i = 0; i < frontlights[0].children.length; i++) {
+                const child = frontlights[0].children[i];
+                let lightObj = this.loadLight(child);
+
+                car.frontLights.push(lightObj);
+            }
+
             /* CAR REARLIGHTS */
             let rearlights = element.getElementsByTagName("rearlights");
 

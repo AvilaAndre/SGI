@@ -23,6 +23,7 @@ class MyCar extends THREE.Object3D {
         this.type = "Group";
         this.turningWheels = [];
         this.wheelRotation = 0;
+        this.frontLights = [];
         this.rearLights = [];
 
         this.intention = new THREE.Vector3();
@@ -86,6 +87,38 @@ class MyCar extends THREE.Object3D {
             this.cameras.push(carCamInfo);
 
             this.add(newCam);
+        }
+
+        for (let i = 0; i < carData.frontLights.length; i++) {
+            const light = carData.frontLights[i];
+
+            let lightObj;
+            switch (light.type) {
+                case "spotlight":
+                    lightObj = addSpotlight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+                    break;
+                case "pointlight":
+                    lightObj = addPointLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+                    break;
+                case "directionallight":
+                    lightObj = addDirectionalLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+
+                    break;
+                default:
+                    break;
+            }
         }
 
         for (let i = 0; i < carData.rearLights.length; i++) {
@@ -214,6 +247,7 @@ class MyCar extends THREE.Object3D {
             this.tiltCarZ(0);
         }
 
+        this.frontCarLights();
         this.brakeLights();
 
         this.isAccelerating = false;
@@ -243,6 +277,18 @@ class MyCar extends THREE.Object3D {
         );
     }
 
+    frontCarLights() {
+        for (let i = 0; i < this.frontLights.length; i++) {
+            const frontLight = this.frontLights[i];
+
+            frontLight.intensity = THREE.MathUtils.lerp(
+                frontLight.intensity,
+                this.frontLightsOn ? frontLight.originalIntensity : 0,
+                0.1
+            );
+        }
+    }
+
     brakeLights() {
         for (let i = 0; i < this.rearLights.length; i++) {
             const rearLight = this.rearLights[i];
@@ -253,6 +299,10 @@ class MyCar extends THREE.Object3D {
                 0.3
             );
         }
+    }
+
+    toggleLights() {
+        this.frontLightsOn = !this.frontLightsOn;
     }
 }
 

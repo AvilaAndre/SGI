@@ -149,7 +149,7 @@ class MyTrack extends THREE.Object3D {
         trackTexture.wrapS = THREE.RepeatWrapping;
         trackTexture.wrapT = THREE.RepeatWrapping;
 
-        const trackMaterial = new THREE.MeshBasicMaterial({
+        const trackMaterial = new THREE.MeshPhongMaterial({
             map: trackTexture,
         });
         trackMaterial.wireframeValue = false;

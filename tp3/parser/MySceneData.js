@@ -758,6 +758,7 @@ class MySceneData {
             stationaryWheels: [],
             collider: null,
             initialCamera: "",
+            frontLights: [],
             rearLights: [],
             cameras: [],
         };

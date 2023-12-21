@@ -224,11 +224,13 @@ const addSpotlight = (light, contents, addToContents = true) => {
         light.decay || 2
     );
     newLight.castShadow = light.castshadow;
-    newLight.target.position.set(
-        light.target[0],
-        light.target[1],
-        light.target[2]
-    );
+
+    const obj = new THREE.Object3D();
+
+    obj.position.set(...light.target);
+
+    newLight.add(obj);
+    newLight.target = obj;
 
     newLight.shadowFar = light.shadowFar || 500.0;
     newLight.position.set(x, y, z);
@@ -239,6 +241,8 @@ const addSpotlight = (light, contents, addToContents = true) => {
     if (contents.DEBUG) {
         contents.app.scene.add(helper);
     }
+
+    newLight.originalIntensity = light.intensity || 1;
 
     if (addToContents) {
         contents.lightsArray.push({
@@ -291,6 +295,8 @@ const addDirectionalLight = (light, contents, addToContents = true) => {
 
         contents.scene.add(helper);
     }
+
+    newLight.originalIntensity = light.intensity || 1;
 
     if (addToContents) {
         contents.lightsArray.push({
