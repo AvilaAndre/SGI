@@ -7,19 +7,21 @@ import {
     instantiateNode,
 } from "./GraphBuilder.js";
 import { addCamera } from "./ComponentBuilder.js";
+import { RectangleCollider } from "./collisions/RectangleCollider.js";
+import { MyContents } from "./MyContents.js";
 /**
  * This class contains a car
  */
 class MyCar extends THREE.Object3D {
     /**
      *
-     * @param {MyApp} app the application object
+     * @param {MyContents} contents the contents object
      * @param {Object} data data about the scene
      * @param {Object} carData data about the car
      */
-    constructor(app, data, carData) {
+    constructor(contents, data, carData) {
         super();
-        this.app = app;
+        this.contents = contents;
         this.type = "Group";
         this.turningWheels = [];
         this.wheelRotation = 0;
@@ -46,7 +48,7 @@ class MyCar extends THREE.Object3D {
 
         this.carName = carData.id;
 
-        const bodyNode = instantiateNode(carData.id, data, app);
+        const bodyNode = instantiateNode(carData.id, data, this.contents);
 
         this.bodyNode = bodyNode;
         this.add(bodyNode);
@@ -54,7 +56,7 @@ class MyCar extends THREE.Object3D {
         for (let i = 0; i < carData.turningWheels.length; i++) {
             const wheel = carData.turningWheels[i];
 
-            const wheelNode = instantiateNode(wheel.id, data, app);
+            const wheelNode = instantiateNode(wheel.id, data, this.contents);
             this.add(wheelNode);
 
             this.turningWheels.push(wheelNode);
@@ -63,10 +65,19 @@ class MyCar extends THREE.Object3D {
         for (let i = 0; i < carData.stationaryWheels.length; i++) {
             const wheel = carData.stationaryWheels[i];
 
-            const wheelNode = instantiateNode(wheel.id, data, app);
+            const wheelNode = instantiateNode(wheel.id, data, this.contents);
             this.add(wheelNode);
         }
         // TODO: Collider
+
+        this.collider = new RectangleCollider(
+            this,
+            new THREE.Vector3(0, 0, 0),
+            2,
+            4
+        );
+
+        this.contents.manager.collisionManager.addCollider(this.collider);
 
         const camTarget = new THREE.Object3D();
 
@@ -77,7 +88,7 @@ class MyCar extends THREE.Object3D {
 
             camera.id = carData.id + "_" + camera.id;
 
-            const newCam = addCamera(camera, this.app, this);
+            const newCam = addCamera(camera, this.contents, this);
 
             newCam.camTarget = camTarget;
 
@@ -98,14 +109,14 @@ class MyCar extends THREE.Object3D {
             let lightObj;
             switch (light.type) {
                 case "spotlight":
-                    lightObj = addSpotlight(light, this.app, false);
+                    lightObj = addSpotlight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
 
                     this.frontLights.push(lightObj);
                     break;
                 case "pointlight":
-                    lightObj = addPointLight(light, this.app, false);
+                    lightObj = addPointLight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
                     lightObj.visible = false;
@@ -113,7 +124,7 @@ class MyCar extends THREE.Object3D {
                     this.frontLights.push(lightObj);
                     break;
                 case "directionallight":
-                    lightObj = addDirectionalLight(light, this.app, false);
+                    lightObj = addDirectionalLight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
 
@@ -131,14 +142,14 @@ class MyCar extends THREE.Object3D {
             let lightObj;
             switch (light.type) {
                 case "spotlight":
-                    lightObj = addSpotlight(light, this.app, false);
+                    lightObj = addSpotlight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
 
                     this.rearLights.push(lightObj);
                     break;
                 case "pointlight":
-                    lightObj = addPointLight(light, this.app, false);
+                    lightObj = addPointLight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
                     lightObj.visible = false;
@@ -146,7 +157,7 @@ class MyCar extends THREE.Object3D {
                     this.rearLights.push(lightObj);
                     break;
                 case "directionallight":
-                    lightObj = addDirectionalLight(light, this.app, false);
+                    lightObj = addDirectionalLight(light, this.contents, false);
 
                     bodyNode.add(lightObj);
 
@@ -159,9 +170,9 @@ class MyCar extends THREE.Object3D {
         }
 
         // optional car light animation
-        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
+        this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
 
-        app.app.scene.add(camTarget);
+        this.contents.app.scene.add(camTarget);
     }
 
     turnTo(angle) {
@@ -228,7 +239,7 @@ class MyCar extends THREE.Object3D {
         for (let i = 0; i < this.cameras.length; i++) {
             const camInfo = this.cameras[i];
 
-            if (this.app.app.activeCameraName == camInfo.id) {
+            if (this.contents.app.activeCameraName == camInfo.id) {
                 camInfo.cam.camTarget.position.set(
                     ...this.position
                         .clone()
@@ -319,9 +330,9 @@ class MyCar extends THREE.Object3D {
 
     toggleLights() {
         this.frontLightsOn = !this.frontLightsOn;
-        this.app.animationPlayer.playStart(this.carName + "-open-lights");
+        this.contents.animationPlayer.playStart(this.carName + "-open-lights");
 
-        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
+        this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
     }
 
     /**

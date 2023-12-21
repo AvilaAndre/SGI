@@ -4,6 +4,7 @@ import { GameState } from "./GameState.js";
 import { KeyboardManager } from "./KeyboardManager.js";
 import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
+import { CollisionManager } from "./CollisionManager.js";
 /**
  * This class contains and manages information about the game
  */
@@ -16,6 +17,7 @@ class GameManager {
         this.contents = contents;
         this.state = new RaceState(this.contents, this); // FIXME: We do not start in race state
         this.keyboard = new KeyboardManager();
+        this.collisionManager = new CollisionManager(this.contents);
 
         this.cars = [];
 

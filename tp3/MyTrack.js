@@ -17,31 +17,32 @@ class MyTrack extends THREE.Object3D {
         this.path = data.path;
         this.trackWidth = data.width;
         this.divisions = divisions || 50;
+        this.numCheckpoints = data.checkpoints || 20;
 
         console.log("track", data);
 
         //Check if isEmpty is set to true
         if (data.isEmpty) {
             return;
-        };
+        }
 
         this.path = this.path.map(
             (elem) => new THREE.Vector3(elem.value2[0], 0, elem.value2[1])
         );
 
         /* Uncomment this block to see where are the points located
+         */
         this.path.forEach((elem) => {
             console.log(elem);
             const msh = new THREE.Mesh(
                 new THREE.SphereGeometry(0.2),
                 app.materials[data.materialId]
             );
-            
+
             msh.position.set(...elem);
-            
+
             this.add(msh);
         });
-        */
 
         this.startingLine = this.path[0];
 
@@ -68,6 +69,17 @@ class MyTrack extends THREE.Object3D {
         // To calculate the UV mapping
         let lastPoint = new THREE.Vector3(0, 0, 0);
         let dist = 0;
+
+        curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {
+            const msh = new THREE.Mesh(
+                new THREE.SphereGeometry(0.4),
+                new THREE.MeshBasicMaterial({ color: new THREE.Color(1, 0, 1) })
+            );
+
+            msh.position.set(...pt);
+
+            this.add(msh);
+        });
 
         for (let i = 0; i < this.divisions; i++) {
             const progress = spacedLengths[i] / curveLength;

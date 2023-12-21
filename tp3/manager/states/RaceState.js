@@ -43,6 +43,8 @@ class RaceState extends GameState {
         this.manager.car.calculateNextMove(delta);
 
         this.manager.car.move(delta);
+
+        this.manager.collisionManager.update(delta);
     }
 }
 

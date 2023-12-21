@@ -63,7 +63,7 @@
     </materials> 
 
 
-    <racetrack id="track1" width="8" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
+    <racetrack id="track1" width="8" checkpoints="40" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
         <path>
             <point value2="22.86 -44.96"/>
             <point value2="-40.34 -153.56"/>
