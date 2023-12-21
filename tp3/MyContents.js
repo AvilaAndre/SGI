@@ -8,6 +8,8 @@ import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { addCamera } from "./ComponentBuilder.js";
+import { AnimationPlayer } from "./animation/AnimationPlayer.js";
+import { Animation } from "./animation/Animation.js";
 
 /**
  *  This class contains the contents of out application
@@ -47,6 +49,7 @@ class MyContents {
         // game manager
         this.manager = new GameManager(this);
 
+        this.animationPlayer = new AnimationPlayer();
         // show debug gizmos
         this.DEBUG = false;
 
@@ -189,6 +192,12 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
+        console.log("animations:", data.animations);
+
+        data.animations.forEach((anim) => {
+            this.animationPlayer.addAnimation(new Animation(this, anim));
+        });
+
         // add cameras to the app object
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
@@ -202,6 +211,8 @@ class MyContents {
         if (this.manager.state) {
             this.manager.update(delta);
         }
+
+        this.animationPlayer.update(delta);
     }
 
     /**

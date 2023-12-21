@@ -343,6 +343,18 @@
                 <noderef id="racingWheelRight" />
             </children>
         </node>
+
+        <node id="spectator">
+                <transforms>
+                    <scale value3="0.5 0.5 0.5" />
+                    <translate value3="4 0.1 -3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/spectators/PrototypePete.gltf" />
+                    </primitive>
+                </children>
+        </node>
         
         <node id="defaultTreeR1">
                 <transforms>
@@ -1175,6 +1187,7 @@
                 />
 
                 <!-- <noderef id="hatchback" /> -->
+                <noderef id="spectator" />
                 <noderef id="defaultTreeR1" />
                 <noderef id="defaultTreeR2" />
                 <noderef id="defaultTreeR3" />
@@ -1246,19 +1259,25 @@
     </graph>
 
     <car id="race">
-        <carcameras initial="cam1">
-            <perspective id="third-person" 
+        <carcameras initial="follow-perspective">
+            <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 5 -10" 
-                target="0 0.0 0" />
-                <perspective id="first-person" 
+                location="0 3 -4" 
+                target="0 0 4" />
+            <perspective id="roof-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 1 -1" 
-                target="0 0.0 0" />
+                location="0 1 0" 
+                target="0 0.4 3" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.6 1" 
+                target="0 0.4 5" />
         </carcameras>
 
 
@@ -1279,13 +1298,13 @@
     </car>
 
     <car id="hatchback">
-        <carcameras initial="cam1">
+        <carcameras initial="follow-perspective">
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 5 -10" 
-                target="0 0.0 0" />
+                location="0 3 -4" 
+                target="0 0 4" />
             <perspective id="roof-perspective" 
                 angle="60" 
                 near="0.1" 
@@ -1318,7 +1337,7 @@
     </car>
 
 
-    <animation id="miata-hello" duration="3" repeat="false">
+    <animation id="miata-hello" duration="3" repeat="false" autostart="false">
         <tracks>
             <track id="headlights">
                 <noderef value="miata-headlight-l"/>
@@ -1352,6 +1371,35 @@
                 </key>
                 <key id="wheels">
                     <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+        </timestamps>
+    </animation>
+
+    <animation id="spectator-cheer" duration="3" repeat="false" autostart="true">
+        <tracks>
+            <track id="spectators">
+                <noderef value="spectator"/>
+                <noderef value="defaultTreeR1"/>
+            </track>
+        </tracks>
+
+        <timestamps>
+            <timestamp value="0">
+                <key id="spectators">
+                    <translate value3="0 0 0"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="1">
+                <key id="spectators">
+                    <translate value3="0 0.97 0"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="2">
+                <key id="spectators">
+                    <translate value3="0 0.50 0"/>
                 </key>
             </timestamp>
         </timestamps>

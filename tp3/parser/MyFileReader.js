@@ -1714,7 +1714,7 @@ class MyFileReader {
 
                 let keyElements = timestamp.getElementsByTagName("key");
 
-                const timestampKeys = [];
+                const timestampKeys = new Object();
 
                 for (let j = 0; j < keyElements.length; j++) {
                     const key = keyElements[j];
@@ -1742,7 +1742,7 @@ class MyFileReader {
                         transformations: [],
                     };
                     this.loadTransforms(keyObj, key);
-                    timestampKeys.push(keyObj);
+                    timestampKeys[keyId] = keyObj;
                 }
 
                 timestamps.push({

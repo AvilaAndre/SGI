@@ -430,6 +430,7 @@ class MySceneData {
             { name: "id", type: "string" },
             { name: "duration", type: "float" },
             { name: "repeat", type: "boolean" },
+            { name: "autostart", type: "boolean" },
         ];
 
         this.descriptors["time"] = [{ name: "timeFloat", type: "float" }];
