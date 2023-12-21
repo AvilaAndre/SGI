@@ -35,6 +35,7 @@ class MyCar extends THREE.Object3D {
         this.maxSpeed = 100;
         this.nextPosition = this.position;
         this.turnAngle = 1;
+        this.frontLightsNode = null;
 
         this.cameras = [];
 
@@ -42,6 +43,8 @@ class MyCar extends THREE.Object3D {
         this.isBraking = false;
 
         console.log("carData", carData);
+
+        this.carName = carData.id;
 
         const bodyNode = instantiateNode(carData.id, data, app);
 
@@ -152,6 +155,9 @@ class MyCar extends THREE.Object3D {
                     break;
             }
         }
+
+        // optional car light animation
+        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
 
         app.app.scene.add(camTarget);
     }
@@ -287,6 +293,14 @@ class MyCar extends THREE.Object3D {
                 0.1
             );
         }
+
+        if (this.frontLightsNode) {
+            this.frontLightsNode.rotation.x = THREE.MathUtils.lerp(
+                this.frontLightsNode.rotation.x,
+                this.frontLightsOn ? 0 : -1.1,
+                0.05
+            );
+        }
     }
 
     brakeLights() {
@@ -303,6 +317,9 @@ class MyCar extends THREE.Object3D {
 
     toggleLights() {
         this.frontLightsOn = !this.frontLightsOn;
+        this.app.animationPlayer.playStart(this.carName + "-open-lights");
+
+        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
     }
 }
 

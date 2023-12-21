@@ -42,8 +42,17 @@ class Animation {
                         (trans) => {
                             switch (trans.type) {
                                 case "R":
+                                    const eul = new THREE.Euler(
+                                        ...trans.rotation
+                                    );
+
+                                    const quat =
+                                        new THREE.Quaternion().setFromEuler(
+                                            eul
+                                        );
+
                                     rotationTimes.push(timestamp.value);
-                                    rotation.push(trans.rotation);
+                                    rotation.push(quat);
                                     break;
 
                                 case "T":
@@ -82,7 +91,7 @@ class Animation {
                     translationTimes,
                     translation
                 );
-                this.createClip(mixer, ".rotation", rotationTimes, rotation);
+                this.createClip(mixer, ".quaternion", rotationTimes, rotation);
                 this.createClip(mixer, ".scale", scaleTimes, scale);
             }
         }
@@ -97,12 +106,23 @@ class Animation {
                 unpacked.push(...transl);
             });
 
-            const valuesKF = new THREE.VectorKeyframeTrack(
-                attribute,
-                times,
-                unpacked,
-                THREE.InterpolateSmooth /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
-            );
+            let valuesKF;
+
+            if (attribute == ".quaternion") {
+                valuesKF = new THREE.QuaternionKeyframeTrack(
+                    attribute,
+                    times,
+                    unpacked,
+                    THREE.InterpolateSmooth /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
+                );
+            } else {
+                valuesKF = new THREE.VectorKeyframeTrack(
+                    attribute,
+                    times,
+                    unpacked,
+                    THREE.InterpolateSmooth /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
+                );
+            }
 
             const animationAction = mixer.clipAction(
                 new THREE.AnimationClip(
@@ -124,18 +144,6 @@ class Animation {
 
             this.actions.push(animationAction);
             this.mixers.push(mixer);
-        }
-    }
-
-    /**
-     * Play from the beginning
-     */
-    playStart() {
-        for (let i = 0; i < this.actions.length; i++) {
-            const action = this.actions[i];
-
-            action.reset();
-            action.play();
         }
     }
 
@@ -162,7 +170,7 @@ class Animation {
 
         for (let i = 0; i < this.actions.length; i++) {
             const action = this.actions[i];
-
+            action.reset();
             action.play();
         }
     }
@@ -179,7 +187,7 @@ class Animation {
 
         for (let i = 0; i < this.actions.length; i++) {
             const action = this.actions[i];
-
+            action.reset();
             action.play();
         }
     }
