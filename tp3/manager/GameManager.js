@@ -50,6 +50,25 @@ class GameManager {
 
         this.app.app.scene.add(this.car);
     }
+
+    changeCarCamera() {
+        let i;
+        for (i = 0; i < this.car.cameras.length; i++) {
+            const camInfo = this.car.cameras[i];
+
+            if (this.app.app.activeCameraName == camInfo.id) {
+                break;
+            }
+        }
+
+        if (i === this.car.cameras.length) {
+            i = 0;
+        } else {
+            i = ++i % this.car.cameras.length;
+        }
+
+        this.app.app.activeCameraName = this.car.cameras[i].id;
+    }
 }
 
 export { GameManager };

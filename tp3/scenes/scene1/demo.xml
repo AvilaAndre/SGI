@@ -65,91 +65,90 @@
 
     <racetrack id="track1" width="8" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
         <path>
-            <point value2="11.42 -22.48"/>
-            <point value2="-20.18 -76.78"/>
-            <point value2="-21.48 -77.78"/>
-            <point value2="-23.74 -78.18"/>
-            <point value2="-25.7 -77.84"/>
-            <point value2="-27.56 -76.7"/>
-            <point value2="-33.94 -68.56"/>
-            <point value2="-45.56 -60.56"/>
-            <point value2="-54.92 -54.7"/>
-            <point value2="-56.84 -52.84"/>
-            <point value2="-57.52 -51.12"/>
-            <point value2="-57.22 -48.72"/>
-            <point value2="-52.56 -36.42"/>
-            <point value2="-46.52 -22.96"/>
-            <point value2="-44.98 -21.44"/>
-            <point value2="-42.58 -20.6"/>
-            <point value2="-39.58 -20.86"/>
-            <point value2="-36.98 -22.04"/>
-            <point value2="-35.18 -24.08"/>
-            <point value2="-34.62 -26.56"/>
-            <point value2="-35.24 -31.12"/>
-            <point value2="-39.92 -46.28"/>
-            <point value2="-39.7 -48.22"/>
-            <point value2="-39.3 -49.84"/>
-            <point value2="-37.62 -51.68"/>
-            <point value2="-35.14 -52.72"/>
-            <point value2="-33.06 -53.04"/>
-            <point value2="-29.96 -52.74"/>
-            <point value2="-27.54 -51.48"/>
-            <point value2="-25.78 -49.58"/>
-            <point value2="-25.0 -47.68"/>
-            <point value2="-16.36 -14.68"/>
-            <point value2="-15.58 -13.22"/>
-            <point value2="-14.06 -11.68"/>
-            <point value2="38.34 40.08"/>
-            <point value2="39.42 42.06"/>
-            <point value2="39.42 43.64"/>
-            <point value2="38.86 45.36"/>
-            <point value2="37.16 47.28"/>
-            <point value2="35.46 48.34"/>
-            <point value2="32.46 49.28"/>
-            <point value2="29.36 49.7"/>
-            <point value2="26.22 49.7"/>
-            <point value2="23.62 49.28"/>
-            <point value2="20.68 48.26"/>
-            <point value2="18.38 46.94"/>
-            <point value2="-20.28 9.36"/>
-            <point value2="-22.2 8.48"/>
-            <point value2="-24.92 8.0"/>
-            <point value2="-27.0 8.12"/>
-            <point value2="-29.32 8.64"/>
-            <point value2="-31.0 9.6"/>
-            <point value2="-32.88 11.16"/>
-            <point value2="-34.18 13.3"/>
-            <point value2="-35.06 15.68"/>
-            <point value2="-39.64 45.74"/>
-            <point value2="-39.58 47.62"/>
-            <point value2="-39.14 49.48"/>
-            <point value2="-38.18 51.44"/>
-            <point value2="-35.74 53.44"/>
-            <point value2="-32.14 55.28"/>
-            <point value2="-21.64 58.4"/>
-            <point value2="-8.62 61.22"/>
-            <point value2="-2.74 61.1"/>
-            <point value2="8.14 58.54"/>
-            <point value2="11.26 58.48"/>
-            <point value2="13.86 59.4"/>
-            <point value2="16.0 61.86"/>
-            <point value2="20.12 70.8"/>
-            <point value2="22.6 73.44"/>
-            <point value2="26.5 75.9"/>
-            <point value2="30.32 77.48"/>
-            <point value2="36.02 78.18"/>
-            <point value2="40.7 77.6"/>
-            <point value2="46.0 76.02"/>
-            <point value2="50.24 73.6"/>
-            <point value2="53.62 70.56"/>
-            <point value2="55.82 67.68"/>
-            <point value2="57.18 63.62"/>
-            <point value2="57.5 60.36"/>
-            <point value2="56.9 56.48"/>
-            <point value2="55.14 52.8"/>
-            <point value2="11.42 -22.48"/>
+            <point value2="22.86 -44.96"/>
+            <point value2="-40.34 -153.56"/>
+            <point value2="-42.94 -155.56"/>
+            <point value2="-47.46 -156.36"/>
+            <point value2="-51.38 -155.68"/>
+            <point value2="-55.1 -153.4"/>
+            <point value2="-67.86 -137.12"/>
+            <point value2="-91.1 -121.12"/>
+            <point value2="-109.82 -109.4"/>
+            <point value2="-113.66 -105.68"/>
+            <point value2="-115.02 -102.24"/>
+            <point value2="-114.42 -97.44"/>
+            <point value2="-105.1 -72.84"/>
+            <point value2="-93.02 -45.92"/>
+            <point value2="-89.94 -42.88"/>
+            <point value2="-85.14 -41.2"/>
+            <point value2="-79.14 -41.72"/>
+            <point value2="-73.94 -44.08"/>
+            <point value2="-70.34 -48.16"/>
+            <point value2="-69.22 -53.12"/>
+            <point value2="-70.46 -62.24"/>
+            <point value2="-79.82 -92.56"/>
+            <point value2="-79.38 -96.44"/>
+            <point value2="-78.58 -99.68"/>
+            <point value2="-75.22 -103.36"/>
+            <point value2="-70.26 -105.44"/>
+            <point value2="-66.1 -106.08"/>
+            <point value2="-59.9 -105.48"/>
+            <point value2="-55.06 -102.96"/>
+            <point value2="-51.54 -99.16"/>
+            <point value2="-49.98 -95.36"/>
+            <point value2="-32.7 -29.36"/>
+            <point value2="-31.14 -26.44"/>
+            <point value2="-28.1 -23.36"/>
+            <point value2="76.7 80.16"/>
+            <point value2="78.86 84.12"/>
+            <point value2="78.86 87.28"/>
+            <point value2="77.74 90.72"/>
+            <point value2="74.34 94.56"/>
+            <point value2="70.94 96.68"/>
+            <point value2="64.94 98.56"/>
+            <point value2="58.74 99.4"/>
+            <point value2="52.46 99.4"/>
+            <point value2="47.26 98.56"/>
+            <point value2="41.38 96.52"/>
+            <point value2="36.78 93.88"/>
+            <point value2="-40.54 18.72"/>
+            <point value2="-44.38 16.96"/>
+            <point value2="-49.82 16.0"/>
+            <point value2="-53.98 16.24"/>
+            <point value2="-58.62 17.28"/>
+            <point value2="-61.98 19.2"/>
+            <point value2="-65.74 22.32"/>
+            <point value2="-68.34 26.6"/>
+            <point value2="-70.1 31.36"/>
+            <point value2="-79.26 91.48"/>
+            <point value2="-79.14 95.24"/>
+            <point value2="-78.26 98.96"/>
+            <point value2="-76.34 102.88"/>
+            <point value2="-71.46 106.88"/>
+            <point value2="-64.26 110.56"/>
+            <point value2="-43.26 116.8"/>
+            <point value2="-17.22 122.44"/>
+            <point value2="-5.46 122.2"/>
+            <point value2="16.3 117.08"/>
+            <point value2="22.54 116.96"/>
+            <point value2="27.74 118.8"/>
+            <point value2="32.02 123.72"/>
+            <point value2="40.26 141.6"/>
+            <point value2="45.22 146.88"/>
+            <point value2="53.02 151.8"/>
+            <point value2="60.66 154.96"/>
+            <point value2="72.06 156.36"/>
+            <point value2="81.42 155.2"/>
+            <point value2="92.02 152.04"/>
+            <point value2="100.5 147.2"/>
+            <point value2="107.26 141.12"/>
+            <point value2="111.66 135.36"/>
+            <point value2="114.38 127.24"/>
+            <point value2="115.02 120.72"/>
+            <point value2="113.82 112.96"/>
+            <point value2="110.3 105.6"/>
+            <point value2="22.86 -44.96"/>
         </path>
-
         <powerups>
             <powerup value2="1 0" radius="3.0"/>
             <powerup value2="2 1" radius="3.0"/>
@@ -226,6 +225,27 @@
       
 
 
+        <node id="racingWheelLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="racingWheelRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
+                </primitive>
+            </children>
+        </node>
+
 
         <node id="hatchback">
             <transforms>
@@ -276,6 +296,54 @@
         </node>
 
 
+        <node id="race">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/race.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="race-fl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 1.46" />
+            </transforms>
+
+            <children>
+                <noderef id="racingWheelLeft" />
+            </children>
+        </node>
+        <node id="race-fr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 1.46" />
+            </transforms>
+
+            <children>
+                <noderef id="racingWheelRight" />
+            </children>
+        </node>
+        <node id="race-rl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 0" />
+            </transforms>
+            <children>
+                <noderef id="racingWheelLeft" />
+            </children>
+        </node>
+        <node id="race-rr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 0" />
+            </transforms>
+            <children>
+                <noderef id="racingWheelRight" />
+            </children>
+        </node>
+        
         <node id="defaultTreeR1">
                 <transforms>
                     <scale value3="3 3 3" />
@@ -1177,14 +1245,59 @@
 
     </graph>
 
-    <car id="hatchback">
+    <car id="race">
         <carcameras initial="cam1">
-            <perspective id="cam1" 
+            <perspective id="third-person" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="15 15 15" 
+                location="0 5 -10" 
                 target="0 0.0 0" />
+                <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1 -1" 
+                target="0 0.0 0" />
+        </carcameras>
+
+
+        <collider pos="0 0 0" size="5 2 3" />
+
+        <body>
+            <noderef id="race" />
+        </body>
+
+        <turnwheels>
+            <noderef id="race-fl-wheel" />
+            <noderef id="race-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="race-rl-wheel" />
+            <noderef id="race-rr-wheel" />
+        </statwheels>
+    </car>
+
+    <car id="hatchback">
+        <carcameras initial="cam1">
+            <perspective id="follow-perpective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 5 -10" 
+                target="0 0.0 0" />
+            <perspective id="roof-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1.4 0.5" 
+                target="0 0.4 5" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.9 1.4" 
+                target="0 0.4 5" />
         </carcameras>
 
 
@@ -1203,6 +1316,46 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
     </car>
+
+
+    <animation id="miata-hello" duration="3" repeat="false">
+        <tracks>
+            <track id="headlights">
+                <noderef value="miata-headlight-l"/>
+                <noderef value="miata-headlight-r"/>
+            </track>
+            <track id="wheels">
+                <noderef value="miata-wheel-fl"/>
+                <noderef value="miata-wheel-fr"/>
+            </track>
+        </tracks>
+
+        <timestamps>
+            <timestamp value="0">
+                <key id="headlights">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+                <key id="wheels">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="1">
+                <key id="headlights">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="2">
+                <key id="headlights">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+                <key id="wheels">
+                    <rotate value3="0.15 0.97 2.14"/>
+                </key>
+            </timestamp>
+        </timestamps>
+    </animation>
 
 
 </yaf>

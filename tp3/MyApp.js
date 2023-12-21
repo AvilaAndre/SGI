@@ -99,6 +99,7 @@ class MyApp {
      */
     updateCameraIfRequired() {
         // camera changed?
+
         if (this.lastCameraName !== this.activeCameraName) {
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName];
@@ -120,10 +121,18 @@ class MyApp {
             } else {
                 this.controls.object = this.activeCamera;
 
-                this.controls.target.copy(
-                    this.cameras[this.activeCameraName].targetCoords ||
-                        new THREE.Vector3(0, 0, 0)
-                );
+                if (this.cameras[this.activeCameraName].targetFollow) {
+                    this.controls.enabled = false;
+
+                    this.controls.target =
+                        this.cameras[this.activeCameraName].camTarget.position;
+                } else {
+                    this.controls.enabled = true;
+                    this.controls.target.copy(
+                        this.cameras[this.activeCameraName].targetCoords ||
+                            new THREE.Vector3(0, 0, 0)
+                    );
+                }
             }
         }
     }
@@ -176,7 +185,7 @@ class MyApp {
         }
 
         // required if controls.enableDamping or controls.autoRotate are set to true
-        this.controls.update();
+        this.controls?.update();
 
         // render the scene
         this.renderer.render(this.scene, this.activeCamera);
@@ -184,7 +193,7 @@ class MyApp {
         // subsequent async calls to the render loop
         requestAnimationFrame(this.render.bind(this));
 
-        this.lastCameraName = this.activeCameraName;
+        // this.lastCameraName = this.activeCameraName;
         this.stats.end();
     }
 }

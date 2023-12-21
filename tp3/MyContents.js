@@ -8,6 +8,7 @@ import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { PickingManager } from "./manager/PickingManager.js";
+import { addCamera } from "./ComponentBuilder.js";
 
 /**
  *  This class contains the contents of out application
@@ -59,7 +60,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "obstaclePark.xml");
+        this.reader.open(this.scenePath + "demo.xml");
     }
 
     /**
@@ -168,16 +169,15 @@ class MyContents {
         for (var key in data.cameras) {
             let camera = data.cameras[key];
             this.output(camera, 1);
-            this.addCamera(camera);
+            addCamera(camera, this);
         }
 
         console.log("data:", data);
-        if(data.racetrack.id != null){
+        if (data.racetrack.id != null) {
             console.log("racetrack", data.racetrack.id);
-            this.track = new MyTrack(this, data.racetrack, 100);
+            this.track = new MyTrack(this, data.racetrack, 200);
             this.app.scene.add(this.track);
         }
-        
 
         for (let carIdx = 0; carIdx < data.cars.length; carIdx++) {
             const carData = data.cars[carIdx];
@@ -186,9 +186,8 @@ class MyContents {
         }
 
         console.log("hud", data.hud.id);
-        this.hud = new MyHud(this, data.hud);
-        //this.app.scene.add(this.hud);
-
+        // this.hud = new MyHud(this, data.hud);
+        // this.app.scene.add(this.hud);
 
         console.log("nodes:");
         const rootNode = instantiateNode(data.rootId, data, this);
@@ -425,62 +424,6 @@ class MyContents {
         skyboxObj.translateZ(center[2]);
 
         this.skyboxes[skybox.id] = skyboxObj;
-    }
-
-    /**
-     *
-     * @param {CameraData} camera
-     * creates a camera based on the data received and adds to the cameras array
-     */
-    addCamera(camera) {
-        let newCamera = undefined;
-
-        if (camera.type == "perspective") {
-            newCamera = new THREE.PerspectiveCamera(
-                camera.angle,
-                undefined,
-                camera.near,
-                camera.far
-            );
-
-            newCamera.targetCoords = new THREE.Vector3(
-                camera.target[0],
-                camera.target[1],
-                camera.target[2]
-            );
-        } else if (camera.type == "orthogonal") {
-            newCamera = new THREE.OrthographicCamera(
-                camera.left,
-                camera.right,
-                camera.top,
-                camera.bottom,
-                camera.near,
-                camera.far
-            );
-
-            newCamera.targetCoords = new THREE.Vector3(
-                camera.target[0],
-                camera.target[1],
-                camera.target[2]
-            );
-        } else return;
-
-        newCamera.position.set(
-            camera.location[0],
-            camera.location[1],
-            camera.location[2]
-        );
-
-        const target = new THREE.Object3D();
-        target.position.set(
-            camera.target[0],
-            camera.target[1],
-            camera.target[2]
-        );
-
-        newCamera.target = target;
-
-        this.cameras[camera.id] = newCamera;
     }
 
     /**

@@ -1,17 +1,17 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
+import { MyContents } from "./MyContents.js";
 
 /**
  * Instantiates nodes, having in consideration if it is a primitive,
  * a kind of light, a LOD or none of this options
  * @param {*} nodeRef
  * @param {*} data
- * @param {MyApp} app
+ * @param {MyContents} contents
  * @param {*} parent
  * @returns
  */
-const instantiateNode = (nodeRef, data, app, parent = undefined) => {
+const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
     let node = data.nodes[nodeRef];
 
     if (!node) return undefined;
@@ -19,6 +19,7 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
     const nodeObj = new THREE.Object3D();
 
     nodeObj.name = node.id;
+    contents.nodes[node.id] = nodeObj;
 
     if (node.materialIds.length != 0) nodeObj.materialIds = node.materialIds;
     else if (parent != undefined) nodeObj.materialIds = parent.materialIds;
@@ -37,7 +38,7 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
         nodeObj.name == "curtain2" ||
         nodeObj.name == "curtain3"
     ) {
-        app.curtains.push(nodeObj);
+        contents.curtains.push(nodeObj);
     }
 
     for (let i = 0; i < node.children.length; i++) {
@@ -56,14 +57,23 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
                     geometry.receiveShadow = nodeObj.receiveShadow;
                     nodeObj.add(geometry);
                 } else if (child.subtype === "model3d") {
+                    console.log("model3d (nodeObj): ", nodeObj);
                     nodeObj.add(geometry);
                 } else {
                     if (geometry !== undefined) {
                         if (nodeObj.materialIds) {
                             const mesh = new THREE.Mesh(
                                 geometry,
-                                app.materials[nodeObj.materialIds[0]]
+                                contents.materials[nodeObj.materialIds[0]]
                             );
+
+                            while(nodeObj.name == "Mesh"){
+                                console.log("nodeObj.name no while: ", nodeObj.name);
+                                nodeObj.name = nodeObj.parent.name;
+                            }
+                            console.log("nodeObj.name depois do while: ", nodeObj.name);
+                            mesh.name = nodeObj.name;
+                            
 
                             if (child.subtype == "rectangle") {
                                 mesh.material.map.repeat.set(
@@ -87,15 +97,15 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
                 }
             });
         } else if (child.type === "pointlight") {
-            const light = addPointLight(child, app);
+            const light = addPointLight(child, contents);
             light.name = child.id;
             nodeObj.add(light);
         } else if (child.type === "spotlight") {
-            const light = addSpotlight(child, app);
+            const light = addSpotlight(child, contents);
             light.name = child.id;
             nodeObj.add(light);
         } else if (child.type === "directionallight") {
-            const light = addDirectionalLight(child, app);
+            const light = addDirectionalLight(child, contents);
             light.name = child.id;
             nodeObj.add(light);
         } else if (child.type === "lod") {
@@ -106,10 +116,10 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
                 lodChild++
             ) {
                 const element = child.children[lodChild];
-                const newChild = this.instantiateNode(
+                const newChild = contents.instantiateNode(
                     element.node.id,
                     data,
-                    app,
+                    contents,
                     nodeObj
                 );
                 lod.addLevel(newChild, element.mindist);
@@ -117,7 +127,7 @@ const instantiateNode = (nodeRef, data, app, parent = undefined) => {
 
             nodeObj.add(lod);
         } else {
-            const newChild = instantiateNode(child.id, data, app, nodeObj);
+            const newChild = instantiateNode(child.id, data, contents, nodeObj);
             if (newChild) nodeObj.add(newChild);
         }
     }
@@ -157,7 +167,7 @@ const applyTransformations = (node, transformations) => {
  * @param {*} light
  * @returns newLight
  */
-const addPointLight = (light, app) => {
+const addPointLight = (light, contents) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -180,12 +190,12 @@ const addPointLight = (light, app) => {
 
     newLight.position.set(x, y, z);
 
-    if (app.DEBUG) {
+    if (contents.DEBUG) {
         const helper = new THREE.PointLightHelper(newLight, 0.5);
-        app.scene.add(helper);
+        contents.scene.add(helper);
     }
 
-    app.lightsArray.push({
+    contents.lightsArray.push({
         originalIntensity: light.intensity || 1,
         light: newLight,
         defaultEnabled: light.enabled,
@@ -199,7 +209,7 @@ const addPointLight = (light, app) => {
  * @param {*} light
  * @returns newLight
  */
-const addSpotlight = (light, app) => {
+const addSpotlight = (light, contents) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -231,11 +241,11 @@ const addSpotlight = (light, app) => {
     // for some strange reason, this line keeps the light position in the right place
     const helper = new THREE.SpotLightHelper(newLight, lightColor);
 
-    if (app.DEBUG) {
-        app.scene.add(helper);
+    if (contents.DEBUG) {
+        contents.scene.add(helper);
     }
 
-    app.lightsArray.push({
+    contents.lightsArray.push({
         originalIntensity: newLight.intensity,
         light: newLight,
         defaultEnabled: light.enabled,
@@ -249,7 +259,7 @@ const addSpotlight = (light, app) => {
  * @param {*} light
  * @returns
  */
-const addDirectionalLight = (light, app) => {
+const addDirectionalLight = (light, contents) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -275,17 +285,17 @@ const addDirectionalLight = (light, app) => {
 
     newLight.position.set(x, y, z);
 
-    if (app.DEBUG) {
+    if (contents.DEBUG) {
         const helper = new THREE.DirectionalLightHelper(
             newLight,
             5,
             lightColor
         );
 
-        app.scene.add(helper);
+        contents.scene.add(helper);
     }
 
-    app.lightsArray.push({
+    contents.lightsArray.push({
         originalIntensity: newLight.intensity,
         light: newLight,
         defaultEnabled: light.enabled,

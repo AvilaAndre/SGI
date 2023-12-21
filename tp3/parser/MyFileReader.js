@@ -136,6 +136,10 @@ class MyFileReader {
             this.loadMaterials(rootElement);
             this.loadCameras(rootElement);
             this.loadNodes(rootElement);
+            this.loadRacetrack(rootElement);
+            this.loadCars(rootElement);
+            this.loadHUD(rootElement);
+            this.loadAnimations(rootElement);
         } catch (error) {
             this.errorMessage = error;
         }
@@ -960,44 +964,6 @@ class MyFileReader {
                 this.loadLOD(lodElement);
             }
         }
-
-        // load racetrack
-
-
-
-        let racetracks = rootElement.getElementsByTagName("racetrack");
-
-        if (racetracks.length < 1)
-            throw new Error(
-                "At least one racetrack should be specified in the YAF XML!"
-            );
-
-        // There is only one racetrack
-        this.loadRacetrack(racetracks[0]);
-
-        // load racetrack
-        let cars = rootElement.getElementsByTagName("car");
-
-        if (cars.length < 1)
-            throw new Error(
-                "At least one car should be specified in the YAF XML!"
-            );
-
-        // Load car data
-        this.loadCars(cars);
-
-        // load hud
-        let hud = rootElement.getElementsByTagName("hud");
-
-        // console.log("hud[0]:", hud); FIXME:
-        if (hud.length < 1)
-            throw new Error(
-                "At least one hud should be specified in the YAF XML!"
-            );
-
-        // There is only one hud
-
-        this.loadHUD(hud[0]);
     }
 
     /**
@@ -1250,10 +1216,21 @@ class MyFileReader {
     }
 
     /**
-     * Load the data for a racetrack element
-     * @param {*} racetrackElement the xml racetrack element
+     * Load the data for a racetrack
+     * @param {*} rootElement
      */
-    loadRacetrack(racetrackElement) {
+    loadRacetrack(rootElement) {
+        // load racetrack
+        let racetracks = rootElement.getElementsByTagName("racetrack");
+
+        if (racetracks.length < 1)
+            throw new Error(
+                "At least one racetrack should be specified in the YAF XML!"
+            );
+
+        // There is only one racetrack
+        const racetrackElement = racetracks[0];
+
         // get the id of the Racetrack
         let id = this.getString(racetrackElement, "id");
 
@@ -1393,7 +1370,7 @@ class MyFileReader {
             let orthogonal = this.loadXmlItem({
                 elem: orth,
                 descriptor: this.data.descriptors["orthogonal"],
-                extras: [],
+                extras: [["type", "orthogonal"]],
             });
 
             car.cameras.push(orthogonal);
@@ -1404,7 +1381,7 @@ class MyFileReader {
             let perspective = this.loadXmlItem({
                 elem: perp,
                 descriptor: this.data.descriptors["perspective"],
-                extras: [],
+                extras: [["type", "perspective"]],
             });
 
             car.cameras.push(perspective);
@@ -1412,16 +1389,23 @@ class MyFileReader {
     }
 
     /**
-     * Load the data for a racetrack element
-     * @param {*} racetrackElement the xml racetrack element
+     * Load the data for the cars
+     * @param {*} rootElement
      */
-    loadCars(carElements) {
-        console.log(carElements);
+    loadCars(rootElement) {
+        // load cars
+        let cars = rootElement.getElementsByTagName("car");
+
+        if (cars.length < 1)
+            throw new Error(
+                "At least one car should be specified in the YAF XML!"
+            );
+
+        // Load car data
+        const carElements = cars;
 
         for (let elemIdx = 0; elemIdx < carElements.length; elemIdx++) {
             const element = carElements[elemIdx];
-
-            console.log("new car", element);
 
             const id = this.getString(element, "id");
 
@@ -1496,7 +1480,6 @@ class MyFileReader {
             car.collider = collider;
 
             /* CAR CAMERAS */
-
             let carcameras = element.getElementsByTagName("carcameras");
             if (carcameras == null || carcameras.length != 1) {
                 throw new Error(
@@ -1512,9 +1495,20 @@ class MyFileReader {
 
     /**
      * Load the data for a hud element
-     * @param {*} hudElement the xml hud element
+     * @param {*} rootElement
      */
-    loadHUD(hudElement) {
+    loadHUD(rootElement) {
+        // load hud
+        let hud = rootElement.getElementsByTagName("hud");
+
+        if (hud.length < 1)
+            throw new Error(
+                "At least one hud should be specified in the YAF XML!"
+            );
+
+        // There is only one hud
+        const hudElement = hud[0];
+
         // get the id of the HUD
         let id = this.getString(hudElement, "id");
 
@@ -1634,6 +1628,133 @@ class MyFileReader {
         );
 
         this.data.setHud(hudObj);
+    }
+
+    /**
+     * Load the data for the animations
+     * @param {*} rootElement
+     */
+    loadAnimations(rootElement) {
+        // load animations
+        let animationElements = rootElement.getElementsByTagName("animation");
+
+        if (animationElements.length < 1) return;
+
+        for (let animIdx = 0; animIdx < animationElements.length; animIdx++) {
+            const animElement = animationElements[animIdx];
+
+            let descriptor = this.data.descriptors["animation"];
+            let animation = this.loadXmlItem({
+                elem: animElement,
+                descriptor: descriptor,
+                extras: [],
+            });
+
+            const tracksElements = animElement.getElementsByTagName("tracks");
+
+            if (tracksElements.length != 1) {
+                throw new Error(
+                    "There should be exactly one tracks element in the " +
+                        animation.id +
+                        " animation"
+                );
+            }
+
+            const trackElem = tracksElements[0];
+
+            const trackElements = trackElem.getElementsByTagName("track");
+
+            const tracks = [];
+
+            for (let i = 0; i < trackElements.length; i++) {
+                const track = trackElements[i];
+
+                const trackId = this.getString(track, "id");
+
+                let noderefElements = track.getElementsByTagName("noderef");
+
+                const trackNodes = [];
+
+                for (let j = 0; j < noderefElements.length; j++) {
+                    const noderef = noderefElements[j];
+
+                    trackNodes.push(this.getString(noderef, "value"));
+                }
+
+                tracks.push({
+                    id: trackId,
+                    nodes: trackNodes,
+                });
+            }
+
+            animation.tracks = tracks;
+
+            const timestampsElements =
+                animElement.getElementsByTagName("timestamps");
+
+            if (timestampsElements.length != 1) {
+                throw new Error(
+                    "There should be exactly one timestamps element in the " +
+                        animation.id +
+                        " animation"
+                );
+            }
+
+            const timestampElem = timestampsElements[0];
+
+            const timestampElements =
+                timestampElem.getElementsByTagName("timestamp");
+
+            const timestamps = [];
+
+            for (let i = 0; i < timestampElements.length; i++) {
+                const timestamp = timestampElements[i];
+
+                const timestampValue = this.getFloat(timestamp, "value");
+
+                let keyElements = timestamp.getElementsByTagName("key");
+
+                const timestampKeys = [];
+
+                for (let j = 0; j < keyElements.length; j++) {
+                    const key = keyElements[j];
+
+                    const keyId = this.getString(key, "id");
+                    let foundTrack = false;
+                    tracks.forEach((track) => {
+                        if (track.id == keyId) {
+                            foundTrack = true;
+                        }
+                    });
+
+                    if (!foundTrack) {
+                        throw new Error(
+                            "Animation " +
+                                animation.id +
+                                " has a key with id " +
+                                keyId +
+                                " but no track with the same id"
+                        );
+                    }
+
+                    const keyObj = {
+                        id: keyId,
+                        transformations: [],
+                    };
+                    this.loadTransforms(keyObj, key);
+                    timestampKeys.push(keyObj);
+                }
+
+                timestamps.push({
+                    value: timestampValue,
+                    keys: timestampKeys,
+                });
+            }
+
+            animation.timestamps = timestamps;
+
+            this.data.addAnimation(animation);
+        }
     }
 }
 

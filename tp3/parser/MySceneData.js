@@ -35,6 +35,8 @@ class MySceneData {
 
         this.hud = null;
 
+        this.animations = [];
+
         this.customAttributeName = "custom";
 
         this.descriptors["globals"] = [
@@ -424,6 +426,12 @@ class MySceneData {
             { name: "size", type: "vector3" },
         ];
 
+        this.descriptors["animation"] = [
+            { name: "id", type: "string" },
+            { name: "duration", type: "float" },
+            { name: "repeat", type: "boolean" },
+        ];
+
         this.descriptors["time"] = [{ name: "timeFloat", type: "float" }];
 
         this.descriptors["lap"] = [{ name: "value", type: "integer" }];
@@ -443,6 +451,7 @@ class MySceneData {
             "racetrack",
             "car",
             "hud",
+            "animation",
         ];
 
         this.primitiveIds = [
@@ -766,6 +775,18 @@ class MySceneData {
             timeLeftPenalty: 0.0,
             states: "pause",
         };
+    }
+
+    createEmptyAnimation(id) {
+        return {
+            id,
+            duration,
+            repeat,
+        };
+    }
+
+    addAnimation(animation) {
+        this.animations.push(animation);
     }
 }
 export { MySceneData };

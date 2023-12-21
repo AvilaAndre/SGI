@@ -8,10 +8,10 @@ class PickingManager {
     /**
          constructs the object
       */
-    constructor(app, data) {
+    constructor(contents, data) {
 
 
-        this.contents = app;
+        this.contents = contents;
         this.data = data;
         //picking: read documentation of THREE.Raycaster
 
@@ -27,14 +27,11 @@ class PickingManager {
         
         this.onPointerMove = this.onPointerMove.bind(this);
 
-        //console.log("this.data:", this.data.nodes);
+        console.log("this.contents.nodes:", this.contents.nodes);
 
-        if (this.data && this.data.nodes) {
-            console.log("this.data.nodes:", this.data.nodes);
-            this.notPickableObjIds = ["floor"];
-        } else {
-            console.log("Data or nodes property is undefined");
-        }
+    
+        this.notPickableObjIds = ["floor", "stone-wall_1", "Fence_Cylinder", "Mesh_tree_simple_dark", "Mesh_grandStand"];
+
 
 
         // define the objects ids that are not to be pickeable
@@ -105,10 +102,15 @@ class PickingManager {
     *
     */
     pickingHelper(intersects) {
+        console.log("intersects:", intersects);
         if (intersects.length > 0) {
             const obj = intersects[0].object;
             console.log("Object picked:", obj);
-            if (this.notPickableObjIds.includes(obj.name)) {
+    
+            // Check if obj.name includes any of the words in notPickableObjIds
+            const isNotPickable = this.notPickableObjIds.some(id => obj.name.includes(id));
+    
+            if (isNotPickable) {
                 this.restoreColorOfFirstPickedObj();
                 console.log("Object cannot be picked:", obj.name);
             } else {
@@ -118,6 +120,7 @@ class PickingManager {
             this.restoreColorOfFirstPickedObj();
         }
     }
+    
     
 
 
@@ -158,8 +161,14 @@ class PickingManager {
 
         //3. compute intersections
         //var intersects = this.raycaster.intersectObjects(this.data.nodes);
-        var intersects = this.raycaster.intersectObjects(this.contents.app.scene.children, true);
+        console.log("this.contents.app.scene.children no onPointerMove:", this.contents.app.scene.children);
+        // Assuming 'this.contents.nodes' is an object where each property is a THREE.Object3D
+        const nodesArray = Object.values(this.contents.nodes);
+        console.log("nodesArray:", nodesArray);
+        const intersects = this.raycaster.intersectObjects(nodesArray, true);
 
+        //var intersects = this.raycaster.intersectObjects(this.contents.nodes, true);
+        console.log("nodesArray depois:", intersects);
 
         this.pickingHelper(intersects)
 
