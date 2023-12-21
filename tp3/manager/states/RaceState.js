@@ -9,6 +9,21 @@ class RaceState extends GameState {
             this.manager.changeCarCamera();
         }
 
+        // toggle front lights
+        if (this.manager.keyboard.isKeyJustDown("l")) {
+            this.manager.car.toggleLights();
+        }
+
+        if (this.manager.keyboard.isKeyJustDown("j")) {
+            this.app.animationPlayer.playStart("spectator-cheer");
+        }
+
+        if (this.manager.keyboard.isKeyJustDown("h")) {
+            this.app.animationPlayer.playForwards(
+                this.manager.car.carName + "-hello"
+            );
+        }
+
         if (this.manager.keyboard.isKeyDown("w")) {
             this.manager.car.accelerate(delta);
         } else if (this.manager.keyboard.isKeyDown("s")) {

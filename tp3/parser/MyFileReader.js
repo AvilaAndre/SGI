@@ -1489,6 +1489,39 @@ class MyFileReader {
 
             this.loadCarCameras(carcameras[0], car);
 
+            /* CAR FRONTLIGHTS */
+            let frontlights = element.getElementsByTagName("frontlights");
+
+            
+            if (frontlights == null || frontlights.length != 1) {
+                throw new Error(
+                    "in car " + id + ", a frontlights node is required"
+                );
+            }
+
+            for (let i = 0; i < frontlights[0].children.length; i++) {
+                const child = frontlights[0].children[i];
+                let lightObj = this.loadLight(child);
+
+                car.frontLights.push(lightObj);
+            }
+
+            /* CAR REARLIGHTS */
+            let rearlights = element.getElementsByTagName("rearlights");
+
+            if (rearlights == null || rearlights.length != 1) {
+                throw new Error(
+                    "in car " + id + ", a rearlights node is required"
+                );
+            }
+
+            for (let i = 0; i < rearlights[0].children.length; i++) {
+                const child = rearlights[0].children[i];
+                let lightObj = this.loadLight(child);
+
+                car.rearLights.push(lightObj);
+            }
+
             this.data.addCar(car);
         }
     }
@@ -1714,7 +1747,7 @@ class MyFileReader {
 
                 let keyElements = timestamp.getElementsByTagName("key");
 
-                const timestampKeys = [];
+                const timestampKeys = new Object();
 
                 for (let j = 0; j < keyElements.length; j++) {
                     const key = keyElements[j];
@@ -1742,7 +1775,7 @@ class MyFileReader {
                         transformations: [],
                     };
                     this.loadTransforms(keyObj, key);
-                    timestampKeys.push(keyObj);
+                    timestampKeys[keyId] = keyObj;
                 }
 
                 timestamps.push({

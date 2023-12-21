@@ -13,6 +13,7 @@ class PickingManager {
 
         this.contents = contents;
         this.data = data;
+
         //picking: read documentation of THREE.Raycaster
 
         this.raycaster = new THREE.Raycaster()
@@ -30,9 +31,13 @@ class PickingManager {
         console.log("this.contents.nodes:", this.contents.nodes);
 
     
-        this.notPickableObjIds = ["floor", "stone-wall_1", "Fence_Cylinder", "Mesh_tree_simple_dark", "Mesh_grandStand"];
+        this.notPickableObjIds = ["floor", "stone-wall_1", "Fence_Cylinder", "Mesh_tree_simple_dark", "Mesh_grandStand", "PrototypePete_head", "PrototypePete_body", "PrototypePete_armLeft", "PrototypePete_armRight"];
 
 
+        console.log("currentState no constructor:", this.currentState);
+
+        this.activeStates = ["pickingPlayer", "pickingOpponent", "pickingObstacle"];
+        this.currentState = null; // You'll need to set this based on your application's state
 
         // define the objects ids that are not to be pickeable
         // NOTICE: not a ThreeJS facility
@@ -144,8 +149,21 @@ class PickingManager {
         }
     }
 
+    // Call this method to update the state
+    setState(newState) {
+        this.currentState = newState;
+    }
+
 
     onPointerMove(event) {
+
+
+        console.log("currentState no onPointerMove:", this.currentState);
+
+        if (!this.activeStates.includes(this.currentState)) {
+            // If not, return early and do nothing
+            return;
+        }
 
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
@@ -162,7 +180,6 @@ class PickingManager {
         //3. compute intersections
         //var intersects = this.raycaster.intersectObjects(this.data.nodes);
         console.log("this.contents.app.scene.children no onPointerMove:", this.contents.app.scene.children);
-        // Assuming 'this.contents.nodes' is an object where each property is a THREE.Object3D
         const nodesArray = Object.values(this.contents.nodes);
         console.log("nodesArray:", nodesArray);
         const intersects = this.raycaster.intersectObjects(nodesArray, true);

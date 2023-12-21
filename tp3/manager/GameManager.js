@@ -4,6 +4,10 @@ import { RaceState } from "./states/RaceState.js";
 import { GameState } from "./GameState.js";
 import { KeyboardManager } from "./KeyboardManager.js";
 import { PlayerParkState } from "./states/PlayerParkState.js";
+import { OpponentParkState } from "./states/OpponentParkState.js";
+import { PickObstacleState } from "./states/PickObstacleState.js";
+import { PickingManager } from "./PickingManager.js";
+
 /**
  * This class contains and manages information about the game
  */
@@ -14,7 +18,7 @@ class GameManager {
      */
     constructor(app) {
         this.app = app;
-        this.state = new RaceState(this.app, this); // FIXME: We do not start in race state
+        this.state = new PlayerParkState(this.app, this); // FIXME: We do not start in race state
         this.keyboard = new KeyboardManager();
 
         this.cars = [];
@@ -23,12 +27,20 @@ class GameManager {
     }
 
     setState(state) {
+        console.log("Setting state to " + state);
+        console.log("App: " + this.app);
         switch (state) {
             case "race":
                 this.state = new RaceState(this.app, this);
                 break;
             case "pickingPlayer":
                 this.state = new PlayerParkState(this.app, this);
+                break;
+            case "pickingOpponent":
+                this.state = new OpponentParkState(this.app, this);
+                break;
+            case "pickingObstacle":
+                this.state = new PickObstacleState(this.app, this);
                 break;
 
             default:

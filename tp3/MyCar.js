@@ -1,6 +1,11 @@
 import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
-import { instantiateNode } from "./GraphBuilder.js";
+import {
+    addDirectionalLight,
+    addPointLight,
+    addSpotlight,
+    instantiateNode,
+} from "./GraphBuilder.js";
 import { addCamera } from "./ComponentBuilder.js";
 /**
  * This class contains a car
@@ -18,6 +23,8 @@ class MyCar extends THREE.Object3D {
         this.type = "Group";
         this.turningWheels = [];
         this.wheelRotation = 0;
+        this.frontLights = [];
+        this.rearLights = [];
 
         this.intention = new THREE.Vector3();
         this.speed = 0;
@@ -28,6 +35,7 @@ class MyCar extends THREE.Object3D {
         this.maxSpeed = 100;
         this.nextPosition = this.position;
         this.turnAngle = 1;
+        this.frontLightsNode = null;
 
         this.cameras = [];
 
@@ -35,6 +43,8 @@ class MyCar extends THREE.Object3D {
         this.isBraking = false;
 
         console.log("carData", carData);
+
+        this.carName = carData.id;
 
         const bodyNode = instantiateNode(carData.id, data, app);
 
@@ -81,6 +91,73 @@ class MyCar extends THREE.Object3D {
 
             this.add(newCam);
         }
+
+        for (let i = 0; i < carData.frontLights.length; i++) {
+            const light = carData.frontLights[i];
+
+            let lightObj;
+            switch (light.type) {
+                case "spotlight":
+                    lightObj = addSpotlight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+                    break;
+                case "pointlight":
+                    lightObj = addPointLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+                    break;
+                case "directionallight":
+                    lightObj = addDirectionalLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.frontLights.push(lightObj);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        for (let i = 0; i < carData.rearLights.length; i++) {
+            const light = carData.rearLights[i];
+
+            let lightObj;
+            switch (light.type) {
+                case "spotlight":
+                    lightObj = addSpotlight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.rearLights.push(lightObj);
+                    break;
+                case "pointlight":
+                    lightObj = addPointLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.rearLights.push(lightObj);
+                    break;
+                case "directionallight":
+                    lightObj = addDirectionalLight(light, this.app, false);
+
+                    bodyNode.add(lightObj);
+
+                    this.rearLights.push(lightObj);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // optional car light animation
+        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
 
         app.app.scene.add(camTarget);
     }
@@ -176,6 +253,9 @@ class MyCar extends THREE.Object3D {
             this.tiltCarZ(0);
         }
 
+        this.frontCarLights();
+        this.brakeLights();
+
         this.isAccelerating = false;
     }
 
@@ -201,6 +281,45 @@ class MyCar extends THREE.Object3D {
             angle,
             0.1
         );
+    }
+
+    frontCarLights() {
+        for (let i = 0; i < this.frontLights.length; i++) {
+            const frontLight = this.frontLights[i];
+
+            frontLight.intensity = THREE.MathUtils.lerp(
+                frontLight.intensity,
+                this.frontLightsOn ? frontLight.originalIntensity : 0,
+                0.1
+            );
+        }
+
+        if (this.frontLightsNode) {
+            this.frontLightsNode.rotation.x = THREE.MathUtils.lerp(
+                this.frontLightsNode.rotation.x,
+                this.frontLightsOn ? 0 : -1.1,
+                0.05
+            );
+        }
+    }
+
+    brakeLights() {
+        for (let i = 0; i < this.rearLights.length; i++) {
+            const rearLight = this.rearLights[i];
+
+            rearLight.intensity = THREE.MathUtils.lerp(
+                rearLight.intensity,
+                this.isBraking ? rearLight.originalIntensity : 0,
+                0.3
+            );
+        }
+    }
+
+    toggleLights() {
+        this.frontLightsOn = !this.frontLightsOn;
+        this.app.animationPlayer.playStart(this.carName + "-open-lights");
+
+        this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
     }
 }
 

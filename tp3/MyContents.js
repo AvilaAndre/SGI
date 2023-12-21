@@ -9,6 +9,8 @@ import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { PickingManager } from "./manager/PickingManager.js";
 import { addCamera } from "./ComponentBuilder.js";
+import { AnimationPlayer } from "./animation/AnimationPlayer.js";
+import { Animation } from "./animation/Animation.js";
 
 /**
  *  This class contains the contents of out application
@@ -48,7 +50,9 @@ class MyContents {
         // game manager
         this.manager = new GameManager(this);
 
-        
+        this.animationPlayer = new AnimationPlayer();
+
+        this.pickingManager = new PickingManager(this);
 
         // show debug gizmos
         this.DEBUG = false;
@@ -95,8 +99,8 @@ class MyContents {
         document.addEventListener("keyup", (keyData) =>
             this.manager.keyboard.setKeyUp(keyData.key)
         );
-
-        document.addEventListener("pointermove", this.pickingManager.onPointerMove);
+        
+        //document.addEventListener("pointermove", this.pickingManager.onPointerMove);
     }
 
     /**
@@ -196,7 +200,12 @@ class MyContents {
 
         //picking manager
 
+
+
         this.pickingManager = new PickingManager(this, data);
+        data.animations.forEach((anim) => {
+            this.animationPlayer.addAnimation(new Animation(this, anim));
+        });
 
         // add cameras to the app object
         this.app.addCameras(this.cameras);
@@ -212,7 +221,7 @@ class MyContents {
             this.manager.update(delta);
         }
 
-        //this.pickingManager.update();
+        this.animationPlayer.update(delta);
     }
 
     /**
@@ -225,7 +234,7 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight(ambientColor, 1);
+        const light = new THREE.AmbientLight(ambientColor, .2);
 
         this.app.scene.add(light);
 

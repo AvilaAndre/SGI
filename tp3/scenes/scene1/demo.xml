@@ -260,6 +260,63 @@
             </children>
         </node>
 
+        <node id="hatchback-popup">
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/pop_up.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="hatchback-popup-l">
+            <transforms>
+                <translate value3="-0.45 0 0" />
+                <rotate value3="0 0 0" />
+            </transforms>
+
+            <children>
+                <noderef id="hatchback-popup" />
+            </children>
+        </node>
+
+        <node id="hatchback-popup-r">
+            <transforms>
+                <translate value3="0.45 0 0" />
+                <rotate value3="0 0 0" />
+            </transforms>
+
+            <children>
+                <noderef id="hatchback-popup" />
+            </children>
+        </node>
+
+        <node id="hatchback-pop-popups">
+            <transforms>
+                <translate value3="0 0.65 -1.15" />
+                <rotate value3="-1.1 0 0" />
+            </transforms>
+
+            <children>
+                <noderef id="hatchback-popup-l" />
+                <noderef id="hatchback-popup-r" />
+            </children>
+        </node>
+
+        <node id="hatchback-pop">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
+            <children>
+                <noderef id="hatchback-pop-popups" />
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/race_hatchback_pop.glb" />
+                </primitive>
+            </children>
+        </node>
+
+
         <node id="hatchback-fl-wheel">
             <transforms>
                 <translate value3="-0.50 0.3 1.62" />
@@ -342,6 +399,18 @@
             <children>
                 <noderef id="racingWheelRight" />
             </children>
+        </node>
+
+        <node id="spectator">
+                <transforms>
+                    <scale value3="0.5 0.5 0.5" />
+                    <translate value3="4 0.1 -3" />
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/spectators/PrototypePete.gltf" />
+                    </primitive>
+                </children>
         </node>
         
         <node id="defaultTreeR1">
@@ -1126,6 +1195,125 @@
             <materialref id="grassApp" /> <!-- Reference to the floor material -->
         </node>
 
+
+    
+        <node id="fenceLeft1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceLeft2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <translate value3="-10 0 -21.55" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <translate value3="9.6 0 -21.55" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront1">
+                <transforms>
+                    <scale value3="1 1.5 2" />
+                    <translate value3="-13.8 0 21.3" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront2">
+                <transforms>
+                    <scale value3="1 1.5 2" />
+                    <translate value3="13.8 0 21.3" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceGroup">
+            <transforms>
+                <translate value3="170 0 -170" />
+            </transforms>
+            <children>
+                <noderef id="fenceLeft1" />
+                <noderef id="fenceLeft2" />
+                <noderef id="fenceRight1" />
+                <noderef id="fenceRight2" />
+                <noderef id="fenceBack1" />
+                <noderef id="fenceBack2" />
+                <noderef id="fenceFront1" />
+                <noderef id="fenceFront2" />
+            </children>
+        </node>
+
+
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
                 <pointlight id="light1" enabled="true" 
@@ -1175,6 +1363,7 @@
                 />
 
                 <!-- <noderef id="hatchback" /> -->
+                <noderef id="spectator" />
                 <noderef id="defaultTreeR1" />
                 <noderef id="defaultTreeR2" />
                 <noderef id="defaultTreeR3" />
@@ -1239,6 +1428,7 @@
                 <noderef id="largeTree3" />
                 <noderef id="fencePlayerLeft1" />
                 <noderef id="floor" />
+                <noderef id="fenceGroup" />
 
             </children> 
         </node>
@@ -1246,23 +1436,35 @@
     </graph>
 
     <car id="race">
-        <carcameras initial="cam1">
-            <perspective id="third-person" 
+        <carcameras initial="follow-perspective">
+            <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 5 -10" 
-                target="0 0.0 0" />
-                <perspective id="first-person" 
+                location="0 3 -4" 
+                target="0 0 4" />
+            <perspective id="roof-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 1 -1" 
-                target="0 0.0 0" />
+                location="0 1 0" 
+                target="0 0.4 3" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.6 1" 
+                target="0 0.4 5" />
         </carcameras>
 
 
         <collider pos="0 0 0" size="5 2 3" />
+
+        <frontlights>
+        </frontlights>
+
+        <rearlights>
+        </rearlights>
 
         <body>
             <noderef id="race" />
@@ -1279,13 +1481,13 @@
     </car>
 
     <car id="hatchback">
-        <carcameras initial="cam1">
+        <carcameras initial="follow-perspective">
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 5 -10" 
-                target="0 0.0 0" />
+                location="0 3 -4" 
+                target="0 0 4" />
             <perspective id="roof-perspective" 
                 angle="60" 
                 near="0.1" 
@@ -1303,6 +1505,44 @@
 
         <collider pos="0 0 0" size="5 2 3" />
 
+        <frontlights>
+            <pointlight id="frontLightL" enabled="false" 
+                color="1.0 1.0 1.0 1" 
+                intensity="0.5"
+                distance="10"
+                decay="2.0"
+                castshadow="false"
+                position="-0.5 0.5 -1.3"
+            /> 
+            <pointlight id="frontLightR" enabled="false" 
+                color="1.0 1.0 1.0 1" 
+                intensity="0.5"
+                distance="10"
+                decay="2.0"
+                castshadow="false"
+                position="0.5 0.5 -1.3"
+            /> 
+        </frontlights>
+
+        <rearlights>
+            <pointlight id="brakeLightL" enabled="false" 
+                color="1.0 0.0 0.0 1" 
+                intensity="0.5"
+                distance="1"
+                decay="2.0"
+                castshadow="false"
+                position="-0.5 0.85 1.3"
+            /> 
+            <pointlight id="brakeLightR" enabled="false" 
+                color="1.0 0.0 0.0 1" 
+                intensity="0.5"
+                distance="1"
+                decay="2.0"
+                castshadow="false"
+                position="0.5 0.85 1.3"
+            /> 
+        </rearlights>
+
         <body>
             <noderef id="hatchback" />
         </body>
@@ -1317,41 +1557,136 @@
         </statwheels>
     </car>
 
+    <car id="hatchback-pop">
+        <carcameras initial="follow-perspective">
+            <perspective id="follow-perpective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 3 -4" 
+                target="0 0 4" />
+            <perspective id="roof-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1.4 0.5" 
+                target="0 0.4 5" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.9 1.4" 
+                target="0 0.4 5" />
+        </carcameras>
 
-    <animation id="miata-hello" duration="3" repeat="false">
+
+        <collider pos="0 0 0" size="5 2 3" />
+
+        <frontlights>
+            <pointlight id="frontLightL" enabled="false" 
+                color="1.0 1.0 1.0 1" 
+                intensity="0.5"
+                distance="10"
+                decay="2.0"
+                castshadow="false"
+                position="-0.45 0.65 -1.3"
+            /> 
+            <pointlight id="frontLightR" enabled="false" 
+                color="1.0 1.0 1.0 1" 
+                intensity="0.5"
+                distance="10"
+                decay="2.0"
+                castshadow="false"
+                position="0.45 0.65 -1.3"
+            /> 
+        </frontlights>
+
+        <rearlights>
+            <pointlight id="brakeLightL" enabled="false" 
+                color="1.0 0.0 0.0 1" 
+                intensity="0.5"
+                distance="1"
+                decay="2.0"
+                castshadow="false"
+                position="-0.5 0.85 1.3"
+            /> 
+            <pointlight id="brakeLightR" enabled="false" 
+                color="1.0 0.0 0.0 1" 
+                intensity="0.5"
+                distance="1"
+                decay="2.0"
+                castshadow="false"
+                position="0.5 0.85 1.3"
+            /> 
+        </rearlights>
+
+        <body>
+            <noderef id="hatchback-pop" />
+        </body>
+
+        <turnwheels>
+            <noderef id="hatchback-fl-wheel" />
+            <noderef id="hatchback-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="hatchback-rl-wheel" />
+            <noderef id="hatchback-rr-wheel" />
+        </statwheels>
+    </car>
+
+
+    <animation id="hatchback-pop-hello" duration="2" repeat="false" autostart="false">
         <tracks>
-            <track id="headlights">
-                <noderef value="miata-headlight-l"/>
-                <noderef value="miata-headlight-r"/>
-            </track>
-            <track id="wheels">
-                <noderef value="miata-wheel-fl"/>
-                <noderef value="miata-wheel-fr"/>
+            <track id="headlight">
+                <noderef value="hatchback-popup-r"/>
             </track>
         </tracks>
 
         <timestamps>
             <timestamp value="0">
-                <key id="headlights">
-                    <rotate value3="0.15 0.97 2.14"/>
-                </key>
-                <key id="wheels">
-                    <rotate value3="0.15 0.97 2.14"/>
+                <key id="headlight">
+                    <rotate value3="0 0 0"/>
                 </key>
             </timestamp>
 
             <timestamp value="1">
-                <key id="headlights">
-                    <rotate value3="0.15 0.97 2.14"/>
+                <key id="headlight">
+                    <rotate value3="1.1 0 0"/>
                 </key>
             </timestamp>
 
             <timestamp value="2">
-                <key id="headlights">
-                    <rotate value3="0.15 0.97 2.14"/>
+                <key id="headlight">
+                    <rotate value3="0 0 0"/>
                 </key>
-                <key id="wheels">
-                    <rotate value3="0.15 0.97 2.14"/>
+            </timestamp>
+        </timestamps>
+    </animation>
+
+    <animation id="spectator-cheer" duration="3" repeat="false" autostart="true">
+        <tracks>
+            <track id="spectators">
+                <noderef value="spectator"/>
+                <noderef value="defaultTreeR1"/>
+            </track>
+        </tracks>
+
+        <timestamps>
+            <timestamp value="0">
+                <key id="spectators">
+                    <translate value3="0 0 0"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="1">
+                <key id="spectators">
+                    <translate value3="0 0.97 0"/>
+                </key>
+            </timestamp>
+
+            <timestamp value="2">
+                <key id="spectators">
+                    <translate value3="0 0.50 0"/>
                 </key>
             </timestamp>
         </timestamps>
