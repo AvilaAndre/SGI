@@ -9,6 +9,10 @@ class RaceState extends GameState {
             this.manager.changeCarCamera();
         }
 
+        if (this.manager.keyboard.isKeyJustDown("j")) {
+            this.app.animationPlayer.playStart("spectator-cheer");
+        }
+
         if (this.manager.keyboard.isKeyDown("w")) {
             this.manager.car.accelerate(delta);
         } else if (this.manager.keyboard.isKeyDown("s")) {

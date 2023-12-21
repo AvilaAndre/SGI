@@ -192,8 +192,6 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
-        console.log("animations:", data.animations);
-
         data.animations.forEach((anim) => {
             this.animationPlayer.addAnimation(new Animation(this, anim));
         });
@@ -227,7 +225,7 @@ class MyContents {
         );
         const light = new THREE.AmbientLight(ambientColor, 1);
 
-        this.app.scene.add(light);
+        // this.app.scene.add(light);
 
         const backgroundColor = new THREE.Color(
             options.background.r,

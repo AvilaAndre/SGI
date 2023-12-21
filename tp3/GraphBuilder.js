@@ -158,7 +158,7 @@ const applyTransformations = (node, transformations) => {
  * @param {*} light
  * @returns newLight
  */
-const addPointLight = (light, contents) => {
+const addPointLight = (light, contents, addToContents = true) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -182,15 +182,19 @@ const addPointLight = (light, contents) => {
     newLight.position.set(x, y, z);
 
     if (contents.DEBUG) {
-        const helper = new THREE.PointLightHelper(newLight, 0.5);
-        contents.scene.add(helper);
+        const helper = new THREE.PointLightHelper(newLight, 0.1);
+        contents.app.scene.add(helper);
     }
 
-    contents.lightsArray.push({
-        originalIntensity: light.intensity || 1,
-        light: newLight,
-        defaultEnabled: light.enabled,
-    });
+    newLight.originalIntensity = light.intensity || 1;
+
+    if (addToContents) {
+        contents.lightsArray.push({
+            originalIntensity: light.intensity || 1,
+            light: newLight,
+            defaultEnabled: light.enabled,
+        });
+    }
 
     return newLight;
 };
@@ -200,7 +204,7 @@ const addPointLight = (light, contents) => {
  * @param {*} light
  * @returns newLight
  */
-const addSpotlight = (light, contents) => {
+const addSpotlight = (light, contents, addToContents = true) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -233,14 +237,16 @@ const addSpotlight = (light, contents) => {
     const helper = new THREE.SpotLightHelper(newLight, lightColor);
 
     if (contents.DEBUG) {
-        contents.scene.add(helper);
+        contents.app.scene.add(helper);
     }
 
-    contents.lightsArray.push({
-        originalIntensity: newLight.intensity,
-        light: newLight,
-        defaultEnabled: light.enabled,
-    });
+    if (addToContents) {
+        contents.lightsArray.push({
+            originalIntensity: newLight.intensity,
+            light: newLight,
+            defaultEnabled: light.enabled,
+        });
+    }
 
     return newLight;
 };
@@ -250,7 +256,7 @@ const addSpotlight = (light, contents) => {
  * @param {*} light
  * @returns
  */
-const addDirectionalLight = (light, contents) => {
+const addDirectionalLight = (light, contents, addToContents = true) => {
     // Now, positionArray contains the individual components as numbers
     const x = light.position[0];
     const y = light.position[1];
@@ -286,13 +292,15 @@ const addDirectionalLight = (light, contents) => {
         contents.scene.add(helper);
     }
 
-    contents.lightsArray.push({
-        originalIntensity: newLight.intensity,
-        light: newLight,
-        defaultEnabled: light.enabled,
-    });
+    if (addToContents) {
+        contents.lightsArray.push({
+            originalIntensity: newLight.intensity,
+            light: newLight,
+            defaultEnabled: light.enabled,
+        });
+    }
 
     return newLight;
 };
 
-export { instantiateNode };
+export { instantiateNode, addPointLight, addDirectionalLight, addSpotlight };
