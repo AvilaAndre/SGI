@@ -108,6 +108,7 @@ class MyCar extends THREE.Object3D {
                     lightObj = addPointLight(light, this.app, false);
 
                     bodyNode.add(lightObj);
+                    lightObj.visible = false;
 
                     this.frontLights.push(lightObj);
                     break;
@@ -140,6 +141,7 @@ class MyCar extends THREE.Object3D {
                     lightObj = addPointLight(light, this.app, false);
 
                     bodyNode.add(lightObj);
+                    lightObj.visible = false;
 
                     this.rearLights.push(lightObj);
                     break;
@@ -241,14 +243,14 @@ class MyCar extends THREE.Object3D {
         }
 
         if (this.isAccelerating) {
-            this.tiltCarX(-0.02);
+            this.tiltCarX(-0.03);
         } else if (this.isBraking) {
-            this.tiltCarX(0.03 * Math.sign(this.speed));
+            this.tiltCarX(0.04 * Math.sign(this.speed));
         } else {
             this.tiltCarX(0);
         }
         if (Math.sign(this.speed) != 0) {
-            this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.02);
+            this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.03);
         } else {
             this.tiltCarZ(0);
         }
@@ -320,6 +322,23 @@ class MyCar extends THREE.Object3D {
         this.app.animationPlayer.playStart(this.carName + "-open-lights");
 
         this.frontLightsNode = this.app.nodes[this.carName + "-popups"];
+    }
+
+    /**
+     * By default lights are not activated as it is performance costly
+     */
+    activateLights() {
+        for (let i = 0; i < this.rearLights.length; i++) {
+            const rearLight = this.rearLights[i];
+
+            rearLight.visible = true;
+        }
+
+        for (let i = 0; i < this.frontLights.length; i++) {
+            const frontLight = this.frontLights[i];
+
+            frontLight.visible = true;
+        }
     }
 }
 

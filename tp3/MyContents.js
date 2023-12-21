@@ -223,7 +223,7 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight(ambientColor, .2);
+        const light = new THREE.AmbientLight(ambientColor, 1);
 
         this.app.scene.add(light);
 

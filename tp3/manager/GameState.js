@@ -1,20 +1,24 @@
 import * as THREE from "three";
-import { MyApp } from "../MyApp.js";
 import { GameManager } from "./GameManager.js";
+import { MyContents } from "../MyContents.js";
 /**
  * This class contains methods of  the game
  */
 class GameState {
     /**
      *
-     * @param {MyApp} app the application object
+     * @param {MyContents} contents the contents object
      * @param {GameManager} manager the manager object
      */
-    constructor(app, manager) {
-        this.app = app;
+    constructor(contents, manager) {
+        this.contents = contents;
         this.manager = manager;
     }
 
+    /**
+     *
+     * @param {number} delta time passed between the previous frame
+     */
     update(delta) {}
 }
 
