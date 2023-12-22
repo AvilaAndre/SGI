@@ -43,7 +43,7 @@ class Collider {
                 ...this.parent.position
                     .clone()
                     .add(this.center)
-                    .add(new THREE.Vector3(0, 5, 0))
+                    .add(new THREE.Vector3(0, 2, 0))
             );
         }
     }

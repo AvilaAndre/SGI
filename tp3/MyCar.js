@@ -72,9 +72,9 @@ class MyCar extends THREE.Object3D {
 
         this.collider = new RectangleCollider(
             this,
-            new THREE.Vector3(0, 0, 0),
-            2,
-            4
+            new THREE.Vector2(0, 0.65),
+            1,
+            2.3
         );
 
         this.contents.manager.collisionManager.addCollider(this.collider);
