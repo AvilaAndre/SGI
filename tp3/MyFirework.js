@@ -22,6 +22,7 @@ class MyFirework {
             new THREE.Color(0xFFA500)  // Orange
         ];
 
+
         // Create an array to store materials
         this.materials = this.materialColors.map(color => 
             new THREE.PointsMaterial({
@@ -32,13 +33,9 @@ class MyFirework {
                 depthTest: false,
             })
         );
-
         
         this.height = 20
-        this.speed = 40
-
-        this.gravity = new THREE.Vector3(0, -9.81, 0); // Gravity vector
-        this.particleLifetimes = []; // Array to hold the lifetime of each particle
+        this.speed = 60
 
         this.launch() 
 
@@ -49,25 +46,28 @@ class MyFirework {
      */
 
     launch() {
-        // Randomly select a material from the array
+
         let materialIndex = Math.floor(Math.random() * this.materials.length);
         this.material = this.materials[materialIndex];
 
-        let x = THREE.MathUtils.randFloat(-5, 5);
-        let y = THREE.MathUtils.randFloat(this.height * 0.9, this.height * 1.1);
-        let z = THREE.MathUtils.randFloat(-5, 5);
-        this.dest.push(x, y, z);
-        let vertices = [0, 0, 0];
+        let color = new THREE.Color()
+        color.setHSL( THREE.MathUtils.randFloat( 0.1, 0.9 ), 1, 0.9 )
+        let colors = [ color.r, color.g, color.b ]
 
-        this.geometry = new THREE.BufferGeometry();
-        this.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
-        this.points = new THREE.Points(this.geometry, this.material);
+        let x = THREE.MathUtils.randFloat( -5, 5 ) 
+        let y = THREE.MathUtils.randFloat( this.height * 0.9, this.height * 1.1)
+        let z = THREE.MathUtils.randFloat( -5, 5 ) 
+        this.dest.push( x, y, z ) 
+        let vertices = [0,0,0]
+        
+        this.geometry = new THREE.BufferGeometry()
+        this.geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
+        this.geometry.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array(colors), 3 ) );
+        this.points = new THREE.Points( this.geometry, this.material )
         this.points.castShadow = true;
         this.points.receiveShadow = true;
-        this.app.scene.add(this.points);
-        console.log("firework launched");
-
-        
+        this.app.scene.add( this.points )  
+        console.log("firework launched")
     }
 
     /**
@@ -76,9 +76,45 @@ class MyFirework {
      */
     explode(origin, n, rangeBegin, rangeEnd) {
 
-       
+        console.log("removing point")
         this.app.scene.remove( this.points )
         this.points.geometry.dispose()
+
+        // Create new vertices and colors arrays for the explosion particles
+        let vertices = [];
+        let colors = [];
+
+        // Create explosion particles
+        for (let i = 0; i < n; i++) {
+            // Generate random position within a sphere
+            let theta = Math.random() * 2 * Math.PI;
+            let phi = Math.acos(2 * Math.random() - 1);
+            let r = THREE.MathUtils.randFloat(rangeBegin, rangeEnd);
+
+            let x = r * Math.sin(phi) * Math.cos(theta) + origin.x;
+            let y = r * Math.sin(phi) * Math.sin(theta) + origin.y;
+            let z = r * Math.cos(phi) + origin.z;
+
+            vertices.push(x, y, z);
+
+            // Assign random colors (or you can use a fixed color scheme)
+            let color = new THREE.Color();
+            color.setHSL(Math.random(), 1, 0.5);
+            colors.push(color.r, color.g, color.b);
+        }
+
+        // Create new geometry and set vertices and colors
+        let newGeometry = new THREE.BufferGeometry();
+        newGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        newGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+        // Create new points for the explosion
+        this.points = new THREE.Points(newGeometry, this.material);
+        console.log("adding point")
+        this.app.scene.add(this.points);
+       
+        
+
         
     }
     
