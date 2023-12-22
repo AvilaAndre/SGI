@@ -736,6 +736,7 @@ class MySceneData {
             path: [],
             powerups: [],
             obstacles: [],
+            checkpoints: 0,
             routes: [],
             width: null,
         };

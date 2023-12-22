@@ -30,11 +30,11 @@ class PickingManager {
 
         console.log("this.contents.nodes:", this.contents.nodes);
 
-    
+        //this.notPickableObjIds = [];
         this.notPickableObjIds = ["floor", "stone-wall_1", "Fence_Cylinder", "Mesh_tree_simple_dark", "Mesh_grandStand", "PrototypePete_head", "PrototypePete_body", "PrototypePete_armLeft", "PrototypePete_armRight"];
 
 
-        console.log("currentState no constructor:", this.currentState);
+        console.log("currentState no constructor do Picking Managerc:", this.currentState);
 
         this.activeStates = ["pickingPlayer", "pickingOpponent", "pickingObstacle"];
         this.currentState = null; // You'll need to set this based on your application's state
@@ -161,6 +161,7 @@ class PickingManager {
         console.log("currentState no onPointerMove:", this.currentState);
 
         if (!this.activeStates.includes(this.currentState)) {
+            console.log("not one of the active states");
             // If not, return early and do nothing
             return;
         }

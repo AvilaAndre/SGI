@@ -11,6 +11,7 @@ import { PickingManager } from "./manager/PickingManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { Animation } from "./animation/Animation.js";
+import { MyFirework } from "./MyFirework.js";
 
 /**
  *  This class contains the contents of out application
@@ -47,12 +48,16 @@ class MyContents {
 
         this.lightsArray = [];
 
+        this.pickingManager = new PickingManager(this);
+
         // game manager
-        this.manager = new GameManager(this);
+        this.manager = new GameManager(this, this.app);
 
         this.animationPlayer = new AnimationPlayer();
 
-        this.pickingManager = new PickingManager(this);
+
+
+
 
         // show debug gizmos
         this.DEBUG = false;
@@ -64,7 +69,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "demo.xml");
+        this.reader.open(this.scenePath + "playerPark.xml");
     }
 
     /**
@@ -222,6 +227,8 @@ class MyContents {
         }
 
         this.animationPlayer.update(delta);
+
+        
     }
 
     /**
@@ -234,7 +241,7 @@ class MyContents {
             options.ambient.g,
             options.ambient.b
         );
-        const light = new THREE.AmbientLight(ambientColor, .2);
+        const light = new THREE.AmbientLight(ambientColor, 1);
 
         this.app.scene.add(light);
 

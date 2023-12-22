@@ -15,11 +15,11 @@ class RaceState extends GameState {
         }
 
         if (this.manager.keyboard.isKeyJustDown("j")) {
-            this.app.animationPlayer.playStart("spectator-cheer");
+            this.contents.animationPlayer.playStart("spectator-cheer");
         }
 
         if (this.manager.keyboard.isKeyJustDown("h")) {
-            this.app.animationPlayer.playForwards(
+            this.contents.animationPlayer.playForwards(
                 this.manager.car.carName + "-hello"
             );
         }
@@ -43,6 +43,8 @@ class RaceState extends GameState {
         this.manager.car.calculateNextMove(delta);
 
         this.manager.car.move(delta);
+
+        this.manager.collisionManager.update(delta);
     }
 }
 
