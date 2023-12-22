@@ -46,4 +46,4 @@ class AABB {
     }
 }
 
-export { Collider };
+export { AABB };
