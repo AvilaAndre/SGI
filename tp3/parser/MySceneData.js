@@ -421,9 +421,9 @@ class MySceneData {
             { name: "radius", type: "float" },
         ];
 
-        this.descriptors["carcollider"] = [
-            { name: "pos", type: "vector3" },
-            { name: "size", type: "vector3" },
+        this.descriptors["collider"] = [
+            { name: "pos", type: "vector2" },
+            { name: "size", type: "vector2" },
         ];
 
         this.descriptors["animation"] = [

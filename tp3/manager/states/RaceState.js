@@ -41,6 +41,7 @@ class RaceState extends GameState {
         }
 
         this.manager.car.calculateNextMove(delta);
+        this.manager.updateCollisions();
 
         const collider = this.manager.collisionManager.checkCollisions(
             this.manager.car.collider
@@ -68,7 +69,6 @@ class RaceState extends GameState {
         }
 
         this.manager.car.move(delta);
-        this.manager.updateCollisions();
     }
 }
 

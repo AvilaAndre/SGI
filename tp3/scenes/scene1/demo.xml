@@ -1338,7 +1338,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0.65" size="1 2.3" />
 
         <frontlights>
         </frontlights>
@@ -1383,7 +1383,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0.65" size="1 2.3" />
 
         <frontlights>
             <pointlight id="frontLightL" enabled="false" 
@@ -1439,6 +1439,12 @@
 
     <car id="hatchback-pop">
         <carcameras initial="follow-perspective">
+            <perspective id="top-perpective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 10 0" 
+                target="0 0 0" />
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
@@ -1460,7 +1466,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0.65" size="1 2.3" />
 
         <frontlights>
             <pointlight id="frontLightL" enabled="false" 

@@ -1474,7 +1474,7 @@ class MyFileReader {
                 );
             }
 
-            let descriptor = this.data.descriptors["carcollider"];
+            let descriptor = this.data.descriptors["collider"];
             let collider = this.loadXmlItem({
                 elem: colliders[0],
                 descriptor: descriptor,

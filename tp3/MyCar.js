@@ -35,7 +35,7 @@ class MyCar extends THREE.Object3D {
         this.acceleration = 20;
         this.brakeValue = 30;
         this.maxSpeed = 100;
-        this.nextPosition = this.position;
+        this.lastPosition = this.position;
         this.turnAngle = 1;
         this.frontLightsNode = null;
 
@@ -72,9 +72,8 @@ class MyCar extends THREE.Object3D {
 
         this.collider = new RectangleCollider(
             this,
-            new THREE.Vector2(0, 0.65),
-            1,
-            2.3
+            new THREE.Vector2(...carData.collider.pos),
+            ...carData.collider.size
         );
 
         const camTarget = new THREE.Object3D();
@@ -222,16 +221,10 @@ class MyCar extends THREE.Object3D {
         this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
         this.lastPosition = this.position.clone();
 
-        // this.nextPosition = this.position
-        //     .clone()
-        //     .add(carDirection.multiplyScalar(this.speed * delta));
-
         this.position.add(carDirection.multiplyScalar(this.speed * delta));
     }
 
     move(delta) {
-        // this.position.set(...this.nextPosition);
-
         if (this.speed >= 0) {
             this.speed = Math.max(0, this.speed - 0.01);
         } else {
