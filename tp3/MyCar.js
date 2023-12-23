@@ -226,9 +226,9 @@ class MyCar extends THREE.Object3D {
 
     move(delta) {
         if (this.speed >= 0) {
-            this.speed = Math.max(0, this.speed - 0.01);
+            this.speed = Math.max(0, this.speed - 0.1);
         } else {
-            this.speed = Math.min(0, this.speed + 0.01);
+            this.speed = Math.min(0, this.speed + 0.1);
         }
 
         for (let i = 0; i < this.cameras.length; i++) {
