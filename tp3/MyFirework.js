@@ -2,9 +2,9 @@ import * as THREE from 'three'
 
 class MyFirework {
 
-    constructor(app, scene) {
+    constructor(app, contents) {
         this.app = app
-        this.scene = scene
+        this.contents = contents
 
         this.done     = false 
         this.dest     = [] 
@@ -14,6 +14,7 @@ class MyFirework {
         this.geometry = null
         this.points   = null
         
+        //Different colors for the fireworks
         this.materialColors = [
             new THREE.Color(0x0000FF), // Blue
             new THREE.Color(0xFF0000), // Red
@@ -26,7 +27,7 @@ class MyFirework {
         // Create an array to store materials
         this.materials = this.materialColors.map(color => 
             new THREE.PointsMaterial({
-                size: 0.1,
+                size: 1,
                 color: color,
                 opacity: 1,
                 transparent: true,
@@ -35,7 +36,11 @@ class MyFirework {
         );
         
         this.height = 20
-        this.speed = 60
+        this.speed = 70
+        
+        this.velocities = [] // Array of velocity vectors for each particle
+
+        this.reachedDestination = false; // Flag to track reaching the destination
 
         this.launch() 
 
@@ -47,6 +52,7 @@ class MyFirework {
 
     launch() {
 
+        // Random material (color of the particle is chosen randomly)
         let materialIndex = Math.floor(Math.random() * this.materials.length);
         this.material = this.materials[materialIndex];
 
@@ -54,11 +60,16 @@ class MyFirework {
         color.setHSL( THREE.MathUtils.randFloat( 0.1, 0.9 ), 1, 0.9 )
         let colors = [ color.r, color.g, color.b ]
 
-        let x = THREE.MathUtils.randFloat( -5, 5 ) 
-        let y = THREE.MathUtils.randFloat( this.height * 0.9, this.height * 1.1)
-        let z = THREE.MathUtils.randFloat( -5, 5 ) 
-        this.dest.push( x, y, z ) 
-        let vertices = [0,0,0]
+        // Random position within the specified square (where the particle is going to go, basically its final destination)
+        let x = THREE.MathUtils.randInt(-45, 45);
+        let y = THREE.MathUtils.randInt( 20, 45);
+        let z = THREE.MathUtils.randInt( -45, 45); 
+
+        let xInc = THREE.MathUtils.randInt( -10, 10);
+        let zInc = THREE.MathUtils.randInt( -15, 15);
+
+        this.dest.push(x + xInc, y + 10, z + zInc);  // Destination is now based on this random starting point
+        let vertices = [x, 0, z];  // Starting position of the particle
         
         this.geometry = new THREE.BufferGeometry()
         this.geometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array(vertices), 3 ) );
@@ -66,64 +77,57 @@ class MyFirework {
         this.points = new THREE.Points( this.geometry, this.material )
         this.points.castShadow = true;
         this.points.receiveShadow = true;
-        this.app.scene.add( this.points )  
-        console.log("firework launched")
+
+        let initialUpwardVelocity = THREE.MathUtils.randFloat(10, 30); // Adjust these values as needed
+        this.velocities.push(new THREE.Vector3(0, initialUpwardVelocity, 0));
+
+        //Adding all points to the scene
+        this.app.scene.add( this.points );  
+        console.log("firework launched");
     }
 
     /**
      * compute explosion
-     * @param {*} vector 
+     * @param {*} vector
      */
     explode(origin, n, rangeBegin, rangeEnd) {
-
-        console.log("removing point")
-        this.app.scene.remove( this.points )
-        this.points.geometry.dispose()
-
-        // Create new vertices and colors arrays for the explosion particles
-        let vertices = [];
-        let colors = [];
-
-        // Create explosion particles
+        this.app.scene.remove(this.points);
+        this.points.geometry.dispose();
+    
+        let explosionVertices = [];
+        let explosionColors = [];
+    
         for (let i = 0; i < n; i++) {
-            // Generate random position within a sphere
             let theta = Math.random() * 2 * Math.PI;
             let phi = Math.acos(2 * Math.random() - 1);
             let r = THREE.MathUtils.randFloat(rangeBegin, rangeEnd);
-
+    
             let x = r * Math.sin(phi) * Math.cos(theta) + origin.x;
             let y = r * Math.sin(phi) * Math.sin(theta) + origin.y;
             let z = r * Math.cos(phi) + origin.z;
-
-            vertices.push(x, y, z);
-
-            // Assign random colors (or you can use a fixed color scheme)
+    
+            explosionVertices.push(x, y, z);
+    
             let color = new THREE.Color();
             color.setHSL(Math.random(), 1, 0.5);
-            colors.push(color.r, color.g, color.b);
+            explosionColors.push(color.r, color.g, color.b);
         }
-
-        // Create new geometry and set vertices and colors
-        let newGeometry = new THREE.BufferGeometry();
-        newGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-        newGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-        // Create new points for the explosion
-        this.points = new THREE.Points(newGeometry, this.material);
-        console.log("adding point")
+    
+        let explosionGeometry = new THREE.BufferGeometry();
+        explosionGeometry.setAttribute('position', new THREE.Float32BufferAttribute(explosionVertices, 3));
+        explosionGeometry.setAttribute('color', new THREE.Float32BufferAttribute(explosionColors, 3));
+    
+        this.points = new THREE.Points(explosionGeometry, this.material);
         this.app.scene.add(this.points);
-       
-        
-
-        
     }
+    
     
     /**
      * cleanup
      */
     reset() {
         console.log("firework reseted")
-        this.app.scene.remove( this.points )  
+        this.app.contents.remove( this.points )  
         this.dest     = [] 
         this.vertices = null
         this.colors   = null 
@@ -137,30 +141,50 @@ class MyFirework {
      */
     update() {
         
-        // do only if objects exist
+        // do only if objects exist (if there are points and they all have a geometry)
         if( this.points && this.geometry )
         {
+            // each vertex represents the position of a particle.
             let verticesAtribute = this.geometry.getAttribute( 'position' )
+            //array containing the actual coordinate of each particle 
+            //the first three elements of the array represent the x, y, and z coordinates of the first particle, 
+            //the next three elements represent the coordinates of the second particle, and so on
             let vertices = verticesAtribute.array
+            //how many sets of coordinates are
             let count = verticesAtribute.count
 
             // lerp particle positions 
             let j = 0
+            // Define gravity and deltaTime outside the update function
+            const gravity = new THREE.Vector3(0, -9.81, 0); // Gravity vector pointing downwards
+            const deltaTime = 1 / 80; // Assuming 80 updates per second
+            //updates each particle's position. It moves the particle a fraction of the distance towards its destination
             for( let i = 0; i < vertices.length; i+=3 ) {
-                vertices[i  ] += ( this.dest[i  ] - vertices[i  ] ) / this.speed
-                vertices[i+1] += ( this.dest[i+1] - vertices[i+1] ) / this.speed
-                vertices[i+2] += ( this.dest[i+2] - vertices[i+2] ) / this.speed
+                let index = i / 3;
+
+                // Update the velocity of each particle
+                this.velocities[index].addScaledVector(gravity, deltaTime);
+    
+                // Update the position of each particle based on its velocity
+                vertices[i] += this.velocities[index].x * deltaTime;
+                vertices[i + 1] += this.velocities[index].y * deltaTime;
+                vertices[i + 2] += this.velocities[index].z * deltaTime;
             }
+            //position data has been updated and needs to be re-processed.
             verticesAtribute.needsUpdate = true
             
             // only one particle?
-            if( count === 1 ) {
-                //is YY coordinate higher close to destination YY? 
-                if( Math.ceil( vertices[1] ) > ( this.dest[1] * 0.95 ) ) {
-                    // add n particles departing from the location at (vertices[0], vertices[1], vertices[2])
-                    this.explode(vertices, 80, this.height * 0.05, this.height * 0.8) 
-                    return 
+            if (count === 1 && !this.reachedDestination) {
+                if (vertices[1] >= this.dest[1]) {
+                    this.reachedDestination = true; // Mark that it reached the destination
                 }
+            }
+
+            // Check if the firework has descended 5 units below after reaching the destination
+            if (this.reachedDestination && vertices[1] <= this.dest[1] - 5) {
+                let origin = new THREE.Vector3(vertices[0], vertices[1], vertices[2]);
+                this.explode(origin, 80, this.height * 0.05, this.height * 0.8);
+                return;
             }
             
             // are there a lot of particles (aka already exploded)?

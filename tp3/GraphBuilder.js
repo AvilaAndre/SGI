@@ -57,7 +57,6 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
                     geometry.receiveShadow = nodeObj.receiveShadow;
                     nodeObj.add(geometry);
                 } else if (child.subtype === "model3d") {
-                    console.log("model3d (nodeObj): ", nodeObj);
                     nodeObj.add(geometry);
                 } else {
                     if (geometry !== undefined) {
