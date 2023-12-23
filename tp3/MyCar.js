@@ -77,8 +77,6 @@ class MyCar extends THREE.Object3D {
             2.3
         );
 
-        this.contents.manager.collisionManager.addCollider(this.collider);
-
         const camTarget = new THREE.Object3D();
 
         camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // DEBUG
@@ -222,13 +220,17 @@ class MyCar extends THREE.Object3D {
         this.getWorldDirection(carDirection);
 
         this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
-        this.nextPosition = this.position.add(
-            carDirection.multiplyScalar(this.speed * delta)
-        );
+        this.lastPosition = this.position.clone();
+
+        // this.nextPosition = this.position
+        //     .clone()
+        //     .add(carDirection.multiplyScalar(this.speed * delta));
+
+        this.position.add(carDirection.multiplyScalar(this.speed * delta));
     }
 
     move(delta) {
-        this.position.set(...this.nextPosition);
+        // this.position.set(...this.nextPosition);
 
         if (this.speed >= 0) {
             this.speed = Math.max(0, this.speed - 0.01);

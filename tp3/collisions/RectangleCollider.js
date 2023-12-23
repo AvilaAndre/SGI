@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { Collider } from "./Collider.js";
 import { AABB } from "./AABB.js";
+import { OBB } from "./OBB.js";
 
 /**
  * This class represents a base collider
@@ -25,6 +26,35 @@ class RectangleCollider extends Collider {
         this.type = "rectangle";
     }
 
+    /**
+     * Checks if collides with another collider
+     * @param {Collider} collider
+     */
+    collide(otherCollider) {
+        if (otherCollider == this) {
+            console.error("Checking collisions for the same colliders");
+            return false;
+        }
+        switch (otherCollider.type) {
+            case "rectangle": {
+                // Check AABB first
+                if (this.aabb.intersect(otherCollider.aabb)) {
+                    return OBB.SatWithRectangle(this, otherCollider);
+                }
+
+                return false;
+            }
+
+            default: {
+                console.warn(
+                    "RectangleCollider does not collide with",
+                    otherCollider.type
+                );
+                return false;
+            }
+        }
+    }
+
     computePoints() {
         // ROTATE THEN TRANSLATE
         this.p1 = new THREE.Vector2(
@@ -38,7 +68,9 @@ class RectangleCollider extends Collider {
             this.p1.x * Math.sin(-this.parent.rotation.y) +
                 this.p1.y * Math.cos(-this.parent.rotation.y)
         );
-        this.p1.sub(new THREE.Vector2(this.center.x, this.center.z));
+        this.p1.add(
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+        );
 
         this.p2 = new THREE.Vector2(
             this.width / 2 + this.center.x,
@@ -51,7 +83,9 @@ class RectangleCollider extends Collider {
             this.p2.x * Math.sin(-this.parent.rotation.y) +
                 this.p2.y * Math.cos(-this.parent.rotation.y)
         );
-        this.p2.sub(new THREE.Vector2(this.center.x, this.center.z));
+        this.p2.add(
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+        );
 
         this.p3 = new THREE.Vector2(
             this.width / 2 + this.center.x,
@@ -64,7 +98,9 @@ class RectangleCollider extends Collider {
             this.p3.x * Math.sin(-this.parent.rotation.y) +
                 this.p3.y * Math.cos(-this.parent.rotation.y)
         );
-        this.p3.sub(new THREE.Vector2(this.center.x, this.center.z));
+        this.p3.add(
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+        );
 
         this.p4 = new THREE.Vector2(
             -this.width / 2 + this.center.x,
@@ -77,7 +113,9 @@ class RectangleCollider extends Collider {
             this.p4.x * Math.sin(-this.parent.rotation.y) +
                 this.p4.y * Math.cos(-this.parent.rotation.y)
         );
-        this.p4.sub(new THREE.Vector2(this.center.x, this.center.z));
+        this.p4.add(
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+        );
 
         let minX;
         let maxX;
@@ -91,10 +129,11 @@ class RectangleCollider extends Collider {
             if (!maxY || point.y > maxY) maxY = point.y;
         });
 
-        this.aabb.minX = minX;
-        this.aabb.maxX = maxX;
-        this.aabb.minY = minY;
-        this.aabb.maxY = maxY;
+        this.aabb.set(minX, maxX, minY, maxY);
+    }
+
+    update() {
+        this.computePoints();
     }
 
     getDebugObject() {
@@ -105,7 +144,7 @@ class RectangleCollider extends Collider {
         this.debugObject = new THREE.Object3D();
 
         this.p1Obj = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0, 1),
                 opacity: 0.6,
@@ -113,7 +152,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p2Obj = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0, 1),
                 opacity: 0.6,
@@ -121,7 +160,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p3Obj = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0, 1),
                 opacity: 0.6,
@@ -129,7 +168,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p4Obj = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0, 1),
                 opacity: 0.6,
@@ -143,7 +182,7 @@ class RectangleCollider extends Collider {
         this.debugObject.add(this.p4Obj);
 
         this.p1ObjAABB = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0.5, 1),
                 opacity: 0.6,
@@ -151,7 +190,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p2ObjAABB = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0.5, 1),
                 opacity: 0.6,
@@ -159,7 +198,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p3ObjAABB = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0.5, 1),
                 opacity: 0.6,
@@ -167,7 +206,7 @@ class RectangleCollider extends Collider {
             })
         );
         this.p4ObjAABB = new THREE.Mesh(
-            new THREE.SphereGeometry(0.1),
+            new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
                 color: new THREE.Color(0, 0.5, 1),
                 opacity: 0.6,
@@ -184,29 +223,36 @@ class RectangleCollider extends Collider {
     }
 
     updateDebugObject() {
-        this.computePoints();
-
         if (this.debugObject) {
-            this.debugObject.position.set(
-                ...this.parent.position
-                    .clone()
-                    .add(this.center)
-                    .add(new THREE.Vector3(0, 2, 0))
-            );
-
-            if (this.p1Obj) this.p1Obj.position.set(this.p1.x, 0, this.p1.y);
-            if (this.p2Obj) this.p2Obj.position.set(this.p2.x, 0, this.p2.y);
-            if (this.p3Obj) this.p3Obj.position.set(this.p3.x, 0, this.p3.y);
-            if (this.p4Obj) this.p4Obj.position.set(this.p4.x, 0, this.p4.y);
+            if (this.p1Obj) this.p1Obj.position.set(this.p1.x, 2, this.p1.y);
+            if (this.p2Obj) this.p2Obj.position.set(this.p2.x, 2, this.p2.y);
+            if (this.p3Obj) this.p3Obj.position.set(this.p3.x, 2, this.p3.y);
+            if (this.p4Obj) this.p4Obj.position.set(this.p4.x, 2, this.p4.y);
 
             if (this.p1ObjAABB)
-                this.p1ObjAABB.position.set(this.aabb.minX, 0, this.aabb.minY);
+                this.p1ObjAABB.position.set(
+                    this.aabb.minX,
+                    2.2,
+                    this.aabb.minY
+                );
             if (this.p2ObjAABB)
-                this.p2ObjAABB.position.set(this.aabb.minX, 0, this.aabb.maxY);
+                this.p2ObjAABB.position.set(
+                    this.aabb.minX,
+                    2.2,
+                    this.aabb.maxY
+                );
             if (this.p3ObjAABB)
-                this.p3ObjAABB.position.set(this.aabb.maxX, 0, this.aabb.minY);
+                this.p3ObjAABB.position.set(
+                    this.aabb.maxX,
+                    2.2,
+                    this.aabb.minY
+                );
             if (this.p4ObjAABB)
-                this.p4ObjAABB.position.set(this.aabb.maxX, 0, this.aabb.maxY);
+                this.p4ObjAABB.position.set(
+                    this.aabb.maxX,
+                    2.2,
+                    this.aabb.maxY
+                );
         }
     }
 }

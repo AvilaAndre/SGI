@@ -42,9 +42,33 @@ class RaceState extends GameState {
 
         this.manager.car.calculateNextMove(delta);
 
-        this.manager.car.move(delta);
+        const collider = this.manager.collisionManager.checkCollisions(
+            this.manager.car.collider
+        );
 
-        this.manager.collisionManager.update(delta);
+        if (collider) {
+            // Check if running into the collider
+            if (
+                this.manager.car.position
+                    .clone()
+                    .sub(collider.parent.position)
+                    .normalize()
+                    .angleTo(
+                        this.manager.car.position
+                            .clone()
+                            .sub(this.manager.car.lastPosition)
+                            .normalize()
+                    ) >
+                Math.PI / 2
+            ) {
+                this.manager.car.speed = 0;
+
+                this.manager.car.position.set(...this.manager.car.lastPosition);
+            }
+        }
+
+        this.manager.car.move(delta);
+        this.manager.updateCollisions();
     }
 }
 

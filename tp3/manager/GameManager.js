@@ -46,6 +46,10 @@ class GameManager {
         this.keyboard.update();
     }
 
+    updateCollisions(delta) {
+        this.collisionManager.update(delta);
+    }
+
     /**
      *
      * @param {MyCar} car
@@ -53,11 +57,14 @@ class GameManager {
 
     addCar(car) {
         this.cars.push(car);
+    }
 
-        this.car = car; // FIXME: Remove this when car selection is done
+    selectCar(idx) {
+        this.car = this.cars[idx];
         this.car.activateLights();
-
         this.contents.app.scene.add(this.car);
+
+        this.collisionManager.addCollider(this.car.collider);
     }
 
     changeCarCamera() {

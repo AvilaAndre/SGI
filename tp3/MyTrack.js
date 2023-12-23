@@ -31,18 +31,18 @@ class MyTrack extends THREE.Object3D {
         );
 
         /* Uncomment this block to see where are the points located
-         */
         this.path.forEach((elem) => {
             console.log(elem);
             const msh = new THREE.Mesh(
                 new THREE.SphereGeometry(0.2),
                 app.materials[data.materialId]
             );
-
+            
             msh.position.set(...elem);
-
+            
             this.add(msh);
         });
+        */
 
         this.startingLine = this.path[0];
 
