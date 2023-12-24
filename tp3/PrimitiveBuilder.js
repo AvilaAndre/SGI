@@ -1,14 +1,12 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /**
  *
  * @param {Object} representation the object with the primitive's representation
- * @param {MyApp} app the application object
  * @returns the mesh of the primitive
  */
-const createPrimitive = (representation, app) => {
+const createPrimitive = (representation) => {
     if (representation.type === "cylinder") {
         return new THREE.CylinderGeometry(
             representation["top"],

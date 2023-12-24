@@ -98,29 +98,17 @@ class RaceState extends GameState {
 
         // check for collision with checkpoint
 
-        if (
-            this.manager.car.collider.collide(
-                this.contents.track.checkpoints[
-                    this.manager.currCheckpoint %
-                        this.contents.track.numCheckpoints
-                ].collider
-            )
-        ) {
+        const currCheckpointObj =
+            this.contents.track.checkpoints[
+                this.manager.currCheckpoint % this.contents.track.numCheckpoints
+            ];
+
+        if (this.manager.car.collider.collide(currCheckpointObj.collider)) {
             // update lastCheckpoint
             this.manager.lastCheckpoint = {
-                x: this.contents.track.checkpoints[
-                    this.manager.currCheckpoint %
-                        this.contents.track.numCheckpoints
-                ].position.x,
-                z: this.contents.track.checkpoints[
-                    this.manager.currCheckpoint %
-                        this.contents.track.numCheckpoints
-                ].position.z,
-                rotation:
-                    this.contents.track.checkpoints[
-                        this.manager.currCheckpoint %
-                            this.contents.track.numCheckpoints
-                    ].rotation.y + Math.PI,
+                x: currCheckpointObj.position.x,
+                z: currCheckpointObj.position.z,
+                rotation: currCheckpointObj.rotation.y + Math.PI,
             };
 
             console.info(
@@ -149,22 +137,52 @@ class RaceState extends GameState {
                 0
             ) {
                 console.warn("lap time:" + this.manager.lapClock.getDelta());
+                this.contents.track.checkpoints.forEach((checkpointObj) => {
+                    checkpointObj.cones.forEach((element) => {
+                        // traverse cones
+                        element.traverse((elem) => {
+                            if (elem.type === "Mesh") {
+                                elem.material.color = new THREE.Color(0, 0, 1);
+                            }
+                        });
+                    });
+                });
             }
 
-            this.contents.track.checkpoints[
-                this.manager.currCheckpoint++ %
-                    this.contents.track.numCheckpoints
-            ].visible = false;
-            this.contents.track.checkpoints[
-                this.manager.currCheckpoint % this.contents.track.numCheckpoints
-            ].visible = true;
-
-            this.contents.app.scene.add(
+            const nextCheckpointObj =
                 this.contents.track.checkpoints[
-                    this.manager.currCheckpoint %
+                    (this.manager.currCheckpoint + 1) %
                         this.contents.track.numCheckpoints
-                ].collider.getDebugObject()
-            );
+                ];
+
+            // current checkpoint
+            currCheckpointObj.cones.forEach((element) => {
+                // traverse cones
+                element.traverse((elem) => {
+                    if (elem.type === "Mesh") {
+                        elem.material.color = new THREE.Color(0, 1, 0);
+                    }
+                });
+            });
+
+            // next checkpoint
+            nextCheckpointObj.cones.forEach((element) => {
+                // traverse cones
+                element.traverse((elem) => {
+                    if (elem.type === "Mesh") {
+                        elem.material.color = new THREE.Color(1, 0, 0);
+                    }
+                });
+            });
+
+            this.manager.currCheckpoint++;
+
+            // this.contents.app.scene.add(
+            //     this.contents.track.checkpoints[
+            //         this.manager.currCheckpoint %
+            //             this.contents.track.numCheckpoints
+            //     ].collider.getDebugObject()
+            // );
         }
     }
 }
