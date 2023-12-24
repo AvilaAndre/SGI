@@ -35,7 +35,7 @@ class MyCar extends THREE.Object3D {
         this.acceleration = 20;
         this.brakeValue = 30;
         this.maxSpeed = 100;
-        this.nextPosition = this.position;
+        this.lastPosition = this.position;
         this.turnAngle = 1;
         this.frontLightsNode = null;
 
@@ -68,20 +68,16 @@ class MyCar extends THREE.Object3D {
             const wheelNode = instantiateNode(wheel.id, data, this.contents);
             this.add(wheelNode);
         }
-        // TODO: Collider
 
         this.collider = new RectangleCollider(
             this,
-            new THREE.Vector2(0, 0.65),
-            1,
-            2.3
+            new THREE.Vector2(...carData.collider.pos),
+            ...carData.collider.size
         );
-
-        this.contents.manager.collisionManager.addCollider(this.collider);
 
         const camTarget = new THREE.Object3D();
 
-        camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // DEBUG
+        camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // FIXME: DEBUG
 
         for (let i = 0; i < carData.cameras.length; i++) {
             const camera = carData.cameras[i];
@@ -162,7 +158,6 @@ class MyCar extends THREE.Object3D {
                     bodyNode.add(lightObj);
 
                     this.rearLights.push(lightObj);
-
                     break;
                 default:
                     break;
@@ -221,20 +216,19 @@ class MyCar extends THREE.Object3D {
 
         this.getWorldDirection(carDirection);
 
-        this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
-        this.nextPosition = this.position.add(
-            carDirection.multiplyScalar(this.speed * delta)
-        );
+        this.lastPosition = this.position.clone();
+
+        this.position.add(carDirection.multiplyScalar(this.speed * delta));
     }
 
     move(delta) {
-        this.position.set(...this.nextPosition);
-
         if (this.speed >= 0) {
-            this.speed = Math.max(0, this.speed - 0.01);
+            this.speed = Math.max(0, this.speed - 0.1);
         } else {
-            this.speed = Math.min(0, this.speed + 0.01);
+            this.speed = Math.min(0, this.speed + 0.1);
         }
+
+        this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
 
         for (let i = 0; i < this.cameras.length; i++) {
             const camInfo = this.cameras[i];
@@ -350,6 +344,15 @@ class MyCar extends THREE.Object3D {
 
             frontLight.visible = true;
         }
+    }
+
+    teleportTo(x, z, rotation = 0) {
+        this.speed = 0;
+        this.wheelRotation = 0;
+
+        this.position.x = x;
+        this.position.z = z;
+        this.rotation.y = rotation;
     }
 }
 

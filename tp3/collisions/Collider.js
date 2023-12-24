@@ -27,13 +27,16 @@ class Collider {
      * @param {Collider} collider
      */
     collide(collider) {
-        console.log(this, collider);
+        console.log("collide called in Generic Collider");
+        return false;
     }
 
     getDebugObject() {
         console.log("Called DEBUG Object on collider");
         return null;
     }
+
+    update() {}
 
     updateDebugObject() {
         if (this.debugObject) {

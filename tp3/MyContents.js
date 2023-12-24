@@ -12,6 +12,7 @@ import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { Animation } from "./animation/Animation.js";
 import { MyFirework } from "./MyFirework.js";
+import { RectangleCollider } from "./collisions/RectangleCollider.js";
 
 /**
  *  This class contains the contents of out application
@@ -69,7 +70,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "playerPark.xml");
+        this.reader.open(this.scenePath + "opponentPark.xml");
     }
 
     /**
@@ -193,6 +194,22 @@ class MyContents {
 
             this.manager.addCar(new MyCar(this, data, carData));
         }
+
+        this.manager.selectCar(2);
+
+        const testColliderObj = new THREE.Object3D();
+
+        testColliderObj.position.set(5, 0, 10);
+
+        this.manager.collisionManager.addCollider(
+            new RectangleCollider(
+                testColliderObj,
+                new THREE.Vector2(0, 0),
+                2,
+                2
+            ),
+            true
+        );
 
         console.log("hud", data.hud.id);
         // this.hud = new MyHud(this, data.hud);

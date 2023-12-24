@@ -1,25 +1,27 @@
 import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
+import { MyContents } from "./MyContents.js";
+import { RectangleCollider } from "./collisions/RectangleCollider.js";
 /**
  * This class contains a race track made with catmull curves
  */
 class MyTrack extends THREE.Object3D {
     /**
      *
-     * @param {MyApp} app the application object
+     * @param {MyContents} contents the contents object
      * @param {Object} data the path of the racetrack
      * @param {number} divisions the number of divisions on the racetrack creating the polygons
      */
-    constructor(app, data, divisions) {
+    constructor(contents, data, divisions) {
         super();
-        this.app = app;
+        this.contents = contents;
         this.type = "Group";
         this.path = data.path;
         this.trackWidth = data.width;
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
 
-        console.log("track", data);
+        this.checkpoints = [];
 
         //Check if isEmpty is set to true
         if (data.isEmpty) {
@@ -31,18 +33,18 @@ class MyTrack extends THREE.Object3D {
         );
 
         /* Uncomment this block to see where are the points located
-         */
         this.path.forEach((elem) => {
             console.log(elem);
             const msh = new THREE.Mesh(
                 new THREE.SphereGeometry(0.2),
-                app.materials[data.materialId]
+                this.contents.materials[data.materialId]
             );
-
+            
             msh.position.set(...elem);
-
+            
             this.add(msh);
         });
+        */
 
         this.startingLine = this.path[0];
 
@@ -70,16 +72,54 @@ class MyTrack extends THREE.Object3D {
         let lastPoint = new THREE.Vector3(0, 0, 0);
         let dist = 0;
 
-        curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {
-            const msh = new THREE.Mesh(
-                new THREE.SphereGeometry(0.4),
-                new THREE.MeshBasicMaterial({ color: new THREE.Color(1, 0, 1) })
+        const checkpointWidth = this.trackWidth * 1.4;
+
+        for (let i = 0; i <= this.numCheckpoints; i++) {
+            const progress =
+                ((i / this.numCheckpoints) * curve.getLength()) /
+                curve.getLength();
+
+            const pt = curve.getPointAt(progress);
+            const tangent = curve.getTangentAt(progress);
+
+            const checkpointObj = new THREE.Object3D();
+            checkpointObj.position.set(...pt);
+
+            tangent.add(pt);
+
+            checkpointObj.rotation.y = Math.atan2(
+                checkpointObj.position.x - tangent.x,
+                checkpointObj.position.z - tangent.z
             );
 
-            msh.position.set(...pt);
+            checkpointObj.collider = new RectangleCollider(
+                checkpointObj,
+                new THREE.Vector2(0, 0),
+                checkpointWidth,
+                0.2
+            );
 
-            this.add(msh);
-        });
+            const checkPointMesh = new THREE.Mesh(
+                new THREE.BoxGeometry(checkpointWidth, 1, 0.2),
+                new THREE.MeshBasicMaterial({
+                    color: new THREE.Color(0.2, 0.2, 1),
+                    opacity: 0.3,
+                    transparent: true,
+                })
+            );
+
+            checkpointObj.visible = false;
+
+            checkpointObj.add(checkPointMesh);
+
+            this.add(checkpointObj);
+
+            this.checkpoints.push(checkpointObj);
+        }
+
+        this.checkpoints[0].visible = true;
+
+        curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {});
 
         for (let i = 0; i < this.divisions; i++) {
             const progress = spacedLengths[i] / curveLength;
@@ -166,7 +206,7 @@ class MyTrack extends THREE.Object3D {
         });
         trackMaterial.wireframeValue = false;
 
-        app.materials["track"] = trackMaterial;
+        this.contents.materials["track"] = trackMaterial;
 
         const trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
 

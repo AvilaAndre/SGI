@@ -20,8 +20,22 @@ class AABB {
 
     /**
      *
+     * @param {number} minX
+     * @param {number} maxX
+     * @param {number} minY
+     * @param {number} maxY
+     */
+    set(minX, maxX, minY, maxY) {
+        this.minX = minX;
+        this.maxX = maxX;
+        this.minY = minY;
+        this.maxY = maxY;
+    }
+
+    /**
+     *
      * @param {THREE.Vector2} point
-     * @returns
+     * @returns {boolean} if is inside
      */
     isPointInside(point) {
         return (
@@ -35,8 +49,9 @@ class AABB {
     /**
      * Checks if two boxes overlap
      * @param {AABB} box
+     * @returns {boolean} if intersects
      */
-    static intersect(box) {
+    intersect(box) {
         return (
             this.minX <= box.maxX &&
             this.maxX >= box.minX &&
