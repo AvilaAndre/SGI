@@ -180,13 +180,13 @@ class PickingManager {
 
         //3. compute intersections
         //var intersects = this.raycaster.intersectObjects(this.data.nodes);
-        console.log("this.contents.app.scene.children no onPointerMove:", this.contents.app.scene.children);
+
         const nodesArray = Object.values(this.contents.nodes);
-        console.log("nodesArray:", nodesArray);
+
         const intersects = this.raycaster.intersectObjects(nodesArray, true);
 
         //var intersects = this.raycaster.intersectObjects(this.contents.nodes, true);
-        console.log("nodesArray depois:", intersects);
+
 
         this.pickingHelper(intersects)
 

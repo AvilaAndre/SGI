@@ -27,7 +27,7 @@ class MyFirework {
         // Create an array to store materials
         this.materials = this.materialColors.map(color => 
             new THREE.PointsMaterial({
-                size: 1,
+                size: 3,
                 color: color,
                 opacity: 1,
                 transparent: true,
@@ -41,6 +41,8 @@ class MyFirework {
         this.velocities = [] // Array of velocity vectors for each particle
 
         this.reachedDestination = false; // Flag to track reaching the destination
+
+        this.isDescending = false;
 
         this.launch() 
 
@@ -68,7 +70,7 @@ class MyFirework {
         let xInc = THREE.MathUtils.randInt( -10, 10);
         let zInc = THREE.MathUtils.randInt( -15, 15);
 
-        this.dest.push(x + xInc, y + 10, z + zInc);  // Destination is now based on this random starting point
+        this.dest.push(x + xInc, 20, z + zInc);  // Destination is now based on this random starting point
         let vertices = [x, 0, z];  // Starting position of the particle
         
         this.geometry = new THREE.BufferGeometry()
@@ -78,8 +80,8 @@ class MyFirework {
         this.points.castShadow = true;
         this.points.receiveShadow = true;
 
-        let initialUpwardVelocity = THREE.MathUtils.randFloat(10, 30); // Adjust these values as needed
-        this.velocities.push(new THREE.Vector3(0, initialUpwardVelocity, 0));
+        let initialUpwardVelocity = 30; // Adjust these values as needed
+        this.velocities.push(new THREE.Vector3(2, initialUpwardVelocity, 2));
 
         //Adding all points to the scene
         this.app.scene.add( this.points );  
@@ -116,8 +118,16 @@ class MyFirework {
         let explosionGeometry = new THREE.BufferGeometry();
         explosionGeometry.setAttribute('position', new THREE.Float32BufferAttribute(explosionVertices, 3));
         explosionGeometry.setAttribute('color', new THREE.Float32BufferAttribute(explosionColors, 3));
+
+        let explosionMaterial = new THREE.PointsMaterial({
+            size: 1,
+            color: this.material.color, // use the same color as the original material
+            opacity: 0.8, // start with high opacity
+            transparent: true,
+            depthTest: false,
+        });
     
-        this.points = new THREE.Points(explosionGeometry, this.material);
+        this.points = new THREE.Points(explosionGeometry, explosionMaterial);
         this.app.scene.add(this.points);
     }
     
@@ -127,7 +137,7 @@ class MyFirework {
      */
     reset() {
         console.log("firework reseted")
-        this.app.contents.remove( this.points )  
+        this.app.scene.remove( this.points )  
         this.dest     = [] 
         this.vertices = null
         this.colors   = null 
@@ -169,6 +179,20 @@ class MyFirework {
                 vertices[i] += this.velocities[index].x * deltaTime;
                 vertices[i + 1] += this.velocities[index].y * deltaTime;
                 vertices[i + 2] += this.velocities[index].z * deltaTime;
+
+                if (this.velocities[index].y < 0) {
+                    // The particle is descending
+                    console.log("Particle is descending");
+                    this.isDescending = true;
+                }
+
+                // Check if the firework has descended 5 units below after reaching the destination
+                if (this.isDescending && vertices[i+1] <= 20){
+                    let origin = new THREE.Vector3(vertices[0], vertices[1], vertices[2]);
+                    this.explode(origin, 80, 0, 12);
+                    //this.reset();
+                    return;
+                }
             }
             //position data has been updated and needs to be re-processed.
             verticesAtribute.needsUpdate = true
@@ -180,23 +204,34 @@ class MyFirework {
                 }
             }
 
-            // Check if the firework has descended 5 units below after reaching the destination
-            if (this.reachedDestination && vertices[1] <= this.dest[1] - 5) {
-                let origin = new THREE.Vector3(vertices[0], vertices[1], vertices[2]);
-                this.explode(origin, 80, this.height * 0.05, this.height * 0.8);
-                return;
-            }
+            
+
+            
             
             // are there a lot of particles (aka already exploded)?
-            if( count > 1 ) {
-                // fade out exploded particles 
-                this.material.opacity -= 0.015 
-                this.material.needsUpdate = true
+            // Gradually fade out exploded particles
+            if (count > 1) {
+                console.log("count > 1")
+                console.log("this.count:", count)
+                console.log("this.material.opacity:", this.material.opacity)
+                this.material.opacity -= 0.015; // Adjust this value as needed
+                this.material.needsUpdate = true;
+
+                // Ensure opacity does not go below 0
+                /*if (this.material.opacity < 0) {
+                    this.material.opacity = 0;
+                }*/
             }
             
             // remove, reset and stop animating 
-            if( this.material.opacity <= 0 )
+            if( this.material.opacity <= 0)
             {
+                this.reset() 
+                this.done = true 
+                return 
+            }
+
+            if(vertices[1] <= 0){
                 this.reset() 
                 this.done = true 
                 return 

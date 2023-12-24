@@ -15,9 +15,7 @@ class OpponentParkState extends GameState {
 
     update(delta) {
         //Pôr o addListener aqui
-        console.log("this.pickingManager: ", this.pickingManager);
         this.pickingManager.setState("pickingPlayer");
-        console.log("this no update dentro do estado: ", this);
         document.addEventListener("pointermove", this.pickingManager.onPointerMove);
         this.manager.launchFireworks();
     }

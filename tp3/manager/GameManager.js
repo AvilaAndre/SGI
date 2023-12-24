@@ -71,7 +71,7 @@ class GameManager {
     }
 
     update(delta) {
-        console.log("this.state: no update", this.state);
+
         this.state.update(delta);
         this.keyboard.update();
     }
