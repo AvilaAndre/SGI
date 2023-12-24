@@ -23,7 +23,7 @@ class GameManager {
         this.keyboard = new KeyboardManager();
         this.collisionManager = new CollisionManager(this.contents);
 
-        this.cars = [];
+        this.cars = {};
 
         this.car = null;
 
@@ -41,8 +41,6 @@ class GameManager {
      * @param {GameState} state
      */
     setState(state) {
-        console.log("Setting state to " + state);
-        console.log("contents: " + this.contents);
         switch (state) {
             case "race":
                 this.state = new RaceState(this.contents, this);
@@ -85,7 +83,7 @@ class GameManager {
      * @param {MyCar} car
      */
     addCar(car) {
-        this.cars.push(car);
+        this.cars[car.carName] = car;
     }
 
     selectCar(idx) {
@@ -112,7 +110,7 @@ class GameManager {
             i = ++i % this.car.cameras.length;
         }
 
-        this.contents.contents.activeCameraName = this.car.cameras[i].id;
+        this.contents.app.activeCameraName = this.car.cameras[i].id;
     }
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
@@ -136,6 +134,13 @@ class GameManager {
             // otherwise upsdate  firework
             this.fireworks[i].update();
         }
+    }
+
+    /**
+     * Resets GameManager properties that do not cross scenes
+     */
+    reset() {
+        this.collisionManager = new CollisionManager(this.contents);
     }
 }
 

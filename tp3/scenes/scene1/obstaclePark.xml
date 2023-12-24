@@ -373,7 +373,7 @@
 
     <car id="race">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -418,7 +418,7 @@
 
     <car id="hatchback">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -495,7 +495,7 @@
 
     <car id="hatchback-pop">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 

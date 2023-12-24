@@ -40,9 +40,6 @@ class MyContents {
         //nodes
         this.nodes = new Object();
 
-        // custom parameter for our scene
-        this.curtains = [];
-
         //lights
         this.lights = new Object();
 
@@ -60,18 +57,80 @@ class MyContents {
 
         this.lightsOn = true;
 
-        this.scenePath = "scenes/scene1/";
+        this.initializeEventListeners();
 
-        this.switchScenes("playerPark");
+        this.scenePath = "scenes/scene1/";
+        // initial scene name
+        this.sceneName = "playerPark";
+        this.switchScenes(this.sceneName);
 
         this.manager.setState("pickingPlayer");
     }
 
     switchScenes(newScene) {
+        this.sceneName = newScene;
+
+        // Reset variables
+        this.background = null;
+        this.ambient = null;
+        // textures
+        this.textures = new Object();
+        // materials
+        this.materials = new Object();
+        // primitive materials, polygon is the only primitive with a material assigned
+        this.primitiveMaterials = [];
+        //skyboxes
+        this.skyboxes = new Object();
+        //cameras
+        this.cameras = new Object();
+        //nodes
+        this.nodes = new Object();
+        //lights
+        this.lights = new Object();
+        this.lightsArray = [];
+
+        this.init();
         this.app.resetCameras();
         this.app.scene = new THREE.Scene();
         this.reader = new MyFileReader(this.app, this, this.onSceneLoaded);
         this.reader.open(this.scenePath + newScene + ".xml");
+    }
+
+    finishedSwitchingScenes() {
+        switch (this.sceneName) {
+            case "race":
+                this.manager.setState("race");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Initializes the event listeners
+     */
+    initializeEventListeners() {
+        // register when keys are down
+        document.addEventListener("keydown", (keyData) => {
+            this.manager.keyboard.setKeyDown(keyData.key);
+
+            if (keyData.key == "o") {
+                this.switchScenes("race");
+            }
+        });
+        // register when keys are up
+        document.addEventListener("keyup", (keyData) =>
+            this.manager.keyboard.setKeyUp(keyData.key)
+        );
+
+        document.addEventListener("click", (event) =>
+            this.manager.onPointerClick(event)
+        );
+
+        document.addEventListener("pointermove", (event) =>
+            this.manager.onPointerMove(event)
+        );
     }
 
     /**
@@ -98,26 +157,7 @@ class MyContents {
         );
         this.onAfterSceneLoadedAndBeforeRender(data);
 
-        // register when keys are down
-        document.addEventListener("keydown", (keyData) => {
-            this.manager.keyboard.setKeyDown(keyData.key);
-
-            if (keyData.key == "o") {
-                this.switchScenes("demo");
-            }
-        });
-        // register when keys are up
-        document.addEventListener("keyup", (keyData) =>
-            this.manager.keyboard.setKeyUp(keyData.key)
-        );
-
-        document.addEventListener("click", (event) =>
-            this.manager.onPointerClick(event)
-        );
-
-        document.addEventListener("pointermove", (event) =>
-            this.manager.onPointerMove(event)
-        );
+        this.finishedSwitchingScenes();
     }
 
     /**
@@ -146,6 +186,8 @@ class MyContents {
 
         this.output(data.options);
         this.setOptions(data.options);
+
+        this.manager.reset();
 
         if (data.fog) {
             const fogColor = new THREE.Color(
@@ -206,7 +248,7 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
-        this.manager.selectCar(2);
+        this.manager.selectCar("hatchback-pop"); // FIXME: THIS IS HARDCODED
 
         const testColliderObj = new THREE.Object3D();
 
