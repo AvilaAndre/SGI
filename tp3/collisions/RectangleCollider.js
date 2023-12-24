@@ -12,15 +12,15 @@ class RectangleCollider extends Collider {
      * @param {THREE.Object3D} parent the parent's position
      * @param {THREE.Vector2} center the collider position
      * @param {number} width
-     * @param {number} height
+     * @param {number} depth
      */
-    constructor(parent, center, width, height) {
+    constructor(parent, center, width, depth) {
         super(parent, new THREE.Vector3(center.x, 0, center.y));
 
         this.width = width;
-        this.height = height;
+        this.depth = depth;
 
-        this.aabb = new AABB(0, width, 0, height);
+        this.aabb = new AABB(0, width, 0, depth);
         this.computePoints();
 
         this.type = "rectangle";
@@ -59,7 +59,7 @@ class RectangleCollider extends Collider {
         // ROTATE THEN TRANSLATE
         this.p1 = new THREE.Vector2(
             -this.width / 2 + this.center.x,
-            this.height / 2 + this.center.z
+            this.depth / 2 + this.center.z
         );
         // rotate this.p1
         this.p1.set(
@@ -74,7 +74,7 @@ class RectangleCollider extends Collider {
 
         this.p2 = new THREE.Vector2(
             this.width / 2 + this.center.x,
-            this.height / 2 + this.center.z
+            this.depth / 2 + this.center.z
         );
         // rotate this.p2
         this.p2.set(
@@ -89,7 +89,7 @@ class RectangleCollider extends Collider {
 
         this.p3 = new THREE.Vector2(
             this.width / 2 + this.center.x,
-            -this.height / 2 + this.center.z
+            -this.depth / 2 + this.center.z
         );
         // rotate this.p3
         this.p3.set(
@@ -104,7 +104,7 @@ class RectangleCollider extends Collider {
 
         this.p4 = new THREE.Vector2(
             -this.width / 2 + this.center.x,
-            -this.height / 2 + this.center.z
+            -this.depth / 2 + this.center.z
         );
         // rotate this.p4
         this.p4.set(
@@ -146,7 +146,7 @@ class RectangleCollider extends Collider {
         this.p1Obj = new THREE.Mesh(
             new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
-                color: new THREE.Color(0, 0, 1),
+                color: new THREE.Color(0.75, 0.75, 1),
                 opacity: 0.6,
                 transparent: true,
             })
@@ -154,7 +154,7 @@ class RectangleCollider extends Collider {
         this.p2Obj = new THREE.Mesh(
             new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
-                color: new THREE.Color(0, 0, 1),
+                color: new THREE.Color(0.5, 0.5, 1),
                 opacity: 0.6,
                 transparent: true,
             })
@@ -162,7 +162,7 @@ class RectangleCollider extends Collider {
         this.p3Obj = new THREE.Mesh(
             new THREE.SphereGeometry(0.05),
             new THREE.MeshBasicMaterial({
-                color: new THREE.Color(0, 0, 1),
+                color: new THREE.Color(0.25, 0.25, 1),
                 opacity: 0.6,
                 transparent: true,
             })

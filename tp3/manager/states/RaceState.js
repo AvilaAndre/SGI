@@ -4,6 +4,20 @@ import { GameState } from "../GameState.js";
  * This class contains methods of  the game
  */
 class RaceState extends GameState {
+    /**
+     *
+     * @param {MyContents} contents the contents object
+     * @param {GameManager} manager the manager object
+     */
+    constructor(contents, manager) {
+        super(contents, manager);
+
+        if (!manager.checkpoints) {
+            this.manager.currCheckpoint = 0;
+            this.manager.lapClock = new THREE.Clock();
+        }
+    }
+
     update(delta) {
         if (this.manager.keyboard.isKeyJustDown("c")) {
             this.manager.changeCarCamera();
@@ -69,6 +83,60 @@ class RaceState extends GameState {
         }
 
         this.manager.car.move(delta);
+
+        // check for collision with checkpoint
+
+        if (
+            this.manager.car.collider.collide(
+                this.contents.track.checkpoints[
+                    this.manager.currCheckpoint %
+                        this.contents.track.numCheckpoints
+                ].collider
+            )
+        ) {
+            console.info(
+                "CHECKPOINT",
+                (this.manager.currCheckpoint %
+                    this.contents.track.numCheckpoints) +
+                    "/" +
+                    this.contents.track.numCheckpoints,
+                "lap:" +
+                    Math.floor(
+                        this.manager.currCheckpoint /
+                            this.contents.track.numCheckpoints
+                    )
+            );
+
+            if (
+                Math.floor(
+                    this.manager.currCheckpoint /
+                        this.contents.track.numCheckpoints
+                ) === 0
+            ) {
+                this.manager.lapClock.start();
+            } else if (
+                this.manager.currCheckpoint %
+                    this.contents.track.numCheckpoints ==
+                0
+            ) {
+                console.warn("lap time:" + this.manager.lapClock.getDelta());
+            }
+
+            this.contents.track.checkpoints[
+                this.manager.currCheckpoint++ %
+                    this.contents.track.numCheckpoints
+            ].visible = false;
+            this.contents.track.checkpoints[
+                this.manager.currCheckpoint % this.contents.track.numCheckpoints
+            ].visible = true;
+
+            this.contents.app.scene.add(
+                this.contents.track.checkpoints[
+                    this.manager.currCheckpoint %
+                        this.contents.track.numCheckpoints
+                ].collider.getDebugObject()
+            );
+        }
     }
 }
 
