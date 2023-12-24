@@ -4,8 +4,8 @@
 
     <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
 
-    <cameras initial="cam1" > 
-        <perspective id="cam1" 
+    <cameras initial="trackcam" > 
+        <perspective id="trackcam" 
             angle="60" 
             near="0.1" 
             far="1000" 

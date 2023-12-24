@@ -47,6 +47,7 @@ class MyCar extends THREE.Object3D {
         console.log("carData", carData);
 
         this.carName = carData.id;
+        this.name = carData.id;
 
         const bodyNode = instantiateNode(carData.id, data, this.contents);
 

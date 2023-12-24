@@ -7,7 +7,6 @@ import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
-import { PickingManager } from "./manager/PickingManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { Animation } from "./animation/Animation.js";
@@ -49,16 +48,10 @@ class MyContents {
 
         this.lightsArray = [];
 
-        this.pickingManager = new PickingManager(this);
-
         // game manager
         this.manager = new GameManager(this, this.app);
 
         this.animationPlayer = new AnimationPlayer();
-
-
-
-
 
         // show debug gizmos
         this.DEBUG = false;
@@ -69,8 +62,16 @@ class MyContents {
 
         this.scenePath = "scenes/scene1/";
 
-        this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "opponentPark.xml");
+        this.switchScenes("playerPark");
+
+        this.manager.setState("pickingPlayer");
+    }
+
+    switchScenes(newScene) {
+        this.app.resetCameras();
+        this.app.scene = new THREE.Scene();
+        this.reader = new MyFileReader(this.app, this, this.onSceneLoaded);
+        this.reader.open(this.scenePath + newScene + ".xml");
     }
 
     /**
@@ -98,15 +99,25 @@ class MyContents {
         this.onAfterSceneLoadedAndBeforeRender(data);
 
         // register when keys are down
-        document.addEventListener("keydown", (keyData) =>
-            this.manager.keyboard.setKeyDown(keyData.key)
-        );
+        document.addEventListener("keydown", (keyData) => {
+            this.manager.keyboard.setKeyDown(keyData.key);
+
+            if (keyData.key == "o") {
+                this.switchScenes("demo");
+            }
+        });
         // register when keys are up
         document.addEventListener("keyup", (keyData) =>
             this.manager.keyboard.setKeyUp(keyData.key)
         );
-        
-        //document.addEventListener("pointermove", this.pickingManager.onPointerMove);
+
+        document.addEventListener("click", (event) =>
+            this.manager.onPointerClick(event)
+        );
+
+        document.addEventListener("pointermove", (event) =>
+            this.manager.onPointerMove(event)
+        );
     }
 
     /**
@@ -220,11 +231,6 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
-        //picking manager
-
-
-
-        this.pickingManager = new PickingManager(this, data);
         data.animations.forEach((anim) => {
             this.animationPlayer.addAnimation(new Animation(this, anim));
         });
@@ -244,8 +250,6 @@ class MyContents {
         }
 
         this.animationPlayer.update(delta);
-
-        
     }
 
     /**
@@ -480,18 +484,6 @@ class MyContents {
     }
 
     /**
-     * Allows the movement of the curtains through the GUI
-     * @param {*} value
-     */
-    moveCurtains(value) {
-        for (let index = 0; index < this.curtains.length; index++) {
-            const curtain = this.curtains[index];
-
-            curtain.scale.y = value;
-        }
-    }
-
-    /**
      * Resets the lights to their original value
      */
     resetLights() {
@@ -515,7 +507,6 @@ class MyContents {
             lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
     }
-
 }
 
 export { MyContents };

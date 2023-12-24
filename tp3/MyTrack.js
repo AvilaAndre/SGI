@@ -154,8 +154,6 @@ class MyTrack extends THREE.Object3D {
             this.checkpoints.push(checkpointObj);
         }
 
-        console.log(this.checkpoints);
-
         this.checkpoints[0].visible = true;
 
         curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {});
