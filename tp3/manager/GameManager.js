@@ -29,6 +29,8 @@ class GameManager {
 
         this.car = null;
 
+        this.counter = 0;
+
         //fireworks
         this.app = app;
         this.fireworks = [];
@@ -111,6 +113,8 @@ class GameManager {
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
     launchFireworks(){
+
+        this.counter++;
         // add new fireworks every 5% of the calls
         if(Math.random()  < 0.05 ) {
             this.fireworks.push(new MyFirework(this.app, this.contents))

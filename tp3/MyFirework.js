@@ -27,7 +27,7 @@ class MyFirework {
         // Create an array to store materials
         this.materials = this.materialColors.map(color => 
             new THREE.PointsMaterial({
-                size: 3,
+                size: 0.5,
                 color: color,
                 opacity: 1,
                 transparent: true,
@@ -43,6 +43,13 @@ class MyFirework {
         this.reachedDestination = false; // Flag to track reaching the destination
 
         this.isDescending = false;
+
+
+        this.completelyExploded = false;
+
+        this.counterOfExplosions = 0;
+
+        this.exploded = false;
 
         this.launch() 
 
@@ -81,7 +88,8 @@ class MyFirework {
         this.points.receiveShadow = true;
 
         let initialUpwardVelocity = 30; // Adjust these values as needed
-        this.velocities.push(new THREE.Vector3(2, initialUpwardVelocity, 2));
+        let ran = THREE.MathUtils.randInt( -5, 5);
+        this.velocities.push(new THREE.Vector3(ran, initialUpwardVelocity, ran));
 
         //Adding all points to the scene
         this.app.scene.add( this.points );  
@@ -93,6 +101,10 @@ class MyFirework {
      * @param {*} vector
      */
     explode(origin, n, rangeBegin, rangeEnd) {
+
+        this.exploded = true;
+
+        this.counterOfExplosions++;
         this.app.scene.remove(this.points);
         this.points.geometry.dispose();
     
@@ -129,6 +141,8 @@ class MyFirework {
     
         this.points = new THREE.Points(explosionGeometry, explosionMaterial);
         this.app.scene.add(this.points);
+
+
     }
     
     
@@ -150,10 +164,13 @@ class MyFirework {
      * @returns 
      */
     update() {
+
+
+
+        
         
         // do only if objects exist (if there are points and they all have a geometry)
-        if( this.points && this.geometry )
-        {
+        if( this.points && this.geometry ){
             // each vertex represents the position of a particle.
             let verticesAtribute = this.geometry.getAttribute( 'position' )
             //array containing the actual coordinate of each particle 
@@ -163,11 +180,37 @@ class MyFirework {
             //how many sets of coordinates are
             let count = verticesAtribute.count
 
+
+            /*console.log("no início this.exploded: ", this.exploded);
+            if(this.exploded && this.completelyExploded){
+                console.log("exploded and ready to be cleaned")
+                this.reset();
+                return;
+            }*/
+
+            console.log("count antes do check: ", count)
+            console.log("this.exploded:", this.exploded)
+            if( this.exploded ){ 
+                
+                console.log("dentro do if this.material.opacity: ", this.material.opacity);
+                this.material.opacity -= 0.02; 
+                this.material.needsUpdate = true;
+                
+                // remove, reset and stop animating 
+                if( this.material.opacity <= 0 )
+                {
+                    this.completelyExploded = true;
+                    this.reset(); 
+                    this.done = true; 
+                    return; 
+                }
+            }
+
             // lerp particle positions 
             let j = 0
             // Define gravity and deltaTime outside the update function
             const gravity = new THREE.Vector3(0, -9.81, 0); // Gravity vector pointing downwards
-            const deltaTime = 1 / 80; // Assuming 80 updates per second
+            const deltaTime = 1 / 70; // Assuming 80 updates per second
             //updates each particle's position. It moves the particle a fraction of the distance towards its destination
             for( let i = 0; i < vertices.length; i+=3 ) {
                 let index = i / 3;
@@ -187,10 +230,10 @@ class MyFirework {
                 }
 
                 // Check if the firework has descended 5 units below after reaching the destination
-                if (this.isDescending && vertices[i+1] <= 20){
+                if (this.isDescending && vertices[i+1] <= 31){
                     let origin = new THREE.Vector3(vertices[0], vertices[1], vertices[2]);
                     this.explode(origin, 80, 0, 12);
-                    //this.reset();
+                    this.exploded = true;
                     return;
                 }
             }
@@ -205,37 +248,6 @@ class MyFirework {
             }
 
             
-
-            
-            
-            // are there a lot of particles (aka already exploded)?
-            // Gradually fade out exploded particles
-            if (count > 1) {
-                console.log("count > 1")
-                console.log("this.count:", count)
-                console.log("this.material.opacity:", this.material.opacity)
-                this.material.opacity -= 0.015; // Adjust this value as needed
-                this.material.needsUpdate = true;
-
-                // Ensure opacity does not go below 0
-                /*if (this.material.opacity < 0) {
-                    this.material.opacity = 0;
-                }*/
-            }
-            
-            // remove, reset and stop animating 
-            if( this.material.opacity <= 0)
-            {
-                this.reset() 
-                this.done = true 
-                return 
-            }
-
-            if(vertices[1] <= 0){
-                this.reset() 
-                this.done = true 
-                return 
-            }
         }
     }
 }

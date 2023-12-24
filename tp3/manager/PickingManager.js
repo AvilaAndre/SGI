@@ -107,7 +107,7 @@ class PickingManager {
     *
     */
     pickingHelper(intersects) {
-        console.log("intersects:", intersects);
+
         if (intersects.length > 0) {
             const obj = intersects[0].object;
             console.log("Object picked:", obj);
@@ -173,7 +173,6 @@ class PickingManager {
         this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        console.log("Position x: " + this.pointer.x + " y: " + this.pointer.y);
 
         //2. set the picking ray from the camera position and mouse coordinates
         this.raycaster.setFromCamera(this.pointer, this.contents.app.getActiveCamera());
