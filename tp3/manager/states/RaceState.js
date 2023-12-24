@@ -54,6 +54,18 @@ class RaceState extends GameState {
             this.manager.car.turnTo(0);
         }
 
+        if (this.manager.keyboard.isKeyJustDown("r")) {
+            if (this.manager.lastCheckpoint) {
+                this.manager.car.teleportTo(
+                    this.manager.lastCheckpoint.x,
+                    this.manager.lastCheckpoint.z,
+                    this.manager.lastCheckpoint.rotation
+                );
+
+                console.error("Car teleported to the last checkpoint");
+            }
+        }
+
         this.manager.car.calculateNextMove(delta);
         this.manager.updateCollisions();
 
@@ -94,6 +106,23 @@ class RaceState extends GameState {
                 ].collider
             )
         ) {
+            // update lastCheckpoint
+            this.manager.lastCheckpoint = {
+                x: this.contents.track.checkpoints[
+                    this.manager.currCheckpoint %
+                        this.contents.track.numCheckpoints
+                ].position.x,
+                z: this.contents.track.checkpoints[
+                    this.manager.currCheckpoint %
+                        this.contents.track.numCheckpoints
+                ].position.z,
+                rotation:
+                    this.contents.track.checkpoints[
+                        this.manager.currCheckpoint %
+                            this.contents.track.numCheckpoints
+                    ].rotation.y + Math.PI,
+            };
+
             console.info(
                 "CHECKPOINT",
                 (this.manager.currCheckpoint %

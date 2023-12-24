@@ -23,8 +23,6 @@ class MyTrack extends THREE.Object3D {
 
         this.checkpoints = [];
 
-        console.log("track", data);
-
         //Check if isEmpty is set to true
         if (data.isEmpty) {
             return;
@@ -101,23 +99,16 @@ class MyTrack extends THREE.Object3D {
                 0.2
             );
 
-            checkpointObj.collider.update();
-
-            this.contents.app.scene.add(
-                checkpointObj.collider.getDebugObject()
-            );
-            checkpointObj.collider.updateDebugObject();
-
             const checkPointMesh = new THREE.Mesh(
-                new THREE.BoxGeometry(checkpointWidth, 2, 0.2),
+                new THREE.BoxGeometry(checkpointWidth, 1, 0.2),
                 new THREE.MeshBasicMaterial({
                     color: new THREE.Color(0.2, 0.2, 1),
-                    opacity: 0.4,
+                    opacity: 0.3,
                     transparent: true,
                 })
             );
 
-            checkpointObj.visible = true; // FIXME:
+            checkpointObj.visible = false;
 
             checkpointObj.add(checkPointMesh);
 
@@ -125,6 +116,8 @@ class MyTrack extends THREE.Object3D {
 
             this.checkpoints.push(checkpointObj);
         }
+
+        this.checkpoints[0].visible = true;
 
         curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {});
 

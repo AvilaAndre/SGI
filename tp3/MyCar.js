@@ -68,7 +68,6 @@ class MyCar extends THREE.Object3D {
             const wheelNode = instantiateNode(wheel.id, data, this.contents);
             this.add(wheelNode);
         }
-        // TODO: Collider
 
         this.collider = new RectangleCollider(
             this,
@@ -78,7 +77,7 @@ class MyCar extends THREE.Object3D {
 
         const camTarget = new THREE.Object3D();
 
-        camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // DEBUG
+        camTarget.add(new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2))); // FIXME: DEBUG
 
         for (let i = 0; i < carData.cameras.length; i++) {
             const camera = carData.cameras[i];
@@ -159,7 +158,6 @@ class MyCar extends THREE.Object3D {
                     bodyNode.add(lightObj);
 
                     this.rearLights.push(lightObj);
-
                     break;
                 default:
                     break;
@@ -218,7 +216,6 @@ class MyCar extends THREE.Object3D {
 
         this.getWorldDirection(carDirection);
 
-        this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
         this.lastPosition = this.position.clone();
 
         this.position.add(carDirection.multiplyScalar(this.speed * delta));
@@ -230,6 +227,8 @@ class MyCar extends THREE.Object3D {
         } else {
             this.speed = Math.min(0, this.speed + 0.1);
         }
+
+        this.rotation.y += this.wheelRotation * delta * Math.sign(this.speed);
 
         for (let i = 0; i < this.cameras.length; i++) {
             const camInfo = this.cameras[i];
@@ -345,6 +344,15 @@ class MyCar extends THREE.Object3D {
 
             frontLight.visible = true;
         }
+    }
+
+    teleportTo(x, z, rotation = 0) {
+        this.speed = 0;
+        this.wheelRotation = 0;
+
+        this.position.x = x;
+        this.position.z = z;
+        this.rotation.y = rotation;
     }
 }
 
