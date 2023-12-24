@@ -1195,6 +1195,125 @@
             <materialref id="grassApp" /> <!-- Reference to the floor material -->
         </node>
 
+
+    
+        <node id="fenceLeft1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceLeft2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 -20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="-10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceRight2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <rotate value3="0 1.57 0" />
+                    <translate value3="10 0 20" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack1">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <translate value3="-10 0 -21.55" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceBack2">
+                <transforms>
+                    <scale value3="1.7 1.5 1" />
+                    <translate value3="9.6 0 -21.55" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront1">
+                <transforms>
+                    <scale value3="1 1.5 2" />
+                    <translate value3="-13.8 0 21.3" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceFront2">
+                <transforms>
+                    <scale value3="1 1.5 2" />
+                    <translate value3="13.8 0 21.3" /> 
+                </transforms>
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
+                    </primitive>
+                </children>
+        </node>
+
+        <node id="fenceGroup">
+            <transforms>
+                <translate value3="170 0 -170" />
+            </transforms>
+            <children>
+                <noderef id="fenceLeft1" />
+                <noderef id="fenceLeft2" />
+                <noderef id="fenceRight1" />
+                <noderef id="fenceRight2" />
+                <noderef id="fenceBack1" />
+                <noderef id="fenceBack2" />
+                <noderef id="fenceFront1" />
+                <noderef id="fenceFront2" />
+            </children>
+        </node>
+
+
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
                 <pointlight id="light1" enabled="true" 
@@ -1309,6 +1428,7 @@
                 <noderef id="largeTree3" />
                 <noderef id="fencePlayerLeft1" />
                 <noderef id="floor" />
+                <noderef id="fenceGroup" />
 
             </children> 
         </node>

@@ -1237,10 +1237,13 @@ class MyFileReader {
         let racetrackObj = this.data.createEmptyRacetrack(id);
 
         racetrackObj.width = this.getFloat(racetrackElement, "width");
-        racetrackObj.checkpoints = this.getInteger(
-            racetrackElement,
-            "checkpoints"
-        );
+        let checkpointsAttr = racetrackElement.getAttribute("checkpoints");
+        if (checkpointsAttr !== null) {
+            racetrackObj.checkpoints = parseInt(checkpointsAttr);
+        } else {
+            // Set a default value or handle the absence of the attribute
+            racetrackObj.checkpoints = 0; // Example: default to 0
+        }
 
         if (racetrackObj.width == null)
             throw new Error("The track should have a float width");
@@ -1495,6 +1498,7 @@ class MyFileReader {
 
             /* CAR FRONTLIGHTS */
             let frontlights = element.getElementsByTagName("frontlights");
+
 
             if (frontlights == null || frontlights.length != 1) {
                 throw new Error(

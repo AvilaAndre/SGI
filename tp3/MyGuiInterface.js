@@ -1,6 +1,7 @@
 import { GUI } from "three/addons/libs/lil-gui.module.min.js";
 import { MyApp } from "./MyApp.js";
 import { MyContents } from "./MyContents.js";
+import { PickingManager } from "./manager/PickingManager.js";
 
 /**
     This class customizes the gui interface for the app
@@ -22,6 +23,7 @@ class MyGuiInterface {
      */
     setContents(contents) {
         this.contents = contents;
+        this.pickingManager = new PickingManager(this.contents);
     }
 
     /**
@@ -102,6 +104,17 @@ class MyGuiInterface {
             },
         };
         customFolder.add(resetButton, "reset").name("Reset");
+
+        const data_pic_color = {
+            'picking color': this.pickingManager.pickingColor
+        };
+
+        const pickFolder = this.datgui.addFolder('Picking');
+        pickFolder.addColor(data_pic_color, 'picking color').onChange((value) => { this.pickingManager.updatePickingColor(value) });
+        pickFolder.add(this.pickingManager.raycaster, 'near', 0, 5)
+        pickFolder.add(this.pickingManager.raycaster, 'far', 5, 80)
+        pickFolder.add(this.pickingManager, 'selectedLayer', ['none', '1', '2', '3']).name("selected layer").onChange((value) => { this.pickingManager.selectedLayers = value; this.pickingManager.updateSelectedLayer() });
+        pickFolder.open()
     }
 }
 

@@ -7,9 +7,11 @@ import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
+import { PickingManager } from "./manager/PickingManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { Animation } from "./animation/Animation.js";
+import { MyFirework } from "./MyFirework.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 
 /**
@@ -47,10 +49,17 @@ class MyContents {
 
         this.lightsArray = [];
 
+        this.pickingManager = new PickingManager(this);
+
         // game manager
-        this.manager = new GameManager(this);
+        this.manager = new GameManager(this, this.app);
 
         this.animationPlayer = new AnimationPlayer();
+
+
+
+
+
         // show debug gizmos
         this.DEBUG = false;
 
@@ -61,7 +70,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "demo.xml");
+        this.reader.open(this.scenePath + "opponentPark.xml");
     }
 
     /**
@@ -96,6 +105,8 @@ class MyContents {
         document.addEventListener("keyup", (keyData) =>
             this.manager.keyboard.setKeyUp(keyData.key)
         );
+        
+        //document.addEventListener("pointermove", this.pickingManager.onPointerMove);
     }
 
     /**
@@ -209,6 +220,11 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
+        //picking manager
+
+
+
+        this.pickingManager = new PickingManager(this, data);
         data.animations.forEach((anim) => {
             this.animationPlayer.addAnimation(new Animation(this, anim));
         });
@@ -228,6 +244,8 @@ class MyContents {
         }
 
         this.animationPlayer.update(delta);
+
+        
     }
 
     /**
@@ -497,6 +515,7 @@ class MyContents {
             lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
     }
+
 }
 
 export { MyContents };
