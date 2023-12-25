@@ -411,10 +411,7 @@ class MySceneData {
 
         this.descriptors["point"] = [{ name: "value2", type: "vector2" }];
 
-        this.descriptors["powerup"] = [
-            { name: "value2", type: "vector2" },
-            { name: "radius", type: "float" },
-        ];
+        this.descriptors["powerup"] = [{ name: "value2", type: "vector2" }];
 
         this.descriptors["obstacle"] = [
             { name: "value2", type: "vector2" },
@@ -736,9 +733,7 @@ class MySceneData {
             materialId: null,
             path: [],
             powerups: [],
-            obstacles: [],
             checkpoints: 0,
-            routes: [],
             width: null,
         };
     }
