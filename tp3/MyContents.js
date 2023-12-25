@@ -70,7 +70,7 @@ class MyContents {
         this.scenePath = "scenes/scene1/";
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "opponentPark.xml");
+        this.reader.open(this.scenePath + "playerPark.xml");
     }
 
     /**
