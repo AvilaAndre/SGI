@@ -30,11 +30,11 @@ class MyCar extends THREE.Object3D {
 
         this.intention = new THREE.Vector3();
         this.speed = 0;
-        this.maxSpeedForward = 60;
+        this.maxSpeedPowerUPMultiplier = 1;
         this.maxSpeedBackwards = -8;
         this.acceleration = 20;
         this.brakeValue = 30;
-        this.maxSpeed = 100;
+        this.maxSpeed = 60;
         this.lastPosition = this.position;
         this.turnAngle = 1;
         this.frontLightsNode = null;
@@ -43,6 +43,9 @@ class MyCar extends THREE.Object3D {
 
         // signals if is braking
         this.isBraking = false;
+
+        // if car is on track
+        this.isOnTrack = false;
 
         console.log("carData", carData);
 
@@ -185,9 +188,25 @@ class MyCar extends THREE.Object3D {
         }
     }
 
+    getMaxSpeedForwards() {
+        return (
+            this.maxSpeed *
+            this.maxSpeedPowerUPMultiplier *
+            (this.isOnTrack ? 1 : 0.7)
+        );
+    }
+
+    getMaxSpeedBackwards() {
+        return this.maxSpeedBackwards * this.maxSpeedPowerUPMultiplier;
+    }
+
+    getSpeedAfterPenalties() {
+        return this.isOnTrack ? this.speed : this.speed * 0.7;
+    }
+
     accelerate(delta) {
-        this.speed += this.acceleration * delta;
-        this.speed = Math.min(this.speed, this.maxSpeedForward);
+        this.speed += this.acceleration * delta * (this.isOnTrack ? 1 : 0.7);
+        this.speed = Math.min(this.speed, this.getMaxSpeedForwards());
 
         this.isAccelerating = true;
     }
@@ -196,7 +215,7 @@ class MyCar extends THREE.Object3D {
         if (!this.isBraking && this.speed <= 0) {
             this.speed -= this.brakeValue * delta;
 
-            this.speed = Math.max(this.speed, this.maxSpeedBackwards);
+            this.speed = Math.max(this.speed, this.getMaxSpeedBackwards());
         } else {
             this.speed -= this.brakeValue * delta;
 

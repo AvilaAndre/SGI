@@ -27,6 +27,13 @@ class RaceState extends GameState {
             );
 
             this.manager.changeCarCamera();
+
+            this.onTrackRaycaster = new THREE.Raycaster(
+                this.manager.playerCar.position,
+                new THREE.Vector3(0, -1, 0),
+                0,
+                1
+            );
         }
     }
 
@@ -112,6 +119,10 @@ class RaceState extends GameState {
                 );
             }
         }
+
+        this.manager.playerCar.isOnTrack =
+            this.onTrackRaycaster.intersectObject(this.contents.track.trackMesh)
+                .length > 0;
 
         this.manager.playerCar.move(delta);
 
