@@ -4,8 +4,8 @@
 
     <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
 
-    <cameras initial="cam1" > 
-        <perspective id="cam1" 
+    <cameras initial="trackcam" > 
+        <perspective id="trackcam" 
             angle="60" 
             near="0.1" 
             far="1000" 
@@ -1426,9 +1426,7 @@
                 <noderef id="largeTree1" />
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
-                <noderef id="fencePlayerLeft1" />
                 <noderef id="floor" />
-                <noderef id="fenceGroup" />
 
             </children> 
         </node>
@@ -1437,7 +1435,7 @@
 
     <car id="race">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -1482,7 +1480,7 @@
 
     <car id="hatchback">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -1559,13 +1557,13 @@
 
     <car id="hatchback-pop">
         <carcameras initial="follow-perspective">
-            <perspective id="top-perpective" 
+            <perspective id="top-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
                 location="0 10 0" 
                 target="0 0 0" />
-            <perspective id="follow-perpective" 
+            <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 

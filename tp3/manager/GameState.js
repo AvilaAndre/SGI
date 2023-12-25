@@ -20,6 +20,16 @@ class GameState {
      * @param {number} delta time passed between the previous frame
      */
     update(delta) {}
+
+    /**
+     * Called when a click event happens
+     */
+    onPointerClick(event) {}
+
+    /**
+     * Called when a pointer move event happens
+     */
+    onPointerMove(event) {}
 }
 
 export { GameState };

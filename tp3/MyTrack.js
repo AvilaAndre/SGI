@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
 import { MyContents } from "./MyContents.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
+import { createPrimitive } from "./PrimitiveBuilder.js";
 /**
  * This class contains a race track made with catmull curves
  */
@@ -21,6 +22,10 @@ class MyTrack extends THREE.Object3D {
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
 
+        // The curve that defines the points on the track
+        this.trackCurve = null;
+
+        // All objects representing a checkpoint
         this.checkpoints = [];
 
         //Check if isEmpty is set to true
@@ -57,6 +62,8 @@ class MyTrack extends THREE.Object3D {
         curve.arcLengthDivisions = this.divisions;
         curve.updateArcLengths();
 
+        this.trackCuve = curve;
+
         const trackGeometry = new THREE.BufferGeometry();
 
         const vertices = [];
@@ -83,6 +90,35 @@ class MyTrack extends THREE.Object3D {
             const tangent = curve.getTangentAt(progress);
 
             const checkpointObj = new THREE.Object3D();
+
+            const checkpointPylonLeft = createPrimitive({
+                type: "model3d",
+                filepath: "scenes/scene1/models/checkpoints/pylon.glb",
+            });
+
+            const checkpointPylonRight = createPrimitive({
+                type: "model3d",
+                filepath: "scenes/scene1/models/checkpoints/pylon.glb",
+            });
+
+            checkpointPylonLeft.scale.set(3, 3, 3);
+            checkpointPylonRight.scale.set(3, 3, 3);
+
+            const coneL = new THREE.Object3D();
+            const coneR = new THREE.Object3D();
+            coneR.add(checkpointPylonRight);
+            coneL.add(checkpointPylonLeft);
+
+            checkpointObj.cones = new Array(coneL, coneR);
+
+            coneL.position.set(
+                ...new THREE.Vector3(-checkpointWidth / 2, 0, 0)
+            );
+            coneR.position.set(...new THREE.Vector3(checkpointWidth / 2, 0, 0));
+
+            checkpointObj.add(coneR);
+            checkpointObj.add(coneL);
+
             checkpointObj.position.set(...pt);
 
             tangent.add(pt);
@@ -99,6 +135,7 @@ class MyTrack extends THREE.Object3D {
                 0.2
             );
 
+            /* Uncomment to see the checkpoint collider
             const checkPointMesh = new THREE.Mesh(
                 new THREE.BoxGeometry(checkpointWidth, 1, 0.2),
                 new THREE.MeshBasicMaterial({
@@ -107,10 +144,10 @@ class MyTrack extends THREE.Object3D {
                     transparent: true,
                 })
             );
-
-            checkpointObj.visible = false;
-
             checkpointObj.add(checkPointMesh);
+            */
+
+            checkpointObj.visible = true;
 
             this.add(checkpointObj);
 

@@ -78,6 +78,15 @@ class MyApp {
     }
 
     /**
+     * Resets the cameras data stored
+     */
+    resetCameras() {
+        this.cameras = [];
+        this.initCameras();
+        this.setActiveCamera("Default");
+    }
+
+    /**
      * sets the active camera by name
      * @param {String} cameraName
      */
@@ -86,9 +95,8 @@ class MyApp {
         this.activeCamera = this.cameras[this.activeCameraName];
     }
 
-
     getActiveCamera() {
-        return this.cameras[this.activeCameraName]
+        return this.cameras[this.activeCameraName];
     }
 
     /**

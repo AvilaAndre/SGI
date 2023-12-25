@@ -93,7 +93,7 @@ class MyFirework {
 
         //Adding all points to the scene
         this.app.scene.add( this.points );  
-        console.log("firework launched");
+        // console.log("firework launched");
     }
 
     /**
@@ -150,7 +150,7 @@ class MyFirework {
      * cleanup
      */
     reset() {
-        console.log("firework reseted")
+        // console.log("firework reseted")
         this.app.scene.remove( this.points )  
         this.dest     = [] 
         this.vertices = null
@@ -183,16 +183,16 @@ class MyFirework {
 
             /*console.log("no início this.exploded: ", this.exploded);
             if(this.exploded && this.completelyExploded){
-                console.log("exploded and ready to be cleaned")
+                // console.log("exploded and ready to be cleaned")
                 this.reset();
                 return;
             }*/
 
-            console.log("count antes do check: ", count)
-            console.log("this.exploded:", this.exploded)
+            // console.log("count antes do check: ", count)
+            // console.log("this.exploded:", this.exploded)
             if( this.exploded ){ 
                 
-                console.log("dentro do if this.material.opacity: ", this.material.opacity);
+                // console.log("dentro do if this.material.opacity: ", this.material.opacity);
                 this.material.opacity -= 0.02; 
                 this.material.needsUpdate = true;
                 
@@ -225,7 +225,7 @@ class MyFirework {
 
                 if (this.velocities[index].y < 0) {
                     // The particle is descending
-                    console.log("Particle is descending");
+                    // console.log("Particle is descending");
                     this.isDescending = true;
                 }
 

@@ -7,7 +7,6 @@ import { instantiateNode } from "./GraphBuilder.js";
 import { MyHud } from "./MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
-import { PickingManager } from "./manager/PickingManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { Animation } from "./animation/Animation.js";
@@ -41,24 +40,15 @@ class MyContents {
         //nodes
         this.nodes = new Object();
 
-        // custom parameter for our scene
-        this.curtains = [];
-
         //lights
         this.lights = new Object();
 
         this.lightsArray = [];
 
-        this.pickingManager = new PickingManager(this);
-
         // game manager
         this.manager = new GameManager(this, this.app);
 
         this.animationPlayer = new AnimationPlayer();
-
-
-
-
 
         // show debug gizmos
         this.DEBUG = false;
@@ -67,10 +57,80 @@ class MyContents {
 
         this.lightsOn = true;
 
-        this.scenePath = "scenes/scene1/";
+        this.initializeEventListeners();
 
-        this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-        this.reader.open(this.scenePath + "playerPark.xml");
+        this.scenePath = "scenes/scene1/";
+        // initial scene name
+        this.sceneName = "race";
+        this.switchScenes(this.sceneName);
+
+        this.manager.setState("pickingPlayer");
+    }
+
+    switchScenes(newScene) {
+        this.sceneName = newScene;
+
+        // Reset variables
+        this.background = null;
+        this.ambient = null;
+        // textures
+        this.textures = new Object();
+        // materials
+        this.materials = new Object();
+        // primitive materials, polygon is the only primitive with a material assigned
+        this.primitiveMaterials = [];
+        //skyboxes
+        this.skyboxes = new Object();
+        //cameras
+        this.cameras = new Object();
+        //nodes
+        this.nodes = new Object();
+        //lights
+        this.lights = new Object();
+        this.lightsArray = [];
+
+        this.init();
+        this.app.resetCameras();
+        this.app.scene = new THREE.Scene();
+        this.reader = new MyFileReader(this.app, this, this.onSceneLoaded);
+        this.reader.open(this.scenePath + newScene + ".xml");
+    }
+
+    finishedSwitchingScenes() {
+        switch (this.sceneName) {
+            case "race":
+                this.manager.setState("race");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Initializes the event listeners
+     */
+    initializeEventListeners() {
+        // register when keys are down
+        document.addEventListener("keydown", (keyData) => {
+            this.manager.keyboard.setKeyDown(keyData.key);
+
+            if (keyData.key == "o") {
+                this.switchScenes("race");
+            }
+        });
+        // register when keys are up
+        document.addEventListener("keyup", (keyData) =>
+            this.manager.keyboard.setKeyUp(keyData.key)
+        );
+
+        document.addEventListener("click", (event) =>
+            this.manager.onPointerClick(event)
+        );
+
+        document.addEventListener("pointermove", (event) =>
+            this.manager.onPointerMove(event)
+        );
     }
 
     /**
@@ -97,16 +157,7 @@ class MyContents {
         );
         this.onAfterSceneLoadedAndBeforeRender(data);
 
-        // register when keys are down
-        document.addEventListener("keydown", (keyData) =>
-            this.manager.keyboard.setKeyDown(keyData.key)
-        );
-        // register when keys are up
-        document.addEventListener("keyup", (keyData) =>
-            this.manager.keyboard.setKeyUp(keyData.key)
-        );
-        
-        //document.addEventListener("pointermove", this.pickingManager.onPointerMove);
+        this.finishedSwitchingScenes();
     }
 
     /**
@@ -135,6 +186,8 @@ class MyContents {
 
         this.output(data.options);
         this.setOptions(data.options);
+
+        this.manager.reset();
 
         if (data.fog) {
             const fogColor = new THREE.Color(
@@ -195,7 +248,7 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
-        this.manager.selectCar(2);
+        this.manager.selectCar("hatchback-pop"); // FIXME: THIS IS HARDCODED
 
         const testColliderObj = new THREE.Object3D();
 
@@ -220,11 +273,6 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
-        //picking manager
-
-
-
-        this.pickingManager = new PickingManager(this, data);
         data.animations.forEach((anim) => {
             this.animationPlayer.addAnimation(new Animation(this, anim));
         });
@@ -244,8 +292,6 @@ class MyContents {
         }
 
         this.animationPlayer.update(delta);
-
-        
     }
 
     /**
@@ -480,18 +526,6 @@ class MyContents {
     }
 
     /**
-     * Allows the movement of the curtains through the GUI
-     * @param {*} value
-     */
-    moveCurtains(value) {
-        for (let index = 0; index < this.curtains.length; index++) {
-            const curtain = this.curtains[index];
-
-            curtain.scale.y = value;
-        }
-    }
-
-    /**
      * Resets the lights to their original value
      */
     resetLights() {
@@ -515,7 +549,6 @@ class MyContents {
             lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
     }
-
 }
 
 export { MyContents };

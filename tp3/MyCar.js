@@ -47,6 +47,7 @@ class MyCar extends THREE.Object3D {
         console.log("carData", carData);
 
         this.carName = carData.id;
+        this.name = carData.id;
 
         const bodyNode = instantiateNode(carData.id, data, this.contents);
 
@@ -166,8 +167,6 @@ class MyCar extends THREE.Object3D {
 
         // optional car light animation
         this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
-
-        this.contents.app.scene.add(camTarget);
     }
 
     turnTo(angle) {
