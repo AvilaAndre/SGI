@@ -56,6 +56,10 @@ class RectangleCollider extends Collider {
     }
 
     computePoints() {
+        const parentWorldPosition = new THREE.Vector3();
+
+        this.parent.getWorldPosition(parentWorldPosition);
+
         // ROTATE THEN TRANSLATE
         this.p1 = new THREE.Vector2(
             -this.width / 2 + this.center.x,
@@ -69,7 +73,7 @@ class RectangleCollider extends Collider {
                 this.p1.y * Math.cos(-this.parent.rotation.y)
         );
         this.p1.add(
-            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
         );
 
         this.p2 = new THREE.Vector2(
@@ -84,7 +88,7 @@ class RectangleCollider extends Collider {
                 this.p2.y * Math.cos(-this.parent.rotation.y)
         );
         this.p2.add(
-            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
         );
 
         this.p3 = new THREE.Vector2(
@@ -99,7 +103,7 @@ class RectangleCollider extends Collider {
                 this.p3.y * Math.cos(-this.parent.rotation.y)
         );
         this.p3.add(
-            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
         );
 
         this.p4 = new THREE.Vector2(
@@ -114,7 +118,7 @@ class RectangleCollider extends Collider {
                 this.p4.y * Math.cos(-this.parent.rotation.y)
         );
         this.p4.add(
-            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
+            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
         );
 
         let minX;

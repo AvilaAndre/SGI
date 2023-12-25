@@ -257,8 +257,6 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
-        // this.manager.selectCar("hatchback-pop"); // FIXME: THIS IS HARDCODED
-
         const testColliderObj = new THREE.Object3D();
 
         testColliderObj.position.set(5, 0, 10);
@@ -281,6 +279,12 @@ class MyContents {
         const rootNode = instantiateNode(data.rootId, data, this);
 
         this.app.scene.add(rootNode);
+
+        rootNode.traverse((elem) => {
+            if (elem.collider) {
+                this.manager.collisionManager.addCollider(elem.collider, true);
+            }
+        });
 
         data.animations.forEach((anim) => {
             this.animationPlayer.addAnimation(new Animation(this, anim));

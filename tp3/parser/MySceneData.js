@@ -626,6 +626,7 @@ class MySceneData {
             children: [],
             loaded: false,
             type: "node",
+            collider: null,
             castShadows: false,
             receiveShadows: false,
         };
