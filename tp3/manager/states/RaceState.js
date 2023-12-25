@@ -18,6 +18,16 @@ class RaceState extends GameState {
         }
 
         this.manager.selectPlayerCar(this.manager.playerPickedCar);
+
+        if (this.manager.playerCar) {
+            this.manager.playerCar.teleportTo(
+                this.contents.track.startingPoint.x,
+                this.contents.track.startingPoint.z,
+                this.contents.track.startingPoint.rotation
+            );
+
+            this.manager.changeCarCamera();
+        }
     }
 
     update(delta) {
@@ -27,7 +37,7 @@ class RaceState extends GameState {
 
         if (!this.manager.playerCar) {
             console.error("No car instantiated");
-            return
+            return;
         }
 
         // toggle front lights

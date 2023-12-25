@@ -81,13 +81,30 @@ class MyTrack extends THREE.Object3D {
 
         const checkpointWidth = this.trackWidth * 1.4;
 
-        for (let i = 0; i <= this.numCheckpoints; i++) {
+        for (let i = 0; i < this.numCheckpoints; i++) {
             const progress =
                 ((i / this.numCheckpoints) * curve.getLength()) /
                 curve.getLength();
 
             const pt = curve.getPointAt(progress);
             const tangent = curve.getTangentAt(progress);
+
+            if (i == 0) {
+                const startPoint = pt
+                    .clone()
+                    .sub(tangent.clone().multiplyScalar(20));
+
+                this.startingPoint = {
+                    x: startPoint.x,
+                    z: startPoint.z,
+                    rotation:
+                        Math.atan2(
+                            startPoint.x - tangent.x,
+                            startPoint.z - tangent.z
+                        ) +
+                        Math.PI / 2,
+                };
+            }
 
             const checkpointObj = new THREE.Object3D();
 
@@ -155,8 +172,6 @@ class MyTrack extends THREE.Object3D {
         }
 
         this.checkpoints[0].visible = true;
-
-        curve.getSpacedPoints(this.numCheckpoints).forEach((pt) => {});
 
         for (let i = 0; i < this.divisions; i++) {
             const progress = spacedLengths[i] / curveLength;
