@@ -27,6 +27,7 @@ class RaceState extends GameState {
 
         if (!this.manager.playerCar) {
             console.error("No car instantiated");
+            return
         }
 
         // toggle front lights

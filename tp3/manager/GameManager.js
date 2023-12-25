@@ -90,6 +90,7 @@ class GameManager {
     }
 
     selectPlayerCar(idx) {
+        if (!Object.keys(this.cars).includes(idx)) return;
         this.playerCar = this.cars[idx];
         this.playerCar.activateLights();
         this.contents.app.scene.add(this.playerCar);

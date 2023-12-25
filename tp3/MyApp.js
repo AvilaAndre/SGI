@@ -130,7 +130,7 @@ class MyApp {
             } else {
                 this.controls.object = this.activeCamera;
 
-                if (this.cameras[this.activeCameraName].targetFollow) {
+                if (this.cameras[this.activeCameraName]?.targetFollow) {
                     this.controls.enabled = false;
 
                     this.controls.target =
