@@ -980,6 +980,10 @@ class MyFileReader {
             obj = this.data.createEmptyNode(id);
         }
 
+        let isPickable = this.getString(nodeElement, "pickable", false);
+
+        if (isPickable) obj.isPickable = true;
+
         let castshadows = this.getBoolean(nodeElement, "castshadows", false);
         let receiveShadows = this.getBoolean(
             nodeElement,
@@ -1242,7 +1246,7 @@ class MyFileReader {
             racetrackObj.checkpoints = parseInt(checkpointsAttr);
         } else {
             // Set a default value or handle the absence of the attribute
-            racetrackObj.checkpoints = 0; // Example: default to 0
+            racetrackObj.checkpoints = 2; // Example: default to 0
         }
 
         if (racetrackObj.width == null)
@@ -1288,60 +1292,6 @@ class MyFileReader {
                 "powerups",
                 "powerup"
             );
-        }
-
-        //obstacles
-        let obstacleElements =
-            racetrackElement.getElementsByTagName("obstacles");
-
-        if (obstacleElements == null || obstacleElements.length != 1) {
-            throw new Error(
-                "There should be exactly one obstacle in the racetrack"
-            );
-        } else {
-            this.loadChildElementsOfType(
-                obstacleElements[0],
-                racetrackObj,
-                "obstacles",
-                "obstacle"
-            );
-        }
-
-        let routesElements = racetrackElement.getElementsByTagName("routes");
-
-        if (routesElements == null || routesElements.length < 1) {
-            throw new Error(
-                "There should be at least one route in the racetrack"
-            );
-        }
-
-        for (let i = 0; i < routesElements.length; i++) {
-            const route = routesElements[i];
-
-            let routeElements = route.getElementsByTagName("route");
-
-            if (routeElements == null || routeElements.length != 1) {
-                throw new Error(
-                    "There should be at least one route in the racetrack"
-                );
-            }
-
-            let thisRoute = { route: null };
-
-            this.loadChildElementsOfType(
-                routeElements[0],
-                thisRoute,
-                "route",
-                "point"
-            );
-
-            if (thisRoute.route.length < 2) {
-                throw new Error(
-                    "The racetrack route should have at least 2 points"
-                );
-            }
-
-            racetrackObj.routes.push(thisRoute.route);
         }
 
         this.data.setRacetrack(racetrackObj);
@@ -1498,7 +1448,6 @@ class MyFileReader {
 
             /* CAR FRONTLIGHTS */
             let frontlights = element.getElementsByTagName("frontlights");
-
 
             if (frontlights == null || frontlights.length != 1) {
                 throw new Error(

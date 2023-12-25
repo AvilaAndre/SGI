@@ -172,10 +172,11 @@ class PickingManager {
             this.contents.app.getActiveCamera()
         );
 
-        const nodesArray = Object.values(this.contents.nodes); // TODO: Have pickable nodes array
-
         //3. compute intersections
-        const intersects = this.raycaster.intersectObjects(nodesArray, true);
+        const intersects = this.raycaster.intersectObjects(
+            this.contents.pickables,
+            true
+        );
 
         this.pickingHelper(intersects);
     }
@@ -194,10 +195,11 @@ class PickingManager {
             this.contents.app.getActiveCamera()
         );
 
-        const nodesArray = Object.values(this.contents.nodes); // TODO: Have pickable nodes array
-
         //3. compute intersections
-        const intersects = this.raycaster.intersectObjects(nodesArray, true);
+        const intersects = this.raycaster.intersectObjects(
+            this.contents.pickables,
+            true
+        );
 
         return this.transverseRaycastProperties(intersects);
     }

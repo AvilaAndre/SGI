@@ -174,7 +174,7 @@
         </node>
 
 
-        <node id="hatchback">
+        <node id="hatchback" pickable="true" >
             <transforms>
                 <translate value3="0 0 0.81" />
                 <rotate value3="0 3.1416 0" />
@@ -229,7 +229,7 @@
             </children>
         </node>
 
-        <node id="hatchback-pop">
+        <node id="hatchback-pop" pickable="true" >
             <transforms>
                 <translate value3="0 0 0.81" />
                 <rotate value3="0 3.1416 0" />
@@ -280,7 +280,7 @@
         </node>
 
 
-        <node id="race">
+        <node id="race" pickable="true">
             <transforms>
                 <translate value3="0 0 0.81" />
                 <rotate value3="0 3.1416 0" />
