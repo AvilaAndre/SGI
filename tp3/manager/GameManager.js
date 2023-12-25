@@ -19,13 +19,16 @@ class GameManager {
      */
     constructor(contents, app) {
         this.contents = contents;
-        this.state = new PlayerParkState(this.contents, this);
+        this.state = new GameState(this.contents, this);
         this.keyboard = new KeyboardManager();
         this.collisionManager = new CollisionManager(this.contents);
 
         this.cars = {};
 
-        this.car = null;
+        this.playerCar = null;
+
+        this.playerPickedCar = null;
+        this.cpuPickedCar = null;
 
         this.counter = 0;
 
@@ -86,31 +89,31 @@ class GameManager {
         this.cars[car.carName] = car;
     }
 
-    selectCar(idx) {
-        this.car = this.cars[idx];
-        this.car.activateLights();
-        this.contents.app.scene.add(this.car);
+    selectPlayerCar(idx) {
+        this.playerCar = this.cars[idx];
+        this.playerCar.activateLights();
+        this.contents.app.scene.add(this.playerCar);
 
-        this.collisionManager.addCollider(this.car.collider);
+        this.collisionManager.addCollider(this.playerCar.collider);
     }
 
     changeCarCamera() {
         let i;
-        for (i = 0; i < this.car.cameras.length; i++) {
-            const camInfo = this.car.cameras[i];
+        for (i = 0; i < this.playerCar.cameras.length; i++) {
+            const camInfo = this.playerCar.cameras[i];
 
             if (this.contents.app.activeCameraName == camInfo.id) {
                 break;
             }
         }
 
-        if (i === this.car.cameras.length) {
+        if (i === this.playerCar.cameras.length) {
             i = 0;
         } else {
-            i = ++i % this.car.cameras.length;
+            i = ++i % this.playerCar.cameras.length;
         }
 
-        this.contents.app.activeCameraName = this.car.cameras[i].id;
+        this.contents.app.activeCameraName = this.playerCar.cameras[i].id;
     }
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks

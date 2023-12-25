@@ -101,7 +101,9 @@ class MyContents {
             case "race":
                 this.manager.setState("race");
                 break;
-
+            case "pickingPlayer":
+                this.manager.setState("pickingPlayer");
+                break;
             default:
                 break;
         }
@@ -248,7 +250,7 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
-        this.manager.selectCar("hatchback-pop"); // FIXME: THIS IS HARDCODED
+        // this.manager.selectCar("hatchback-pop"); // FIXME: THIS IS HARDCODED
 
         const testColliderObj = new THREE.Object3D();
 

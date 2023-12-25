@@ -16,6 +16,8 @@ class RaceState extends GameState {
             this.manager.currCheckpoint = 0;
             this.manager.lapClock = new THREE.Clock();
         }
+
+        this.manager.selectPlayerCar(this.manager.playerPickedCar);
     }
 
     update(delta) {
@@ -23,9 +25,13 @@ class RaceState extends GameState {
             this.manager.changeCarCamera();
         }
 
+        if (!this.manager.playerCar) {
+            console.error("No car instantiated");
+        }
+
         // toggle front lights
         if (this.manager.keyboard.isKeyJustDown("l")) {
-            this.manager.car.toggleLights();
+            this.manager.playerCar.toggleLights();
         }
 
         if (this.manager.keyboard.isKeyJustDown("j")) {
@@ -34,29 +40,29 @@ class RaceState extends GameState {
 
         if (this.manager.keyboard.isKeyJustDown("h")) {
             this.contents.animationPlayer.playForwards(
-                this.manager.car.carName + "-hello"
+                this.manager.playerCar.carName + "-hello"
             );
         }
 
         if (this.manager.keyboard.isKeyDown("w")) {
-            this.manager.car.accelerate(delta);
+            this.manager.playerCar.accelerate(delta);
         } else if (this.manager.keyboard.isKeyDown("s")) {
-            this.manager.car.brake(delta);
+            this.manager.playerCar.brake(delta);
         } else if (this.manager.keyboard.isKeyJustUp("s")) {
-            this.manager.car.brakeReleased();
+            this.manager.playerCar.brakeReleased();
         }
 
         if (this.manager.keyboard.isKeyDown("a")) {
-            this.manager.car.turnTo(0.5);
+            this.manager.playerCar.turnTo(0.5);
         } else if (this.manager.keyboard.isKeyDown("d")) {
-            this.manager.car.turnTo(-0.5);
+            this.manager.playerCar.turnTo(-0.5);
         } else {
-            this.manager.car.turnTo(0);
+            this.manager.playerCar.turnTo(0);
         }
 
         if (this.manager.keyboard.isKeyJustDown("r")) {
             if (this.manager.lastCheckpoint) {
-                this.manager.car.teleportTo(
+                this.manager.playerCar.teleportTo(
                     this.manager.lastCheckpoint.x,
                     this.manager.lastCheckpoint.z,
                     this.manager.lastCheckpoint.rotation
@@ -66,35 +72,37 @@ class RaceState extends GameState {
             }
         }
 
-        this.manager.car.calculateNextMove(delta);
+        this.manager.playerCar.calculateNextMove(delta);
         this.manager.updateCollisions();
 
         const collider = this.manager.collisionManager.checkCollisions(
-            this.manager.car.collider
+            this.manager.playerCar.collider
         );
 
         if (collider) {
             // Check if running into the collider
             if (
-                this.manager.car.position
+                this.manager.playerCar.position
                     .clone()
                     .sub(collider.parent.position)
                     .normalize()
                     .angleTo(
-                        this.manager.car.position
+                        this.manager.playerCar.position
                             .clone()
-                            .sub(this.manager.car.lastPosition)
+                            .sub(this.manager.playerCar.lastPosition)
                             .normalize()
                     ) >
                 Math.PI / 2
             ) {
-                this.manager.car.speed = 0;
+                this.manager.playerCar.speed = 0;
 
-                this.manager.car.position.set(...this.manager.car.lastPosition);
+                this.manager.playerCar.position.set(
+                    ...this.manager.playerCar.lastPosition
+                );
             }
         }
 
-        this.manager.car.move(delta);
+        this.manager.playerCar.move(delta);
 
         // check for collision with checkpoint
 
@@ -103,7 +111,9 @@ class RaceState extends GameState {
                 this.manager.currCheckpoint % this.contents.track.numCheckpoints
             ];
 
-        if (this.manager.car.collider.collide(currCheckpointObj.collider)) {
+        if (
+            this.manager.playerCar.collider.collide(currCheckpointObj.collider)
+        ) {
             // update lastCheckpoint
             this.manager.lastCheckpoint = {
                 x: currCheckpointObj.position.x,
