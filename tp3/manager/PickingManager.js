@@ -21,9 +21,6 @@ class PickingManager {
         this.intersectedObj = null;
         this.pickingColor = "0x00ff00";
 
-        console.log("this.contents.nodes:", this.contents.nodes);
-
-        //this.notPickableObjIds = [];
         this.notPickableObjIds = [
             "floor",
             "stone-wall_1",
@@ -35,18 +32,6 @@ class PickingManager {
             "PrototypePete_armLeft",
             "PrototypePete_armRight",
         ];
-
-        console.log(
-            "currentState no constructor do Picking Managerc:",
-            this.currentState
-        );
-
-        this.activeStates = [
-            "pickingPlayer",
-            "pickingOpponent",
-            "pickingObstacle",
-        ];
-        this.currentState = null; // You'll need to set this based on your application's state
 
         // define the objects ids that are not to be pickeable
         // NOTICE: not a ThreeJS facility
@@ -124,7 +109,6 @@ class PickingManager {
     pickingHelper(intersects) {
         if (intersects.length > 0) {
             const obj = intersects[0].object;
-            // console.log("Object picked:", obj);
 
             // Check if obj.name includes any of the words in notPickableObjIds
             const isNotPickable = this.notPickableObjIds.some((id) =>
@@ -133,7 +117,6 @@ class PickingManager {
 
             if (isNotPickable) {
                 this.restoreColorOfFirstPickedObj();
-                // console.log("Object cannot be picked:", obj.name);
             } else {
                 this.changeColorOfFirstPickedObj(obj);
             }

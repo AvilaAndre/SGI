@@ -24,7 +24,7 @@ class OpponentParkState extends GameState {
         if (carPicked) {
             this.manager.cpuPickedCar = carPicked;
 
-            this.contents.switchScenes("obstaclePark");
+            this.contents.switchScenes("race");
         }
     }
 
