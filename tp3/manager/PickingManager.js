@@ -172,7 +172,9 @@ class PickingManager {
             this.contents.app.getActiveCamera()
         );
 
-        const nodesArray = Object.values(this.contents.nodes); // TODO: Have pickable nodes array
+        console.log("nodesArray", this.contents.pickables);
+
+        const nodesArray = this.contents.pickables;
 
         //3. compute intersections
         const intersects = this.raycaster.intersectObjects(nodesArray, true);
@@ -194,7 +196,7 @@ class PickingManager {
             this.contents.app.getActiveCamera()
         );
 
-        const nodesArray = Object.values(this.contents.nodes); // TODO: Have pickable nodes array
+        const nodesArray = this.contents.pickables;
 
         //3. compute intersections
         const intersects = this.raycaster.intersectObjects(nodesArray, true);

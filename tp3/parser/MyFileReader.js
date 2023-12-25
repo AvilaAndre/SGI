@@ -980,6 +980,10 @@ class MyFileReader {
             obj = this.data.createEmptyNode(id);
         }
 
+        let isPickable = this.getString(nodeElement, "pickable", false);
+
+        if (isPickable) obj.isPickable = true;
+
         let castshadows = this.getBoolean(nodeElement, "castshadows", false);
         let receiveShadows = this.getBoolean(
             nodeElement,
@@ -1498,7 +1502,6 @@ class MyFileReader {
 
             /* CAR FRONTLIGHTS */
             let frontlights = element.getElementsByTagName("frontlights");
-
 
             if (frontlights == null || frontlights.length != 1) {
                 throw new Error(

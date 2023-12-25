@@ -623,6 +623,7 @@ class MySceneData {
 
         obj = {
             id: id,
+            isPickable: false,
             transformations: [],
             materialIds: [],
             children: [],

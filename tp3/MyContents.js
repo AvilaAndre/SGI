@@ -39,6 +39,8 @@ class MyContents {
         this.cameras = new Object();
         //nodes
         this.nodes = new Object();
+        //pickables
+        this.pickables = [];
 
         //lights
         this.lights = new Object();
@@ -85,6 +87,8 @@ class MyContents {
         this.cameras = new Object();
         //nodes
         this.nodes = new Object();
+        //pickables
+        this.pickables = [];
         //lights
         this.lights = new Object();
         this.lightsArray = [];

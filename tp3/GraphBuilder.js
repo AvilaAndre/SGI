@@ -32,14 +32,7 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
     nodeObj.castShadow = node.castShadows || parent?.castShadow;
     nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadow;
 
-    // This is a custom parameter for our team
-    if (
-        nodeObj.name == "curtain1" ||
-        nodeObj.name == "curtain2" ||
-        nodeObj.name == "curtain3"
-    ) {
-        contents.curtains.push(nodeObj);
-    }
+    if (node.isPickable) contents.pickables.push(nodeObj);
 
     for (let i = 0; i < node.children.length; i++) {
         let child = node.children[i];
@@ -66,13 +59,18 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
                                 contents.materials[nodeObj.materialIds[0]]
                             );
 
-                            while(nodeObj.name == "Mesh"){
-                                console.log("nodeObj.name no while: ", nodeObj.name);
+                            while (nodeObj.name == "Mesh") {
+                                console.log(
+                                    "nodeObj.name no while: ",
+                                    nodeObj.name
+                                );
                                 nodeObj.name = nodeObj.parent.name;
                             }
-                            console.log("nodeObj.name depois do while: ", nodeObj.name);
+                            console.log(
+                                "nodeObj.name depois do while: ",
+                                nodeObj.name
+                            );
                             mesh.name = nodeObj.name;
-                            
 
                             if (child.subtype == "rectangle") {
                                 mesh.material.map.repeat.set(
