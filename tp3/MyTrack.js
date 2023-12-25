@@ -260,9 +260,9 @@ class MyTrack extends THREE.Object3D {
 
         this.contents.materials["track"] = trackMaterial;
 
-        const trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
+        this.trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
 
-        this.add(trackMesh);
+        this.add(this.trackMesh);
     }
 }
 
