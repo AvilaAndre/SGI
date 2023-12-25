@@ -4,8 +4,8 @@
 
     <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
 
-    <cameras initial="trackcam" > 
-        <perspective id="trackcam" 
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
             angle="60" 
             near="0.1" 
             far="1000" 
@@ -44,21 +44,21 @@
             texlength_s="1" 
             texlength_t="1" />
 
-        <material id="powerupCubeApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="powerupCubeTex" 
-            texlength_s="1" 
-            texlength_t="1" />
-
         <material id="hudApp" 
             color="0.8 0.8 0.8 1.0" 
             emissive="0.0 0.0 0.0 0.0" 
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="hudTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="powerupCubeApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="powerupCubeTex" 
             texlength_s="1" 
             texlength_t="1" />
 
@@ -1307,116 +1307,17 @@
                 </children>
         </node>
 
-        <node id="rectangle1"> 
-
-            <transforms>
-				<translate value3="0 0 -0.5" />
-				<rotate value3="0 3.14 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
-                </primitive> 
-                <lodref id="demo" />
-            </children> 
-        </node>
-		
-		<node id="rectangle2"> 
-
-            <transforms>
-				<translate value3="0 0 0.5" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle3"> 
-
-            <transforms>
-				<translate value3="0 -0.5 0" />
-				<rotate value3="1.57 0.0 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle4"> 
-
-            <transforms>
-				<translate value3="0 0.5 0" />
-				<rotate value3="-1.57 0.0 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle5"> 
-
-            <transforms>
-				<translate value3="-0.5 0 0" />
-				<rotate value3="0.0 -1.57 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle6"> 
-            <transforms>
-				<translate value3="0.5 0 0" />
-				<rotate value3="0.0 1.57 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-
-        <node id="unitCube">
-            <children>            
-				<!-- Back -->
-                <noderef id="rectangle1" /> 
-				<!-- Front -->
-				<noderef id="rectangle2" /> 
-				<!-- Bottom -->
-				<noderef id="rectangle3" />
-				<!-- Top -->
-				<noderef id="rectangle4" />
-				<!-- Left -->				
-				<noderef id="rectangle5" />
-				 <!-- Right -->
-				<noderef id="rectangle6" />
-            </children> 
-        </node>
-
-        <node id="powerupCube">
-            <transforms>
-                <scale value3="0.7 0.7 0.7" />
-                <translate value3="0 0.5 0" />
-            </transforms>
-            <children>
-                    <noderef id="unitCube" />
-            </children>
-            <materialref id="powerupCubeApp" />
-        </node>
+    <node id="powerupCube">
+        <transforms>
+            <scale value3="10 10 10" />
+            <translate value3="0 3 0" />
+        </transforms>
+        <children>
+            <primitive>
+                <cube size3="1 1 1" material="powerupCubeApp" />
+            </primitive>
+        </children>
+    </node>
 
         <node id="fenceGroup">
             <transforms>
@@ -1547,8 +1448,11 @@
                 <noderef id="largeTree1" />
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
+                <noderef id="fencePlayerLeft1" />
                 <noderef id="floor" />
+                <noderef id="fenceGroup" />
                 <noderef id="powerupCube" />
+
 
             </children> 
         </node>
@@ -1557,7 +1461,7 @@
 
     <car id="race">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perspective" 
+            <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -1602,7 +1506,7 @@
 
     <car id="hatchback">
         <carcameras initial="follow-perspective">
-            <perspective id="follow-perspective" 
+            <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
@@ -1679,13 +1583,13 @@
 
     <car id="hatchback-pop">
         <carcameras initial="follow-perspective">
-            <perspective id="top-perspective" 
+            <perspective id="top-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
                 location="0 10 0" 
                 target="0 0 0" />
-            <perspective id="follow-perspective" 
+            <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
