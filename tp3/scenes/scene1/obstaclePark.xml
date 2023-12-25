@@ -394,7 +394,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0" size="5 2" />
 
         <frontlights>
         </frontlights>
@@ -439,7 +439,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0" size="5 2" />
 
         <frontlights>
             <pointlight id="frontLightL" enabled="false" 
@@ -516,7 +516,7 @@
         </carcameras>
 
 
-        <collider pos="0 0 0" size="5 2 3" />
+        <collider pos="0 0" size="5 2" />
 
         <frontlights>
             <pointlight id="frontLightL" enabled="false" 
