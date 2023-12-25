@@ -24,7 +24,7 @@ class PlayerParkState extends GameState {
         if (carPicked) {
             this.manager.playerPickedCar = carPicked;
 
-            this.contents.switchScenes("race");
+            this.contents.switchScenes("opponentPark");
         }
     }
 
@@ -33,21 +33,12 @@ class PlayerParkState extends GameState {
     }
 
     addCarsToScene() {
-        console.log("Adding Cars");
-
         const carNames = Object.keys(this.manager.cars);
-
-        const car = this.manager.cars[carNames[0]];
-
-        car.position.set(10, 0, 0);
-
-        this.contents.app.scene.add(car);
-        this.contents.app.scene.add(this.manager.cars[carNames[1]]);
 
         for (let i = 0; i < carNames.length; i++) {
             const car = this.manager.cars[carNames[i]];
 
-            car.position.set(4 * (i - Math.floor(carNames.length / 2)), 0, 0);
+            car.position.set(3 * (i - Math.floor(carNames.length / 2)), 0, 0);
 
             this.contents.app.scene.add(car);
         }

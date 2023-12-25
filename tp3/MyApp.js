@@ -108,7 +108,8 @@ class MyApp {
     updateCameraIfRequired() {
         // camera changed?
 
-        if (this.lastCameraName !== this.activeCameraName) {
+        if (this.lastCameraName !== this.activeCameraName || this.newCameras) {
+            this.newCameras = false;
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName];
             document.getElementById("camera").innerHTML = this.activeCameraName;
@@ -168,6 +169,9 @@ class MyApp {
      * @param {Dictionary}
      */
     addCameras(cameras) {
+        // to signal that new cameras exist
+        this.newCameras = true;
+
         Object.keys(cameras).forEach((key) => {
             this.cameras[key] = cameras[key];
         });

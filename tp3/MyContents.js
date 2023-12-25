@@ -101,8 +101,11 @@ class MyContents {
             case "race":
                 this.manager.setState("race");
                 break;
-            case "pickingPlayer":
+            case "playerPark":
                 this.manager.setState("pickingPlayer");
+                break;
+            case "opponentPark":
+                this.manager.setState("pickingOpponent");
                 break;
             default:
                 break;
