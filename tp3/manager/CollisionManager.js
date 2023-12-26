@@ -33,6 +33,8 @@ class CollisionManager {
         this.contents.app.scene.add(collider.getDebugObject());
     }
 
+
+
     update(_delta) {
         this.dynamicColliders.forEach((element) => {
             element.update();
@@ -43,6 +45,8 @@ class CollisionManager {
             element.updateDebugObject();
         });
     }
+
+
 
     /**
      *

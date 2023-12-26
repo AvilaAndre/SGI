@@ -12,9 +12,15 @@ class RaceState extends GameState {
     constructor(contents, manager) {
         super(contents, manager);
 
+        this.powerup = false;
+        this.manager.powerupClock = new THREE.Clock();
+
+        //this.manager.powerupClock.start();
+
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
             this.manager.lapClock = new THREE.Clock();
+            
         }
 
         this.manager.selectPlayerCar(this.manager.playerPickedCar);
@@ -38,6 +44,19 @@ class RaceState extends GameState {
     }
 
     update(delta) {
+
+        if (this.powerup && this.manager.powerupClock.getElapsedTime() >= 4) {
+            console.log('powerup deactivating!');
+            console.log("this.manager.powerupClock.getElapsedTime():", this.manager.powerupClock.getElapsedTime());
+            // Powerup duration is over
+            this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
+            this.powerup = false;
+            console.log('4 seconds have passed.');
+            
+            // Optionally, reset the clock if needed elsewhere
+            // this.manager.powerupClock.start();
+        }
+
         if (this.manager.keyboard.isKeyJustDown("c")) {
             this.manager.changeCarCamera();
         }
@@ -99,7 +118,26 @@ class RaceState extends GameState {
 
         if (collider) {
             // Check if running into the collider
-            if (
+
+            if(collider.parent.isPowerup) {
+                console.log('powerup active!!!');
+                this.powerup = true;
+                //TODO: do so that it gets the power given by the powerup
+                //remove collider (?)
+                this.contents.app.scene.remove(collider.parent);
+                console.log("speed before powerup: " + this.manager.playerCar.speed);
+                this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
+                console.log("speed: " + this.manager.playerCar.speed);
+                //if (!this.timerStarted) {
+                //case in which a second powerup is harvested
+                //console.log("powerup deactivating!");
+                this.manager.powerupClock.start();
+                this.startTime = this.manager.powerupClock.elapsedTime;
+                this.timerStarted = true;
+                //}
+
+            }
+            else if (
                 this.manager.playerCar.position
                     .clone()
                     .sub(collider.parent.position)

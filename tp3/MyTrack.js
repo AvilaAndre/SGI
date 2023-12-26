@@ -282,19 +282,17 @@ class MyTrack extends THREE.Object3D {
             powerupNode.position.set(this.powerups[i].value2[0], 0.5, this.powerups[i].value2[1]);
             this.contents.app.scene.add(powerupNode);
 
-            const powerupCubeColliderObj = new THREE.Object3D();
-
-            powerupCubeColliderObj.position.set(this.powerups[i].value2[0], 0.5, this.powerups[i].value2[1]);
-
             this.contents.manager.collisionManager.addCollider(
                 new RectangleCollider(
-                    powerupCubeColliderObj,
+                    powerupNode,
                     new THREE.Vector2(0, 0),
                     1.25,
                     1.25
                 ),
                 true
             );
+
+            powerupNode.isPowerup = true;
         }
 
         return;

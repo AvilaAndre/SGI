@@ -63,7 +63,7 @@ class MyContents {
 
         this.scenePath = "scenes/scene1/";
         // initial scene name
-        this.sceneName = "race";
+        this.sceneName = "playerPark";
         this.switchScenes(this.sceneName);
 
         this.manager.setState("pickingPlayer");
