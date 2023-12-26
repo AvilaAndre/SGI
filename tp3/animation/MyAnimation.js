@@ -282,10 +282,26 @@ class MyAnimation {
      * Plays
      */
     play() {
+        for (let i = 0; i < this.mixers.length; i++) {
+            const mixer = this.mixers[i];
+
+            mixer.timeScale = 1;
+        }
         for (let i = 0; i < this.actions.length; i++) {
             const action = this.actions[i];
 
             action.play();
+        }
+    }
+
+    /**
+     * Pauses the execution of the animation.
+     */
+    pause() {
+        for (let i = 0; i < this.mixers.length; i++) {
+            const mixer = this.mixers[i];
+
+            mixer.timeScale = 0;
         }
     }
 
@@ -324,7 +340,7 @@ class MyAnimation {
     }
 
     /**
-     * Stops animation playing // TODO: test this
+     * Stops animation playing
      */
     stop() {
         for (let i = 0; i < this.actions.length; i++) {

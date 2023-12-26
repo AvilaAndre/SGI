@@ -13,6 +13,8 @@ class GameState {
     constructor(contents, manager) {
         this.contents = contents;
         this.manager = manager;
+
+        this.paused = false;
     }
 
     /**
@@ -20,6 +22,20 @@ class GameState {
      * @param {number} delta time passed between the previous frame
      */
     update(delta) {}
+
+    /**
+     * Paused the current state
+     */
+    pause() {
+        this.paused = true;
+    }
+
+    /**
+     * Resumes the current state
+     */
+    resume() {
+        this.paused = false;
+    }
 
     /**
      * Called when a click event happens

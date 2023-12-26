@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { GameState } from "../GameState.js";
+import { MyClock } from "../../utils/MyClock.js";
 /**
  * This class contains methods of  the game
  */
@@ -13,15 +14,17 @@ class RaceState extends GameState {
         super(contents, manager);
 
         this.powerup = false;
-        this.manager.powerupClock = new THREE.Clock();
-        this.previousLap = 0;
-        
+        // Clock that keeps track of time since a powerup was picked up
+        this.manager.powerupClock = new MyClock();
+        // Clock that keeps track of every lap's time
+        this.manager.lapClock = new MyClock();
+        this.manager.lapClock.stop();
 
-        //this.manager.powerupClock.start();
+        // Stores the ammount of laps done
+        this.manager.lapCount = 0;
 
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
-            this.manager.lapClock = new THREE.Clock();
         }
 
         this.manager.selectPlayerCar(this.manager.playerPickedCar);
@@ -45,25 +48,27 @@ class RaceState extends GameState {
         }
 
         if (this.manager.opponentCar) {
-            this.manager.opponentCar.startOpponentRun();
+            this.manager.opponentCar.startRunAnimation();
         }
     }
 
     update(delta) {
-        
-        if (this.powerup && this.manager.powerupClock.getElapsedTime() >= 4) {
-            console.log("powerup deactivating!");
-            console.log(
-                "this.manager.powerupClock.getElapsedTime():",
-                this.manager.powerupClock.getElapsedTime()
-            );
+        if (this.manager.keyboard.isKeyJustDown("p")) {
+            this.paused ? this.resume() : this.pause();
+        }
+
+        if (this.paused) return;
+
+        if (
+            this.powerup &&
+            this.manager.powerupClock.getElapsedTime() >= 4000
+        ) {
             // Powerup duration is over
             this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
             this.powerup = false;
-            console.log("4 seconds have passed.");
 
             // Optionally, reset the clock if needed elsewhere
-            // this.manager.powerupClock.start();
+            this.manager.powerupClock.stop();
         }
 
         if (this.manager.keyboard.isKeyJustDown("c")) {
@@ -124,36 +129,24 @@ class RaceState extends GameState {
         const collider = this.manager.collisionManager.checkCollisions(
             this.manager.playerCar.collider
         );
-       
 
         this.manager.playerCar.isCollidingWithCar = false;
         if (collider) {
             // Check if running into the collider
 
-
-            if(collider.parent.isPowerup) {
-                if(collider.parent.caught == false){
-                    console.log('powerup active!!!');
-
-
-                    //TODO: set caught flag to false when lap is incremented
-
+            if (collider.parent.isPowerup) {
+                if (collider.parent.caught == false) {
                     this.powerup = true;
-                    
                     this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
 
                     collider.parent.visible = false;
                     collider.parent.caught = true;
 
                     this.manager.powerupClock.start();
-                    this.startTime = this.manager.powerupClock.elapsedTime;
-                    this.timerStarted = true;
-                
                 }
             } else if (collider.parent.isCar) {
                 this.manager.playerCar.isCollidingWithCar = true;
-            } 
-            else if (
+            } else if (
                 this.manager.playerCar.position
                     .clone()
                     .sub(collider.parent.position)
@@ -203,26 +196,15 @@ class RaceState extends GameState {
                     this.contents.track.numCheckpoints) +
                     "/" +
                     this.contents.track.numCheckpoints,
-                "lap:" +
-                    Math.floor(
-                        this.manager.currCheckpoint /
-                            this.contents.track.numCheckpoints
-                    )
+                "lap:" + this.manager.lapCount,
+                "lapTime:" + this.manager.lapClock.getElapsedTime()
             );
 
             if (
-                Math.floor(
-                    this.manager.currCheckpoint /
-                        this.contents.track.numCheckpoints
-                ) === 0
-            ) {
-                this.manager.lapClock.start();
-            } else if (
                 this.manager.currCheckpoint %
                     this.contents.track.numCheckpoints ==
                 0
             ) {
-                
                 this.onNewLap();
             }
 
@@ -253,34 +235,55 @@ class RaceState extends GameState {
             });
 
             this.manager.currCheckpoint++;
-
-            // this.contents.app.scene.add(
-            //     this.contents.track.checkpoints[
-            //         this.manager.currCheckpoint %
-            //             this.contents.track.numCheckpoints
-            //     ].collider.getDebugObject()
-            // );
         }
     }
 
-    onNewLap(){
+    onNewLap() {
+        this.manager.lapCount = Math.floor(
+            this.manager.currCheckpoint / this.contents.track.numCheckpoints
+        );
 
-        console.warn("lap time:" + this.manager.lapClock.getDelta());
-                this.contents.track.checkpoints.forEach((checkpointObj) => {
-                    checkpointObj.cones.forEach((element) => {
-                        // traverse cones
-                        element.traverse((elem) => {
-                            if (elem.type === "Mesh") {
-                                elem.material.color = new THREE.Color(0, 0, 1);
-                            }
-                        });
-                    });
+        console.warn("lap time:" + this.manager.lapClock.getElapsedTime());
+        this.contents.track.checkpoints.forEach((checkpointObj) => {
+            checkpointObj.cones.forEach((element) => {
+                // traverse cones
+                element.traverse((elem) => {
+                    if (elem.type === "Mesh") {
+                        elem.material.color = new THREE.Color(0, 0, 1);
+                    }
                 });
-        
+            });
+        });
+
         this.contents.track.powerupObjects.forEach((powerupObj) => {
             powerupObj.visible = true;
             powerupObj.caught = false;
         });
+        this.manager.lapClock.start();
+    }
+
+    pause() {
+        this.paused = true;
+
+        // stop clocks
+        this.manager.lapClock.stop();
+        this.manager.powerupClock.stop();
+
+        // pause opponent car run animation
+        if (this.manager.opponentCar)
+            this.manager.opponentCar.pauseRunAnimation();
+    }
+
+    resume() {
+        this.paused = false;
+
+        // resume clocks
+        this.manager.lapClock.resume();
+        this.manager.powerupClock.resume();
+
+        // resume opponent car run animation
+        if (this.manager.opponentCar)
+            this.manager.opponentCar.resumeRunAnimation();
     }
 }
 

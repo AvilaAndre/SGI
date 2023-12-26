@@ -9,6 +9,7 @@ import { addCamera } from "./ComponentBuilder.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 import { MyAnimation } from "./animation/MyAnimation.js";
 import { MyContents } from "./MyContents.js";
+
 /**
  * This class contains a car
  */
@@ -453,29 +454,30 @@ class MyCar extends THREE.Object3D {
         this.rotation.y = rotation;
     }
 
-    startOpponentRun() {
+    /**
+     * Starts the animation around the track
+     */
+    startRunAnimation() {
         this.contents.animationPlayer.playFromStart(
             this.carName + "_routeAnim"
         );
+    }
+
+    /**
+     * Pauses the animation around the track
+     */
+    pauseRunAnimation() {
+        this.contents.animationPlayer.pause(this.carName + "_routeAnim");
+    }
+
+    /**
+     * Resumes the animation around the track
+     */
+    resumeRunAnimation() {
+        this.contents.animationPlayer.play(this.carName + "_routeAnim");
     }
 }
 
 MyCar.prototype.isGroup = true;
 
 export { MyCar };
-
-/**
- 
-Podem existir um ou mais modelos de carro. A mesma base geométrica pode ser decorada com diferentes texturas.
-
-Alguns detalhes sobre um carro:
-    - Deve ser controlado por meio das teclas WASD, respetivamente para acelerar, travar, virar à esquerda e virar à direita.
-    - Quando em curva, as rodas da frente devem virar e o pivot de rotação do carro deve situar-se no centro do eixo traseiro.
-    - Deve ser possível observar as quatro rodas girando em torno do seu eixo, em função da velocidade do carro.
-    - Pode ter velocidade “negativa” (ou seja, andar em “marcha-atrás”).
-    - Deverá ser dotado de uma velocidade máxima.
-
-No início do jogo, o utilizador pode escolher o modelo de carro que deseja. Pode também escolher um carro autónomo com o qual concorrerá; a cada carro autónomo deve corresponder uma rota.
-
-NOTA: na fase inicial do desenvolvimento, é aconselhável que seja utilizado um modelo geométrico muito simples para cada carro, por exemplo um retângulo com textura (vista de cima).
-*/

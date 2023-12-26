@@ -7,7 +7,7 @@ import { MyAnimation } from "./MyAnimation.js";
  */
 class AnimationPlayer {
     /**
-     *
+     * Creates an animation player that stores every animation.
      * @param {MyApp} app the application object
      */
     constructor(app) {
@@ -16,34 +16,66 @@ class AnimationPlayer {
     }
 
     /**
-     *
+     * Adds an animation to the list.
      * @param {MyAnimation} animation
      */
     addAnimation(animation) {
         this.animations[animation.id] = animation;
     }
 
+    /**
+     * Plays the animations from the start.
+     * @param {string} animId
+     */
     playFromStart(animId) {
         this.animations[animId]?.reset();
         this.animations[animId]?.play();
     }
 
+    /**
+     * Plays the animation.
+     * @param {string} animId
+     */
     play(animId) {
         this.animations[animId]?.play();
     }
 
+    /**
+     * Pauses the animation.
+     * @param {string} animId
+     */
+    pause(animId) {
+        this.animations[animId]?.pause();
+    }
+
+    /**
+     * Plays the animation forwards.
+     * @param {string} animId
+     */
     playForwards(animId) {
         this.animations[animId]?.playForwards();
     }
 
+    /**
+     * Plays the animation backwards.
+     * @param {string} animId
+     */
     playBackwards(animId) {
         this.animations[animId]?.playBackwards();
     }
 
+    /**
+     * Stops the animation and reset's its progress.
+     * @param {string} animId
+     */
     stop(animId) {
         this.animations[animId]?.stop();
     }
 
+    /**
+     * Updates the animations.
+     * @param {float} delta
+     */
     update(delta) {
         for (const key in this.animations) {
             const animation = this.animations[key];
