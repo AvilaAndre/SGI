@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { createPrimitive } from "./PrimitiveBuilder.js";
 import { MyContents } from "./MyContents.js";
+import { RectangleCollider } from "./collisions/RectangleCollider.js";
 
 /**
  * Instantiates nodes, having in consideration if it is a primitive,
@@ -33,6 +34,14 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
     nodeObj.receiveShadow = node.receiveShadows || parent?.receiveShadow;
 
     if (node.isPickable) contents.pickables.push(nodeObj);
+
+    if (node.collider) {
+        nodeObj.collider = new RectangleCollider(
+            nodeObj,
+            new THREE.Vector2(...node.collider.pos),
+            ...node.collider.size
+        );
+    }
 
     for (let i = 0; i < node.children.length; i++) {
         let child = node.children[i];

@@ -1000,7 +1000,7 @@ class MyFileReader {
             this.loadTransforms(obj, transforms[0]);
         }
 
-        // load material refeences
+        // load material references
         let materialsRef = nodeElement.getElementsByTagName("materialref");
         if (materialsRef != null && materialsRef.length > 0) {
             if (materialsRef.length != 1) {
@@ -1015,6 +1015,24 @@ class MyFileReader {
 
             let materialId = this.getString(materialsRef[0], "id");
             obj["materialIds"].push(materialId);
+        }
+
+        // load collider
+        let colliders = nodeElement.getElementsByTagName("collider");
+
+        if (colliders != null) {
+            if (colliders.length > 1) {
+                throw new Error("node " + id + ", can only have one collider");
+            } else if (colliders.length == 1) {
+                let descriptor = this.data.descriptors["collider"];
+                let collider = this.loadXmlItem({
+                    elem: colliders[0],
+                    descriptor: descriptor,
+                    extras: [],
+                });
+
+                obj.collider = collider;
+            }
         }
 
         // load children (primitives or other node references)

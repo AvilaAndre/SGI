@@ -33,16 +33,20 @@ class RectangleCollider extends Collider {
     collide(otherCollider) {
         if (otherCollider == this) {
             console.error("Checking collisions for the same colliders");
-            return false;
+            return null;
         }
         switch (otherCollider.type) {
             case "rectangle": {
                 // Check AABB first
                 if (this.aabb.intersect(otherCollider.aabb)) {
-                    return OBB.SatWithRectangle(this, otherCollider);
+                    if (OBB.SatWithRectangle(this, otherCollider)) return this;
                 }
 
-                return false;
+                return null;
+            }
+            case "pttree":
+            case "ptnode": {
+                return otherCollider.collide(this);
             }
 
             default: {
@@ -50,12 +54,16 @@ class RectangleCollider extends Collider {
                     "RectangleCollider does not collide with",
                     otherCollider.type
                 );
-                return false;
+                return null;
             }
         }
     }
 
     computePoints() {
+        const parentWorldPosition = new THREE.Vector3();
+
+        this.parent.getWorldPosition(parentWorldPosition);
+
         // ROTATE THEN TRANSLATE
         this.p1 = new THREE.Vector2(
             -this.width / 2 + this.center.x,
