@@ -160,9 +160,10 @@
             <point value2="22.86 -44.96"/>
         </path>
         <powerups>
-            <powerup value2="1 0"/>
-            <powerup value2="2 1"/>
-            <powerup value2="4 1"/>
+            <powerup value2="50 50"/>
+            <powerup value2="115 115"/>
+            <powerup value2="0 -88"/>
+            <powerup value2="-75 -75"/>
         </powerups>
     </racetrack>
 
@@ -1392,7 +1393,40 @@
             </children> 
         </node>
 
-        <node id="powerupCube">
+        <node id="powerupCube1">
+            <transforms>
+                <scale value3="0.7 0.7 0.7" />
+                <translate value3="0 0.5 0" />
+            </transforms>
+            <children>
+                    <noderef id="unitCube" />
+            </children>
+            <materialref id="powerupCubeApp" />
+        </node>
+
+        <node id="powerupCube2">
+            <transforms>
+                <scale value3="0.7 0.7 0.7" />
+                <translate value3="0 0.5 0" />
+            </transforms>
+            <children>
+                    <noderef id="unitCube" />
+            </children>
+            <materialref id="powerupCubeApp" />
+        </node>
+
+        <node id="powerupCube3">
+            <transforms>
+                <scale value3="0.7 0.7 0.7" />
+                <translate value3="0 0.5 0" />
+            </transforms>
+            <children>
+                    <noderef id="unitCube" />
+            </children>
+            <materialref id="powerupCubeApp" />
+        </node>
+
+        <node id="powerupCube4">
             <transforms>
                 <scale value3="0.7 0.7 0.7" />
                 <translate value3="0 0.5 0" />
@@ -1533,7 +1567,7 @@
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
                 <noderef id="floor" />
-                <noderef id="powerupCube" />
+                
 
             </children> 
         </node>

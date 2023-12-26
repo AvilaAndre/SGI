@@ -280,6 +280,11 @@ class MyContents {
 
         this.app.scene.add(rootNode);
 
+        
+        if (data.racetrack.id != null && (this.sceneName == "race")) {
+            this.track.createPowerupCube(data);
+        }
+
         rootNode.traverse((elem) => {
             if (elem.collider) {
                 this.manager.collisionManager.addCollider(elem.collider, true);
@@ -293,6 +298,8 @@ class MyContents {
         // add cameras to the app object
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
+
+        
     }
 
     update(delta) {

@@ -3,6 +3,7 @@ import { MyApp } from "./MyApp.js";
 import { MyContents } from "./MyContents.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
+import { instantiateNode } from "./GraphBuilder.js";
 /**
  * This class contains a race track made with catmull curves
  */
@@ -21,6 +22,7 @@ class MyTrack extends THREE.Object3D {
         this.trackWidth = data.width;
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
+        this.powerups = data.powerups;
 
         // The curve that defines the points on the track
         this.trackCurve = null;
@@ -263,6 +265,40 @@ class MyTrack extends THREE.Object3D {
         this.trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
 
         this.add(this.trackMesh);
+
+
+    }
+
+    createPowerupCube(data) {
+
+        //TODO: for each new lap done by the player, powerups that were collected should be respawned
+
+        console.log("this.contents.nodes:", this.contents.nodes);
+        console.log("data.powerups:", this.powerups);
+
+        for(let i = 0; i < this.powerups.length; i++) {
+            console.log("this.powerups[i]:", this.powerups[i]);
+            const powerupNode = instantiateNode("powerupCube1", data, this.contents);
+            powerupNode.position.set(this.powerups[i].value2[0], 0.5, this.powerups[i].value2[1]);
+            this.contents.app.scene.add(powerupNode);
+
+            const powerupCubeColliderObj = new THREE.Object3D();
+
+            powerupCubeColliderObj.position.set(this.powerups[i].value2[0], 0.5, this.powerups[i].value2[1]);
+
+            this.contents.manager.collisionManager.addCollider(
+                new RectangleCollider(
+                    powerupCubeColliderObj,
+                    new THREE.Vector2(0, 0),
+                    1.25,
+                    1.25
+                ),
+                true
+            );
+        }
+
+        return;
+
     }
 }
 
@@ -312,6 +348,8 @@ const calcOrder = (vertices, idx1, idx2, idx3) => {
             }
         }
     }
+
+    
 };
 
 MyTrack.prototype.isGroup = true;
