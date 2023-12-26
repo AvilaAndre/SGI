@@ -13,7 +13,6 @@ class CollisionManager {
     constructor(contents) {
         this.contents = contents;
 
-        this.colliders = [];
         this.staticColliders = new ColliderPruningTree();
         this.dynamicColliders = [];
     }
@@ -27,10 +26,26 @@ class CollisionManager {
         if (isStatic) this.staticColliders.addCollider(collider);
         else this.dynamicColliders.push(collider);
 
-        this.colliders.push(collider);
-
         // DEBUG
         this.contents.app.scene.add(collider.getDebugObject());
+    }
+
+    /**
+     * Does not remove dynamic colliders
+     * @param {Collider} collider
+     * @returns {boolean} if the removal was successful
+     */
+    removeCollider(collider) {
+        for (let i = 0; i < this.dynamicColliders.length; i++) {
+            const element = this.dynamicColliders[i];
+
+            if (element == collider) {
+                this.dynamicColliders.splice(i, 1);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     update(_delta) {
