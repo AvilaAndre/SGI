@@ -33,16 +33,20 @@ class RectangleCollider extends Collider {
     collide(otherCollider) {
         if (otherCollider == this) {
             console.error("Checking collisions for the same colliders");
-            return false;
+            return null;
         }
         switch (otherCollider.type) {
             case "rectangle": {
                 // Check AABB first
                 if (this.aabb.intersect(otherCollider.aabb)) {
-                    return OBB.SatWithRectangle(this, otherCollider);
+                    if (OBB.SatWithRectangle(this, otherCollider)) return this;
                 }
 
-                return false;
+                return null;
+            }
+            case "pttree":
+            case "ptnode": {
+                return otherCollider.collide(this);
             }
 
             default: {
@@ -50,7 +54,7 @@ class RectangleCollider extends Collider {
                     "RectangleCollider does not collide with",
                     otherCollider.type
                 );
-                return false;
+                return null;
             }
         }
     }
@@ -73,7 +77,7 @@ class RectangleCollider extends Collider {
                 this.p1.y * Math.cos(-this.parent.rotation.y)
         );
         this.p1.add(
-            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
         );
 
         this.p2 = new THREE.Vector2(
@@ -88,7 +92,7 @@ class RectangleCollider extends Collider {
                 this.p2.y * Math.cos(-this.parent.rotation.y)
         );
         this.p2.add(
-            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
         );
 
         this.p3 = new THREE.Vector2(
@@ -103,7 +107,7 @@ class RectangleCollider extends Collider {
                 this.p3.y * Math.cos(-this.parent.rotation.y)
         );
         this.p3.add(
-            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
         );
 
         this.p4 = new THREE.Vector2(
@@ -118,7 +122,7 @@ class RectangleCollider extends Collider {
                 this.p4.y * Math.cos(-this.parent.rotation.y)
         );
         this.p4.add(
-            new THREE.Vector2(parentWorldPosition.x, parentWorldPosition.z)
+            new THREE.Vector2(this.parent.position.x, this.parent.position.z)
         );
 
         let minX;
