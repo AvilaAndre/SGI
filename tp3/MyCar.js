@@ -213,8 +213,6 @@ class MyCar extends THREE.Object3D {
 
                 const tangent = curve.getTangentAt(progress);
 
-                console.log("progress", progress, i);
-
                 animationData.timestamps.push({
                     value: carData.routeTime * progress,
                     keys: {

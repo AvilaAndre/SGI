@@ -8,10 +8,18 @@ class OpponentParkState extends GameState {
     constructor(contents, manager) {
         super(contents, manager);
 
-        this.pickingManager = new PickingManager(
-            this.contents,
-            Object.keys(this.manager.cars)
-        );
+        const pickableCars = Object.keys(this.manager.cars);
+
+        for (let i = 0; i < pickableCars.length; i++) {
+            const element = pickableCars[i];
+
+            if (element == this.contents.manager.playerPickedCar) {
+                pickableCars.splice(i, 1);
+                break;
+            }
+        }
+
+        this.pickingManager = new PickingManager(this.contents, pickableCars);
 
         this.addCarsToScene();
     }
