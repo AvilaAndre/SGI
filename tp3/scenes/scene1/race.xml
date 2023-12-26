@@ -1618,7 +1618,7 @@
             <noderef id="race-rr-wheel" />
         </statwheels>
 
-        <route time="50">
+        <route time="75">
             <point value2="22.86 -44.96"/>
             <point value2="-40.34 -153.56"/>
             <point value2="-42.94 -155.56"/>
@@ -1701,7 +1701,6 @@
             <point value2="115.02 120.72"/>
             <point value2="113.82 112.96"/>
             <point value2="110.3 105.6"/>
-            <point value2="22.86 -44.96"/>
         </route>
     </car>
 
@@ -1781,7 +1780,7 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="0">
+        <route time="90">
         </route>
     </car>
 
@@ -1867,14 +1866,14 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="00">
+        <route time="90">
         </route>
     </car>
 
 
     <animation id="hatchback-pop-hello" duration="2" repeat="false" autostart="false">
         <tracks>
-            <track id="headlight">
+            <track id="headlight" interpolation="smooth">
                 <noderef value="hatchback-popup-r"/>
             </track>
         </tracks>
@@ -1902,7 +1901,7 @@
 
     <animation id="spectator-cheer" duration="3" repeat="false" autostart="true">
         <tracks>
-            <track id="spectators">
+            <track id="spectators" interpolation="smooth">
                 <noderef value="spectator"/>
                 <noderef value="defaultTreeR1"/>
             </track>

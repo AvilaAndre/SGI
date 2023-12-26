@@ -410,6 +410,7 @@ class MySceneData {
         this.descriptors["track"] = [{ name: "width", type: "float" }];
 
         this.descriptors["point"] = [{ name: "value2", type: "vector2" }];
+        this.descriptors["point"] = [{ name: "value2", type: "vector2" }];
 
         this.descriptors["powerup"] = [{ name: "value2", type: "vector2" }];
 
@@ -759,6 +760,7 @@ class MySceneData {
             frontLights: [],
             rearLights: [],
             route: [],
+            routeTime: 0,
             cameras: [],
         };
     }

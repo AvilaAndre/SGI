@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { MyApp } from "../MyApp.js";
+import { MyAnimation } from "./MyAnimation.js";
 
 /**
  * This class contains and manages information about the animations
@@ -14,12 +15,17 @@ class AnimationPlayer {
         this.animations = new Object();
     }
 
+    /**
+     *
+     * @param {MyAnimation} animation
+     */
     addAnimation(animation) {
         this.animations[animation.id] = animation;
     }
 
-    playStart(animId) {
-        this.animations[animId]?.playStart();
+    playFromStart(animId) {
+        this.animations[animId]?.reset();
+        this.animations[animId]?.play();
     }
 
     play(animId) {

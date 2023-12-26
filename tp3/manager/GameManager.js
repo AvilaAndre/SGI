@@ -98,6 +98,14 @@ class GameManager {
         this.collisionManager.addCollider(this.playerCar.collider);
     }
 
+    selectOpponentCar(idx) {
+        if (!Object.keys(this.cars).includes(idx)) return;
+        this.opponentCar = this.cars[idx];
+        this.contents.app.scene.add(this.opponentCar);
+
+        this.collisionManager.addCollider(this.opponentCar.collider);
+    }
+
     changeCarCamera() {
         let i;
         for (i = 0; i < this.playerCar.cameras.length; i++) {
