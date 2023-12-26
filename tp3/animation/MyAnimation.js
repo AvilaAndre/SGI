@@ -234,14 +234,14 @@ class MyAnimation {
                     attribute,
                     times,
                     unpacked,
-                    THREE.InterpolateSmooth /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
+                    interpolation /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
                 );
             } else {
                 valuesKF = new THREE.VectorKeyframeTrack(
                     attribute,
                     times,
                     unpacked,
-                    THREE.InterpolateSmooth /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
+                    interpolation /* THREE.InterpolateLinear (default), THREE.InterpolateDiscrete,*/
                 );
             }
 
@@ -252,8 +252,6 @@ class MyAnimation {
                     [valuesKF]
                 )
             );
-
-            console.log("DURATION", animationAction.timeScale);
 
             if (this.repeat) {
                 animationAction.setLoop(THREE.LoopRepeat);

@@ -47,7 +47,8 @@ class MyCar extends THREE.Object3D {
         // if car is on track
         this.isOnTrack = false;
 
-        console.log("carData", carData);
+        // if car is colliding with another car
+        this.isCollidingWithCar = false;
 
         this.carName = carData.id;
         this.name = carData.id;
@@ -172,8 +173,6 @@ class MyCar extends THREE.Object3D {
         this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
 
         // compute car route curve
-        console.log("MyCar", carData);
-
         this.route = null;
 
         let path = null;
@@ -214,8 +213,6 @@ class MyCar extends THREE.Object3D {
 
                 const tangent = curve.getTangentAt(progress);
 
-                console.log("progress", progress, i);
-
                 animationData.timestamps.push({
                     value: carData.routeTime * progress,
                     keys: {
@@ -250,6 +247,8 @@ class MyCar extends THREE.Object3D {
 
             this.contents.animationPlayer.addAnimation(carRouteAnimation);
         }
+
+        this.isCar = true;
     }
 
     turnTo(angle) {
@@ -272,7 +271,7 @@ class MyCar extends THREE.Object3D {
         return (
             this.maxSpeed *
             this.maxSpeedPowerUPMultiplier *
-            (this.isOnTrack ? 1 : 0.7)
+            (this.isOnTrack || this.isCollidingWithCar ? 1 : 0.7)
         );
     }
 
@@ -280,12 +279,11 @@ class MyCar extends THREE.Object3D {
         return this.maxSpeedBackwards * this.maxSpeedPowerUPMultiplier;
     }
 
-    getSpeedAfterPenalties() {
-        return this.isOnTrack ? this.speed : this.speed * 0.7;
-    }
-
     accelerate(delta) {
-        this.speed += this.acceleration * delta * (this.isOnTrack ? 1 : 0.7);
+        this.speed +=
+            this.acceleration *
+            delta *
+            (this.isOnTrack || this.isCollidingWithCar ? 1 : 0.7);
         this.speed = Math.min(this.speed, this.getMaxSpeedForwards());
 
         this.isAccelerating = true;
@@ -480,79 +478,4 @@ Alguns detalhes sobre um carro:
 No início do jogo, o utilizador pode escolher o modelo de carro que deseja. Pode também escolher um carro autónomo com o qual concorrerá; a cada carro autónomo deve corresponder uma rota.
 
 NOTA: na fase inicial do desenvolvimento, é aconselhável que seja utilizado um modelo geométrico muito simples para cada carro, por exemplo um retângulo com textura (vista de cima).
-
 */
-
-/**
- * {
-    "id": "spectator-cheer",
-    "duration": 3,
-    "repeat": false,
-    "autostart": true,
-    "tracks": [
-        {
-            "id": "spectators",
-            "nodes": [
-                "spectator",
-                "defaultTreeR1"
-            ]
-        }
-    ],
-    "timestamps": [
-        {
-            "value": 0,
-            "keys": {
-                "spectators": {
-                    "id": "spectators",
-                    "transformations": [
-                        {
-                            "type": "T",
-                            "translate": [
-                                0,
-                                0,
-                                0
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "value": 1,
-            "keys": {
-                "spectators": {
-                    "id": "spectators",
-                    "transformations": [
-                        {
-                            "type": "T",
-                            "translate": [
-                                0,
-                                0.97,
-                                0
-                            ]
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "value": 2,
-            "keys": {
-                "spectators": {
-                    "id": "spectators",
-                    "transformations": [
-                        {
-                            "type": "T",
-                            "translate": [
-                                0,
-                                0.5,
-                                0
-                            ]
-                        }
-                    ]
-                }
-            }
-        }
-    ]
-}
- */

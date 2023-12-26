@@ -22,7 +22,6 @@ class RaceState extends GameState {
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
             this.manager.lapClock = new THREE.Clock();
-            
         }
 
         this.manager.selectPlayerCar(this.manager.playerPickedCar);
@@ -51,18 +50,18 @@ class RaceState extends GameState {
     }
 
     update(delta) {
-
-
         
-
         if (this.powerup && this.manager.powerupClock.getElapsedTime() >= 4) {
-            console.log('powerup deactivating!');
-            console.log("this.manager.powerupClock.getElapsedTime():", this.manager.powerupClock.getElapsedTime());
+            console.log("powerup deactivating!");
+            console.log(
+                "this.manager.powerupClock.getElapsedTime():",
+                this.manager.powerupClock.getElapsedTime()
+            );
             // Powerup duration is over
             this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
             this.powerup = false;
-            console.log('4 seconds have passed.');
-            
+            console.log("4 seconds have passed.");
+
             // Optionally, reset the clock if needed elsewhere
             // this.manager.powerupClock.start();
         }
@@ -127,6 +126,7 @@ class RaceState extends GameState {
         );
        
 
+        this.manager.playerCar.isCollidingWithCar = false;
         if (collider) {
             // Check if running into the collider
 
@@ -150,7 +150,9 @@ class RaceState extends GameState {
                     this.timerStarted = true;
                 
                 }
-            }
+            } else if (collider.parent.isCar) {
+                this.manager.playerCar.isCollidingWithCar = true;
+            } 
             else if (
                 this.manager.playerCar.position
                     .clone()
