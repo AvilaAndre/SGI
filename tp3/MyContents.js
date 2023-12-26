@@ -9,7 +9,7 @@ import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
-import { Animation } from "./animation/Animation.js";
+import { MyAnimation } from "./animation/MyAnimation.js";
 import { MyFirework } from "./MyFirework.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 
@@ -257,20 +257,6 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
-        const testColliderObj = new THREE.Object3D();
-
-        testColliderObj.position.set(5, 0, 10);
-
-        this.manager.collisionManager.addCollider(
-            new RectangleCollider(
-                testColliderObj,
-                new THREE.Vector2(0, 0),
-                2,
-                2
-            ),
-            true
-        );
-
         console.log("hud", data.hud.id);
         // this.hud = new MyHud(this, data.hud);
         // this.app.scene.add(this.hud);
@@ -287,7 +273,10 @@ class MyContents {
         });
 
         data.animations.forEach((anim) => {
-            this.animationPlayer.addAnimation(new Animation(this, anim));
+            console.log("anim", anim);
+            this.animationPlayer.addAnimation(
+                new MyAnimation(this).fromNodeData(anim)
+            );
         });
 
         // add cameras to the app object

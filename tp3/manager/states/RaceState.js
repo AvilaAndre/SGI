@@ -18,6 +18,7 @@ class RaceState extends GameState {
         }
 
         this.manager.selectPlayerCar(this.manager.playerPickedCar);
+        this.manager.selectOpponentCar(this.manager.cpuPickedCar);
 
         if (this.manager.playerCar) {
             this.manager.playerCar.teleportTo(
@@ -34,6 +35,10 @@ class RaceState extends GameState {
                 0,
                 1
             );
+        }
+
+        if (this.manager.opponentCar) {
+            this.manager.opponentCar.startOpponentRun();
         }
     }
 
@@ -53,7 +58,7 @@ class RaceState extends GameState {
         }
 
         if (this.manager.keyboard.isKeyJustDown("j")) {
-            this.contents.animationPlayer.playStart("spectator-cheer");
+            this.contents.animationPlayer.playFromStart("spectator-cheer");
         }
 
         if (this.manager.keyboard.isKeyJustDown("h")) {

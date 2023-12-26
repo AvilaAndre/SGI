@@ -79,7 +79,7 @@ class MyTrack extends THREE.Object3D {
         let lastPoint = new THREE.Vector3(0, 0, 0);
         let dist = 0;
 
-        const checkpointWidth = this.trackWidth * 1.4;
+        const checkpointWidth = this.trackWidth * 1.2;
 
         for (let i = 0; i < this.numCheckpoints; i++) {
             const progress =

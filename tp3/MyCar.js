@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
 import {
     addDirectionalLight,
     addPointLight,
@@ -8,6 +7,7 @@ import {
 } from "./GraphBuilder.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
+import { MyAnimation } from "./animation/MyAnimation.js";
 import { MyContents } from "./MyContents.js";
 /**
  * This class contains a car
@@ -170,6 +170,86 @@ class MyCar extends THREE.Object3D {
 
         // optional car light animation
         this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
+
+        // compute car route curve
+        console.log("MyCar", carData);
+
+        this.route = null;
+
+        let path = null;
+        if (carData.route.length > 1) {
+            path = carData.route.map(
+                (elem) => new THREE.Vector3(elem.value2[0], 0, elem.value2[1])
+            );
+        } else {
+            path = this.contents.track.path;
+        }
+
+        if (path != null && path.length > 0) {
+            const curve = new THREE.CatmullRomCurve3(path, true, "centripetal");
+
+            const animationData = {
+                id: carData.id + "_routeAnim",
+                duration: carData.routeTime,
+                repeat: true,
+                autostart: false,
+                tracks: [],
+                timestamps: [],
+            };
+
+            animationData.tracks.push({
+                id: "carBody",
+                nodes: [this],
+                interpolation: "linear",
+            });
+
+            const divisions = 200;
+
+            const curveLength = curve.getLength();
+            const curveSpacedLengths = curve.getLengths(divisions);
+
+            for (let i = 0; i <= divisions; i++) {
+                const progress = curveSpacedLengths[i] / curveLength;
+                const pointOnCurve = curve.getPointAt(progress);
+
+                const tangent = curve.getTangentAt(progress);
+
+                console.log("progress", progress, i);
+
+                animationData.timestamps.push({
+                    value: carData.routeTime * progress,
+                    keys: {
+                        carBody: {
+                            id: "carBody",
+                            transformations: [
+                                {
+                                    type: "T",
+                                    translate: [
+                                        pointOnCurve.x,
+                                        pointOnCurve.y,
+                                        pointOnCurve.z,
+                                    ],
+                                },
+                                {
+                                    type: "R",
+                                    rotation: [
+                                        0,
+                                        Math.atan2(tangent.x, tangent.z),
+                                        0,
+                                    ],
+                                },
+                            ],
+                        },
+                    },
+                });
+            }
+
+            const carRouteAnimation = new MyAnimation(this.contents).fromObject(
+                animationData
+            );
+
+            this.contents.animationPlayer.addAnimation(carRouteAnimation);
+        }
     }
 
     turnTo(angle) {
@@ -342,7 +422,9 @@ class MyCar extends THREE.Object3D {
 
     toggleLights() {
         this.frontLightsOn = !this.frontLightsOn;
-        this.contents.animationPlayer.playStart(this.carName + "-open-lights");
+        this.contents.animationPlayer.playFromStart(
+            this.carName + "-open-lights"
+        );
 
         this.frontLightsNode = this.contents.nodes[this.carName + "-popups"];
     }
@@ -372,6 +454,12 @@ class MyCar extends THREE.Object3D {
         this.position.z = z;
         this.rotation.y = rotation;
     }
+
+    startOpponentRun() {
+        this.contents.animationPlayer.playFromStart(
+            this.carName + "_routeAnim"
+        );
+    }
 }
 
 MyCar.prototype.isGroup = true;
@@ -379,7 +467,7 @@ MyCar.prototype.isGroup = true;
 export { MyCar };
 
 /**
-
+ 
 Podem existir um ou mais modelos de carro. A mesma base geométrica pode ser decorada com diferentes texturas.
 
 Alguns detalhes sobre um carro:
@@ -394,3 +482,77 @@ No início do jogo, o utilizador pode escolher o modelo de carro que deseja. Pod
 NOTA: na fase inicial do desenvolvimento, é aconselhável que seja utilizado um modelo geométrico muito simples para cada carro, por exemplo um retângulo com textura (vista de cima).
 
 */
+
+/**
+ * {
+    "id": "spectator-cheer",
+    "duration": 3,
+    "repeat": false,
+    "autostart": true,
+    "tracks": [
+        {
+            "id": "spectators",
+            "nodes": [
+                "spectator",
+                "defaultTreeR1"
+            ]
+        }
+    ],
+    "timestamps": [
+        {
+            "value": 0,
+            "keys": {
+                "spectators": {
+                    "id": "spectators",
+                    "transformations": [
+                        {
+                            "type": "T",
+                            "translate": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "value": 1,
+            "keys": {
+                "spectators": {
+                    "id": "spectators",
+                    "transformations": [
+                        {
+                            "type": "T",
+                            "translate": [
+                                0,
+                                0.97,
+                                0
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "value": 2,
+            "keys": {
+                "spectators": {
+                    "id": "spectators",
+                    "transformations": [
+                        {
+                            "type": "T",
+                            "translate": [
+                                0,
+                                0.5,
+                                0
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
+ */

@@ -1504,6 +1504,8 @@ class MyFileReader {
                 throw new Error("in car " + id + ", a route node is required");
             }
 
+            car.routeTime = this.getFloat(carRoute[0], "time");
+
             this.loadChildElementsOfType(carRoute[0], car, "route", "point");
 
             this.data.addCar(car);
@@ -1688,6 +1690,19 @@ class MyFileReader {
 
                 const trackId = this.getString(track, "id");
 
+                const interpolation = this.getString(track, "interpolation");
+
+                switch (interpolation) {
+                    case "smooth":
+                    case "linear":
+                    case "discrete":
+                        break;
+                    default:
+                        throw new Error(
+                            "There is no interpolation called " + interpolation
+                        );
+                }
+
                 let noderefElements = track.getElementsByTagName("noderef");
 
                 const trackNodes = [];
@@ -1701,6 +1716,7 @@ class MyFileReader {
                 tracks.push({
                     id: trackId,
                     nodes: trackNodes,
+                    interpolation,
                 });
             }
 
