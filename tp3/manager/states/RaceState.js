@@ -125,22 +125,7 @@ class RaceState extends GameState {
         const collider = this.manager.collisionManager.checkCollisions(
             this.manager.playerCar.collider
         );
-
-
-        const currentLap = Math.floor(this.manager.currCheckpoint / this.contents.track.numCheckpoints);
-
-
-        if (currentLap !== this.previousLap) {
-            // Lap number has changed
-            console.info('Lap changed to:', currentLap);
-
-            // Call your other function here
-            this.yourOtherFunction(currentLap);
-
-            // Update previousLap for the next check
-            this.previousLap = currentLap;
-            collider.parent.caught = false;
-        }
+       
 
         if (collider) {
             // Check if running into the collider
@@ -235,17 +220,8 @@ class RaceState extends GameState {
                     this.contents.track.numCheckpoints ==
                 0
             ) {
-                console.warn("lap time:" + this.manager.lapClock.getDelta());
-                this.contents.track.checkpoints.forEach((checkpointObj) => {
-                    checkpointObj.cones.forEach((element) => {
-                        // traverse cones
-                        element.traverse((elem) => {
-                            if (elem.type === "Mesh") {
-                                elem.material.color = new THREE.Color(0, 0, 1);
-                            }
-                        });
-                    });
-                });
+                
+                this.onNewLap();
             }
 
             const nextCheckpointObj =
@@ -283,6 +259,26 @@ class RaceState extends GameState {
             //     ].collider.getDebugObject()
             // );
         }
+    }
+
+    onNewLap(){
+
+        console.warn("lap time:" + this.manager.lapClock.getDelta());
+                this.contents.track.checkpoints.forEach((checkpointObj) => {
+                    checkpointObj.cones.forEach((element) => {
+                        // traverse cones
+                        element.traverse((elem) => {
+                            if (elem.type === "Mesh") {
+                                elem.material.color = new THREE.Color(0, 0, 1);
+                            }
+                        });
+                    });
+                });
+        
+        this.contents.track.powerupObjects.forEach((powerupObj) => {
+            powerupObj.visible = true;
+            powerupObj.caught = false;
+        });
     }
 }
 

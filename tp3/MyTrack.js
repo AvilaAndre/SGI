@@ -23,6 +23,7 @@ class MyTrack extends THREE.Object3D {
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
         this.powerups = data.powerups;
+        this.powerupObjects = [];
 
         // The curve that defines the points on the track
         this.trackCurve = null;
@@ -294,6 +295,8 @@ class MyTrack extends THREE.Object3D {
 
             powerupNode.isPowerup = true;
             powerupNode.caught = false;
+
+            this.powerupObjects.push(powerupNode);
         }
 
         return;
