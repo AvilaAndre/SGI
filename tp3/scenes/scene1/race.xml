@@ -1567,6 +1567,7 @@
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
                 <noderef id="floor" />
+                <noderef id="fenceGroup" />
                 
 
             </children> 

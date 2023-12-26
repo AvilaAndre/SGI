@@ -14,6 +14,8 @@ class RaceState extends GameState {
 
         this.powerup = false;
         this.manager.powerupClock = new THREE.Clock();
+        this.previousLap = 0;
+        
 
         //this.manager.powerupClock.start();
 
@@ -50,7 +52,8 @@ class RaceState extends GameState {
 
     update(delta) {
 
-        console.log("speed: " + this.manager.playerCar.speed);
+
+        
 
         if (this.powerup && this.manager.powerupClock.getElapsedTime() >= 4) {
             console.log('powerup deactivating!');
@@ -123,28 +126,45 @@ class RaceState extends GameState {
             this.manager.playerCar.collider
         );
 
+
+        const currentLap = Math.floor(this.manager.currCheckpoint / this.contents.track.numCheckpoints);
+
+
+        if (currentLap !== this.previousLap) {
+            // Lap number has changed
+            console.info('Lap changed to:', currentLap);
+
+            // Call your other function here
+            this.yourOtherFunction(currentLap);
+
+            // Update previousLap for the next check
+            this.previousLap = currentLap;
+            collider.parent.caught = false;
+        }
+
         if (collider) {
             // Check if running into the collider
 
-            console.log("speed before powerup: " + this.manager.playerCar.speed);
-            if(collider.parent.isPowerup) {
-                console.log('powerup active!!!');
-                this.powerup = true;
-                //TODO: do so that it gets the power given by the powerup
-                //remove collider (?)
-                this.contents.app.scene.remove(collider.parent);
-                this.manager.collisionManager.removeCollider(collider);
-                
-                this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
-                console.log("speed: " + this.manager.playerCar.speed);
-                //if (!this.timerStarted) {
-                //case in which a second powerup is harvested
-                //console.log("powerup deactivating!");
-                this.manager.powerupClock.start();
-                this.startTime = this.manager.powerupClock.elapsedTime;
-                this.timerStarted = true;
-                //}
 
+            if(collider.parent.isPowerup) {
+                if(collider.parent.caught == false){
+                    console.log('powerup active!!!');
+
+
+                    //TODO: set caught flag to false when lap is incremented
+
+                    this.powerup = true;
+                    
+                    this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
+
+                    collider.parent.visible = false;
+                    collider.parent.caught = true;
+
+                    this.manager.powerupClock.start();
+                    this.startTime = this.manager.powerupClock.elapsedTime;
+                    this.timerStarted = true;
+                
+                }
             }
             else if (
                 this.manager.playerCar.position

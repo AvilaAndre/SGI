@@ -293,6 +293,7 @@ class MyTrack extends THREE.Object3D {
             );
 
             powerupNode.isPowerup = true;
+            powerupNode.caught = false;
         }
 
         return;
