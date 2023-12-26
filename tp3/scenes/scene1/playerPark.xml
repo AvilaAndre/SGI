@@ -615,6 +615,9 @@
             <noderef id="race-rl-wheel" />
             <noderef id="race-rr-wheel" />
         </statwheels>
+
+        <route time="00">
+        </route>
     </car>
 
     <car id="hatchback">
@@ -692,6 +695,9 @@
             <noderef id="hatchback-rl-wheel" />
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
+
+        <route time="00">
+        </route>
     </car>
 
     <car id="hatchback-pop">
@@ -775,5 +781,8 @@
             <noderef id="hatchback-rl-wheel" />
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
+
+        <route time="00">
+        </route>
     </car>
 </yaf>

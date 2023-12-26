@@ -1496,6 +1496,16 @@ class MyFileReader {
                 car.rearLights.push(lightObj);
             }
 
+            /* CAR ROUTE */
+
+            let carRoute = element.getElementsByTagName("route");
+
+            if (carRoute == null || carRoute.length != 1) {
+                throw new Error("in car " + id + ", a route node is required");
+            }
+
+            this.loadChildElementsOfType(carRoute[0], car, "route", "point");
+
             this.data.addCar(car);
         }
     }

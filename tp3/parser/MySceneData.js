@@ -758,6 +758,7 @@ class MySceneData {
             initialCamera: "",
             frontLights: [],
             rearLights: [],
+            route: [],
             cameras: [],
         };
     }
