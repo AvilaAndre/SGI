@@ -236,6 +236,10 @@ class RaceState extends GameState {
 
             this.manager.currCheckpoint++;
         }
+
+        // hud
+
+        this.manager.hud?.setSpeedometerValue(this.manager.playerCar.speed);
     }
 
     onNewLap() {

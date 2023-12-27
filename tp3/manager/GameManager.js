@@ -36,6 +36,8 @@ class GameManager {
         this.app = app;
         this.fireworks = [];
 
+        this.hud = null;
+
         //this.launchFireworks();
     }
 
@@ -64,9 +66,14 @@ class GameManager {
         }
     }
 
+    setHud(newHud) {
+        this.hud = newHud;
+    }
+
     update(delta) {
         this.state.update(delta);
         this.keyboard.update();
+        this.hud?.update();
     }
 
     updateCollisions(delta) {

@@ -4,14 +4,12 @@ import { MyFileReader } from "./parser/MyFileReader.js";
 import * as Utils from "./MyUtils.js";
 import { MyTrack } from "./MyTrack.js";
 import { instantiateNode } from "./GraphBuilder.js";
-import { MyHud } from "./MyHud.js";
+import { MyHud } from "./hud/MyHud.js";
 import { MyCar } from "./MyCar.js";
 import { GameManager } from "./manager/GameManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { MyAnimation } from "./animation/MyAnimation.js";
-import { MyFirework } from "./MyFirework.js";
-import { RectangleCollider } from "./collisions/RectangleCollider.js";
 
 /**
  *  This class contains the contents of out application
@@ -257,17 +255,18 @@ class MyContents {
             this.manager.addCar(new MyCar(this, data, carData));
         }
 
+        // Initialize HUD and add to the manager
         console.log("hud", data.hud.id);
-        // this.hud = new MyHud(this, data.hud);
-        // this.app.scene.add(this.hud);
+        const hud = new MyHud(this, data.hud);
+        this.app.scene.add(hud);
+        this.manager.setHud(hud);
 
         console.log("nodes:");
         const rootNode = instantiateNode(data.rootId, data, this);
 
         this.app.scene.add(rootNode);
 
-        
-        if (data.racetrack.id != null && (this.sceneName == "race")) {
+        if (data.racetrack.id != null && this.sceneName == "race") {
             this.track.createPowerupCube(data);
         }
 
@@ -287,18 +286,14 @@ class MyContents {
         // add cameras to the app object
         this.app.addCameras(this.cameras);
         this.app.setActiveCamera(data.activeCameraId);
-
-        
     }
 
     update(delta) {
-        if (this.hud) {
-            this.hud.updateHud(752);
-        }
-
         if (this.manager.state) {
             this.manager.update(delta);
         }
+
+        if (this.hud) this.hud.update();
 
         this.animationPlayer.update(delta);
     }
