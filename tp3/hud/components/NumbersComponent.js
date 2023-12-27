@@ -53,7 +53,12 @@ class NumbersComponent extends HudComponent {
             );
 
             // Set the position of each sprite
-            sprite.position.set(i * this.spriteScale, 0, 0); // Adjust the position based on your requirements
+            sprite.position.set(
+                (i - Math.floor(nDigits / 2)) * this.spriteScale -
+                    (this.nDigits % 2 == 1 ? this.spriteScale / 2 : 0),
+                0,
+                0
+            ); // Adjust the position based on your requirements
 
             // store in an array to manipulate later
             this.#sprites.push(sprite);
@@ -80,7 +85,7 @@ class NumbersComponent extends HudComponent {
         this.value = Math.floor(newValue)
             .toString()
             .padStart(this.#nDigits, "0") // guarantees at least nDigits numbers
-            .slice(-3); // has a maximum of 3 elements
+            .slice(-this.#nDigits); // has a maximum of 3 elements
     }
 
     getValue() {

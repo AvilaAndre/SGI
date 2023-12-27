@@ -25,18 +25,36 @@ class MyHud extends THREE.Object3D {
         this.spriteScale = 0.1;
 
         this.speedometer = new NumbersComponent(
-            new THREE.Vector2(0.5, -0.5),
+            new THREE.Vector2(0.75, -0.5),
             0.1,
             0,
             3
         );
 
+        this.lapTimer = new NumbersComponent(
+            new THREE.Vector2(0, 0.5),
+            0.1,
+            0,
+            4
+        );
+
+        this.lapCounter = new NumbersComponent(
+            new THREE.Vector2(0.75, 0.5),
+            0.1,
+            0,
+            1
+        );
+
         this.add(this.speedometer);
+        this.add(this.lapTimer);
+        this.add(this.lapCounter);
     }
 
     updateHudComponents() {
         // updates if exists
         this.speedometer?.update();
+        this.lapTimer?.update();
+        this.lapCounter?.update();
     }
 
     update() {
@@ -61,24 +79,15 @@ class MyHud extends THREE.Object3D {
         this.updateHudComponents();
     }
 
-    getDigits(number) {
-        const numberString = number.toString();
-
-        // Convert the string to an array of digits
-        const digitsArray = numberString
-            .split("")
-            .map((digit) => parseInt(digit) || 0);
-
-        // Pad the array with leading zeros if needed
-        while (digitsArray.length < 3) {
-            digitsArray.unshift(0);
-        }
-
-        return digitsArray;
-    }
-
     setSpeedometerValue(value) {
         this.speedometer?.setValue(value);
+    }
+
+    setLapTimerValue(value) {
+        this.lapTimer?.setValue(value);
+    }
+    setLapCounterValue(value) {
+        this.lapCounter?.setValue(value);
     }
 }
 

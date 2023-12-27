@@ -238,14 +238,18 @@ class RaceState extends GameState {
         }
 
         // hud
-
         this.manager.hud?.setSpeedometerValue(this.manager.playerCar.speed);
+        this.manager.hud?.setLapTimerValue(
+            this.manager.lapClock.getElapsedTime() / 1000
+        );
+        this.manager.hud?.setLapCounterValue(this.manager.lapCount);
     }
 
     onNewLap() {
-        this.manager.lapCount = Math.floor(
-            this.manager.currCheckpoint / this.contents.track.numCheckpoints
-        );
+        this.manager.lapCount =
+            Math.floor(
+                this.manager.currCheckpoint / this.contents.track.numCheckpoints
+            ) + 1;
 
         console.warn("lap time:" + this.manager.lapClock.getElapsedTime());
         this.contents.track.checkpoints.forEach((checkpointObj) => {
