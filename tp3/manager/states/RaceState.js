@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { MyClock } from "../../utils/MyClock.js";
 import { NumbersComponent } from "../../hud/components/NumbersComponent.js";
+import { MinimapComponent } from "../../hud/components/MinimapComponent.js";
 /**
  * This class contains methods of  the game
  */
@@ -62,13 +63,53 @@ class RaceState extends GameState {
             new NumbersComponent(
                 new THREE.Vector2(0, 0.5),
                 0.1,
-                () => {
-                    return this.manager.lapClock
+                () =>
+                    this.manager.lapClock
                         ? this.manager.lapClock.getElapsedTime() / 1000
-                        : 0;
-                },
+                        : 0,
                 0,
                 4
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "speedometer",
+            new NumbersComponent(
+                new THREE.Vector2(0.75, -0.5),
+                0.1,
+                () =>
+                    this.manager.playerCar ? this.manager.playerCar.speed : 0,
+                0,
+                3
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "lapCounter",
+            new NumbersComponent(
+                new THREE.Vector2(0.75, 0.5),
+                0.1,
+                () => this.manager.lapCount,
+                0,
+                1
+            )
+        );
+        this.manager.hud.addComponent(
+            "minimap",
+            new MinimapComponent(
+                new THREE.Vector2(-0.75, 0.35),
+                0.08,
+                () => {
+                    return {
+                        playerCar: this.manager.playerCar,
+                        opponentCar: this.manager.opponentCar,
+                    };
+                },
+                {
+                    playerCar: this.manager.playerCar,
+                    opponentCar: this.manager.opponentCar,
+                },
+                this.contents.track
             )
         );
     }
@@ -257,13 +298,6 @@ class RaceState extends GameState {
 
             this.manager.currCheckpoint++;
         }
-
-        // hud
-        this.manager.hud?.setSpeedometerValue(this.manager.playerCar.speed);
-        // this.manager.hud?.setLapTimerValue(
-        //     this.manager.lapClock.getElapsedTime() / 1000
-        // );
-        this.manager.hud?.setLapCounterValue(this.manager.lapCount);
     }
 
     /**
