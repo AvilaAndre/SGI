@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { MyContents } from "../MyContents.js";
 import { NumbersComponent } from "./components/NumbersComponent.js";
+import { HudComponent } from "./HudComponent.js";
 /**
  * This class contains a hud
  */
@@ -24,36 +25,20 @@ class MyHud extends THREE.Object3D {
 
         this.spriteScale = 0.1;
 
-        this.speedometer = new NumbersComponent(
-            new THREE.Vector2(0.75, -0.5),
-            0.1,
-            0,
-            3
-        );
-
-        this.lapTimer = new NumbersComponent(
-            new THREE.Vector2(0, 0.5),
-            0.1,
-            0,
-            4
-        );
-
-        this.lapCounter = new NumbersComponent(
-            new THREE.Vector2(0.75, 0.5),
-            0.1,
-            0,
-            1
-        );
-
-        this.add(this.speedometer);
-        this.add(this.lapTimer);
-        this.add(this.lapCounter);
+        // Store components as a key value pair
+        this.components = {};
     }
 
     updateHudComponents() {
         // updates if exists
+
+        for (let i = 0; i < Object.keys(this.components).length; i++) {
+            const component = this.components[Object.keys(this.components)[i]];
+
+            component?.update();
+        }
+
         this.speedometer?.update();
-        this.lapTimer?.update();
         this.lapCounter?.update();
     }
 
@@ -79,15 +64,14 @@ class MyHud extends THREE.Object3D {
         this.updateHudComponents();
     }
 
-    setSpeedometerValue(value) {
-        this.speedometer?.setValue(value);
-    }
-
-    setLapTimerValue(value) {
-        this.lapTimer?.setValue(value);
-    }
-    setLapCounterValue(value) {
-        this.lapCounter?.setValue(value);
+    /**
+     * Adds a new component to this HUD assigning it a name
+     * @param {string} componentName
+     * @param {HudComponent} component
+     */
+    addComponent(componentName, component) {
+        this.components[componentName] = component;
+        this.add(component);
     }
 }
 

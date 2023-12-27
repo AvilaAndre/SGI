@@ -12,11 +12,12 @@ class NumbersComponent extends HudComponent {
      *
      * @param {THREE.Vector2} position
      * @param {number} spriteScale
+     * @param {function} valueGetter gets the value for this component
      * @param {number} initialValue
      * @param {number} nDigits the ammount of digits
      */
-    constructor(position, spriteScale, initialValue, nDigits) {
-        super(position, spriteScale, initialValue);
+    constructor(position, spriteScale, valueGetter, initialValue, nDigits) {
+        super(position, spriteScale, valueGetter, initialValue);
 
         this.#nDigits = nDigits;
         this.setValue(this.value);
@@ -72,6 +73,10 @@ class NumbersComponent extends HudComponent {
      * Updates this component
      */
     update() {
+        if (this.valueGetter) {
+            this.setValue(this.valueGetter());
+        }
+
         for (let i = 0; i < this.#sprites.length; i++) {
             const sprite = this.#sprites[i];
 

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { MyClock } from "../../utils/MyClock.js";
+import { NumbersComponent } from "../../hud/components/NumbersComponent.js";
 /**
  * This class contains methods of  the game
  */
@@ -51,6 +52,25 @@ class RaceState extends GameState {
             this.manager.opponentCar.startRunAnimation();
             this.manager.opponentCar.pauseRunAnimation();
         }
+
+        this.createHud();
+    }
+
+    createHud() {
+        this.manager.hud.addComponent(
+            "lapTimer",
+            new NumbersComponent(
+                new THREE.Vector2(0, 0.5),
+                0.1,
+                () => {
+                    return this.manager.lapClock
+                        ? this.manager.lapClock.getElapsedTime() / 1000
+                        : 0;
+                },
+                0,
+                4
+            )
+        );
     }
 
     update(delta) {
@@ -240,9 +260,9 @@ class RaceState extends GameState {
 
         // hud
         this.manager.hud?.setSpeedometerValue(this.manager.playerCar.speed);
-        this.manager.hud?.setLapTimerValue(
-            this.manager.lapClock.getElapsedTime() / 1000
-        );
+        // this.manager.hud?.setLapTimerValue(
+        //     this.manager.lapClock.getElapsedTime() / 1000
+        // );
         this.manager.hud?.setLapCounterValue(this.manager.lapCount);
     }
 
