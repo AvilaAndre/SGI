@@ -49,6 +49,7 @@ class RaceState extends GameState {
 
         if (this.manager.opponentCar) {
             this.manager.opponentCar.startRunAnimation();
+            this.manager.opponentCar.pauseRunAnimation();
         }
     }
 
@@ -245,7 +246,13 @@ class RaceState extends GameState {
         this.manager.hud?.setLapCounterValue(this.manager.lapCount);
     }
 
+    /**
+     * Called whenever a new lap is started
+     */
     onNewLap() {
+        if (this.manager.lapCount == 0 && this.manager.opponentCar)
+            this.manager.opponentCar.startRunAnimation();
+
         this.manager.lapCount =
             Math.floor(
                 this.manager.currCheckpoint / this.contents.track.numCheckpoints
