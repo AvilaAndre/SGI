@@ -25,7 +25,12 @@ class LettersComponent extends HudComponent {
         this.vSize = 1 / this.rowsInTexture;
         this.letterTexture.repeat.set(this.uSize, this.vSize);
 
-        this.createText(initialText);
+        this.totalText = initialText;
+    
+
+        if(initialText.length > 0){
+            this.createText(initialText);
+        }
     }
 
     calculateUVForChar(char) {
@@ -76,6 +81,14 @@ class LettersComponent extends HudComponent {
 
         this.add(textGroup);
         return textGroup;
+    }
+
+    update(updatedText) {
+        this.totalText += updatedText;
+        // Check if updatedText is a non-empty string
+        if (typeof updatedText === 'string' && updatedText !== "") {
+            this.createText(updatedText);
+        }
     }
     
 }

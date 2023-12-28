@@ -164,7 +164,7 @@
 
     <node id="startButton" pickable="true">
         <transforms>
-            <scale value3="5.3 4 4" />
+            <scale value3="5.7 4 4" />
             <translate value3="0 -3 1" />
         </transforms>
         <children>

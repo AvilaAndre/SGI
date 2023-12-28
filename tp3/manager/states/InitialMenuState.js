@@ -13,30 +13,43 @@ class InitialMenuState extends GameState {
 
         super(contents, manager);
 
-        console.log("this.contents: ", this.contents);
 
         this.pickingManager = new PickingManager(
             this.contents,
             ["startButton"]
         );
 
-        console.log("this.pickingManager: ", this.pickingManager);
 
         this.createHud();
     }
 
     update(delta) {
         console.log("update");
+        this.input();
+        
     }
 
-    addButtonsToScene() {
+    input() {
+        console.log("input");
+        const stringCompare = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+        document.addEventListener('keydown', (event) => {
+            const x = event.key; 
 
+            if (stringCompare.includes(x)) {
+                console.log(`input includes ${x}!`);
+                this.hudTest = this.manager.hud.getComponent("playerInput");
+                console.log("this.hudTest", this.hudTest);
+                this.manager.hud.getComponent("playerInput").update(x);
+            }
+        });
     }
+    
 
     onPointerClick(event) {
-        console.log("onPointerClick");
+
         const startPicked = this.pickingManager.getNearestObject(event)?.name;
-        console.log("startPicked: ", startPicked);
+
 
         if (startPicked) {
 
@@ -45,13 +58,11 @@ class InitialMenuState extends GameState {
     }
 
     onPointerMove(event) {
-        console.log("onPointerMove");
         this.pickingManager.onPointerMove(event);
     }
 
 
     createHud(){
-        console.log("creating hud!");
         this.manager.hud.addComponent(
             "titleThird",
             new LettersComponent(
@@ -157,7 +168,31 @@ class InitialMenuState extends GameState {
 
         );
 
+        this.manager.hud.addComponent(
+            "playerName",
+            new LettersComponent(
+                new THREE.Vector2(0.3, 0.1),
+                0.11,
+                () => {},
+                "Player Name:",
+                5,
+                0.06
+            )
 
+        );
+
+        this.manager.hud.addComponent(
+            "playerInput",
+            new LettersComponent(
+                new THREE.Vector2(0.3, 0),
+                0.11,
+                () => {},
+                "",
+                5,
+                0.07
+            )
+
+        );
 
         
     }

@@ -96,18 +96,6 @@ class RaceState extends GameState {
             )
         );
 
-        /*this.manager.hud.addComponent(
-            "title",
-            new LettersComponent(
-                new THREE.Vector2(0, 0),
-                0.1,
-                () => {},
-                "Third Gear",
-                10
-            )
-
-        );*/
-
         this.manager.hud.addComponent(
             "minimap",
             new MinimapComponent(
