@@ -14,7 +14,7 @@ rows = sheet_height // sprite_size
 sprite_sheet = Image.new("RGBA", (sheet_width, sheet_height), (0, 0, 0 , 0))
 
 # Load the specified font
-font = ImageFont.truetype("/Users/sofiagoncalves/Downloads/Sofia_Sans/SofiaSans-VariableFont_wght.ttf", font_size)
+font = ImageFont.truetype("/Users/sofiagoncalves/Downloads/Roboto_Mono/RobotoMono-VariableFont_wght.ttf", font_size)
 
 
 # Create a draw object
@@ -34,4 +34,4 @@ for char in characters:
         y += sprite_size
 
 # Save the sprite sheet
-sprite_sheet.save("sprite_sheet_black.png")
+sprite_sheet.save("sprite_sheet_monospaced_black.png")

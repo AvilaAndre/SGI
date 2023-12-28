@@ -31,6 +31,7 @@
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
         <texture id="floorTex" filepath="scenes/scene1/textures/orange2.webp" />
         <texture id="racingTex" filepath="scenes/scene1/textures/racing.avif" />
+        <texture id="feupTex" filepath="scenes/scene1/textures/logo_feup.jpg" />
     </textures> 
 
 
@@ -41,6 +42,15 @@
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="racetrackTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="feupApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="feupTex" 
             texlength_s="1" 
             texlength_t="1" />
 
@@ -143,6 +153,18 @@
         <materialref id="racingApp" /> <!-- Reference to the floor material -->
     </node>
 
+    <node id="feupLogo">
+        <transforms>
+            <translate value3="0 0 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="feupApp" /> <!-- Reference to the floor material -->
+    </node>
+
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
@@ -194,8 +216,7 @@
 
                 <!-- <noderef id="hatchback" /> -->
                 <noderef id="floor" />
-                
-
+                <noderef id="feupLogo" />            
 
             </children> 
         </node>

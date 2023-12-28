@@ -5,10 +5,15 @@ class LettersComponent extends HudComponent {
     #totalLetters = 1;
     #letterMeshes = [];
 
-    constructor(position, scale, getValue, initialText, letterCount) {
+    constructor(position, scale, getValue, initialText, letterCount, spacing) {
         super(position, scale, getValue, initialText);
 
-        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_black.png");
+        this.spacing = spacing;
+
+        this.spriteScale = scale; // Assuming scale is the intended sprite scale
+
+
+        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_monospaced_black.png");
         const textureWidth = 1020;
         const textureHeight = 1020;
         const singleCharWidth = 102;
@@ -28,10 +33,11 @@ class LettersComponent extends HudComponent {
         const uCoord = (asciiValue % this.colsInTexture) * this.uSize;
         const vCoord = (this.rowsInTexture - 1 - Math.floor(asciiValue / this.colsInTexture)) * this.vSize;
 
+        console.log("Char: ", char, " ASCII: ", asciiValue, " U: ", uCoord, " V: ", vCoord);
         return [uCoord, vCoord];
     }
 
-    createLetterMesh(char, dimensions = [1, 1]) {
+    createLetterMesh(char, dimensions) {
         const [u, v] = this.calculateUVForChar(char);
         const [letterWidth, letterHeight] = dimensions;
 
@@ -42,26 +48,38 @@ class LettersComponent extends HudComponent {
 
         letterMesh.material.map.offset.set(u, v);
 
+        letterMesh.scale.set(
+            this.spriteScale,
+            this.spriteScale,
+            this.spriteScale
+        );
+
+        console.log("Letter mesh: ", letterMesh);
         return letterMesh;
     }
 
-    createText(text, dimensions = [1, 1]) {
+    createText(text, dimensions = [text.length/10, 0.8]) {
         console.log("Creating text: ", text);
+        console.log("Dimensions: ", dimensions);
+        console.log("Letter count: ", text.length);
         const textGroup = new THREE.Group();
-
-        const letterWidth = dimensions[0] / text.length;
+    
+        const letterWidth = dimensions[0];
         const letterHeight = dimensions[1];
-
+        //const spacingFactor = 0.7; 
+    
         for (let i = 0; i < text.length; i++) {
             const letterMesh = this.createLetterMesh(text[i], [letterWidth, letterHeight]);
-            letterMesh.position.x = i * letterWidth;
+            // Adjust the position to reduce spacing
+            letterMesh.position.x = (i * letterWidth * this.spacing) - (dimensions[0] * this.spacing / 2) + (letterWidth * this.spacing / 2);
             textGroup.add(letterMesh);
         }
-
+    
         console.log("Text group: ", textGroup);
         this.add(textGroup);
         return textGroup;
     }
+    
 }
 
 export { LettersComponent };
