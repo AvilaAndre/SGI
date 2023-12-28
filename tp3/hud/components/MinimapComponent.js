@@ -39,7 +39,7 @@ class MinimapComponent extends HudComponent {
         );
         const material = new THREE.MeshBasicMaterial({
             color: 0x000000,
-            opacity: 0.2,
+            opacity: 0.3,
             transparent: true,
         });
         const mesh = new THREE.Mesh(geometry, material);

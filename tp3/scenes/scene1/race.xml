@@ -12,15 +12,12 @@
             location="15 15 15" 
             target="0 0.0 0" /> 
 
-        <orthogonal id="cam2" 
+        <perspective id="obstaclescam" 
+            angle="60" 
             near="0.1" 
             far="1000" 
-            location="0 15 15" 
-            target="0.0 15 0.0" 
-            left="-5" 
-            right="5" 
-            bottom="-5" 
-            top="-5" /> 
+            location="180 10 -170" 
+            target="170 0 -170" /> 
     </cameras> 
 
 
@@ -1437,6 +1434,13 @@
             <materialref id="powerupCubeApp" />
         </node>
 
+        <node id="obstacles" pickable="true">
+            <children>
+                <noderef id="snail-pickable" />
+                <noderef id="wine-bottle-pickable" />
+            </children>
+        </node>
+
         <node id="fenceGroup">
             <transforms>
                 <translate value3="170 0 -170" />
@@ -1450,6 +1454,69 @@
                 <noderef id="fenceBack2" />
                 <noderef id="fenceFront1" />
                 <noderef id="fenceFront2" />
+                <noderef id="obstacles" />
+            </children>
+        </node>
+
+        <!-- obstacles -->
+
+        <node id="snail-model">
+            <transforms>
+                <scale value3="0.2 0.2 0.2"/>
+                <translate value3="0 0.2 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/obstacles/Snail.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="snail">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="snail-model" />
+            </children>
+        </node>
+
+        <node id="snail-pickable">
+            <transforms>
+                <translate value3="1 0 0" />
+            </transforms>
+            <children>
+                <noderef id="snail" />
+            </children>
+        </node>
+
+        <node id="wine-bottle-model">
+            <transforms>
+                <scale value3="0.2 0.2 0.2"/>
+                <translate value3="0 0.2 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/obstacles/BottleChampagne.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wine-bottle">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="wine-bottle-model" />
+            </children>
+        </node>
+
+        <node id="wine-bottle-pickable">
+            <transforms>
+                <translate value3="-1 0 0" />
+            </transforms>
+            <children>
+                <noderef id="wine-bottle" />
             </children>
         </node>
 
@@ -1791,13 +1858,19 @@
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="0 10 0" 
-                target="0 0 1" />
+                location="0 20 0" 
+                target="0 0 5" />
             <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
                 far="1000" 
                 location="0 3 -4" 
+                target="0 0 4" />
+            <perspective id="closer-follow-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 2 -3" 
                 target="0 0 4" />
             <perspective id="roof-perspective" 
                 angle="60" 
@@ -1871,6 +1944,11 @@
         </route>
     </car>
 
+    <obstacles camera="obstaclescam" >
+        <obstacle noderef="snail" />
+        <obstacle noderef="wine-bottle" />
+    </obstacles>
+
 
     <animation id="hatchback-pop-hello" duration="2" repeat="false" autostart="false">
         <tracks>
@@ -1928,6 +2006,4 @@
             </timestamp>
         </timestamps>
     </animation>
-
-
 </yaf>

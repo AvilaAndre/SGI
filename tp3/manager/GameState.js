@@ -18,6 +18,11 @@ class GameState {
     }
 
     /**
+     * Called when this state was not the active one but was assigned again
+     */
+    restored() {}
+
+    /**
      *
      * @param {number} delta time passed between the previous frame
      */

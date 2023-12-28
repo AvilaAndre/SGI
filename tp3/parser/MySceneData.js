@@ -35,6 +35,8 @@ class MySceneData {
 
         this.hud = null;
 
+        this.obstacles = null;
+
         this.animations = [];
 
         this.customAttributeName = "custom";
@@ -451,6 +453,7 @@ class MySceneData {
             "car",
             "hud",
             "animation",
+            "obstacles",
         ];
 
         this.primitiveIds = [
@@ -791,6 +794,20 @@ class MySceneData {
 
     addAnimation(animation) {
         this.animations.push(animation);
+    }
+
+    /**
+     * Creates and object that contains information about the obstacles
+     */
+    createEmptyObstacles() {
+        return {
+            cameraName: null,
+            obstacles: [],
+        };
+    }
+
+    setObstacles(obstacles) {
+        this.obstacles = obstacles;
     }
 }
 export { MySceneData };

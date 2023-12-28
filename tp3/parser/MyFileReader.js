@@ -139,6 +139,7 @@ class MyFileReader {
             this.loadRacetrack(rootElement);
             this.loadCars(rootElement);
             this.loadHUD(rootElement);
+            this.loadObstacles(rootElement);
             this.loadAnimations(rootElement);
         } catch (error) {
             this.errorMessage = error;
@@ -1650,6 +1651,38 @@ class MyFileReader {
         );
 
         this.data.setHud(hudObj);
+    }
+
+    loadObstacles(rootElement) {
+        // load hud
+        let obstaclesObjs = rootElement.getElementsByTagName("obstacles");
+
+        if (obstaclesObjs.length > 1)
+            throw new Error(
+                "Only one obstacles should be specified in the YAF XML!"
+            );
+
+        if (obstaclesObjs.length == 0) return;
+
+        const obstaclesDataObj = this.data.createEmptyObstacles();
+
+        obstaclesDataObj.cameraName = this.getString(
+            obstaclesObjs[0],
+            "camera",
+            true
+        );
+
+        const obstacles = obstaclesObjs[0].getElementsByTagName("obstacle");
+
+        for (let i = 0; i < obstacles.length; i++) {
+            const obstacleElement = obstacles[i];
+
+            obstaclesDataObj.obstacles.push(
+                this.getString(obstacleElement, "noderef")
+            );
+        }
+
+        this.data.setObstacles(obstaclesDataObj);
     }
 
     /**

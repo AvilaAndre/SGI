@@ -68,17 +68,10 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
                                 contents.materials[nodeObj.materialIds[0]]
                             );
 
-                            while (nodeObj.name == "Mesh") {
-                                console.log(
-                                    "nodeObj.name no while: ",
-                                    nodeObj.name
-                                );
+                            if (nodeObj.name == "Mesh") {
                                 nodeObj.name = nodeObj.parent.name;
                             }
-                            console.log(
-                                "nodeObj.name depois do while: ",
-                                nodeObj.name
-                            );
+
                             mesh.name = nodeObj.name;
 
                             if (child.subtype == "rectangle") {
