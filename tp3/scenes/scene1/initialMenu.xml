@@ -84,20 +84,6 @@
             
         </powerups>
 
-        <obstacles>
-            
-        </obstacles>
-        
-        <routes>
-            <route>
-                <point value2="0 0"/>
-                <point value2="1 1"/>
-                <point value2="3 1"/>
-                <point value2="6 0"/>
-                <point value2="3 -1"/>
-                <point value2="1 -1"/>
-            </route>
-        </routes>
     </racetrack>
 
     <hud id="hud1">
