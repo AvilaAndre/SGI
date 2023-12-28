@@ -3,6 +3,7 @@ import { GameState } from "../GameState.js";
 import { MyClock } from "../../utils/MyClock.js";
 import { NumbersComponent } from "../../hud/components/NumbersComponent.js";
 import { MinimapComponent } from "../../hud/components/MinimapComponent.js";
+import { LettersComponent } from "../../hud/components/LettersComponent.js";
 /**
  * This class contains methods of  the game
  */
@@ -94,6 +95,19 @@ class RaceState extends GameState {
                 1
             )
         );
+
+        /*this.manager.hud.addComponent(
+            "title",
+            new LettersComponent(
+                new THREE.Vector2(0, 0),
+                0.1,
+                () => {},
+                "Third Gear",
+                10
+            )
+
+        );*/
+
         this.manager.hud.addComponent(
             "minimap",
             new MinimapComponent(

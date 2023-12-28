@@ -61,7 +61,7 @@ class MyContents {
 
         this.scenePath = "scenes/scene1/";
         // initial scene name
-        this.sceneName = "playerPark";
+        this.sceneName = "initialMenu";
         this.switchScenes(this.sceneName);
 
         this.manager.setState("pickingPlayer");
@@ -109,6 +109,10 @@ class MyContents {
             case "opponentPark":
                 this.manager.setState("pickingOpponent");
                 break;
+            case "initialMenu":
+                this.manager.setState("initialMenu");
+                break;
+
             default:
                 break;
         }
