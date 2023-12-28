@@ -266,21 +266,22 @@ class MyTrack extends THREE.Object3D {
         this.trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
 
         this.add(this.trackMesh);
-
-
     }
 
     createPowerupCube(data) {
-
         //TODO: for each new lap done by the player, powerups that were collected should be respawned
 
-        console.log("this.contents.nodes:", this.contents.nodes);
-        console.log("data.powerups:", this.powerups);
-
-        for(let i = 0; i < this.powerups.length; i++) {
-            console.log("this.powerups[i]:", this.powerups[i]);
-            const powerupNode = instantiateNode("powerupCube1", data, this.contents);
-            powerupNode.position.set(this.powerups[i].value2[0], 0.5, this.powerups[i].value2[1]);
+        for (let i = 0; i < this.powerups.length; i++) {
+            const powerupNode = instantiateNode(
+                "powerupCube1",
+                data,
+                this.contents
+            );
+            powerupNode.position.set(
+                this.powerups[i].value2[0],
+                0.5,
+                this.powerups[i].value2[1]
+            );
             this.contents.app.scene.add(powerupNode);
 
             this.contents.manager.collisionManager.addCollider(
@@ -300,7 +301,6 @@ class MyTrack extends THREE.Object3D {
         }
 
         return;
-
     }
 }
 
@@ -350,8 +350,6 @@ const calcOrder = (vertices, idx1, idx2, idx3) => {
             }
         }
     }
-
-    
 };
 
 MyTrack.prototype.isGroup = true;

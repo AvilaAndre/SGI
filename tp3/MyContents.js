@@ -263,8 +263,25 @@ class MyContents {
 
         console.log("nodes:");
         const rootNode = instantiateNode(data.rootId, data, this);
-
         this.app.scene.add(rootNode);
+
+        // obstacles
+        if (data.obstacles) {
+            this.manager.obstaclesCamera = data.obstacles.cameraName;
+
+            for (let i = 0; i < data.obstacles.obstacles.length; i++) {
+                const obstacle = data.obstacles.obstacles[i];
+
+                this.manager.obstacles[obstacle] = instantiateNode(
+                    obstacle,
+                    data,
+                    this,
+                    null
+                );
+
+                console.log(data.nodes[obstacle], data.nodes);
+            }
+        }
 
         if (data.racetrack.id != null && this.sceneName == "race") {
             this.track.createPowerupCube(data);

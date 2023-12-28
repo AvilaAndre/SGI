@@ -108,8 +108,11 @@ class MyApp {
     updateCameraIfRequired() {
         // camera changed?
 
-        if (this.lastCameraName !== this.activeCameraName || this.newCameras) {
-            this.newCameras = false;
+        if (
+            this.lastCameraName !== this.activeCameraName ||
+            this.updateCameras
+        ) {
+            this.updateCameras = false;
             this.lastCameraName = this.activeCameraName;
             this.activeCamera = this.cameras[this.activeCameraName];
             document.getElementById("camera").innerHTML = this.activeCameraName;
@@ -170,7 +173,7 @@ class MyApp {
      */
     addCameras(cameras) {
         // to signal that new cameras exist
-        this.newCameras = true;
+        this.updateCameras = true;
 
         Object.keys(cameras).forEach((key) => {
             this.cameras[key] = cameras[key];

@@ -24,6 +24,7 @@ class GameManager {
         this.collisionManager = new CollisionManager(this.contents);
 
         this.cars = {};
+        this.obstacles = {};
 
         this.playerCar = null;
 
@@ -46,6 +47,7 @@ class GameManager {
      * @param {GameState} state
      */
     setState(state) {
+        this.oldState = this.state;
         switch (state) {
             case "race":
                 this.state = new RaceState(this.contents, this);
@@ -64,6 +66,14 @@ class GameManager {
                 this.state = new GameState(this.contents, this);
                 break;
         }
+    }
+
+    /**
+     * Returns to the previously switched state
+     */
+    rollbackState() {
+        if (this.oldState) this.state = this.oldState;
+        this.state.restored();
     }
 
     setHud(newHud) {
@@ -150,7 +160,7 @@ class GameManager {
                 // console.log("firework removed");
                 continue;
             }
-            // otherwise upsdate  firework
+            // otherwise updates firework
             this.fireworks[i].update();
         }
     }
@@ -160,6 +170,7 @@ class GameManager {
      */
     reset() {
         this.collisionManager = new CollisionManager(this.contents);
+        this.obstacles = [];
     }
 }
 

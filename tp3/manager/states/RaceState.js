@@ -114,9 +114,17 @@ class RaceState extends GameState {
         );
     }
 
+    restored() {
+        this.resume();
+    }
+
     update(delta) {
         if (this.manager.keyboard.isKeyJustDown("p")) {
             this.paused ? this.resume() : this.pause();
+        }
+
+        if (this.manager.keyboard.isKeyJustDown("m")) {
+            this.pickObstacle();
         }
 
         if (this.paused) return;
@@ -353,6 +361,11 @@ class RaceState extends GameState {
         // resume opponent car run animation
         if (this.manager.opponentCar)
             this.manager.opponentCar.resumeRunAnimation();
+    }
+
+    pickObstacle() {
+        this.pause();
+        this.manager.setState("pickingObstacle");
     }
 }
 
