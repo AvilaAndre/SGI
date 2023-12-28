@@ -24,12 +24,13 @@
     </cameras> 
 
 
-    <skybox size="90 90 90" center="0 44.95 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/soft.jpg" down="./textures/soft.jpg" left="./textures/soft.jpg" right="./textures/soft.jpg" front="./textures/soft.jpg" back="./textures/soft.jpg"/>
+    <skybox size="0.00001 0.00001 0.00001" center="0 44.95 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/soft.jpg" down="./textures/soft.jpg" left="./textures/soft.jpg" right="./textures/soft.jpg" front="./textures/soft.jpg" back="./textures/soft.jpg"/>
 
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
         <texture id="floorTex" filepath="scenes/scene1/textures/orange2.webp" />
+        <texture id="racingTex" filepath="scenes/scene1/textures/racing.avif" />
     </textures> 
 
 
@@ -42,6 +43,15 @@
             textureref="racetrackTex" 
             texlength_s="1" 
             texlength_t="1" />
+
+        <material id="racingApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="racingTex" 
+            texlength_s="90" 
+            texlength_t="90" />
 
         <material id="hudApp" 
             color="0.8 0.8 0.8 1.0" 
@@ -120,9 +130,19 @@
 
     <graph rootid="scene">
 
-
-
     
+    <node id="floor">
+        <transforms>
+
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-55 -45" xy2="55 45" />
+            </primitive>
+        </children>
+        <materialref id="racingApp" /> <!-- Reference to the floor material -->
+    </node>
+
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 

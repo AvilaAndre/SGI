@@ -1,100 +1,66 @@
-import * as THREE from "three";
-import { HudComponent } from "../HudComponent.js";
+import * as THREE from 'three';
+import { HudComponent } from '../HudComponent.js';
 
-/**
- * This class contains methods of  the game
- */
 class LettersComponent extends HudComponent {
-    #nLetters = 1;
-    #sprites = [];
+    #totalLetters = 1;
+    #letterMeshes = [];
 
-    /**
-     *
-     * @param {THREE.Vector2} position
-     * @param {number} spriteScale
-     * @param {function} valueGetter gets the value for this component
-     * @param {number} initialValue
-     * @param {number} nLetters the ammount of Letters
-     */
-    constructor(position, spriteScale, valueGetter, initialValue, nLetters) {
-        super(position, spriteScale, valueGetter, initialValue);
+    constructor(position, scale, getValue, initialText, letterCount) {
+        super(position, scale, getValue, initialText);
 
-        this.#nLetters = nLetters;
-        this.setValue(this.value);
+        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_black.png");
+        const textureWidth = 1020;
+        const textureHeight = 1020;
+        const singleCharWidth = 102;
+        const singleCharHeight = 102;
 
-        // Load the texture
-        const lettersTexture = new THREE.TextureLoader().load(
-            "scenes/scene1/textures/letters.png"
-        );
+        this.colsInTexture = textureWidth / singleCharWidth;
+        this.rowsInTexture = textureHeight / singleCharHeight;
+        this.uSize = 1 / this.colsInTexture;
+        this.vSize = 1 / this.rowsInTexture;
+        this.letterTexture.repeat.set(this.uSize, this.vSize);
 
-        // Calculate the width of a single sprite on the spritesheet
-        const spriteWidth = 1 / 24; // There are 10 sprites in the spritesheet
-
-        // Create a loop to instantiate three sprites with different offsets
-        for (let i = 0; i < nLetters; i++) {
-            const texture = lettersTexture.clone();
-            // Create a new sprite material for each sprite
-            const material = new THREE.SpriteMaterial({ map: texture });
-
-            // Calculate the offset for each sprite
-            const offset = 1 / 24;
-
-            // Set the horizontal repeat to the sprite's width (in proportion to the whole image)
-            texture.repeat.set(spriteWidth, 1);
-
-            // Use the offset to select a specific sprite
-            texture.offset.x = offset;
-
-            // Create the sprite
-            const sprite = new THREE.Sprite(material);
-            sprite.scale.set(
-                this.spriteScale,
-                this.spriteScale,
-                this.spriteScale
-            );
-
-            // Set the position of each sprite
-            sprite.position.set(
-                (i - Math.floor(nLetters / 2)) * this.spriteScale -
-                    (this.nLetters % 2 == 1 ? this.spriteScale / 2 : 0),
-                0,
-                0
-            ); // Adjust the position based on your requirements
-
-            // store in an array to manipulate later
-            this.#sprites.push(sprite);
-
-            // Add the sprite to the scene
-            this.add(sprite);
-        }
+        this.createText(initialText);
     }
 
-    /**
-     * Updates this component
-     */
-    update() {
-        if (this.valueGetter) {
-            this.setValue(this.valueGetter());
-        }
+    calculateUVForChar(char) {
+        const asciiValue = char.charCodeAt(0) - 32;
+        const uCoord = (asciiValue % this.colsInTexture) * this.uSize;
+        const vCoord = (this.rowsInTexture - 1 - Math.floor(asciiValue / this.colsInTexture)) * this.vSize;
 
-        for (let i = 0; i < this.#sprites.length; i++) {
-            const sprite = this.#sprites[i];
-
-            const spriteNumber = parseInt(this.value[i]);
-
-            sprite.material.map.offset.x = spriteNumber / 10;
-        }
+        return [uCoord, vCoord];
     }
 
-    setValue(newValue) {
-        this.value = Math.floor(newValue)
-            .toString()
-            .padStart(this.#nLetters, "0") // guarantees at least nLetters letters
-            .slice(-this.#nLetters); // has a maximum of 3 elements
+    createLetterMesh(char, dimensions = [1, 1]) {
+        const [u, v] = this.calculateUVForChar(char);
+        const [letterWidth, letterHeight] = dimensions;
+
+        const clonedTexture = this.letterTexture.clone();
+        const letterGeometry = new THREE.PlaneGeometry(letterWidth, letterHeight);
+        const letterMaterial = new THREE.MeshBasicMaterial({ map: clonedTexture, transparent: true });
+        const letterMesh = new THREE.Mesh(letterGeometry, letterMaterial);
+
+        letterMesh.material.map.offset.set(u, v);
+
+        return letterMesh;
     }
 
-    getValue() {
-        return this.value;
+    createText(text, dimensions = [1, 1]) {
+        console.log("Creating text: ", text);
+        const textGroup = new THREE.Group();
+
+        const letterWidth = dimensions[0] / text.length;
+        const letterHeight = dimensions[1];
+
+        for (let i = 0; i < text.length; i++) {
+            const letterMesh = this.createLetterMesh(text[i], [letterWidth, letterHeight]);
+            letterMesh.position.x = i * letterWidth;
+            textGroup.add(letterMesh);
+        }
+
+        console.log("Text group: ", textGroup);
+        this.add(textGroup);
+        return textGroup;
     }
 }
 

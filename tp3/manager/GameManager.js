@@ -9,6 +9,7 @@ import { MyFirework } from "../MyFirework.js";
 import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
 import { CollisionManager } from "./CollisionManager.js";
+import { InitialMenuState } from "./states/InitialMenuState.js";
 /**
  * This class contains and manages information about the game
  */
@@ -58,6 +59,10 @@ class GameManager {
                 break;
             case "pickingObstacle":
                 this.state = new PickObstacleState(this.contents, this);
+                break;
+
+            case "initialMenu":
+                this.state = new InitialMenuState(this.contents, this);
                 break;
 
             default:

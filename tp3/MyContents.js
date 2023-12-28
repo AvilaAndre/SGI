@@ -109,6 +109,10 @@ class MyContents {
             case "opponentPark":
                 this.manager.setState("pickingOpponent");
                 break;
+            case "initialMenu":
+                this.manager.setState("initialMenu");
+                break;
+
             default:
                 break;
         }
