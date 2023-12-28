@@ -27,6 +27,8 @@ class GameManager {
         this.cars = {};
         this.obstacles = {};
 
+        this.startButton = null;
+
         this.playerCar = null;
 
         this.playerPickedCar = null;

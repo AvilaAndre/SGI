@@ -33,7 +33,7 @@ class LettersComponent extends HudComponent {
         const uCoord = (asciiValue % this.colsInTexture) * this.uSize;
         const vCoord = (this.rowsInTexture - 1 - Math.floor(asciiValue / this.colsInTexture)) * this.vSize;
 
-        console.log("Char: ", char, " ASCII: ", asciiValue, " U: ", uCoord, " V: ", vCoord);
+
         return [uCoord, vCoord];
     }
 
@@ -54,14 +54,12 @@ class LettersComponent extends HudComponent {
             this.spriteScale
         );
 
-        console.log("Letter mesh: ", letterMesh);
+
         return letterMesh;
     }
 
     createText(text, dimensions = [text.length/10, 0.8]) {
-        console.log("Creating text: ", text);
-        console.log("Dimensions: ", dimensions);
-        console.log("Letter count: ", text.length);
+
         const textGroup = new THREE.Group();
     
         const letterWidth = dimensions[0];
@@ -75,7 +73,7 @@ class LettersComponent extends HudComponent {
             textGroup.add(letterMesh);
         }
     
-        console.log("Text group: ", textGroup);
+
         this.add(textGroup);
         return textGroup;
     }
