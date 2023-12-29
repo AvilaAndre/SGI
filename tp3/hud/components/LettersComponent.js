@@ -13,7 +13,7 @@ class LettersComponent extends HudComponent {
         this.spriteScale = scale; // Assuming scale is the intended sprite scale
 
 
-        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_monospaced_black.png");
+        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_monospaced_white.png");
         const textureWidth = 1020;
         const textureHeight = 1020;
         const singleCharWidth = 102;
@@ -63,8 +63,9 @@ class LettersComponent extends HudComponent {
         return letterMesh;
     }
 
-    createText(text, dimensions = [text.length/10, 0.8]) {
+    createText(text, dimensions = [/*text.length/10*/0.5, 0.8]) {
 
+        console.log("dimensions", dimensions);
         const textGroup = new THREE.Group();
     
         const letterWidth = dimensions[0];

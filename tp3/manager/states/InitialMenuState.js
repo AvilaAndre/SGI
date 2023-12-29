@@ -45,6 +45,10 @@ class InitialMenuState extends GameState {
             } else {
                 return;
             }
+
+            if(this.textToBeWritten.length > 17){
+                return;
+            }
     
             console.log("this.textToBeWritten", this.textToBeWritten);
     
@@ -85,7 +89,7 @@ class InitialMenuState extends GameState {
         this.manager.hud.addComponent(
             "titleThird",
             new LettersComponent(
-                new THREE.Vector2(-0.5, 0.4),
+                new THREE.Vector2(-0.2, 0.4),
                 0.2,
                 () => {},
                 "Third Gear",
@@ -97,43 +101,19 @@ class InitialMenuState extends GameState {
 
 
         this.manager.hud.addComponent(
-            "André",
+            "AndreIFerraz",
             new LettersComponent(
                 new THREE.Vector2(-1, -0.4),
                 0.15,
                 () => {},
-                "Andre",
+                "Andre I. Ferraz",
                 5,
                 0.1
             )
 
         );
 
-        this.manager.hud.addComponent(
-            "I.",
-            new LettersComponent(
-                new THREE.Vector2(-0.75, -0.4),
-                0.15,
-                () => {},
-                "I.",
-                5,
-                0.07
-            )
 
-        );
-
-        this.manager.hud.addComponent(
-            "Ferraz",
-            new LettersComponent(
-                new THREE.Vector2(-0.65, -0.4),
-                0.15,
-                () => {},
-                "Ferraz",
-                5,
-                0.1
-            )
-
-        );
 
         this.manager.hud.addComponent(
             "Avila",
@@ -149,25 +129,12 @@ class InitialMenuState extends GameState {
         );
 
         this.manager.hud.addComponent(
-            "Maria",
+            "MariaSofia",
             new LettersComponent(
                 new THREE.Vector2(0.4, -0.4),
                 0.15,
                 () => {},
-                "Maria",
-                5,
-                0.1
-            )
-
-        );
-
-        this.manager.hud.addComponent(
-            "Sofia",
-            new LettersComponent(
-                new THREE.Vector2(0.7, -0.4),
-                0.15,
-                () => {},
-                "Sofia",
+                "Maria Sofia",
                 5,
                 0.1
             )
@@ -177,12 +144,12 @@ class InitialMenuState extends GameState {
         this.manager.hud.addComponent(
             "Goncalves",
             new LettersComponent(
-                new THREE.Vector2(0.41, -0.5),
-                0.13,
+                new THREE.Vector2(0.45, -0.5),
+                0.15,
                 () => {},
                 "Goncalves",
                 5,
-                0.07
+                0.1
             )
 
         );
@@ -190,10 +157,10 @@ class InitialMenuState extends GameState {
         this.manager.hud.addComponent(
             "playerName",
             new LettersComponent(
-                new THREE.Vector2(0.3, 0.1),
+                new THREE.Vector2(0.27, 0.1),
                 0.11,
                 () => {},
-                "Player Name:",
+                "Player Name (type anywhere):",
                 5,
                 0.06
             )
