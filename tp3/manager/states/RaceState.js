@@ -17,8 +17,6 @@ class RaceState extends GameState {
         super(contents, manager);
 
         this.powerup = false;
-        // Clock that keeps track of time since a powerup was picked up
-        this.manager.powerupClock = new MyClock();
         // Clock that keeps track of every lap's time
         this.manager.lapClock = new MyClock();
         this.manager.lapClock.stop();
@@ -54,6 +52,16 @@ class RaceState extends GameState {
             this.manager.opponentCar.startRunAnimation();
             this.manager.opponentCar.pauseRunAnimation();
         }
+
+        // PowerUps
+        this.speedPowerUp = {
+            active: false,
+            clock: new MyClock(),
+        };
+        this.snailPowerUp = {
+            active: false,
+            clock: new MyClock(),
+        };
 
         this.createHud();
     }
@@ -96,18 +104,6 @@ class RaceState extends GameState {
             )
         );
 
-        /*this.manager.hud.addComponent(
-            "title",
-            new LettersComponent(
-                new THREE.Vector2(0, 0),
-                0.1,
-                () => {},
-                "Third Gear",
-                10
-            )
-
-        );*/
-
         this.manager.hud.addComponent(
             "minimap",
             new MinimapComponent(
@@ -143,16 +139,30 @@ class RaceState extends GameState {
 
         if (this.paused) return;
 
+        // Speed powerUp
         if (
-            this.powerup &&
-            this.manager.powerupClock.getElapsedTime() >= 4000
+            this.speedPowerUp.active &&
+            this.speedPowerUp.clock.getElapsedTime() >= 4000
         ) {
             // Powerup duration is over
             this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
-            this.powerup = false;
+            this.speedPowerUp.active = false;
 
             // Optionally, reset the clock if needed elsewhere
-            this.manager.powerupClock.stop();
+            this.speedPowerUp.clock.stop();
+        }
+        // Snail powerUp
+        if (
+            this.snailPowerUp.active &&
+            this.snailPowerUp.clock.getElapsedTime() >= 4000
+        ) {
+            // Powerup duration is over
+            if (this.manager.opponentCar)
+                this.manager.opponentCar.resumeRunAnimation();
+            this.snailPowerUp.active = false;
+
+            // Optionally, reset the clock if needed elsewhere
+            this.snailPowerUp.clock.stop();
         }
 
         if (this.manager.keyboard.isKeyJustDown("c")) {
@@ -219,14 +229,20 @@ class RaceState extends GameState {
             // Check if running into the collider
 
             if (collider.parent.isPowerup) {
-                if (collider.parent.caught == false) {
-                    this.powerup = true;
-                    this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
+                switch (collider.parent.trigger()) {
+                    case 0:
+                        this.speedPowerUp.active = true;
+                        this.speedPowerUp.clock.start();
+                        break;
+                    case 1:
+                        this.snailPowerUp.active = true;
+                        this.snailPowerUp.clock.start();
+                        if (this.manager.opponentCar)
+                            this.manager.opponentCar.pauseRunAnimation();
+                        break;
 
-                    collider.parent.visible = false;
-                    collider.parent.caught = true;
-
-                    this.manager.powerupClock.start();
+                    default:
+                        break;
                 }
             } else if (collider.parent.isCar) {
                 this.manager.playerCar.isCollidingWithCar = true;
@@ -347,8 +363,7 @@ class RaceState extends GameState {
         });
 
         this.contents.track.powerupObjects.forEach((powerupObj) => {
-            powerupObj.visible = true;
-            powerupObj.caught = false;
+            powerupObj.activate();
         });
         this.manager.lapClock.start();
     }
@@ -358,10 +373,10 @@ class RaceState extends GameState {
 
         // stop clocks
         this.manager.lapClock.stop();
-        this.manager.powerupClock.stop();
+        this.speedPowerup.clock.stop();
 
         // pause opponent car run animation
-        if (this.manager.opponentCar)
+        if (this.manager.opponentCar && !this.snailPowerUp.active)
             this.manager.opponentCar.pauseRunAnimation();
     }
 
@@ -370,10 +385,10 @@ class RaceState extends GameState {
 
         // resume clocks
         this.manager.lapClock.resume();
-        this.manager.powerupClock.resume();
+        this.speedPowerUp.clock.resume();
 
         // resume opponent car run animation
-        if (this.manager.opponentCar)
+        if (this.manager.opponentCar && !this.snailPowerUp.active)
             this.manager.opponentCar.resumeRunAnimation();
     }
 

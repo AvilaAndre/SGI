@@ -2,56 +2,36 @@ import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { PickingManager } from "../PickingManager.js";
 import { LettersComponent } from "../../hud/components/LettersComponent.js";
-import { ButtonsComponent } from "../../hud/components/ButtonsComponent.js";
 
 /**
  * This class contains methods of  the game
  */
 class InitialMenuState extends GameState {
-
     constructor(contents, manager) {
-
         super(contents, manager);
 
-        console.log("this.contents: ", this.contents);
-
-        this.pickingManager = new PickingManager(
-            this.contents,
-            ["startButton"]
-        );
-
-        console.log("this.pickingManager: ", this.pickingManager);
+        this.pickingManager = new PickingManager(this.contents, [
+            "startButton",
+        ]);
 
         this.createHud();
     }
 
-    update(delta) {
-        console.log("update");
-    }
+    update(delta) {}
 
-    addButtonsToScene() {
-
-    }
+    addButtonsToScene() {}
 
     onPointerClick(event) {
-        console.log("onPointerClick");
         const startPicked = this.pickingManager.getNearestObject(event)?.name;
-        console.log("startPicked: ", startPicked);
 
-        if (startPicked) {
-
-            this.contents.switchScenes("playerPark");
-        }
+        if (startPicked) this.contents.switchScenes("playerPark");
     }
 
     onPointerMove(event) {
-        console.log("onPointerMove");
         this.pickingManager.onPointerMove(event);
     }
 
-
-    createHud(){
-        console.log("creating hud!");
+    createHud() {
         this.manager.hud.addComponent(
             "titleThird",
             new LettersComponent(
@@ -62,9 +42,7 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
-
 
         this.manager.hud.addComponent(
             "André",
@@ -76,7 +54,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -89,7 +66,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.07
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -102,7 +78,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -115,7 +90,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -128,7 +102,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -141,7 +114,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -154,14 +126,8 @@ class InitialMenuState extends GameState {
                 5,
                 0.07
             )
-
         );
-
-
-
-        
     }
 }
 
 export { InitialMenuState };
-
