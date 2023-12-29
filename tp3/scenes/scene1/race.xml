@@ -1449,7 +1449,7 @@
 
         <node id="snail-pickable">
             <transforms>
-                <translate value3="1 0 0" />
+                <translate value3="0 0 1" />
             </transforms>
             <children>
                 <noderef id="snail" />
@@ -1479,7 +1479,7 @@
 
         <node id="wine-bottle-pickable">
             <transforms>
-                <translate value3="-1 0 0" />
+                <translate value3="0 0 -1" />
             </transforms>
             <children>
                 <noderef id="wine-bottle" />

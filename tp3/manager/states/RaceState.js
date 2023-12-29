@@ -244,6 +244,12 @@ class RaceState extends GameState {
                     default:
                         break;
                 }
+            } else if (collider.parent.isObstacle) {
+                // TODO: Collide with obstacle
+                if (collider.parent.visible) {
+                    collider.parent.visible = false;
+                    // choose random effect
+                }
             } else if (collider.parent.isCar) {
                 this.manager.playerCar.isCollidingWithCar = true;
             } else if (
@@ -362,8 +368,11 @@ class RaceState extends GameState {
             });
         });
 
-        this.contents.track.powerupObjects.forEach((powerupObj) => {
-            powerupObj.activate();
+        this.contents.track.powerUpObjects.forEach((powerUpObj) => {
+            powerUpObj.activate();
+        });
+        this.contents.track.obstacleObjects.forEach((obstacleObj) => {
+            powerupObj.visible = true;
         });
         this.manager.lapClock.start();
     }

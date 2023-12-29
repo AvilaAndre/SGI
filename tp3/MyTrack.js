@@ -23,7 +23,8 @@ class MyTrack extends THREE.Object3D {
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
         this.powerups = data.powerups;
-        this.powerupObjects = [];
+        this.powerUpObjects = [];
+        this.obstacleObjects = [];
 
         // The curve that defines the points on the track
         this.trackCurve = null;
@@ -278,7 +279,7 @@ class MyTrack extends THREE.Object3D {
                 new THREE.Vector2(...this.powerups[i].value2)
             );
 
-            this.powerupObjects.push(powerupNode);
+            this.powerUpObjects.push(powerupNode);
             this.contents.app.scene.add(powerupNode);
         }
 

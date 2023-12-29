@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { PickingManager } from "../PickingManager.js";
+import { RectangleCollider } from "../../collisions/RectangleCollider.js";
 /**
  * This class contains methods of  the game
  */
@@ -91,6 +92,19 @@ class PickObstacleState extends GameState {
                 ].targetCoords.set(
                     ...this.obstacleCameraOriginalTargetPosition
                 );
+
+                // add collider to new obstacle
+                this.contents.manager.collisionManager.addCollider(
+                    new RectangleCollider(
+                        this.obstacleSelected,
+                        new THREE.Vector2(0, 0),
+                        1.25,
+                        1.25
+                    ),
+                    true
+                );
+                this.obstacleSelected.isObstacle = true;
+                this.contents.track.obstacleObjects.push(this.obstacleSelected);
             }
         }
     }
@@ -109,7 +123,6 @@ class PickObstacleState extends GameState {
                 this.contents.app.scene.add(this.obstacleSelected);
 
                 //move obstacle to player
-
                 this.obstacleSelected.position.set(
                     ...this.manager.playerCar.position.clone()
                 );
