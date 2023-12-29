@@ -133,10 +133,6 @@ class RaceState extends GameState {
             this.paused ? this.resume() : this.pause();
         }
 
-        if (this.manager.keyboard.isKeyJustDown("m")) {
-            this.pickObstacle();
-        }
-
         if (this.paused) return;
 
         // Speed powerUp
@@ -233,12 +229,16 @@ class RaceState extends GameState {
                     case 0:
                         this.speedPowerUp.active = true;
                         this.speedPowerUp.clock.start();
+
+                        this.pickObstacle();
                         break;
                     case 1:
                         this.snailPowerUp.active = true;
                         this.snailPowerUp.clock.start();
                         if (this.manager.opponentCar)
                             this.manager.opponentCar.pauseRunAnimation();
+
+                        this.pickObstacle();
                         break;
 
                     default:
@@ -373,7 +373,8 @@ class RaceState extends GameState {
 
         // stop clocks
         this.manager.lapClock.stop();
-        this.speedPowerup.clock.stop();
+        this.speedPowerUp.clock.stop();
+        this.snailPowerUp.clock.stop();
 
         // pause opponent car run animation
         if (this.manager.opponentCar && !this.snailPowerUp.active)
@@ -386,6 +387,7 @@ class RaceState extends GameState {
         // resume clocks
         this.manager.lapClock.resume();
         this.speedPowerUp.clock.resume();
+        this.snailPowerUp.clock.resume();
 
         // resume opponent car run animation
         if (this.manager.opponentCar && !this.snailPowerUp.active)

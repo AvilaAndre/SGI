@@ -5,7 +5,8 @@ import { PickingManager } from "../PickingManager.js";
  * This class contains methods of  the game
  */
 class PickObstacleState extends GameState {
-    #cameraSpeed = 20;
+    #cameraSpeed = 30;
+    #cameraRotation = 2;
 
     constructor(contents, manager) {
         super(contents, manager);
@@ -29,62 +30,50 @@ class PickObstacleState extends GameState {
                 this.manager.obstaclesCamera
             ].position.clone();
 
+        this.contents.app.cameras[
+            this.manager.obstaclesCamera
+        ].targetFollow = false;
+
+        this.contents.app.cameras[this.manager.obstaclesCamera].parent =
+            this.contents.app.scene;
+
         this.placingObstacle = false;
         this.obstacleSelected = null;
+
+        // signal the app that the camera needs to be update due to targetCoords being changed
+        this.contents.app.updateCameras = true;
     }
 
     update(delta) {
         if (this.placingObstacle) {
-            let changed = false;
+            const camDirection = new THREE.Vector3();
+
+            this.contents.app.cameras[
+                this.manager.obstaclesCamera
+            ].getWorldDirection(camDirection);
+
+            camDirection.y = 0;
+
             if (this.manager.keyboard.isKeyDown("w")) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].position.z += delta * this.#cameraSpeed;
-                changed = true;
+                this.obstacleSelected.position.add(
+                    camDirection.multiplyScalar(delta * this.#cameraSpeed)
+                );
             }
 
             if (this.manager.keyboard.isKeyDown("s")) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].position.z -= delta * this.#cameraSpeed;
-                changed = true;
+                this.obstacleSelected.position.add(
+                    camDirection.multiplyScalar(-delta * this.#cameraSpeed)
+                );
             }
 
             if (this.manager.keyboard.isKeyDown("d")) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].position.x -= delta * this.#cameraSpeed;
-                changed = true;
+                this.obstacleSelected.rotation.y -=
+                    delta * this.#cameraRotation;
             }
 
             if (this.manager.keyboard.isKeyDown("a")) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].position.x += delta * this.#cameraSpeed;
-                changed = true;
-            }
-
-            if (changed) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].targetCoords.set(
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.x,
-                    0,
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.z + 10
-                );
-
-                this.obstacleSelected.position.set(
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.x,
-                    0,
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.z + 10
-                );
-
-                // signal the app that the camera needs to be update due to targetCoords being changed
-                this.contents.app.updateCameras = true;
+                this.obstacleSelected.rotation.y +=
+                    delta * this.#cameraRotation;
             }
 
             if (this.manager.keyboard.isKeyJustDown(" ")) {
@@ -112,40 +101,35 @@ class PickObstacleState extends GameState {
                 this.pickingManager.getNearestObject(event)?.name;
 
             if (obstaclePicked) {
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].position.set(
-                    ...this.manager.playerCar.position
-                        .clone()
-                        .add(new THREE.Vector3(0, 20, 0))
-                );
-
-                this.contents.app.cameras[
-                    this.manager.obstaclesCamera
-                ].targetCoords.set(
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.x,
-                    0,
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.z + 10
-                );
-
-                // signal the app that the camera needs to be update due to targetCoords being changed
-                this.contents.app.updateCameras = true;
-
                 this.placingObstacle = true;
                 this.obstacleSelected =
                     this.manager.obstacles[obstaclePicked].clone();
 
+                // add chosen obstacle to track
                 this.contents.app.scene.add(this.obstacleSelected);
 
+                //move obstacle to player
+
                 this.obstacleSelected.position.set(
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.x,
-                    0,
-                    this.contents.app.cameras[this.manager.obstaclesCamera]
-                        .position.z + 10
+                    ...this.manager.playerCar.position.clone()
                 );
+
+                // configure camera
+                this.contents.app.cameras[
+                    this.manager.obstaclesCamera
+                ].position.set(...new THREE.Vector3(10, 5, 0));
+                this.contents.app.cameras[
+                    this.manager.obstaclesCamera
+                ].targetFollow = true;
+                this.contents.app.cameras[
+                    this.manager.obstaclesCamera
+                ].camTarget = this.obstacleSelected;
+
+                this.contents.app.cameras[this.manager.obstaclesCamera].parent =
+                    this.obstacleSelected;
+
+                // signal the app that the camera needs to be update due to targetCoords being changed
+                this.contents.app.updateCameras = true;
             }
         }
     }
