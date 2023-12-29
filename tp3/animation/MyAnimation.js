@@ -106,10 +106,23 @@ class MyAnimation {
                     mixer,
                     ".position",
                     translationTimes,
-                    translation
+                    translation,
+                    interpolation
                 );
-                this.createClip(mixer, ".quaternion", rotationTimes, rotation);
-                this.createClip(mixer, ".scale", scaleTimes, scale);
+                this.createClip(
+                    mixer,
+                    ".quaternion",
+                    rotationTimes,
+                    rotation,
+                    interpolation
+                );
+                this.createClip(
+                    mixer,
+                    ".scale",
+                    scaleTimes,
+                    scale,
+                    interpolation
+                );
             }
         }
 
@@ -208,10 +221,22 @@ class MyAnimation {
                     ".position",
                     translationTimes,
                     translation,
-                    "from obj"
+                    THREE.InterpolateLinear
                 );
-                this.createClip(mixer, ".quaternion", rotationTimes, rotation);
-                this.createClip(mixer, ".scale", scaleTimes, scale);
+                this.createClip(
+                    mixer,
+                    ".quaternion",
+                    rotationTimes,
+                    rotation,
+                    THREE.InterpolateLinear
+                );
+                this.createClip(
+                    mixer,
+                    ".scale",
+                    scaleTimes,
+                    scale,
+                    THREE.InterpolateLinear
+                );
             }
         }
 
