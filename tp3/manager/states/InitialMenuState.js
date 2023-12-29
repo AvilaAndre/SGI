@@ -32,35 +32,37 @@ class InitialMenuState extends GameState {
 
     input() {
         console.log("input");
-        const stringCompare = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    
+        const letterRegex = /^[a-zA-Z ]$/;
     
         document.addEventListener('keydown', (event) => {
-            const x = event.key; 
-
-            if (stringCompare.includes(x)) {
-                if(x.length > 1) return;
-                console.log(`input includes ${x}!`);
-                console.log("x:", x);
+            const x = event.key;
+    
+            if (letterRegex.test(x)) {
                 this.textToBeWritten += x;
-                console.log("this.textToBeWritten", this.textToBeWritten);
-                this.hudTest = this.manager.hud.getComponent("playerInput");
-                console.log("this.hudTest", this.hudTest);
-                this.manager.hud.removeComponent("playerInput");
-                this.manager.hud.addComponent(
-                    "playerInput",
-                    new LettersComponent(
-                        new THREE.Vector2(0.3, 0),
-                        0.15,
-                        () => {},
-                        this.textToBeWritten,
-                        5,
-                        0.1
-                    )
-        
-                );
+            } else if (x === 'Backspace') {
+                this.textToBeWritten = this.textToBeWritten.slice(0, -1);
+            } else {
+                return;
             }
+    
+            console.log("this.textToBeWritten", this.textToBeWritten);
+    
+            this.manager.hud.removeComponent("playerInput");
+            this.manager.hud.addComponent(
+                "playerInput",
+                new LettersComponent(
+                    new THREE.Vector2(0.3, 0),
+                    0.15,
+                    () => {},
+                    this.textToBeWritten,
+                    5,
+                    0.1
+                )
+            );
         });
     }
+    
     
 
     onPointerClick(event) {
