@@ -82,8 +82,10 @@ class LettersComponent extends HudComponent {
         this.add(textGroup);
         return textGroup;
     }
+    
 
     update(updatedText) {
+        console.log("updatedText", updatedText);
         this.totalText += updatedText;
         // Check if updatedText is a non-empty string
         if (typeof updatedText === 'string' && updatedText !== "") {

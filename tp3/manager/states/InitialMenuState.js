@@ -19,28 +19,45 @@ class InitialMenuState extends GameState {
             ["startButton"]
         );
 
+        this.textToBeWritten = "";
 
         this.createHud();
+        this.input();
     }
 
     update(delta) {
         console.log("update");
-        this.input();
         
     }
 
     input() {
         console.log("input");
-        const stringCompare = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const stringCompare = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
     
         document.addEventListener('keydown', (event) => {
             const x = event.key; 
 
             if (stringCompare.includes(x)) {
+                if(x.length > 1) return;
                 console.log(`input includes ${x}!`);
+                console.log("x:", x);
+                this.textToBeWritten += x;
+                console.log("this.textToBeWritten", this.textToBeWritten);
                 this.hudTest = this.manager.hud.getComponent("playerInput");
                 console.log("this.hudTest", this.hudTest);
-                this.manager.hud.getComponent("playerInput").update(x);
+                this.manager.hud.removeComponent("playerInput");
+                this.manager.hud.addComponent(
+                    "playerInput",
+                    new LettersComponent(
+                        new THREE.Vector2(0.3, 0),
+                        0.15,
+                        () => {},
+                        this.textToBeWritten,
+                        5,
+                        0.1
+                    )
+        
+                );
             }
         });
     }
@@ -185,11 +202,11 @@ class InitialMenuState extends GameState {
             "playerInput",
             new LettersComponent(
                 new THREE.Vector2(0.3, 0),
-                0.11,
+                0.15,
                 () => {},
                 "",
                 5,
-                0.07
+                0.1
             )
 
         );

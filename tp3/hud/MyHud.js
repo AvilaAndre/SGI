@@ -74,6 +74,12 @@ class MyHud extends THREE.Object3D {
         this.add(component);
     }
 
+    removeComponent(componentName) {
+        const component = this.components[componentName];
+        this.remove(component);
+        delete this.components[componentName];
+    }
+
     /**
      * Retrieves a component by its name.
      * @param {string} componentName - The name of the component to retrieve.
