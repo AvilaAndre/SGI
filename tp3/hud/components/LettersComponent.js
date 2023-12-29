@@ -65,7 +65,6 @@ class LettersComponent extends HudComponent {
 
     createText(text, dimensions = [/*text.length/10*/0.5, 0.8]) {
 
-        console.log("dimensions", dimensions);
         const textGroup = new THREE.Group();
     
         const letterWidth = dimensions[0];
@@ -86,7 +85,6 @@ class LettersComponent extends HudComponent {
     
 
     update(updatedText) {
-        console.log("updatedText", updatedText);
         this.totalText += updatedText;
         // Check if updatedText is a non-empty string
         if (typeof updatedText === 'string' && updatedText !== "") {

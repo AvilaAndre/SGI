@@ -16,7 +16,7 @@ class InitialMenuState extends GameState {
 
         this.pickingManager = new PickingManager(
             this.contents,
-            ["startButton"]
+            ["startButton","easyButton","mediumButton","hardButton"]
         );
 
         this.textToBeWritten = "";
@@ -25,12 +25,12 @@ class InitialMenuState extends GameState {
         this.input();
     }
 
-    update(delta) {
-        console.log("update");
-        
-    }
+    update(delta) {}
 
     input() {
+        console.log("this.manager.state:", this.manager.state)
+        
+        
         console.log("input");
     
         const letterRegex = /^[a-zA-Z ]$/;
@@ -49,8 +49,9 @@ class InitialMenuState extends GameState {
             if(this.textToBeWritten.length > 17){
                 return;
             }
+
+            this.contents.playerName = this.textToBeWritten;
     
-            console.log("this.textToBeWritten", this.textToBeWritten);
     
             this.manager.hud.removeComponent("playerInput");
             this.manager.hud.addComponent(
@@ -71,12 +72,21 @@ class InitialMenuState extends GameState {
 
     onPointerClick(event) {
 
-        const startPicked = this.pickingManager.getNearestObject(event)?.name;
+        const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
 
 
-        if (startPicked) {
-
+        if (buttonPicked == "startButton") {
             this.contents.switchScenes("playerPark");
+
+        } else if (buttonPicked == "easyButton") {
+            this.manager.difficulty = 1;
+
+        } else if (buttonPicked == "mediumButton") {
+            this.manager.difficulty = 2;
+
+        } else if (buttonPicked == "hardButton") {
+            this.manager.difficulty = 3;
+
         }
     }
 
@@ -95,6 +105,19 @@ class InitialMenuState extends GameState {
                 "Third Gear",
                 5,
                 0.1
+            )
+
+        );
+
+        this.manager.hud.addComponent(
+            "Difficulty",
+            new LettersComponent(
+                new THREE.Vector2(-0.99, 0.2),
+                0.11,
+                () => {},
+                "Choose difficulty:",
+                5,
+                0.06
             )
 
         );

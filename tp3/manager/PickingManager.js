@@ -19,7 +19,7 @@ class PickingManager {
 
         this.pointer = new THREE.Vector2();
         this.intersectedObj = null;
-        this.pickingColor = "0x00ff00";
+        this.pickingColor = "0xD2E3D1";
 
         this.notPickableObjIds = [
             "floor",
@@ -85,7 +85,7 @@ class PickingManager {
                         : this.pickingColor;
 
                 // Set the new color
-                this.lastPickedObj.material.color.setHex(0x4fba97);
+                this.lastPickedObj.material.color.setHex(0x8FCB8C);
             }
         }
     }

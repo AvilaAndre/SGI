@@ -179,6 +179,10 @@ class GameManager {
         this.collisionManager = new CollisionManager(this.contents);
         this.obstacles = [];
     }
+
+    getState(){
+        return this.state;
+    }
 }
 
 export { GameManager };

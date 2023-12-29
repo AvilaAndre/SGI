@@ -33,6 +33,9 @@
         <texture id="racingTex" filepath="scenes/scene1/textures/squares.jpg" />
         <texture id="feupTex" filepath="scenes/scene1/textures/logo_feup.jpg" />
         <texture id="startButtonTex" filepath="scenes/scene1/textures/greyStart.png" />
+        <texture id="easyButtonTex" filepath="scenes/scene1/textures/easyButton.png" />
+        <texture id="mediumButtonTex" filepath="scenes/scene1/textures/mediumButton.png" />
+        <texture id="hardButtonTex" filepath="scenes/scene1/textures/hardButton.png" />
     </textures> 
 
 
@@ -61,6 +64,33 @@
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="startButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="easyButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="easyButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="mediumButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="mediumButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="hardButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="hardButtonTex" 
             texlength_s="1" 
             texlength_t="1" />
 
@@ -175,6 +205,45 @@
         <materialref id="startButtonApp" /> 
     </node>
 
+    <node id="easyButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-23 0 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="easyButtonApp" /> 
+    </node>
+
+    <node id="mediumButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-15 0 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="mediumButtonApp" /> 
+    </node>
+
+    <node id="hardButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-19 -5 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="hardButtonApp" /> 
+    </node>
+
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
@@ -227,7 +296,10 @@
                 <!-- <noderef id="hatchback" /> -->
                 <noderef id="floor" />
                 <noderef id="feupLogo" />
-                <noderef id="startButton" />            
+                <noderef id="startButton" />
+                <noderef id="easyButton" />
+                <noderef id="mediumButton" />
+                <noderef id="hardButton" />            
 
             </children> 
         </node>
