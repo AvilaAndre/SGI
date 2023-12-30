@@ -178,6 +178,16 @@ class RaceState extends GameState {
 
         if (this.paused) return;
 
+        // update powerup visuals
+        this.contents.track.powerUpObjects.forEach((powerUpObj) => {
+            powerUpObj.update(delta);
+        });
+        this.contents.track.obstacleObjects.forEach((obstacleObj) => {
+            obstacleObj.meshes.forEach((mesh) => {
+                mesh.material.uniforms.time.value += delta;
+            });
+        });
+
         // modifiers
         this.modifiers.forEach((mod) => {
             if (mod.active && mod.clock.getElapsedTime() >= mod.time) {

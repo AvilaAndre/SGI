@@ -131,6 +131,33 @@ class PickObstacleState extends GameState {
                 this.obstacleSelected =
                     this.manager.obstacles[obstaclePicked].clone();
 
+                // add shader
+                this.obstacleSelected.meshes = [];
+
+                this.obstacleSelected.traverse((elem) => {
+                    if (elem.type == "Mesh") {
+                        elem.material = new THREE.ShaderMaterial({
+                            uniforms: {
+                                time: { value: 1.0 },
+                                rotationSpeed: { value: 2.0 },
+                                pumpRange: { value: 0.1 },
+                                pumpSpeed: { value: 4 },
+                                mColor: {
+                                    value: elem.material.color,
+                                },
+                            },
+
+                            vertexShader: document.getElementById(
+                                "vertexObstacleShader"
+                            ).textContent,
+                            fragmentShader: document.getElementById(
+                                "fragmentObstacleShader"
+                            ).textContent,
+                        });
+                        this.obstacleSelected.meshes.push(elem);
+                    }
+                });
+
                 // add chosen obstacle to track
                 this.contents.app.scene.add(this.obstacleSelected);
 
