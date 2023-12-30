@@ -375,6 +375,14 @@ class MyAnimation {
         }
     }
 
+    setTimeScale(timeScale) {
+        for (let i = 0; i < this.actions.length; i++) {
+            const action = this.actions[i];
+
+            action.setEffectiveTimeScale(timeScale);
+        }
+    }
+
     update(delta) {
         for (let i = 0; i < this.mixers.length; i++) {
             const mixer = this.mixers[i];

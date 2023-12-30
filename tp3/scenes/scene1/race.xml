@@ -1404,6 +1404,7 @@
             <children>
                 <noderef id="snail-pickable" />
                 <noderef id="wine-bottle-pickable" />
+                <noderef id="banana-pickable" />
             </children>
         </node>
 
@@ -1449,7 +1450,7 @@
 
         <node id="snail-pickable">
             <transforms>
-                <translate value3="0 0 1" />
+                <translate value3="0 0 2" />
             </transforms>
             <children>
                 <noderef id="snail" />
@@ -1479,10 +1480,40 @@
 
         <node id="wine-bottle-pickable">
             <transforms>
-                <translate value3="0 0 -1" />
+                <translate value3="0 0 -2" />
             </transforms>
             <children>
                 <noderef id="wine-bottle" />
+            </children>
+        </node>
+
+        <node id="banana-model">
+            <transforms>
+                <scale value3="0.6 0.6 0.6"/>
+                <translate value3="0 0.4 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/obstacles/Banana2.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="banana">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="banana-model" />
+            </children>
+        </node>
+
+        <node id="banana-pickable">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+            <children>
+                <noderef id="banana" />
             </children>
         </node>
 
@@ -1913,6 +1944,7 @@
     <obstacles camera="obstaclescam" >
         <obstacle noderef="snail" />
         <obstacle noderef="wine-bottle" />
+        <obstacle noderef="banana" />
     </obstacles>
 
 

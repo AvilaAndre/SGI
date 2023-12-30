@@ -105,6 +105,18 @@ class PickObstacleState extends GameState {
                 );
                 this.obstacleSelected.isObstacle = true;
                 this.contents.track.obstacleObjects.push(this.obstacleSelected);
+
+                switch (this.obstacleSelected.name) {
+                    case "wine-bottle":
+                        this.obstacleSelected.effect = 0;
+                        break;
+                    case "snail":
+                        this.obstacleSelected.effect = 1;
+                        break;
+                    case "banana":
+                        this.obstacleSelected.effect = 2;
+                        break;
+                }
             }
         }
     }

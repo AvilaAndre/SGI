@@ -32,6 +32,7 @@ class MyCar extends THREE.Object3D {
         this.intention = new THREE.Vector3();
         this.speed = 0;
         this.maxSpeedPowerUPMultiplier = 1;
+        this.maxSpeedObstacleMultiplier = 1;
         this.maxSpeedBackwards = -8;
         this.acceleration = 20;
         this.brakeValue = 30;
@@ -272,12 +273,17 @@ class MyCar extends THREE.Object3D {
         return (
             this.maxSpeed *
             this.maxSpeedPowerUPMultiplier *
+            this.maxSpeedObstacleMultiplier *
             (this.isOnTrack || this.isCollidingWithCar ? 1 : 0.7)
         );
     }
 
     getMaxSpeedBackwards() {
-        return this.maxSpeedBackwards * this.maxSpeedPowerUPMultiplier;
+        return (
+            this.maxSpeedBackwards *
+            this.maxSpeedPowerUPMultiplier *
+            this.maxSpeedObstacleMultiplier
+        );
     }
 
     accelerate(delta) {
@@ -468,6 +474,18 @@ class MyCar extends THREE.Object3D {
      */
     pauseRunAnimation() {
         this.contents.animationPlayer.pause(this.carName + "_routeAnim");
+    }
+
+    /**
+     * Changes the time scale of an animation
+     * @param {number} timeScale
+     */
+
+    setRunAnimationTimeScale(timeScale) {
+        this.contents.animationPlayer.setTimeScale(
+            this.carName + "_routeAnim",
+            timeScale
+        );
     }
 
     /**

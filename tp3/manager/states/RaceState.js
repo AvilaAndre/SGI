@@ -57,11 +57,54 @@ class RaceState extends GameState {
         this.speedPowerUp = {
             active: false,
             clock: new MyClock(),
+            time: 4000,
+            stopEffect: () => {
+                this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
+            },
         };
         this.snailPowerUp = {
             active: false,
             clock: new MyClock(),
+            time: 3000,
+            stopEffect: () => {
+                if (this.manager.opponentCar)
+                    this.manager.opponentCar.resumeRunAnimation();
+            },
         };
+
+        // Obstacles
+
+        this.drunkObstacle = {
+            active: false,
+            clock: new MyClock(),
+            time: 6000,
+        };
+        this.snailObstacle = {
+            active: false,
+            clock: new MyClock(),
+            time: 3000,
+            stopEffect: () => {
+                if (this.manager.opponentCar)
+                    this.manager.opponentCar.setRunAnimationTimeScale(1);
+            },
+        };
+        this.bananaObstacle = {
+            active: false,
+            clock: new MyClock(),
+            time: 6000,
+            stopEffect: () => {
+                this.manager.playerCar.maxSpeedObstacleMultiplier = 1;
+            },
+        };
+
+        // array with all power ups and obstacles
+        this.modifiers = [
+            this.speedPowerUp,
+            this.snailPowerUp,
+            this.drunkObstacle,
+            this.snailObstacle,
+            this.bananaObstacle,
+        ];
 
         this.createHud();
     }
@@ -135,31 +178,17 @@ class RaceState extends GameState {
 
         if (this.paused) return;
 
-        // Speed powerUp
-        if (
-            this.speedPowerUp.active &&
-            this.speedPowerUp.clock.getElapsedTime() >= 4000
-        ) {
-            // Powerup duration is over
-            this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
-            this.speedPowerUp.active = false;
+        // modifiers
+        this.modifiers.forEach((mod) => {
+            if (mod.active && mod.clock.getElapsedTime() >= mod.time) {
+                // deactivate effect
+                mod.active = false;
+                mod.clock.stop();
 
-            // Optionally, reset the clock if needed elsewhere
-            this.speedPowerUp.clock.stop();
-        }
-        // Snail powerUp
-        if (
-            this.snailPowerUp.active &&
-            this.snailPowerUp.clock.getElapsedTime() >= 4000
-        ) {
-            // Powerup duration is over
-            if (this.manager.opponentCar)
-                this.manager.opponentCar.resumeRunAnimation();
-            this.snailPowerUp.active = false;
-
-            // Optionally, reset the clock if needed elsewhere
-            this.snailPowerUp.clock.stop();
-        }
+                // if this modifier needs an extra speed to deactivate
+                if (mod.stopEffect) mod.stopEffect();
+            }
+        });
 
         if (this.manager.keyboard.isKeyJustDown("c")) {
             this.manager.changeCarCamera();
@@ -194,9 +223,13 @@ class RaceState extends GameState {
         }
 
         if (this.manager.keyboard.isKeyDown("a")) {
-            this.manager.playerCar.turnTo(0.5);
+            this.manager.playerCar.turnTo(
+                0.5 * (this.drunkObstacle.active ? -1 : 1)
+            );
         } else if (this.manager.keyboard.isKeyDown("d")) {
-            this.manager.playerCar.turnTo(-0.5);
+            this.manager.playerCar.turnTo(
+                -0.5 * (this.drunkObstacle.active ? -1 : 1)
+            );
         } else {
             this.manager.playerCar.turnTo(0);
         }
@@ -245,10 +278,30 @@ class RaceState extends GameState {
                         break;
                 }
             } else if (collider.parent.isObstacle) {
-                // TODO: Collide with obstacle
                 if (collider.parent.visible) {
                     collider.parent.visible = false;
-                    // choose random effect
+
+                    switch (collider.parent.effect) {
+                        case 0:
+                            this.drunkObstacle.active = true;
+                            this.drunkObstacle.clock.start();
+                            break;
+                        case 1:
+                            this.snailObstacle.active = true;
+                            this.snailObstacle.clock.start();
+
+                            if (this.manager.opponentCar)
+                                this.manager.opponentCar.setRunAnimationTimeScale(
+                                    1.5
+                                );
+                            break;
+                        case 2:
+                            this.bananaObstacle.active = true;
+                            this.bananaObstacle.clock.start();
+
+                            this.manager.playerCar.maxSpeedObstacleMultiplier = 0.7;
+                            break;
+                    }
                 }
             } else if (collider.parent.isCar) {
                 this.manager.playerCar.isCollidingWithCar = true;
@@ -372,7 +425,7 @@ class RaceState extends GameState {
             powerUpObj.activate();
         });
         this.contents.track.obstacleObjects.forEach((obstacleObj) => {
-            powerupObj.visible = true;
+            obstacleObj.visible = true;
         });
         this.manager.lapClock.start();
     }
@@ -381,9 +434,9 @@ class RaceState extends GameState {
         this.paused = true;
 
         // stop clocks
-        this.manager.lapClock.stop();
-        this.speedPowerUp.clock.stop();
-        this.snailPowerUp.clock.stop();
+        this.modifiers.forEach((mod) => {
+            mod.clock.stop();
+        });
 
         // pause opponent car run animation
         if (this.manager.opponentCar && !this.snailPowerUp.active)
@@ -394,9 +447,9 @@ class RaceState extends GameState {
         this.paused = false;
 
         // resume clocks
-        this.manager.lapClock.resume();
-        this.speedPowerUp.clock.resume();
-        this.snailPowerUp.clock.resume();
+        this.modifiers.forEach((mod) => {
+            mod.clock.resume();
+        });
 
         // resume opponent car run animation
         if (this.manager.opponentCar && !this.snailPowerUp.active)
