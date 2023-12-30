@@ -10,6 +10,7 @@ import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
 import { CollisionManager } from "./CollisionManager.js";
 import { InitialMenuState } from "./states/InitialMenuState.js";
+import { FinalMenuState } from "./states/FinalMenuState.js";
 
 /**
  * This class contains and manages information about the game
@@ -74,6 +75,11 @@ class GameManager {
 
             case "initialMenu":
                 this.state = new InitialMenuState(this.contents, this);
+                //this.state.onExit();
+                break;
+
+            case "finalMenu":
+                this.state = new FinalMenuState(this.contents, this);
                 //this.state.onExit();
                 break;
 

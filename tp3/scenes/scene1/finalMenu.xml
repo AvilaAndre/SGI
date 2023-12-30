@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<yaf>
+    <globals background="0 0 0 1" ambient="1 1 1 1" /> 
+
+    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
+
+    <cameras initial="cam1" > 
+        <perspective id="cam1" 
+            angle="60" 
+            near="0.1" 
+            far="1000" 
+            location="15 15 15" 
+            target="0 0.0 0" /> 
+
+        <orthogonal id="cam2" 
+            near="0.1" 
+            far="1000" 
+            location="0 15 15" 
+            target="0.0 15 0.0" 
+            left="-5" 
+            right="5" 
+            bottom="-5" 
+            top="-5" /> 
+    </cameras> 
+
+
+    <skybox size="200 200 200" center="0 44.95 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/soft.jpg" down="./textures/soft.jpg" left="./textures/soft.jpg" right="./textures/soft.jpg" front="./textures/soft.jpg" back="./textures/soft.jpg"/>
+
+    <textures>        
+        <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
+        <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
+        <texture id="floorTex" filepath="scenes/scene1/textures/squares.jpg" />
+        <texture id="racingTex" filepath="scenes/scene1/textures/squares.jpg" />
+
+    </textures> 
+
+
+    <materials> 
+        <material id="racetrackApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="racetrackTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        
+
+        <material id="racingApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="15" 
+            textureref="racingTex" 
+            texlength_s="64" 
+            texlength_t="32" />
+
+        <material id="hudApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="hudTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="floorApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="floorTex" 
+            texlength_s="700" 
+            texlength_t="700" />
+    </materials> 
+
+
+    <racetrack id="track1" width="8" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
+        <path>
+            <!--<point value2="0 0"/>
+            <point value2="0 1"/>
+            <point value2="0 0"/>-->
+        </path>
+
+        <powerups>
+            
+        </powerups>
+
+    </racetrack>
+
+    <hud id="hud1">
+
+        <timeElapsed>
+            <time timeFloat="0.0"/> 
+        </timeElapsed>
+
+        <laps>
+            <lap value="1" />
+        </laps>
+
+        <speedometer>
+            <speed value="0" />
+        </speedometer>
+
+        <timeLeftBenefit>
+            <time timeFloat="0.0" />
+        </timeLeftBenefit>
+
+        <timeLeftPenalty>
+            <time timeFloat="0.0" />
+        </timeLeftPenalty>
+            
+        <states>
+            <state stateValue="pause" />
+        </states>
+
+    </hud>
+
+    <graph rootid="scene">
+
+    
+    <node id="floor">
+        <transforms>
+            <rotate value3="-1.57 0 0" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-32 -16" xy2="32 16" />
+            </primitive>
+        </children>
+        <materialref id="racingApp" /> <!-- Reference to the floor material -->
+    </node>
+
+
+        <node id="scene" castshadows = "true" receiveshadows="true"> 
+            <children> 
+                <pointlight id="light1" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="33.75 37.3 33.75" 
+                /> 
+
+                <pointlight id="light2" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"
+                /> 
+                
+                <pointlight id="light3" enabled="true" 
+                    color="0.5 0.6 0.8 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="false"
+                    position="11.25 7.3 3.75"  
+                /> 
+
+                <spotlight id="light4" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    distance="1000"
+                    decay="2.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                    target="0 0 0"
+                    penumbra="1.0"
+                    angle="10.0" 
+                /> 
+
+                <directionallight id="light5" enabled="true" 
+                    color="1.0 1.0 1.0 1" 
+                    intensity="1.0"
+                    castshadow="true"
+                    position="2 2 4" 
+                />
+
+                <!-- <noderef id="hatchback" /> -->
+                <noderef id="floor" />
+                      
+
+            </children> 
+        </node>
+    </graph>
+   
+
+</yaf>

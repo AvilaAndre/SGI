@@ -90,7 +90,6 @@ class PickingManager {
 
                 // Set the new color
                 this.lastPickedObj.material.color.setHex(0x8FCB8C);
-                console.log("this.lastPickedObj", this.lastPickedObj);
             }
         }
     }

@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { PickingManager } from "../PickingManager.js";
 import { RectangleCollider } from "../../collisions/RectangleCollider.js";
+import { LettersComponent } from "../../hud/components/LettersComponent.js";
 /**
  * This class contains methods of  the game
  */
@@ -43,6 +44,7 @@ class PickObstacleState extends GameState {
 
         // signal the app that the camera needs to be update due to targetCoords being changed
         this.contents.app.updateCameras = true;
+        this.createHud();
     }
 
     update(delta) {
@@ -119,6 +121,69 @@ class PickObstacleState extends GameState {
                 }
             }
         }
+    }
+
+    createHud() {
+
+        this.manager.hud.addComponent(
+            "PickAnObstacle",
+            new LettersComponent(
+                new THREE.Vector2(-0.23, 0.3),
+                0.1,
+                () => {},
+                "Pick an obstacle",
+                5,
+                0.07
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "toPlaceonTheTrack",
+            new LettersComponent(
+                new THREE.Vector2(-0.33, 0.22),
+                0.1,
+                () => {},
+                "to place on the track.",
+                5,
+                0.07
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "champagneBottle",
+            new LettersComponent(
+                new THREE.Vector2(-0.65, -0.4),
+                0.1,
+                () => {},
+                "Champagne bottle: switches A and D keys",
+                5,
+                0.07
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "snail",
+            new LettersComponent(
+                new THREE.Vector2(-0.7, -0.3),
+                0.1,
+                () => {},
+                "Snail: slows player's car during 6 seconds",
+                5,
+                0.07
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "clock",
+            new LettersComponent(
+                new THREE.Vector2(-0.8, -0.2),
+                0.1,
+                () => {},
+                "Clock: opponent's car gets faster during 4 seconds",
+                5,
+                0.07
+            )
+        );
     }
 
     onPointerClick(event) {
