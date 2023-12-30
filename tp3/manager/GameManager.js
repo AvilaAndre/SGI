@@ -10,6 +10,7 @@ import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
 import { CollisionManager } from "./CollisionManager.js";
 import { InitialMenuState } from "./states/InitialMenuState.js";
+
 /**
  * This class contains and manages information about the game
  */

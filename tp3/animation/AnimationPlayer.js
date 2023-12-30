@@ -73,6 +73,15 @@ class AnimationPlayer {
     }
 
     /**
+     * Sets the animation's time scale
+     * @param {string} animId
+     * @param {number} timeScale
+     */
+    setTimeScale(animId, timeScale) {
+        this.animations[animId]?.setTimeScale(timeScale);
+    }
+
+    /**
      * Updates the animations.
      * @param {float} delta
      */

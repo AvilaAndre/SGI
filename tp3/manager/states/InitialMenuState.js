@@ -2,15 +2,12 @@ import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { PickingManager } from "../PickingManager.js";
 import { LettersComponent } from "../../hud/components/LettersComponent.js";
-import { ButtonsComponent } from "../../hud/components/ButtonsComponent.js";
 
 /**
  * This class contains methods of  the game
  */
 class InitialMenuState extends GameState {
-
     constructor(contents, manager) {
-
         super(contents, manager);
 
 
@@ -25,22 +22,6 @@ class InitialMenuState extends GameState {
         this.difficultyChosen = false;
 
 
-        this.originalButtonColors = {
-            "easyButtonApp": new THREE.Color(), // Placeholder for the original color
-            "mediumButtonApp": new THREE.Color(), // Placeholder for the original color
-            "hardButtonApp": new THREE.Color() // Placeholder for the original color
-        };
-
-        console.log("this.originalButtonColors:", this.originalButtonColors);
-
-        // Load the original colors from the materials
-        for (let id in this.originalButtonColors) {
-            if (contents.materials[id]) {
-                this.originalButtonColors[id].copy(contents.materials[id].color);
-            }
-        }
-
-        this.clickedButtonColor = new THREE.Color(0xffffff); // Highlight color for clicked button
         this.lastClickedButtonMaterialId = null; // To store the material ID of the last clicked button
 
         this.createHud();
@@ -50,8 +31,6 @@ class InitialMenuState extends GameState {
 
         // Set up the event listener
         document.addEventListener('keydown', this.boundInputHandler);
-
-        console.log("this.contents:", this.contents);
         
 
     }
@@ -65,10 +44,6 @@ class InitialMenuState extends GameState {
     
 
     input() {
-        console.log("this.manager.state:", this.manager.state)
-        
-        
-        console.log("input");
     
         const letterRegex = /^[a-zA-Z ]$/;
     
@@ -112,14 +87,11 @@ class InitialMenuState extends GameState {
 
         const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
 
-        console.log("this.contents.materials:", this.contents.materials);
-
 
         if (["easyButton", "mediumButton", "hardButton"].includes(buttonPicked)) {
             this.handleButtonTextureChange(buttonPicked);
         }
 
-        console.log("buttonPicked:", buttonPicked);
 
         if (buttonPicked == "easyButton") {
             this.difficultyChosen = true;
@@ -148,11 +120,10 @@ class InitialMenuState extends GameState {
 
 
         if (buttonPicked == "startButton" && this.difficultyChosen && this.nameChosen) {
-            console.log("startButton pressed and everything good");
             this.contents.switchScenes("playerPark");
 
         } else if (buttonPicked == "startButton" && this.difficultyChosen == false && this.nameChosen){
-            console.log("startButton pressed and difficulty not chosen");
+
             this.manager.hud.addComponent(
                 "difficultyWarning",
                 new LettersComponent(
@@ -165,7 +136,7 @@ class InitialMenuState extends GameState {
                 )
             );
         } else if (buttonPicked == "startButton" && this.difficultyChosen && this.nameChosen == false ){
-            console.log("startButton pressed and name not chosen");
+
             this.manager.hud.addComponent(
                 "nameWarning",
                 new LettersComponent(
@@ -196,18 +167,18 @@ class InitialMenuState extends GameState {
 
    
     handleButtonTextureChange(buttonId) {
-        // Construct the texture IDs based on the buttonId
+
         const selectedTextureId = 'black' + buttonId.charAt(0).toUpperCase() + buttonId.slice(1) + 'Tex';
         const defaultTextureId = buttonId + 'Tex';
     
-        // Construct the material ID based on the buttonId
+
         const materialId = buttonId + 'App';
         const materials = this.contents.materials;
     
-        // Get the new texture for the clicked button
+
         const newTexture = this.contents.textures[selectedTextureId];
     
-        // If another button was previously selected, revert its texture to its own default
+
         if (this.lastClickedButtonMaterialId && this.lastClickedButtonMaterialId !== materialId) {
             const lastButtonId = this.lastClickedButtonMaterialId.replace('App', '');
             const lastDefaultTextureId = lastButtonId + 'Tex';
@@ -218,13 +189,13 @@ class InitialMenuState extends GameState {
             }
         }
     
-        // Apply the new texture to the material of the currently clicked button
+
         if (materials[materialId] && newTexture) {
             materials[materialId].map = newTexture;
             materials[materialId].needsUpdate = true;
         }
     
-        // Update the last clicked button material ID
+
         this.lastClickedButtonMaterialId = materialId;
     }
     
@@ -250,7 +221,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -263,7 +233,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.06
             )
-
         );
 
 
@@ -277,7 +246,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
 
@@ -292,7 +260,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -305,7 +272,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -318,7 +284,6 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
 
         this.manager.hud.addComponent(
@@ -344,12 +309,12 @@ class InitialMenuState extends GameState {
                 5,
                 0.1
             )
-
         );
+
+
 
         
     }
 }
 
 export { InitialMenuState };
-

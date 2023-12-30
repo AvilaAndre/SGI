@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
 import { MyContents } from "./MyContents.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
 import { instantiateNode } from "./GraphBuilder.js";
+import { MyPowerUp } from "./components/MyPowerUp.js";
 /**
  * This class contains a race track made with catmull curves
  */
@@ -23,7 +23,8 @@ class MyTrack extends THREE.Object3D {
         this.divisions = divisions || 50;
         this.numCheckpoints = data.checkpoints || 20;
         this.powerups = data.powerups;
-        this.powerupObjects = [];
+        this.powerUpObjects = [];
+        this.obstacleObjects = [];
 
         // The curve that defines the points on the track
         this.trackCurve = null;
@@ -272,32 +273,14 @@ class MyTrack extends THREE.Object3D {
         //TODO: for each new lap done by the player, powerups that were collected should be respawned
 
         for (let i = 0; i < this.powerups.length; i++) {
-            const powerupNode = instantiateNode(
-                "powerupCube1",
+            const powerupNode = new MyPowerUp(
+                this.contents,
                 data,
-                this.contents
+                new THREE.Vector2(...this.powerups[i].value2)
             );
-            powerupNode.position.set(
-                this.powerups[i].value2[0],
-                0.5,
-                this.powerups[i].value2[1]
-            );
+
+            this.powerUpObjects.push(powerupNode);
             this.contents.app.scene.add(powerupNode);
-
-            this.contents.manager.collisionManager.addCollider(
-                new RectangleCollider(
-                    powerupNode,
-                    new THREE.Vector2(0, 0),
-                    1.25,
-                    1.25
-                ),
-                true
-            );
-
-            powerupNode.isPowerup = true;
-            powerupNode.caught = false;
-
-            this.powerupObjects.push(powerupNode);
         }
 
         return;
