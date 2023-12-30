@@ -27,7 +27,7 @@ class MyFirework {
         // Create an array to store materials
         this.materials = this.materialColors.map(color => 
             new THREE.PointsMaterial({
-                size: 0.5,
+                size: 1,
                 color: color,
                 opacity: 1,
                 transparent: true,

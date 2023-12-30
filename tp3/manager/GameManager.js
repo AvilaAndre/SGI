@@ -42,7 +42,7 @@ class GameManager {
 
         this.hud = null;
 
-        //this.launchFireworks();
+        
     }
 
     /**
@@ -50,12 +50,18 @@ class GameManager {
      * @param {GameState} state
      */
     setState(state) {
+
+        if (this.state && this.state.onExit) {
+            this.state.onExit();
+        }
+
         this.oldState = this.state;
         switch (state) {
             case "race":
                 this.state = new RaceState(this.contents, this);
                 break;
             case "pickingPlayer":
+                this.launchFireworks();
                 this.state = new PlayerParkState(this.contents, this);
                 break;
             case "pickingOpponent":
@@ -67,6 +73,7 @@ class GameManager {
 
             case "initialMenu":
                 this.state = new InitialMenuState(this.contents, this);
+                //this.state.onExit();
                 break;
 
             default:
@@ -151,6 +158,8 @@ class GameManager {
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
     launchFireworks() {
+
+        console.log("launching Fireworks!");
         this.counter++;
         // add new fireworks every 5% of the calls
         if (Math.random() < 0.05) {

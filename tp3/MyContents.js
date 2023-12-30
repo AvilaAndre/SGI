@@ -56,6 +56,7 @@ class MyContents {
         this.wireframe = false;
 
         this.lightsOn = true;
+        
 
         this.initializeEventListeners();
 

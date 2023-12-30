@@ -33,8 +33,12 @@ class PickingManager {
             "PrototypePete_armRight",
         ];
 
+        this.OriginalNotPickableObjIds = this.notPickableObjIds;
+
+        this.lastClickedButtonId = null; // To keep track of the last clicked button
+        this.clickedButtonColor = 0x8FCB8C; // Hexadecimal color for a clicked button
+
         // define the objects ids that are not to be pickeable
-        // NOTICE: not a ThreeJS facility
     }
 
     /**
@@ -86,6 +90,7 @@ class PickingManager {
 
                 // Set the new color
                 this.lastPickedObj.material.color.setHex(0x8FCB8C);
+                console.log("this.lastPickedObj", this.lastPickedObj);
             }
         }
     }
@@ -95,6 +100,7 @@ class PickingManager {
      *
      */
     restoreColorOfFirstPickedObj() {
+        
         if (this.lastPickedObj)
             this.lastPickedObj.material.color.setHex(
                 this.lastPickedObj.currentHex

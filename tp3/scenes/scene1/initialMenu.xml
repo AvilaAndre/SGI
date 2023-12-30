@@ -36,6 +36,9 @@
         <texture id="easyButtonTex" filepath="scenes/scene1/textures/easyButton.png" />
         <texture id="mediumButtonTex" filepath="scenes/scene1/textures/mediumButton.png" />
         <texture id="hardButtonTex" filepath="scenes/scene1/textures/hardButton.png" />
+        <texture id="blackEasyButtonTex" filepath="scenes/scene1/textures/blackEasyButton.png" />
+        <texture id="blackMediumButtonTex" filepath="scenes/scene1/textures/blackMediumButton.png" />
+        <texture id="blackHardButtonTex" filepath="scenes/scene1/textures/blackHardButton.png" />
     </textures> 
 
 
@@ -91,6 +94,33 @@
 			specular="0 0 0 0" 
             shininess="10" 
             textureref="hardButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackEasyButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackEasyButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackMediumButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackMediumButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackHardButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackHardButtonTex" 
             texlength_s="1" 
             texlength_t="1" />
 
