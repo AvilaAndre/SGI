@@ -14,9 +14,13 @@ class PlayerParkState extends GameState {
         );
 
         this.addCarsToScene();
+
+
     }
 
-    update(delta) {}
+    update(delta) {
+        //this.manager.launchFireworks();
+    }
 
     onPointerClick(event) {
         const carPicked = this.pickingManager.getNearestObject(event)?.name;

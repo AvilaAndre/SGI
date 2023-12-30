@@ -19,7 +19,7 @@ class PickingManager {
 
         this.pointer = new THREE.Vector2();
         this.intersectedObj = null;
-        this.pickingColor = "0x00ff00";
+        this.pickingColor = "0xD2E3D1";
 
         this.notPickableObjIds = [
             "floor",
@@ -33,8 +33,12 @@ class PickingManager {
             "PrototypePete_armRight",
         ];
 
+        this.OriginalNotPickableObjIds = this.notPickableObjIds;
+
+        this.lastClickedButtonId = null; // To keep track of the last clicked button
+        this.clickedButtonColor = 0x8FCB8C; // Hexadecimal color for a clicked button
+
         // define the objects ids that are not to be pickeable
-        // NOTICE: not a ThreeJS facility
     }
 
     /**
@@ -85,7 +89,7 @@ class PickingManager {
                         : this.pickingColor;
 
                 // Set the new color
-                this.lastPickedObj.material.color.setHex(0x4fba97);
+                this.lastPickedObj.material.color.setHex(0x8FCB8C);
             }
         }
     }
@@ -95,6 +99,7 @@ class PickingManager {
      *
      */
     restoreColorOfFirstPickedObj() {
+        
         if (this.lastPickedObj)
             this.lastPickedObj.material.color.setHex(
                 this.lastPickedObj.currentHex

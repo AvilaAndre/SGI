@@ -27,11 +27,11 @@ characters = [chr(i) for i in range(32, 127)]  # ASCII characters from 32 to 126
 x = 0
 y = 0
 for char in characters:
-    draw.text((x, y), char, font=font, fill="black")
+    draw.text((x, y), char, font=font, fill="white")
     x += sprite_size
     if x >= sheet_width:
         x = 0
         y += sprite_size
 
 # Save the sprite sheet
-sprite_sheet.save("sprite_sheet_monospaced_black.png")
+sprite_sheet.save("sprite_sheet_monospaced_white.png")

@@ -62,7 +62,7 @@ class RaceState extends GameState {
                 this.manager.playerCar.maxSpeedPowerUPMultiplier = 1;
             },
         };
-        this.snailPowerUp = {
+        this.clockPowerUp = {
             active: false,
             clock: new MyClock(),
             time: 3000,
@@ -79,7 +79,7 @@ class RaceState extends GameState {
             clock: new MyClock(),
             time: 6000,
         };
-        this.snailObstacle = {
+        this.clockObstacle = {
             active: false,
             clock: new MyClock(),
             time: 3000,
@@ -88,7 +88,7 @@ class RaceState extends GameState {
                     this.manager.opponentCar.setRunAnimationTimeScale(1);
             },
         };
-        this.bananaObstacle = {
+        this.snailObstacle = {
             active: false,
             clock: new MyClock(),
             time: 6000,
@@ -100,10 +100,10 @@ class RaceState extends GameState {
         // array with all power ups and obstacles
         this.modifiers = [
             this.speedPowerUp,
-            this.snailPowerUp,
+            this.clockPowerUp,
             this.drunkObstacle,
+            this.clockObstacle,
             this.snailObstacle,
-            this.bananaObstacle,
         ];
 
         this.createHud();
@@ -276,8 +276,8 @@ class RaceState extends GameState {
                         this.pickObstacle();
                         break;
                     case 1:
-                        this.snailPowerUp.active = true;
-                        this.snailPowerUp.clock.start();
+                        this.clockPowerUp.active = true;
+                        this.clockPowerUp.clock.start();
                         if (this.manager.opponentCar)
                             this.manager.opponentCar.pauseRunAnimation();
 
@@ -297,8 +297,8 @@ class RaceState extends GameState {
                             this.drunkObstacle.clock.start();
                             break;
                         case 1:
-                            this.snailObstacle.active = true;
-                            this.snailObstacle.clock.start();
+                            this.clockObstacle.active = true;
+                            this.clockObstacle.clock.start();
 
                             if (this.manager.opponentCar)
                                 this.manager.opponentCar.setRunAnimationTimeScale(
@@ -306,8 +306,8 @@ class RaceState extends GameState {
                                 );
                             break;
                         case 2:
-                            this.bananaObstacle.active = true;
-                            this.bananaObstacle.clock.start();
+                            this.snailObstacle.active = true;
+                            this.snailObstacle.clock.start();
 
                             this.manager.playerCar.maxSpeedObstacleMultiplier = 0.7;
                             break;
@@ -449,7 +449,7 @@ class RaceState extends GameState {
         });
 
         // pause opponent car run animation
-        if (this.manager.opponentCar && !this.snailPowerUp.active)
+        if (this.manager.opponentCar && !this.clockPowerUp.active)
             this.manager.opponentCar.pauseRunAnimation();
     }
 
@@ -462,7 +462,7 @@ class RaceState extends GameState {
         });
 
         // resume opponent car run animation
-        if (this.manager.opponentCar && !this.snailPowerUp.active)
+        if (this.manager.opponentCar && !this.clockPowerUp.active)
             this.manager.opponentCar.resumeRunAnimation();
     }
 

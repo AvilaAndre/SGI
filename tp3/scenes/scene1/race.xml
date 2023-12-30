@@ -1402,9 +1402,9 @@
 
         <node id="obstacles" pickable="true">
             <children>
-                <noderef id="snail-pickable" />
+                <noderef id="clock-pickable" />
                 <noderef id="wine-bottle-pickable" />
-                <noderef id="banana-pickable" />
+                <noderef id="snail-pickable" />
             </children>
         </node>
 
@@ -1427,33 +1427,33 @@
 
         <!-- obstacles -->
 
-        <node id="snail-model">
+        <node id="clock-model">
             <transforms>
                 <scale value3="0.2 0.2 0.2"/>
                 <translate value3="0 0.2 0" />
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/obstacles/Snail.glb" />
+                    <model3d filepath="scenes/scene1/models/obstacles/Clock.glb" />
                 </primitive>
             </children>
         </node>
 
-        <node id="snail">
+        <node id="clock">
             <transforms>
-                <rotate value3="0 0 0" />
+                <rotate value3="0 1.57 0" />
             </transforms>
             <children>
-                <noderef id="snail-model" />
+                <noderef id="clock-model" />
             </children>
         </node>
 
-        <node id="snail-pickable">
+        <node id="clock-pickable">
             <transforms>
                 <translate value3="0 0 2" />
             </transforms>
             <children>
-                <noderef id="snail" />
+                <noderef id="clock" />
             </children>
         </node>
 
@@ -1487,33 +1487,33 @@
             </children>
         </node>
 
-        <node id="banana-model">
+        <node id="snail-model">
             <transforms>
-                <scale value3="0.6 0.6 0.6"/>
-                <translate value3="0 0.4 0" />
+                <scale value3="0.2 0.2 0.2"/>
+                <translate value3="0 0.2 0" />
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/obstacles/Banana2.glb" />
+                    <model3d filepath="scenes/scene1/models/obstacles/Snail.glb" />
                 </primitive>
             </children>
         </node>
 
-        <node id="banana">
+        <node id="snail">
             <transforms>
                 <rotate value3="0 0 0" />
             </transforms>
             <children>
-                <noderef id="banana-model" />
+                <noderef id="snail-model" />
             </children>
         </node>
 
-        <node id="banana-pickable">
+        <node id="snail-pickable">
             <transforms>
                 <translate value3="0 0 0" />
             </transforms>
             <children>
-                <noderef id="banana" />
+                <noderef id="snail" />
             </children>
         </node>
 
@@ -1942,9 +1942,9 @@
     </car>
 
     <obstacles camera="obstaclescam" >
-        <obstacle noderef="snail" />
+        <obstacle noderef="clock" />
         <obstacle noderef="wine-bottle" />
-        <obstacle noderef="banana" />
+        <obstacle noderef="snail" />
     </obstacles>
 
 

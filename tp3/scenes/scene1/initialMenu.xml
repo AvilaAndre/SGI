@@ -29,10 +29,16 @@
     <textures>        
         <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
         <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
-        <texture id="floorTex" filepath="scenes/scene1/textures/orange2.webp" />
-        <texture id="racingTex" filepath="scenes/scene1/textures/racing.avif" />
+        <texture id="floorTex" filepath="scenes/scene1/textures/squares.jpg" />
+        <texture id="racingTex" filepath="scenes/scene1/textures/squares.jpg" />
         <texture id="feupTex" filepath="scenes/scene1/textures/logo_feup.jpg" />
-        <texture id="startButtonTex" filepath="scenes/scene1/textures/brownStart.png" />
+        <texture id="startButtonTex" filepath="scenes/scene1/textures/greyStart.png" />
+        <texture id="easyButtonTex" filepath="scenes/scene1/textures/easyButton.png" />
+        <texture id="mediumButtonTex" filepath="scenes/scene1/textures/mediumButton.png" />
+        <texture id="hardButtonTex" filepath="scenes/scene1/textures/hardButton.png" />
+        <texture id="blackEasyButtonTex" filepath="scenes/scene1/textures/blackEasyButton.png" />
+        <texture id="blackMediumButtonTex" filepath="scenes/scene1/textures/blackMediumButton.png" />
+        <texture id="blackHardButtonTex" filepath="scenes/scene1/textures/blackHardButton.png" />
     </textures> 
 
 
@@ -50,7 +56,7 @@
             color="0.8 0.8 0.8 1.0" 
             emissive="0.0 0.0 0.0 0.0" 
 			specular="0 0 0 0" 
-            shininess="10" 
+            shininess="60" 
             textureref="feupTex" 
             texlength_s="1" 
             texlength_t="1" />
@@ -64,14 +70,68 @@
             texlength_s="1" 
             texlength_t="1" />
 
-        <material id="racingApp" 
+        <material id="easyButtonApp" 
             color="0.8 0.8 0.8 1.0" 
             emissive="0.0 0.0 0.0 0.0" 
 			specular="0 0 0 0" 
             shininess="10" 
+            textureref="easyButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="mediumButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="mediumButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="hardButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="hardButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackEasyButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackEasyButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackMediumButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackMediumButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="blackHardButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="blackHardButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="racingApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="15" 
             textureref="racingTex" 
-            texlength_s="90" 
-            texlength_t="90" />
+            texlength_s="64" 
+            texlength_t="32" />
 
         <material id="hudApp" 
             color="0.8 0.8 0.8 1.0" 
@@ -143,7 +203,7 @@
         </transforms>
         <children>
             <primitive>       
-                <rectangle xy1="-55 -45" xy2="55 45" />
+                <rectangle xy1="-32 -16" xy2="32 16" />
             </primitive>
         </children>
         <materialref id="racingApp" /> <!-- Reference to the floor material -->
@@ -164,8 +224,8 @@
 
     <node id="startButton" pickable="true">
         <transforms>
-            <scale value3="5.3 4 4" />
-            <translate value3="0 -3 1" />
+            <scale value3="5.7 4 4" />
+            <translate value3="0 -2 1" />
         </transforms>
         <children>
             <primitive>       
@@ -173,6 +233,45 @@
             </primitive>
         </children>
         <materialref id="startButtonApp" /> 
+    </node>
+
+    <node id="easyButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-23 0 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="easyButtonApp" /> 
+    </node>
+
+    <node id="mediumButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-15 0 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="mediumButtonApp" /> 
+    </node>
+
+    <node id="hardButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-19 -5 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="hardButtonApp" /> 
     </node>
 
 
@@ -227,7 +326,10 @@
                 <!-- <noderef id="hatchback" /> -->
                 <noderef id="floor" />
                 <noderef id="feupLogo" />
-                <noderef id="startButton" />            
+                <noderef id="startButton" />
+                <noderef id="easyButton" />
+                <noderef id="mediumButton" />
+                <noderef id="hardButton" />            
 
             </children> 
         </node>

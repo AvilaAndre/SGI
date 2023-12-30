@@ -13,7 +13,7 @@ class LettersComponent extends HudComponent {
         this.spriteScale = scale; // Assuming scale is the intended sprite scale
 
 
-        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_monospaced_black.png");
+        this.letterTexture = new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet_monospaced_white.png");
         const textureWidth = 1020;
         const textureHeight = 1020;
         const singleCharWidth = 102;
@@ -25,7 +25,12 @@ class LettersComponent extends HudComponent {
         this.vSize = 1 / this.rowsInTexture;
         this.letterTexture.repeat.set(this.uSize, this.vSize);
 
-        this.createText(initialText);
+        this.totalText = initialText;
+    
+
+        if(initialText.length > 0){
+            this.createText(initialText);
+        }
     }
 
     calculateUVForChar(char) {
@@ -58,7 +63,7 @@ class LettersComponent extends HudComponent {
         return letterMesh;
     }
 
-    createText(text, dimensions = [text.length/10, 0.8]) {
+    createText(text, dimensions = [/*text.length/10*/0.5, 0.8]) {
 
         const textGroup = new THREE.Group();
     
@@ -76,6 +81,15 @@ class LettersComponent extends HudComponent {
 
         this.add(textGroup);
         return textGroup;
+    }
+    
+
+    update(updatedText) {
+        this.totalText += updatedText;
+        // Check if updatedText is a non-empty string
+        if (typeof updatedText === 'string' && updatedText !== "") {
+            this.createText(updatedText);
+        }
     }
     
 }

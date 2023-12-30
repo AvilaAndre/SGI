@@ -1375,7 +1375,7 @@ class MyFileReader {
         // load cars
         let cars = rootElement.getElementsByTagName("car");
 
-        if (cars.length < 1 && this.xmlfilename != "scenes/scene1/initialMenu.xml")
+        if (cars.length < 1 && this.xmlfilename != "scenes/scene1/initialMenu.xml" && this.xmlfilename != "scenes/scene1/finalMenu.xml")
             throw new Error(
                 "At least one car should be specified in the YAF XML!"
             );

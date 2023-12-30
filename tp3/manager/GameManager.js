@@ -10,6 +10,7 @@ import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
 import { CollisionManager } from "./CollisionManager.js";
 import { InitialMenuState } from "./states/InitialMenuState.js";
+import { FinalMenuState } from "./states/FinalMenuState.js";
 
 /**
  * This class contains and manages information about the game
@@ -43,7 +44,7 @@ class GameManager {
 
         this.hud = null;
 
-        //this.launchFireworks();
+        
     }
 
     /**
@@ -51,12 +52,18 @@ class GameManager {
      * @param {GameState} state
      */
     setState(state) {
+
+        if (this.state && this.state.onExit) {
+            this.state.onExit();
+        }
+
         this.oldState = this.state;
         switch (state) {
             case "race":
                 this.state = new RaceState(this.contents, this);
                 break;
             case "pickingPlayer":
+                this.launchFireworks();
                 this.state = new PlayerParkState(this.contents, this);
                 break;
             case "pickingOpponent":
@@ -68,6 +75,12 @@ class GameManager {
 
             case "initialMenu":
                 this.state = new InitialMenuState(this.contents, this);
+                //this.state.onExit();
+                break;
+
+            case "finalMenu":
+                this.state = new FinalMenuState(this.contents, this);
+                //this.state.onExit();
                 break;
 
             default:
@@ -152,6 +165,8 @@ class GameManager {
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
     launchFireworks() {
+
+        console.log("launching Fireworks!");
         this.counter++;
         // add new fireworks every 5% of the calls
         if (Math.random() < 0.05) {
@@ -179,6 +194,10 @@ class GameManager {
     reset() {
         this.collisionManager = new CollisionManager(this.contents);
         this.obstacles = [];
+    }
+
+    getState(){
+        return this.state;
     }
 }
 
