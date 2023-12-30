@@ -127,7 +127,7 @@
               // cooler effect 
               pump = pump*pump;
 
-              vec3 newPosition = position + normal * pump * pumpRange;
+              vec3 newPosition = position * (1.0 + pump * pumpRange);
 
               gl_Position = projectionMatrix * modelViewMatrix * rotateY(time*rotationSpeed) * vec4( newPosition, 1.0 );
           }

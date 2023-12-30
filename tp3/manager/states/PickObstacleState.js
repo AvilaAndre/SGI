@@ -112,10 +112,10 @@ class PickObstacleState extends GameState {
                     case "wine-bottle":
                         this.obstacleSelected.effect = 0;
                         break;
-                    case "snail":
+                    case "clock":
                         this.obstacleSelected.effect = 1;
                         break;
-                    case "banana":
+                    case "snail":
                         this.obstacleSelected.effect = 2;
                         break;
                 }
@@ -124,7 +124,6 @@ class PickObstacleState extends GameState {
     }
 
     createHud() {
-
         this.manager.hud.addComponent(
             "PickAnObstacle",
             new LettersComponent(
@@ -205,8 +204,8 @@ class PickObstacleState extends GameState {
                             uniforms: {
                                 time: { value: 1.0 },
                                 rotationSpeed: { value: 2.0 },
-                                pumpRange: { value: 0.1 },
-                                pumpSpeed: { value: 4 },
+                                pumpRange: { value: 0.2 },
+                                pumpSpeed: { value: 1 },
                                 mColor: {
                                     value: elem.material.color,
                                 },
