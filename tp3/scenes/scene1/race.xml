@@ -1429,7 +1429,7 @@
 
         <node id="clock-model">
             <transforms>
-                <scale value3="0.2 0.2 0.2"/>
+                <scale value3="0.15 0.15 0.15"/>
                 <translate value3="0 0.2 0" />
             </transforms>
             <children>

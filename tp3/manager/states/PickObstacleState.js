@@ -112,10 +112,10 @@ class PickObstacleState extends GameState {
                     case "wine-bottle":
                         this.obstacleSelected.effect = 0;
                         break;
-                    case "snail":
+                    case "clock":
                         this.obstacleSelected.effect = 1;
                         break;
-                    case "banana":
+                    case "snail":
                         this.obstacleSelected.effect = 2;
                         break;
                 }
@@ -124,7 +124,6 @@ class PickObstacleState extends GameState {
     }
 
     createHud() {
-
         this.manager.hud.addComponent(
             "PickAnObstacle",
             new LettersComponent(
@@ -217,6 +216,33 @@ class PickObstacleState extends GameState {
                 this.placingObstacle = true;
                 this.obstacleSelected =
                     this.manager.obstacles[obstaclePicked].clone();
+
+                // add shader
+                this.obstacleSelected.meshes = [];
+
+                this.obstacleSelected.traverse((elem) => {
+                    if (elem.type == "Mesh") {
+                        elem.material = new THREE.ShaderMaterial({
+                            uniforms: {
+                                time: { value: 1.0 },
+                                rotationSpeed: { value: 2.0 },
+                                pumpRange: { value: 0.2 },
+                                pumpSpeed: { value: 1 },
+                                mColor: {
+                                    value: elem.material.color,
+                                },
+                            },
+
+                            vertexShader: document.getElementById(
+                                "vertexObstacleShader"
+                            ).textContent,
+                            fragmentShader: document.getElementById(
+                                "fragmentObstacleShader"
+                            ).textContent,
+                        });
+                        this.obstacleSelected.meshes.push(elem);
+                    }
+                });
 
                 // add chosen obstacle to track
                 this.contents.app.scene.add(this.obstacleSelected);
