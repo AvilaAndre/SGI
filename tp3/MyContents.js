@@ -113,6 +113,9 @@ class MyContents {
             case "initialMenu":
                 this.manager.setState("initialMenu");
                 break;
+            case "finalMenu":
+                this.manager.setState("finalMenu");
+                break;
 
             default:
                 break;

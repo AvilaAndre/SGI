@@ -63,7 +63,7 @@ class InitialMenuState extends GameState {
                 return;
             }
 
-            this.contents.playerName = this.textToBeWritten;
+            this.manager.playerName = this.textToBeWritten;
     
     
             this.manager.hud.removeComponent("playerInput");

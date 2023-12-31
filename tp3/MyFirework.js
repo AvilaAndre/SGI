@@ -51,6 +51,10 @@ class MyFirework {
 
         this.exploded = false;
 
+        this.animationDuration = 2.0; // Duration of the explosion in seconds
+        this.explodeTime = 0; // Time since the explosion started
+        this.explosionDestinations = []; // Destinations for each particle 
+
         this.launch() 
 
     }
@@ -103,25 +107,25 @@ class MyFirework {
     explode(origin, n, rangeBegin, rangeEnd) {
 
         this.exploded = true;
-
         this.counterOfExplosions++;
         this.app.scene.remove(this.points);
         this.points.geometry.dispose();
-    
+        this.dest = []; // Clear the previous destinations
+        
         let explosionVertices = [];
         let explosionColors = [];
-    
+        let angleStep = (Math.PI * 2) / n; // Full circle divided by the number of particles
+
         for (let i = 0; i < n; i++) {
-            let theta = Math.random() * 2 * Math.PI;
-            let phi = Math.acos(2 * Math.random() - 1);
-            let r = THREE.MathUtils.randFloat(rangeBegin, rangeEnd);
-    
-            let x = r * Math.sin(phi) * Math.cos(theta) + origin.x;
-            let y = r * Math.sin(phi) * Math.sin(theta) + origin.y;
-            let z = r * Math.cos(phi) + origin.z;
-    
+            let angle = angleStep * i;
+            let x = origin.x + (rangeEnd/2) * Math.cos(angle);
+            let y = origin.y + (rangeEnd/2) * Math.sin(angle);
+            let z = origin.z; // Z remains the same for a flat circle
+            
+            this.dest.push(new THREE.Vector3(x, y, z)); // Add the destination for each particle
+            
             explosionVertices.push(x, y, z);
-    
+            
             let color = new THREE.Color();
             color.setHSL(Math.random(), 1, 0.5);
             explosionColors.push(color.r, color.g, color.b);
@@ -163,11 +167,8 @@ class MyFirework {
      * update firework
      * @returns 
      */
-    update() {
+    update(deltaTime) {
 
-
-
-        
         
         // do only if objects exist (if there are points and they all have a geometry)
         if( this.points && this.geometry ){
@@ -180,19 +181,17 @@ class MyFirework {
             //how many sets of coordinates are
             let count = verticesAtribute.count
 
+            // only one particle?
+            if (count === 1 && !this.reachedDestination) {
+                if (vertices[1] >= this.dest[1]) {
+                    this.reachedDestination = true; // Mark that it reached the destination
+                    return;
+                }
+            }
 
-            /*console.log("no início this.exploded: ", this.exploded);
-            if(this.exploded && this.completelyExploded){
-                // console.log("exploded and ready to be cleaned")
-                this.reset();
-                return;
-            }*/
-
-            // console.log("count antes do check: ", count)
-            // console.log("this.exploded:", this.exploded)
             if( this.exploded ){ 
                 
-                // console.log("dentro do if this.material.opacity: ", this.material.opacity);
+
                 this.material.opacity -= 0.02; 
                 this.material.needsUpdate = true;
                 
@@ -206,49 +205,55 @@ class MyFirework {
                 }
             }
 
-            // lerp particle positions 
-            let j = 0
-            // Define gravity and deltaTime outside the update function
-            const gravity = new THREE.Vector3(0, -9.81, 0); // Gravity vector pointing downwards
-            const deltaTime = 1 / 70; // Assuming 80 updates per second
-            //updates each particle's position. It moves the particle a fraction of the distance towards its destination
-            for( let i = 0; i < vertices.length; i+=3 ) {
-                let index = i / 3;
+            
+        let positions = this.geometry.getAttribute('position');
+        let vertices2 = positions.array;
 
-                // Update the velocity of each particle
-                this.velocities[index].addScaledVector(gravity, deltaTime);
-    
-                // Update the position of each particle based on its velocity
-                vertices[i] += this.velocities[index].x * deltaTime;
-                vertices[i + 1] += this.velocities[index].y * deltaTime;
-                vertices[i + 2] += this.velocities[index].z * deltaTime;
+        // Gravity will affect the particles each frame
+        const gravity = new THREE.Vector3(0, -9.81, 0);
 
-                if (this.velocities[index].y < 0) {
-                    // The particle is descending
-                    // console.log("Particle is descending");
-                    this.isDescending = true;
-                }
+        // Loop through each particle vertex
+        for (let i = 0; i < vertices2.length; i += 3) {
+            let index = i / 3;
+            let particleDestination = this.dest[index];
 
-                // Check if the firework has descended 5 units below after reaching the destination
-                if (this.isDescending && vertices[i+1] <= 31){
-                    let origin = new THREE.Vector3(vertices[0], vertices[1], vertices[2]);
-                    this.explode(origin, 80, 0, 12);
-                    this.exploded = true;
-                    return;
+            // If the particle has exploded, animate towards the destination
+            if (this.exploded) {
+                    // Calculate progress of the explosion animation
+                    let progress = Math.min(this.explodeTime / this.animationDuration, 1);
+                    let currentPos = new THREE.Vector3(vertices2[i], vertices2[i + 1], vertices2[i + 2]);
+
+                    // Interpolate between the current position and the final destination
+                    currentPos.lerp(particleDestination, progress);
+                    
+                    // Update the vertices in the array
+                    vertices2[i] = currentPos.x;
+                    vertices2[i + 1] = currentPos.y;
+                    vertices2[i + 2] = currentPos.z;
+
+                    // If animation progress is 100%, mark as completely exploded
+                    if (progress === 1) {
+                        this.completelyExploded = true;
+                    }
+                } else {
+                    // If not exploded yet, particles should go up
+                    this.velocities[index].addScaledVector(gravity, deltaTime);
+                    vertices2[i] += this.velocities[index].x * deltaTime;
+                    vertices2[i + 1] += this.velocities[index].y * deltaTime;
+                    vertices2[i + 2] += this.velocities[index].z * deltaTime;
+                    
+                    // Check if it's time to explode (e.g., based on some condition like reaching certain height)
+                    if (this.isDescending && vertices2[i+1] <= 31) {
+                        this.explode(origin, 80, 0, 12);
+                    }
+                    
                 }
             }
-            //position data has been updated and needs to be re-processed.
-            verticesAtribute.needsUpdate = true
-            
-            // only one particle?
-            if (count === 1 && !this.reachedDestination) {
-                if (vertices[1] >= this.dest[1]) {
-                    this.reachedDestination = true; // Mark that it reached the destination
-                }
-            }
 
-            
-        }
+            // Update the explosion time and geometry
+            this.explodeTime += deltaTime;
+            positions.needsUpdate = true;
+        }   
     }
 }
 

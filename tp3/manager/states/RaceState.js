@@ -107,6 +107,9 @@ class RaceState extends GameState {
         ];
 
         this.createHud();
+        console.log("this.manager.cars:", this.manager.cars);
+        console.log("this.manager.playerPickedCar:", this.manager.playerPickedCar);
+        console.log("this.manager.cpuPickedCar:", this.manager.cpuPickedCar);
     }
 
     createHud() {
