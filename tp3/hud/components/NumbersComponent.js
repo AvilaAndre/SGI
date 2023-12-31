@@ -87,7 +87,7 @@ class NumbersComponent extends HudComponent {
     }
 
     setValue(newValue) {
-        this.value = Math.floor(newValue)
+        this.value = Math.floor(Math.abs(newValue))
             .toString()
             .padStart(this.#nDigits, "0") // guarantees at least nDigits numbers
             .slice(-this.#nDigits); // has a maximum of 3 elements
