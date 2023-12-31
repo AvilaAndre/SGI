@@ -1,14 +1,14 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
+import { MyContents } from "./MyContents.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /**
  *
  * @param {Object} representation the object with the primitive's representation
- * @param {MyApp} app the application object
+ * @param {MyContents} contents the contents object
  * @returns the mesh of the primitive
  */
-const createPrimitive = (representation, app) => {
+const createPrimitive = (representation, contents) => {
     if (representation.type === "cylinder") {
         return new THREE.CylinderGeometry(
             representation["top"],
@@ -289,6 +289,13 @@ const createPrimitive = (representation, app) => {
             representation.filepath,
             async function (gltf) {
                 scene.add(gltf.scene);
+
+                // check if model3d added is a big screen
+                if (
+                    representation.filepath ===
+                    "scenes/scene1/models/big-screen/billboardDouble_exclusive.glb"
+                )
+                    contents.addBigScreen(scene);
             },
             // called while loading is progressing
             function (xhr) {

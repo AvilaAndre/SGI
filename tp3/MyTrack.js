@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { MyContents } from "./MyContents.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 import { createPrimitive } from "./PrimitiveBuilder.js";
-import { instantiateNode } from "./GraphBuilder.js";
 import { MyPowerUp } from "./components/MyPowerUp.js";
 /**
  * This class contains a race track made with catmull curves
@@ -112,15 +111,21 @@ class MyTrack extends THREE.Object3D {
 
             const checkpointObj = new THREE.Object3D();
 
-            const checkpointPylonLeft = createPrimitive({
-                type: "model3d",
-                filepath: "scenes/scene1/models/checkpoints/pylon.glb",
-            });
+            const checkpointPylonLeft = createPrimitive(
+                {
+                    type: "model3d",
+                    filepath: "scenes/scene1/models/checkpoints/pylon.glb",
+                },
+                this.contents
+            );
 
-            const checkpointPylonRight = createPrimitive({
-                type: "model3d",
-                filepath: "scenes/scene1/models/checkpoints/pylon.glb",
-            });
+            const checkpointPylonRight = createPrimitive(
+                {
+                    type: "model3d",
+                    filepath: "scenes/scene1/models/checkpoints/pylon.glb",
+                },
+                this.contents
+            );
 
             checkpointPylonLeft.scale.set(3, 3, 3);
             checkpointPylonRight.scale.set(3, 3, 3);

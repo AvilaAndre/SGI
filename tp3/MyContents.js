@@ -10,6 +10,7 @@ import { GameManager } from "./manager/GameManager.js";
 import { addCamera } from "./ComponentBuilder.js";
 import { AnimationPlayer } from "./animation/AnimationPlayer.js";
 import { MyAnimation } from "./animation/MyAnimation.js";
+import { BigScreensManager } from "./manager/BigScreensManager.js";
 
 /**
  *  This class contains the contents of out application
@@ -50,13 +51,15 @@ class MyContents {
 
         this.animationPlayer = new AnimationPlayer();
 
+        //big screens manager
+        this.bigScreens = new BigScreensManager(this);
+
         // show debug gizmos
         this.DEBUG = false;
 
         this.wireframe = false;
 
         this.lightsOn = true;
-        
 
         this.initializeEventListeners();
 
@@ -91,6 +94,8 @@ class MyContents {
         //lights
         this.lights = new Object();
         this.lightsArray = [];
+
+        this.bigScreens.reset();
 
         this.init();
         this.app.resetCameras();
@@ -286,8 +291,6 @@ class MyContents {
                     this,
                     null
                 );
-
-                console.log(data.nodes[obstacle], data.nodes);
             }
         }
 
@@ -302,7 +305,6 @@ class MyContents {
         });
 
         data.animations.forEach((anim) => {
-            console.log("anim", anim);
             this.animationPlayer.addAnimation(
                 new MyAnimation(this).fromNodeData(anim)
             );
@@ -314,6 +316,8 @@ class MyContents {
     }
 
     update(delta) {
+        this.bigScreens.update(delta, this.app.target);
+
         if (this.manager.state) {
             this.manager.update(delta);
         }
@@ -577,6 +581,14 @@ class MyContents {
 
             lightInfo.light.intensity = value ? lightInfo.originalIntensity : 0;
         }
+    }
+
+    /**
+     * Adds a Big Screen to the game
+     * @param {THREE.Scene} bigScreenScene
+     */
+    addBigScreen(bigScreenScene) {
+        this.bigScreens.loadObject(bigScreenScene);
     }
 }
 

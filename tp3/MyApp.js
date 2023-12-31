@@ -62,6 +62,24 @@ class MyApp {
 
         // A clock to get DeltaTime
         this.clock = new THREE.Clock(true);
+
+        this.appMaterial = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load("sprite_sheet.png"),
+        });
+
+        // frame buffer
+        this.dpr = window.devicePixelRatio;
+
+        this.framebufferTextureSize = new THREE.Vector2(
+            window.innerWidth * this.dpr,
+            window.innerHeight * this.dpr
+        );
+        this.framebufferVector = new THREE.Vector2();
+
+        this.framebufferTexture = new THREE.FramebufferTexture(
+            this.framebufferTextureSize.x,
+            this.framebufferTextureSize.y
+        );
     }
 
     /**
@@ -204,6 +222,20 @@ class MyApp {
 
         // render the scene
         this.renderer.render(this.scene, this.activeCamera);
+
+        this.framebufferVector.x =
+            (window.innerWidth * this.dpr) / 2 -
+            this.framebufferTextureSize.x / 2;
+        this.framebufferVector.y =
+            (window.innerHeight * this.dpr) / 2 -
+            this.framebufferTextureSize.y / 2;
+
+        this.renderer.copyFramebufferToTexture(
+            this.framebufferVector,
+            this.framebufferTexture
+        );
+
+        this.appMaterial.map = this.framebufferTexture;
 
         // subsequent async calls to the render loop
         requestAnimationFrame(this.render.bind(this));
