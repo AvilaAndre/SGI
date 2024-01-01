@@ -131,10 +131,19 @@ class MyAnimation {
         return this;
     }
 
+    /**
+     * Creates an animation for a car
+     * @param {Object} data
+     * @returns
+     */
     fromObject(data) {
+        console.log("anim data", data, this.contents.manager.difficulty);
         // INFORMATION
         this.id = data.id;
-        this.duration = data.duration;
+
+        // duration is multiplied by the difficulty
+        this.duration =
+            data.duration * (1 + 0.1 * (2 - this.contents.manager.difficulty));
         this.repeat = data.repeat;
         this.autostart = data.autostart;
 
@@ -186,16 +195,22 @@ class MyAnimation {
                                             eul
                                         );
 
-                                    rotationTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    rotationTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     rotation.push(quat);
                                     break;
 
                                 case "T":
-                                    translationTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    translationTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     translation.push(trans.translate);
                                     break;
                                 case "S":
-                                    scaleTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    scaleTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     scale.push(trans.scale);
                                     break;
                                 default:

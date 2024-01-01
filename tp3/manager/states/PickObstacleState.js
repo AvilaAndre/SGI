@@ -186,32 +186,26 @@ class PickObstacleState extends GameState {
     }
 
     onPointerClick(event) {
-
-
-
         if (!this.placingObstacle) {
             const obstaclePicked =
                 this.pickingManager.getNearestObject(event)?.name;
 
             if (obstaclePicked) {
-
-                if(this.manager.hud.getComponent("PickAnObstacle")){
+                if (this.manager.hud.getComponent("PickAnObstacle")) {
                     this.manager.hud.removeComponent("PickAnObstacle");
                 }
-                if(this.manager.hud.getComponent("toPlaceonTheTrack")){ 
+                if (this.manager.hud.getComponent("toPlaceonTheTrack")) {
                     this.manager.hud.removeComponent("toPlaceonTheTrack");
-                } 
-                if(this.manager.hud.getComponent("champagneBottle")){
+                }
+                if (this.manager.hud.getComponent("champagneBottle")) {
                     this.manager.hud.removeComponent("champagneBottle");
                 }
-                if(this.manager.hud.getComponent("snail")){ 
+                if (this.manager.hud.getComponent("snail")) {
                     this.manager.hud.removeComponent("snail");
-                } 
-                if(this.manager.hud.getComponent("clock")){
+                }
+                if (this.manager.hud.getComponent("clock")) {
                     this.manager.hud.removeComponent("clock");
                 }
-
-
 
                 this.placingObstacle = true;
                 this.obstacleSelected =
@@ -268,6 +262,8 @@ class PickObstacleState extends GameState {
 
                 // signal the app that the camera needs to be update due to targetCoords being changed
                 this.contents.app.updateCameras = true;
+
+                this.pickingManager.restoreColorOfFirstPickedObj();
             }
         }
     }
