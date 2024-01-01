@@ -10,42 +10,26 @@ class FinalMenuState extends GameState {
     constructor(contents, manager) {
         super(contents, manager);
 
+        this.pickingManager = new PickingManager(this.contents, [
+            "startButton",
+            "easyButton",
+            "mediumButton",
+            "hardButton",
+        ]);
 
-        this.pickingManager = new PickingManager(
-            this.contents,
-            ["startButton","easyButton","mediumButton","hardButton"]
-        );
-
-        if(this.manager.difficulty == null){
-            this.manager.difficulty = "easy";
+        if (this.manager.difficulty == null) {
+            this.manager.difficulty = 1;
         }
 
         this.createHud();
 
-        console.log("playerPickedCar: ", this.manager.playerPickedCar);
-        console.log("cpuPickedCar: ", this.manager.cpuPickedCar);
-
-        if(this.manager.playerPickedCar == null){
-            console.log("playerPickedCar is null");
+        if (this.manager.playerPickedCar == null) {
             this.manager.playerPickedCar = "hatchback-popup";
         }
 
-        if(this.manager.cpuPickedCar == null){
-            console.log("cpuPickedCar is null");
+        if (this.manager.cpuPickedCar == null) {
             this.manager.cpuPickedCar = "race";
         }
-
-        console.log("this.manager.cars before:", this.manager.cars)
-
-        //if (!this.manager.cars || this.manager.cars.length === 0) {
-        //    console.log("cars is null or empty");
-        //    this.manager.cars = ["race", "hatchback-popup", "hatchback"];
-        //}
-
-        console.log("this.manager.cars after:", this.manager.cars)
-        
-        console.log("after playerPickedCar: ", this.manager.playerPickedCar);
-        console.log("after cpuPickedCar: ", this.manager.cpuPickedCar);
 
         this.addCarsToScene();
     }
@@ -57,46 +41,39 @@ class FinalMenuState extends GameState {
     addCarsToScene() {
         const playerCarName = this.manager.playerPickedCar;
         const cpuCarName = this.manager.cpuPickedCar;
-        
+
         // Create an array of the two car names you want to add
         const carNamesToAdd = [playerCarName, cpuCarName];
 
-        console.log("carNamesToAdd: ", carNamesToAdd);
-
-        //const pickableCars = Object.keys(this.manager.cars);
-
-        console.log("cars:", this.manager.cars);
-    
         // Loop through each car name to add
         for (let i = 0; i < carNamesToAdd.length; i++) {
             const carName = carNamesToAdd[i];
             const car = this.manager.cars[carName];
-    
+
             if (car) {
                 // Position the car based on its index
                 // Adjust this logic if you want a different positioning strategy
-                car.position.set(3 * (i - Math.floor(carNamesToAdd.length / 2)), 0, 0);
-    
+                car.position.set(
+                    3 * (i - Math.floor(carNamesToAdd.length / 2)),
+                    0,
+                    0
+                );
+
                 // Add the car to the scene
-                console.log("Car added to scene!");
                 this.contents.app.scene.add(car);
             }
         }
     }
-    
 
     onPointerClick(event) {
-
-        const buttonPicked = this.pickingManager.getNearestObject(event)?.name;       
-        
+        const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
     }
 
     onPointerMove(event) {
         this.pickingManager.onPointerMove(event);
     }
 
-
-    createHud(){
+    createHud() {
         this.manager.hud.addComponent(
             "difficulty",
             new LettersComponent(

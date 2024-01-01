@@ -1985,7 +1985,7 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="90">
+        <route time="75">
         </route>
     </car>
 
@@ -2033,7 +2033,7 @@
             <noderef id="tractor-rr-wheel" />
         </statwheels>
 
-        <route time="90">
+        <route time="75">
         </route>
     </car>
 
@@ -2125,7 +2125,7 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="90">
+        <route time="75">
         </route>
     </car>
 
