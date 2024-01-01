@@ -110,7 +110,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>
@@ -120,7 +120,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>
@@ -130,7 +130,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>

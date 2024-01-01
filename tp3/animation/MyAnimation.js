@@ -137,7 +137,6 @@ class MyAnimation {
      * @returns
      */
     fromObject(data) {
-        console.log("anim data", data, this.contents.manager.difficulty);
         // INFORMATION
         this.id = data.id;
 

@@ -25,6 +25,7 @@ class MyCar extends THREE.Object3D {
         this.contents = contents;
         this.type = "Group";
         this.turningWheels = [];
+        this.rotatingWheels = [];
         this.wheelRotation = 0;
         this.frontLights = [];
         this.rearLights = [];
@@ -67,6 +68,7 @@ class MyCar extends THREE.Object3D {
             this.add(wheelNode);
 
             this.turningWheels.push(wheelNode);
+            this.rotatingWheels.push(wheelNode);
         }
 
         for (let i = 0; i < carData.stationaryWheels.length; i++) {
@@ -74,6 +76,8 @@ class MyCar extends THREE.Object3D {
 
             const wheelNode = instantiateNode(wheel.id, data, this.contents);
             this.add(wheelNode);
+
+            this.rotatingWheels.push(wheelNode);
         }
 
         this.collider = new RectangleCollider(
@@ -361,6 +365,14 @@ class MyCar extends THREE.Object3D {
             this.tiltCarZ((this.wheelRotation / this.turnAngle) * -0.03);
         } else {
             this.tiltCarZ(0);
+        }
+
+        // rotate wheels
+
+        for (let i = 0; i < this.rotatingWheels.length; i++) {
+            const wheel = this.rotatingWheels[i];
+
+            wheel.children[0].rotateX(this.speed * -delta);
         }
 
         this.frontCarLights();
