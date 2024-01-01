@@ -108,7 +108,10 @@ class RaceState extends GameState {
 
         this.createHud();
         console.log("this.manager.cars:", this.manager.cars);
-        console.log("this.manager.playerPickedCar:", this.manager.playerPickedCar);
+        console.log(
+            "this.manager.playerPickedCar:",
+            this.manager.playerPickedCar
+        );
         console.log("this.manager.cpuPickedCar:", this.manager.cpuPickedCar);
     }
 
@@ -445,6 +448,7 @@ class RaceState extends GameState {
 
     pause() {
         this.paused = true;
+        this.manager.lapClock.stop();
 
         // stop clocks
         this.modifiers.forEach((mod) => {
@@ -458,6 +462,7 @@ class RaceState extends GameState {
 
     resume() {
         this.paused = false;
+        this.manager.lapClock.resume();
 
         // resume clocks
         this.modifiers.forEach((mod) => {
