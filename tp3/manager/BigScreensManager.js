@@ -21,7 +21,7 @@ class BigScreensManager {
      */
     loadObject(bigScreenObj) {
         const mesh = new THREE.Mesh(
-            new THREE.BoxGeometry(8, 4, 8),
+            new THREE.BoxGeometry(8, 4, 8, 100, 100, 100),
             new THREE.ShaderMaterial({
                 uniforms: {
                     tDiffuse: {
@@ -30,8 +30,12 @@ class BigScreensManager {
                         ),
                     },
                     tDepth: { value: null },
-                    cameraNear: { value: 1 },
-                    cameraFar: { value: 1000 },
+                    cameraNear: {
+                        value: 1,
+                    },
+                    cameraFar: {
+                        value: 1000,
+                    },
                 },
 
                 vertexShader:
@@ -67,6 +71,11 @@ class BigScreensManager {
         this.#screenMeshes = [];
     }
 
+    /**
+     *
+     * @param {number} delta
+     * @param {THREE.RenderTarget} target
+     */
     update(delta, target) {
         this.#screenMeshes.forEach((mesh) => {
             if (this.contents.app.framebufferTexture) {
@@ -74,7 +83,10 @@ class BigScreensManager {
                     this.contents.app.framebufferTexture;
             }
 
-            //mesh.material.uniforms.tDepth.value = target.depthTexture;
+            if (target.depthTexture) {
+                mesh.material.uniforms.tDepth.value = target.depthTexture;
+                mesh.material.uniforms.tDiffuse.value = target.texture;
+            }
         });
     }
 

@@ -3,6 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { MyContents } from "./MyContents.js";
 import { MyGuiInterface } from "./MyGuiInterface.js";
 import Stats from "three/addons/libs/stats.module.js";
+import { MyClock } from "./utils/MyClock.js";
 
 /**
  * This class contains the application object
@@ -28,6 +29,11 @@ class MyApp {
         this.gui = null;
         this.axis = null;
         this.contents == null;
+
+        // a clock to only update big screens once every X seconds
+        this.updateBigScreensClock = null;
+        // update every 4000 milliseconds
+        this.updateBigScreensTime = 4000;
     }
     /**
      * initializes the application
@@ -80,6 +86,22 @@ class MyApp {
             this.framebufferTextureSize.x,
             this.framebufferTextureSize.y
         );
+
+        // target for depth buffer
+
+        this.target = new THREE.RenderTarget(
+            this.framebufferTextureSize.x,
+            this.framebufferTextureSize.y
+        );
+
+        this.target.texture.minFilter = THREE.NearestFilter;
+        this.target.texture.magFilter = THREE.NearestFilter;
+
+        this.target.depthTexture = new THREE.DepthTexture();
+        this.target.depthTexture.format = THREE.DepthFormat;
+        this.target.depthTexture.type = THREE.UnsignedByteType;
+
+        this.updateBigScreensClock = new MyClock();
     }
 
     /**
@@ -221,21 +243,33 @@ class MyApp {
         this.controls?.update();
 
         // render the scene
+        this.renderer.setRenderTarget(null);
         this.renderer.render(this.scene, this.activeCamera);
 
-        this.framebufferVector.x =
-            (window.innerWidth * this.dpr) / 2 -
-            this.framebufferTextureSize.x / 2;
-        this.framebufferVector.y =
-            (window.innerHeight * this.dpr) / 2 -
-            this.framebufferTextureSize.y / 2;
+        if (
+            this.updateBigScreensClock.getElapsedTime() >
+            this.updateBigScreensTime
+        ) {
+            this.framebufferVector.x =
+                (window.innerWidth * this.dpr) / 2 -
+                this.framebufferTextureSize.x / 2;
+            this.framebufferVector.y =
+                (window.innerHeight * this.dpr) / 2 -
+                this.framebufferTextureSize.y / 2;
 
-        this.renderer.copyFramebufferToTexture(
-            this.framebufferVector,
-            this.framebufferTexture
-        );
+            this.renderer.copyFramebufferToTexture(
+                this.framebufferVector,
+                this.framebufferTexture
+            );
 
-        this.appMaterial.map = this.framebufferTexture;
+            this.renderer.setRenderTarget(this.target);
+            this.renderer.render(this.scene, this.activeCamera);
+
+            this.appMaterial.map = this.framebufferTexture;
+
+            // reset
+            this.updateBigScreensClock.start();
+        }
 
         // subsequent async calls to the render loop
         requestAnimationFrame(this.render.bind(this));
