@@ -5,6 +5,7 @@ class ButtonsComponent extends HudComponent {
     constructor(position, scale, imageName) {
         super(position, scale);
         this.imageName = imageName;
+        this.name = imageName.replace('.png', '');
         this.createImagePlane();
     }
 
@@ -23,6 +24,7 @@ class ButtonsComponent extends HudComponent {
             imagePlane.scale.set(this.scale.x, this.scale.y, this.scale.z);
 
             // Add image plane to the component
+            console.log("imagePlane:", imagePlane);
             this.add(imagePlane);
         });
     }

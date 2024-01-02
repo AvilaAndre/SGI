@@ -21,10 +21,20 @@ class RaceState extends GameState {
         this.manager.lapClock = new MyClock();
         this.manager.lapClock.stop();
 
+        // Clock that keeps track of every opponent lap's time
+        this.manager.opponentTotalTime = new MyClock();
+        this.manager.opponentTotalTime.stop();
+
+        this.manager.playerTotalTime = new MyClock();
+        this.manager.playerTotalTime.stop();
+
         // Stores the ammount of laps done
-        this.manager.lapCount = 4;
+        this.manager.lapCount = 0;
+        // Stores the ammount of laps done by the opponent
+        this.manager.opponentLapCount = 0;
 
-
+        this.manager.winner = null;
+        this.manager.loser = null;
 
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
@@ -75,7 +85,6 @@ class RaceState extends GameState {
         };
 
         // Obstacles
-
         this.drunkObstacle = {
             active: false,
             clock: new MyClock(),
@@ -110,7 +119,10 @@ class RaceState extends GameState {
 
         this.createHud();
         console.log("this.manager.cars:", this.manager.cars);
-        console.log("this.manager.playerPickedCar:", this.manager.playerPickedCar);
+        console.log(
+            "this.manager.playerPickedCar:",
+            this.manager.playerPickedCar
+        );
         console.log("this.manager.cpuPickedCar:", this.manager.cpuPickedCar);
     }
 
@@ -413,9 +425,27 @@ class RaceState extends GameState {
             this.manager.currCheckpoint++;
         }
 
+
+        console.log("this.manager.opponentTotalTime:", this.manager.opponentTotalTime)
+
+        if(this.manager.opponentLapCount == 4){
+            this.manager.opponentTotalTime.stop();
+        }
+
+        if(this.manager.lapCount == 4 && this.manager.opponentLapCount < 4){
+            this.manager.winner = this.manager.playerName;
+            this.manager.loser = "Opponent";
+        } else {
+            this.manager.winner = "Opponent";
+            this.manager.loser = this.manager.playerName;
+        }
+
         if(this.manager.lapCount == 4){
+            this.manager.playerTotalTime.stop();
             this.contents.switchScenes("finalMenu");
         }
+
+
 
         this.countAllTime(delta);
 
@@ -425,10 +455,20 @@ class RaceState extends GameState {
      * Called whenever a new lap is started
      */
     onNewLap() {
-        if (this.manager.lapCount == 0 && this.manager.opponentCar){
+        if (this.manager.lapCount == 0 && this.manager.opponentCar) {
             this.manager.opponentCar.startRunAnimation();
             this.manager.totalTime = 0;
+            // start timer
+            this.manager.opponentTotalTime.start();
+            this.manager.playerTotalTime.start();
         }
+
+
+
+            this.manager.opponentCar.runAnimationOnFinished(
+                this.opponentLapFinished.bind(this)
+            );
+        
 
         this.manager.lapCount =
             Math.floor(
@@ -463,6 +503,9 @@ class RaceState extends GameState {
 
     pause() {
         this.paused = true;
+        this.manager.lapClock.stop();
+        this.manager.opponentTotalTime.stop();
+        this.manager.playerTotalTime.stop();
 
         // stop clocks
         this.modifiers.forEach((mod) => {
@@ -476,6 +519,9 @@ class RaceState extends GameState {
 
     resume() {
         this.paused = false;
+        this.manager.lapClock.resume();
+        this.manager.opponentTotalTime.resume();
+        this.manager.playerTotalTime.resume();
 
         // resume clocks
         this.modifiers.forEach((mod) => {
@@ -490,6 +536,13 @@ class RaceState extends GameState {
     pickObstacle() {
         this.pause();
         this.manager.setState("pickingObstacle");
+    }
+
+    /**
+     * Called when the opponent finishes one lap around the track
+     */
+    opponentLapFinished() {
+        this.manager.opponentLapCount++;
     }
 }
 

@@ -1,4 +1,5 @@
-import * as THREE from 'three'
+import * as THREE from 'three';
+//import { MyClock } from "/utils/MyClock.js";
 
 class MyFirework {
 
@@ -54,6 +55,10 @@ class MyFirework {
         this.animationDuration = 2.0; // Duration of the explosion in seconds
         this.explodeTime = 0; // Time since the explosion started
         this.explosionDestinations = []; // Destinations for each particle 
+
+        // Clock that keeps track of every lap's time
+        //this.manager.fireworksClock = new MyClock();
+        //this.manager.fireworksClock.stop();
 
         this.launch() 
 

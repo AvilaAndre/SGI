@@ -110,7 +110,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>
@@ -120,7 +120,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>
@@ -287,7 +287,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
             </children>
         </node>
@@ -297,8 +297,84 @@
             </transforms>
             <children>
                 <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault.glb" />
+                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
                 </primitive>
+            </children>
+        </node>
+
+        <node id="tractorWheelFrontLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorFront.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="tractorWheelFrontRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorFront.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="tractorWheelBackLeft">
+            <transforms>
+                <rotate value3="0 0 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorBack.glb" />
+                </primitive>
+            </children>
+        </node>
+        <node id="tractorWheelBackRight">
+            <transforms>
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorBack.glb" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="tractor-fl-wheel">
+            <transforms>
+                <translate value3="-0.50 0.3 1.61" />
+            </transforms>
+
+            <children>
+                <noderef id="tractorWheelFrontLeft" />
+            </children>
+        </node>
+        <node id="tractor-fr-wheel">
+            <transforms>
+                <translate value3="0.50 0.3 1.61" />
+            </transforms>
+
+            <children>
+                <noderef id="tractorWheelFrontRight" />
+            </children>
+        </node>
+        <node id="tractor-rl-wheel">
+            <transforms>
+                <translate value3="-0.6 0.5 0.45" />
+            </transforms>
+            <children>
+                <noderef id="tractorWheelBackLeft" />
+            </children>
+        </node>
+        <node id="tractor-rr-wheel">
+            <transforms>
+                <translate value3="0.6 0.5 0.45" />
+            </transforms>
+            <children>
+                <noderef id="tractorWheelBackRight" />
             </children>
         </node>
 
@@ -430,6 +506,19 @@
             </children>
         </node>
 
+        <node id="tractor" pickable="true">
+            <transforms>
+                <translate value3="0 0 0.81" />
+                <rotate value3="0 3.1416 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <model3d filepath="scenes/scene1/models/tractor.glb" />
+                </primitive>
+            </children>
+        </node>
+
 
         <node id="race" pickable="true">
             <transforms>
@@ -557,8 +646,59 @@
             </children> 
         </node>
     </graph>
+
+    
+
+    <car id="tractor">
+        <carcameras>
+            <perspective id="follow-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 3 -4" 
+                target="0 0 4" />
+            <perspective id="roof-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 1.4 0.5" 
+                target="0 0.4 5" />
+            <perspective id="first-person" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="0 0.9 1.4" 
+                target="0 0.4 5" />
+        </carcameras>
+
+
+        <collider pos="0 0.8" size="1 1.8" />
+
+        <frontlights>
+        </frontlights>
+
+        <rearlights>
+        </rearlights>
+
+        <body>
+            <noderef id="tractor" />
+        </body>
+
+        <turnwheels>
+            <noderef id="tractor-fl-wheel" />
+            <noderef id="tractor-fr-wheel" />
+        </turnwheels>
+        <statwheels>
+            <noderef id="tractor-rl-wheel" />
+            <noderef id="tractor-rr-wheel" />
+        </statwheels>
+
+        <route time="90">
+        </route>
+    </car>
+
     <car id="race">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
@@ -606,7 +746,7 @@
     </car>
 
     <car id="hatchback">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
@@ -686,7 +826,7 @@
     </car>
 
     <car id="hatchback-pop">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="top-perpective" 
                 angle="60" 
                 near="0.1" 

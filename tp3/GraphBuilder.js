@@ -48,7 +48,7 @@ const instantiateNode = (nodeRef, data, contents, parent = undefined) => {
 
         if (child.type === "primitive") {
             child.representations.forEach((representation) => {
-                const geometry = createPrimitive(representation, this);
+                const geometry = createPrimitive(representation, contents);
 
                 /**
                  * Polygon and Model3d are the only primitives that has material defined in itself

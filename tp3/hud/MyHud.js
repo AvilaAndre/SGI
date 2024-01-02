@@ -89,6 +89,10 @@ class MyHud extends THREE.Object3D {
         return this.components[componentName];
     }
 
+    getName(componentName) {
+        return this.components[componentName].name;
+    }
+
 
 }
 

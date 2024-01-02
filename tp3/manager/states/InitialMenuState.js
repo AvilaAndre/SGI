@@ -16,6 +16,7 @@ class InitialMenuState extends GameState {
             ["startButton","easyButton","mediumButton","hardButton"]
         );
 
+
         this.textToBeWritten = "";
 
         this.nameChosen = false;

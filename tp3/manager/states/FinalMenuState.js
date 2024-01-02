@@ -14,7 +14,7 @@ class FinalMenuState extends GameState {
 
         this.pickingManager = new PickingManager(
             this.contents,
-            ["menuButton","replayButton"]
+            ["menuButton", "replayButton"]
         );
 
         console.log("this.manager.totalTime:", this.manager.totalTime)
@@ -54,17 +54,20 @@ class FinalMenuState extends GameState {
     
 
     onPointerClick(event) {
+        const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
 
-        const buttonPicked = this.pickingManager.getNearestObject(event)?.name;       
-        
+        if(buttonPicked === "menuButton") {
+            this.contents.switchScenes("initialMenu");
+        } else if(buttonPicked === "replayButton") {
+            this.contents.switchScenes("race");
+        }
     }
 
     onPointerMove(event) {
         this.pickingManager.onPointerMove(event);
     }
 
-
-    createHud(){
+    createHud() {
         this.manager.hud.addComponent(
             "difficulty",
             new LettersComponent(
@@ -107,7 +110,7 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(-0.15, -0.5),
                 0.07,
                 () => {},
-                this.manager.totalTime.toString() + " secs",
+                (this.manager.playerTotalTime.getElapsedTime() / 1000).toFixed(2) + " secs",
                 5,
                 0.06
             )
@@ -131,7 +134,7 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(0.65, -0.5),
                 0.07,
                 () => {},
-                "(tempo)" + " secs",
+                (this.manager.opponentTotalTime.getElapsedTime()/1000).toFixed(2) + " secs",
                 5,
                 0.06
             )
@@ -140,10 +143,10 @@ class FinalMenuState extends GameState {
         this.manager.hud.addComponent(
             "winner",
             new LettersComponent(
-                new THREE.Vector2(-0.15, -0.25),
-                0.07,
+                new THREE.Vector2(-0.1, 0.35),
+                0.12,
                 () => {},
-                "(nome)" + "WON!",
+                this.manager.winner + " WON!",
                 5,
                 0.06
             )
@@ -152,10 +155,10 @@ class FinalMenuState extends GameState {
         this.manager.hud.addComponent(
             "loser",
             new LettersComponent(
-                new THREE.Vector2(-0.15, -0.35),
-                0.04,
+                new THREE.Vector2(-0.2, -0.35),
+                0.07,
                 () => {},
-                "nome" + " lost...",
+                this.manager.loser + " lost...",
                 5,
                 0.06
             )
@@ -178,6 +181,11 @@ class FinalMenuState extends GameState {
                 "replayButton.png"
             )
         );
+
+        this.contents.pickables.push(this.manager.hud.getComponent("menuButton"));
+        this.contents.pickables.push(this.manager.hud.getComponent("replayButton"));
+
+        console.log("this.manager.hud.getComponent(menu):", this.manager.hud.getComponent("menuButton"));
     }
 }
 

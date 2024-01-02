@@ -131,10 +131,18 @@ class MyAnimation {
         return this;
     }
 
+    /**
+     * Creates an animation for a car
+     * @param {Object} data
+     * @returns
+     */
     fromObject(data) {
         // INFORMATION
         this.id = data.id;
-        this.duration = data.duration;
+
+        // duration is multiplied by the difficulty
+        this.duration =
+            data.duration * (1 + 0.1 * (2 - this.contents.manager.difficulty));
         this.repeat = data.repeat;
         this.autostart = data.autostart;
 
@@ -186,16 +194,22 @@ class MyAnimation {
                                             eul
                                         );
 
-                                    rotationTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    rotationTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     rotation.push(quat);
                                     break;
 
                                 case "T":
-                                    translationTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    translationTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     translation.push(trans.translate);
                                     break;
                                 case "S":
-                                    scaleTimes.push(timestamp.value);
+                                    // time is multiplied by the difficulty
+                                    // prettier-ignore
+                                    scaleTimes.push(timestamp.value * (1 + 0.1 * (2 - this.contents.manager.difficulty)) );
                                     scale.push(trans.scale);
                                     break;
                                 default:
@@ -380,6 +394,20 @@ class MyAnimation {
             const action = this.actions[i];
 
             action.setEffectiveTimeScale(timeScale);
+        }
+    }
+
+    /**
+     * Calls "func" whenever the animation finishes a loop
+     * @param {Function} func
+     */
+    bindOnFinish(func) {
+        console.log("bind");
+        if (this.mixers.length > 0) {
+            this.mixers[0].addEventListener("loop", (e) => {
+                // a mixer has multiple actions, so this is only called when the action is about the position
+                if (e.action._clip.name == ".positionAnimation") func();
+            });
         }
     }
 
