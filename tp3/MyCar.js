@@ -477,6 +477,13 @@ class MyCar extends THREE.Object3D {
     }
 
     /**
+     * Stops the animation around the track
+     */
+    stopRunAnimation() {
+        this.contents.animationPlayer.stop(this.carName + "_routeAnim");
+    }
+
+    /**
      * Changes the time scale of an animation
      * @param {number} timeScale
      */

@@ -22,7 +22,9 @@ class RaceState extends GameState {
         this.manager.lapClock.stop();
 
         // Stores the ammount of laps done
-        this.manager.lapCount = 0;
+        this.manager.lapCount = 4;
+
+
 
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
@@ -113,6 +115,7 @@ class RaceState extends GameState {
     }
 
     createHud() {
+
         this.manager.hud.addComponent(
             "lapTimer",
             new NumbersComponent(
@@ -175,6 +178,7 @@ class RaceState extends GameState {
     }
 
     update(delta) {
+
         if (this.manager.keyboard.isKeyJustDown("p")) {
             this.paused ? this.resume() : this.pause();
         }
@@ -408,14 +412,23 @@ class RaceState extends GameState {
 
             this.manager.currCheckpoint++;
         }
+
+        if(this.manager.lapCount == 4){
+            this.contents.switchScenes("finalMenu");
+        }
+
+        this.countAllTime(delta);
+
     }
 
     /**
      * Called whenever a new lap is started
      */
     onNewLap() {
-        if (this.manager.lapCount == 0 && this.manager.opponentCar)
+        if (this.manager.lapCount == 0 && this.manager.opponentCar){
             this.manager.opponentCar.startRunAnimation();
+            this.manager.totalTime = 0;
+        }
 
         this.manager.lapCount =
             Math.floor(
@@ -441,6 +454,11 @@ class RaceState extends GameState {
             obstacleObj.visible = true;
         });
         this.manager.lapClock.start();
+    }
+
+    countAllTime(delta){
+        this.manager.totalTime += delta;
+        console.log("this.manager.totalTime:", this.manager.totalTime);
     }
 
     pause() {

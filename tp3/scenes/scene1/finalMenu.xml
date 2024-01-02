@@ -32,6 +32,8 @@
         <texture id="floorTex" filepath="scenes/scene1/textures/squares.jpg" />
         <texture id="racingTex" filepath="scenes/scene1/textures/squares.jpg" />
         <texture id="blueTex" filepath="scenes/scene1/textures/blue.png" />
+        <texture id="menuButtonTex" filepath="scenes/scene1/textures/menuButton.png" />
+        <texture id="replayButtonTex" filepath="scenes/scene1/textures/replayButton.png" />
 
     </textures> 
 
@@ -74,6 +76,24 @@
             textureref="blueTex" 
             texlength_s="700" 
             texlength_t="700" />
+
+        <material id="menuButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="menuButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
+
+        <material id="replayButtonApp" 
+            color="0.8 0.8 0.8 1.0" 
+            emissive="0.0 0.0 0.0 0.0" 
+			specular="0 0 0 0" 
+            shininess="10" 
+            textureref="replayButtonTex" 
+            texlength_s="1" 
+            texlength_t="1" />
     </materials> 
 
 
@@ -133,6 +153,32 @@
         <materialref id="floorApp" /> <!-- Reference to the floor material -->
     </node>
 
+    <node id="replayButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-15 5 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="replayButtonApp" /> 
+    </node>
+
+    <node id="menuButton" pickable="true">
+        <transforms>
+            <scale value3="5.7 4 4" />
+            <translate value3="-19 5 1" />
+        </transforms>
+        <children>
+            <primitive>       
+                <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
+            </primitive>
+        </children>
+        <materialref id="menuButtonApp" /> 
+    </node>
+
 
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
@@ -182,9 +228,7 @@
                     position="2 2 4" 
                 />
 
-                <!-- <noderef id="hatchback" /> -->
                 <noderef id="floor" />
-                      
 
             </children> 
         </node>

@@ -44,7 +44,7 @@ class GameManager {
 
         this.hud = null;
 
-        
+        this.totalTime = 0;
     }
 
     /**

@@ -96,14 +96,17 @@ class InitialMenuState extends GameState {
         if (buttonPicked == "easyButton") {
             this.difficultyChosen = true;
             this.manager.difficulty = 1;
+            this.manager.difficultyLevel = "Easy";
 
         } else if (buttonPicked == "mediumButton") {
             this.difficultyChosen = true;
             this.manager.difficulty = 2;
+            this.manager.difficultyLevel = "Medium";
 
         } else if (buttonPicked == "hardButton") {
             this.difficultyChosen = true;
             this.manager.difficulty = 3;
+            this.manager.difficultyLevel = "Hard";
 
         }
 
