@@ -1092,10 +1092,16 @@
         </node>
 
 
+        <node id="empty">
+            <transforms>
+            </transforms>
+            <children>
+            </children>
+        </node>
                <node id="defaultTree0">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="101 0.1 170" />
+                    <translate value3="-111 0.1 109" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1106,22 +1112,22 @@
         </node>
         <node id="defaultTree1">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-147 0.1 -126" />
+                    <scale value3="7 7 7" />
+                    <translate value3="-27 0.1 170" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.93 0.93" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree2">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="23 0.1 -84" />
+                    <scale value3="9 9 9" />
+                    <translate value3="-128 0.1 131" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.2 1.2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
@@ -1130,10 +1136,10 @@
         </node>
         <node id="defaultTree3">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="35 0.1 -72" />
+                    <scale value3="5 5 5" />
+                    <translate value3="65 0.1 -51" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.67 0.67" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
@@ -1142,10 +1148,10 @@
         </node>
         <node id="defaultTree4">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-60 0.1 -25" />
+                    <scale value3="6 6 6" />
+                    <translate value3="38 0.1 -5" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.8 0.8" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -1154,10 +1160,10 @@
         </node>
         <node id="defaultTree5">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-47 0.1 89" />
+                    <scale value3="5 5 5" />
+                    <translate value3="158 0.1 117" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.67 0.67" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -1166,32 +1172,32 @@
         </node>
         <node id="defaultTree6">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-94 0.1 67" />
+                    <scale value3="5 5 5" />
+                    <translate value3="-25 0.1 -112" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree7">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-88 0.1 -155" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.67 0.67" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
                     </primitive>
                 </children>
         </node>
+        <node id="defaultTree7">
+                <transforms>
+                    <scale value3="6 6 6" />
+                    <translate value3="-130 0.1 -144" />
+                </transforms>
+                <collider pos="0 0" size="0.8 0.8" />
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
+                    </primitive>
+                </children>
+        </node>
         <node id="defaultTree8">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="-45 0.1 -48" />
+                    <translate value3="30 0.1 0" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1202,56 +1208,44 @@
         </node>
         <node id="defaultTree9">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-26 0.1 36" />
+                    <scale value3="10 10 10" />
+                    <translate value3="163 0.1 145" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.33 1.33" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree10">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-93 0.1 -147" />
+                    <scale value3="10 10 10" />
+                    <translate value3="-21 0.1 50" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.33 1.33" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree11">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-35 0.1 -125" />
+                    <scale value3="4 4 4" />
+                    <translate value3="-103 0.1 -161" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.53 0.53" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree12">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="81 0.1 49" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree13">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-35 0.1 141" />
+                    <translate value3="-23 0.1 -63" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1260,24 +1254,36 @@
                     </primitive>
                 </children>
         </node>
-        <node id="defaultTree14">
+        <node id="defaultTree13">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-11 0.1 98" />
+                    <scale value3="4 4 4" />
+                    <translate value3="-118 0.1 11" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.53 0.53" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
+        <node id="defaultTree14">
+                <transforms>
+                    <scale value3="4 4 4" />
+                    <translate value3="-7 0.1 42" />
+                </transforms>
+                <collider pos="0 0" size="0.53 0.53" />
+                <children>
+                    <primitive>
+                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                    </primitive>
+                </children>
+        </node>
         <node id="defaultTree15">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="33 0.1 59" />
+                    <scale value3="5 5 5" />
+                    <translate value3="-131 0.1 85" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.67 0.67" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -1287,19 +1293,19 @@
         <node id="defaultTree16">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="-37 0.1 -79" />
+                    <translate value3="-29 0.1 86" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree17">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="90 0.1 56" />
+                    <translate value3="42 0.1 10" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1310,10 +1316,10 @@
         </node>
         <node id="defaultTree18">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-41 0.1 144" />
+                    <scale value3="9 9 9" />
+                    <translate value3="76 0.1 -72" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.2 1.2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -1323,7 +1329,7 @@
         <node id="defaultTree19">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="16 0.1 153" />
+                    <translate value3="-148 0.1 -108" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1334,46 +1340,46 @@
         </node>
         <node id="defaultTree20">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-135 0.1 -118" />
+                    <scale value3="10 10 10" />
+                    <translate value3="-6 0.1 -194" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.33 1.33" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree21">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="-4 0.1 -31" />
+                    <translate value3="102 0.1 205" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree22">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="113 0.1 75" />
+                    <scale value3="4 4 4" />
+                    <translate value3="18 0.1 -78" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.53 0.53" />
                 <children>
                     <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
+                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
         <node id="defaultTree23">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-1 0.1 -18" />
+                    <scale value3="6 6 6" />
+                    <translate value3="-64 0.1 -206" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.8 0.8" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
@@ -1383,7 +1389,7 @@
         <node id="defaultTree24">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="-106 0.1 65" />
+                    <translate value3="22 0.1 45" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1395,7 +1401,7 @@
         <node id="defaultTree25">
                 <transforms>
                     <scale value3="3 3 3" />
-                    <translate value3="-70 0.1 -176" />
+                    <translate value3="31 0.1 -81" />
                 </transforms>
                 <collider pos="0 0" size="0.4 0.4" />
                 <children>
@@ -1406,10 +1412,10 @@
         </node>
         <node id="defaultTree26">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-78 0.1 -16" />
+                    <scale value3="4 4 4" />
+                    <translate value3="118 0.1 190" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="0.53 0.53" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -1418,10 +1424,10 @@
         </node>
         <node id="defaultTree27">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="51 0.1 -66" />
+                    <scale value3="9 9 9" />
+                    <translate value3="54 0.1 34" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.2 1.2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
@@ -1430,892 +1436,17 @@
         </node>
         <node id="defaultTree28">
                 <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="148 0.1 140" />
+                    <scale value3="10 10 10" />
+                    <translate value3="8 0.1 -161" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree29">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-5 0.1 24" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree30">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-10 0.1 146" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree31">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-32 0.1 -58" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="1.33 1.33" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
                     </primitive>
                 </children>
         </node>
-        <node id="defaultTree32">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-89 0.1 40" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree33">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-55 0.1 -4" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree34">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="41 0.1 174" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree35">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="75 0.1 190" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree36">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-50 0.1 -42" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree37">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="30 0.1 -26" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree38">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="10 0.1 -13" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree39">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-98 0.1 48" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree40">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-50 0.1 138" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree41">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-83 0.1 59" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree42">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-56 0.1 80" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree43">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-108 0.1 100" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree44">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-144 0.1 -73" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree45">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-135 0.1 -93" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree46">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="137 0.1 120" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree47">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="0 0.1 -22" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree48">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="30 0.1 178" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree49">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-119 0.1 -135" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree50">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="99 0.1 54" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree51">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-79 0.1 53" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree52">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="53 0.1 -37" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree53">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-20 0.1 -45" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree54">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-26 0.1 -127" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree55">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-41 0.1 -75" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree56">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="38 0.1 -62" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree57">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="88 0.1 111" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree58">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-108 0.1 -154" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree59">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-14 0.1 15" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree60">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="5 0.1 99" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree61">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="22 0.1 -13" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree62">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-131 0.1 -133" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree63">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-24 0.1 142" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree64">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="115 0.1 165" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree65">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-73 0.1 58" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree66">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-9 0.1 -42" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree67">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-46 0.1 143" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree68">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="146 0.1 110" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree69">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-112 0.1 105" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree70">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-17 0.1 -141" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree71">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-2 0.1 94" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree72">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="93 0.1 191" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree73">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-30 0.1 -132" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree74">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="25 0.1 162" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree75">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-85 0.1 -172" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree76">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-43 0.1 -65" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree77">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-13 0.1 -63" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree78">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="53 0.1 73" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree79">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="69 0.1 46" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree80">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-57 0.1 50" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree81">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-36 0.1 -58" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree82">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="40 0.1 -15" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree83">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-33 0.1 81" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree84">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-93 0.1 137" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree85">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="7 0.1 -6" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree86">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-144 0.1 -117" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree87">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-84 0.1 130" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree88">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-112 0.1 81" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree89">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-43 0.1 -196" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree90">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-101 0.1 44" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree91">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="15 0.1 141" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree92">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-23 0.1 -54" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree93">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="61 0.1 189" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree94">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="79 0.1 115" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree95">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-32 0.1 96" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree96">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-7 0.1 -65" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree97">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="58 0.1 194" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree98">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-98 0.1 127" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/tree_simple_dark.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree99">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="52 0.1 -47" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree100">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="-49 0.1 -67" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-        <node id="defaultTree101">
-                <transforms>
-                    <scale value3="3 3 3" />
-                    <translate value3="69 0.1 54" />
-                </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
+
         
         <node id="scene" castshadows = "true" receiveshadows="true"> 
             <children> 
@@ -2367,111 +1498,38 @@
 
                 <!-- <noderef id="hatchback" /> -->
                 <noderef id="big-screens" />
-                <noderef id="spectator" />
 
                 <noderef id="defaultTree0" />
-        <noderef id="defaultTree1" />
-        <noderef id="defaultTree2" />
-        <noderef id="defaultTree3" />
-        <noderef id="defaultTree4" />
-        <noderef id="defaultTree5" />
-        <noderef id="defaultTree6" />
-        <noderef id="defaultTree7" />
-        <noderef id="defaultTree8" />
-        <noderef id="defaultTree9" />
-        <noderef id="defaultTree10" />
-        <noderef id="defaultTree11" />
-        <noderef id="defaultTree12" />
-        <noderef id="defaultTree13" />
-        <noderef id="defaultTree14" />
-        <noderef id="defaultTree15" />
-        <noderef id="defaultTree16" />
-        <noderef id="defaultTree17" />
-        <noderef id="defaultTree18" />
-        <noderef id="defaultTree19" />
-        <noderef id="defaultTree20" />
-        <noderef id="defaultTree21" />
-        <noderef id="defaultTree22" />
-        <noderef id="defaultTree23" />
-        <noderef id="defaultTree24" />
-        <noderef id="defaultTree25" />
-        <noderef id="defaultTree26" />
-        <noderef id="defaultTree27" />
-        <noderef id="defaultTree28" />
-        <noderef id="defaultTree29" />
-        <noderef id="defaultTree30" />
-        <noderef id="defaultTree31" />
-        <noderef id="defaultTree32" />
-        <noderef id="defaultTree33" />
-        <noderef id="defaultTree34" />
-        <noderef id="defaultTree35" />
-        <noderef id="defaultTree36" />
-        <noderef id="defaultTree37" />
-        <noderef id="defaultTree38" />
-        <noderef id="defaultTree39" />
-        <noderef id="defaultTree40" />
-        <noderef id="defaultTree41" />
-        <noderef id="defaultTree42" />
-        <noderef id="defaultTree43" />
-        <noderef id="defaultTree44" />
-        <noderef id="defaultTree45" />
-        <noderef id="defaultTree46" />
-        <noderef id="defaultTree47" />
-        <noderef id="defaultTree48" />
-        <noderef id="defaultTree49" />
-        <noderef id="defaultTree50" />
-        <noderef id="defaultTree51" />
-        <noderef id="defaultTree52" />
-        <noderef id="defaultTree53" />
-        <noderef id="defaultTree54" />
-        <noderef id="defaultTree55" />
-        <noderef id="defaultTree56" />
-        <noderef id="defaultTree57" />
-        <noderef id="defaultTree58" />
-        <noderef id="defaultTree59" />
-        <noderef id="defaultTree60" />
-        <noderef id="defaultTree61" />
-        <noderef id="defaultTree62" />
-        <noderef id="defaultTree63" />
-        <noderef id="defaultTree64" />
-        <noderef id="defaultTree65" />
-        <noderef id="defaultTree66" />
-        <noderef id="defaultTree67" />
-        <noderef id="defaultTree68" />
-        <noderef id="defaultTree69" />
-        <noderef id="defaultTree70" />
-        <noderef id="defaultTree71" />
-        <noderef id="defaultTree72" />
-        <noderef id="defaultTree73" />
-        <noderef id="defaultTree74" />
-        <noderef id="defaultTree75" />
-        <noderef id="defaultTree76" />
-        <noderef id="defaultTree77" />
-        <noderef id="defaultTree78" />
-        <noderef id="defaultTree79" />
-        <noderef id="defaultTree80" />
-        <noderef id="defaultTree81" />
-        <noderef id="defaultTree82" />
-        <noderef id="defaultTree83" />
-        <noderef id="defaultTree84" />
-        <noderef id="defaultTree85" />
-        <noderef id="defaultTree86" />
-        <noderef id="defaultTree87" />
-        <noderef id="defaultTree88" />
-        <noderef id="defaultTree89" />
-        <noderef id="defaultTree90" />
-        <noderef id="defaultTree91" />
-        <noderef id="defaultTree92" />
-        <noderef id="defaultTree93" />
-        <noderef id="defaultTree94" />
-        <noderef id="defaultTree95" />
-        <noderef id="defaultTree96" />
-        <noderef id="defaultTree97" />
-        <noderef id="defaultTree98" />
-        <noderef id="defaultTree99" />
-        <noderef id="defaultTree100" />
-        <noderef id="defaultTree101" />
-        
+                <noderef id="defaultTree1" />
+                <noderef id="defaultTree2" />
+                <noderef id="defaultTree3" />
+                <noderef id="defaultTree4" />
+                <noderef id="defaultTree5" />
+                <noderef id="defaultTree6" />
+                <noderef id="defaultTree7" />
+                <noderef id="defaultTree8" />
+                <noderef id="defaultTree9" />
+                <noderef id="defaultTree10" />
+                <noderef id="defaultTree11" />
+                <noderef id="defaultTree12" />
+                <noderef id="defaultTree13" />
+                <noderef id="defaultTree14" />
+                <noderef id="defaultTree15" />
+                <noderef id="defaultTree16" />
+                <noderef id="defaultTree17" />
+                <noderef id="defaultTree18" />
+                <noderef id="defaultTree19" />
+                <noderef id="defaultTree20" />
+                <noderef id="defaultTree21" />
+                <noderef id="defaultTree22" />
+                <noderef id="defaultTree23" />
+                <noderef id="defaultTree24" />
+                <noderef id="defaultTree25" />
+                <noderef id="defaultTree26" />
+                <noderef id="defaultTree27" />
+                <noderef id="defaultTree28" />
+
+                <noderef id="spectator" />        
                 <noderef id="grandStand1" />
                 <noderef id="grandStand2" />
                 <noderef id="grandStand3" />
