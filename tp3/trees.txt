@@ -1,1189 +1,289 @@
-<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<yaf>
-    <globals background="0 0 0 1" ambient="1 1 1 1" /> 
-
-    <fog color="1.0 1.0 1.0 1.0" near="0.0" far="400.0" />
-
-    <cameras initial="trackcam" > 
-        <perspective id="trackcam" 
-            angle="60" 
-            near="0.1" 
-            far="1000" 
-            location="15 15 15" 
-            target="0 0.0 0" /> 
-
-        <perspective id="obstaclescam" 
-            angle="60" 
-            near="0.1" 
-            far="1000" 
-            location="180 10 -170" 
-            target="170 0 -170" /> 
-    </cameras> 
-
-
-    <skybox size="400 400 400" center="0 0 0" emissive="0.5 0.5 0.5 1.0" intensity="0.2" up="./textures/darkSky.jpg" down="./textures/skyWithSea.png" left="./textures/skyWithSea.png" right="./textures/skyWithSea.png" front="./textures/skyWithSea.png" back="./textures/skyWithSea.png"/>
-
-    <textures>        
-        <texture id="racetrackTex" filepath="scenes/scene1/textures/roadAsphalt.jpeg" />
-        <texture id="hudTex" filepath="scenes/scene1/textures/superMario.jpg" />
-        <texture id="floorTex" filepath="scenes/scene1/textures/grass.jpg" />
-        <texture id="powerupCubeTex" filepath="scenes/scene1/textures/powerupCube.jpeg" />
-    </textures> 
-
-
-    <materials> 
-        <material id="racetrackApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="racetrackTex" 
-            texlength_s="1" 
-            texlength_t="1" />
-
-        <material id="powerupCubeApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="powerupCubeTex" 
-            texlength_s="1" 
-            texlength_t="1" />
-
-        <material id="hudApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="hudTex" 
-            texlength_s="1" 
-            texlength_t="1" />
-
-        <material id="grassApp" 
-            color="0.8 0.8 0.8 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0 0 0 0" 
-            shininess="10" 
-            textureref="floorTex" 
-            texlength_s="20000" 
-            texlength_t="20000" />
-    </materials> 
-
-
-    <racetrack id="track1" width="8" checkpoints="40" texture="scenes/scene1/textures/roadAsphalt.jpeg" >
-        <path>
-            <point value2="22.86 -44.96"/>
-            <point value2="-40.34 -153.56"/>
-            <point value2="-42.94 -155.56"/>
-            <point value2="-47.46 -156.36"/>
-            <point value2="-51.38 -155.68"/>
-            <point value2="-55.1 -153.4"/>
-            <point value2="-67.86 -137.12"/>
-            <point value2="-91.1 -121.12"/>
-            <point value2="-109.82 -109.4"/>
-            <point value2="-113.66 -105.68"/>
-            <point value2="-115.02 -102.24"/>
-            <point value2="-114.42 -97.44"/>
-            <point value2="-105.1 -72.84"/>
-            <point value2="-93.02 -45.92"/>
-            <point value2="-89.94 -42.88"/>
-            <point value2="-85.14 -41.2"/>
-            <point value2="-79.14 -41.72"/>
-            <point value2="-73.94 -44.08"/>
-            <point value2="-70.34 -48.16"/>
-            <point value2="-69.22 -53.12"/>
-            <point value2="-70.46 -62.24"/>
-            <point value2="-79.82 -92.56"/>
-            <point value2="-79.38 -96.44"/>
-            <point value2="-78.58 -99.68"/>
-            <point value2="-75.22 -103.36"/>
-            <point value2="-70.26 -105.44"/>
-            <point value2="-66.1 -106.08"/>
-            <point value2="-59.9 -105.48"/>
-            <point value2="-55.06 -102.96"/>
-            <point value2="-51.54 -99.16"/>
-            <point value2="-49.98 -95.36"/>
-            <point value2="-32.7 -29.36"/>
-            <point value2="-31.14 -26.44"/>
-            <point value2="-28.1 -23.36"/>
-            <point value2="76.7 80.16"/>
-            <point value2="78.86 84.12"/>
-            <point value2="78.86 87.28"/>
-            <point value2="77.74 90.72"/>
-            <point value2="74.34 94.56"/>
-            <point value2="70.94 96.68"/>
-            <point value2="64.94 98.56"/>
-            <point value2="58.74 99.4"/>
-            <point value2="52.46 99.4"/>
-            <point value2="47.26 98.56"/>
-            <point value2="41.38 96.52"/>
-            <point value2="36.78 93.88"/>
-            <point value2="-40.54 18.72"/>
-            <point value2="-44.38 16.96"/>
-            <point value2="-49.82 16.0"/>
-            <point value2="-53.98 16.24"/>
-            <point value2="-58.62 17.28"/>
-            <point value2="-61.98 19.2"/>
-            <point value2="-65.74 22.32"/>
-            <point value2="-68.34 26.6"/>
-            <point value2="-70.1 31.36"/>
-            <point value2="-79.26 91.48"/>
-            <point value2="-79.14 95.24"/>
-            <point value2="-78.26 98.96"/>
-            <point value2="-76.34 102.88"/>
-            <point value2="-71.46 106.88"/>
-            <point value2="-64.26 110.56"/>
-            <point value2="-43.26 116.8"/>
-            <point value2="-17.22 122.44"/>
-            <point value2="-5.46 122.2"/>
-            <point value2="16.3 117.08"/>
-            <point value2="22.54 116.96"/>
-            <point value2="27.74 118.8"/>
-            <point value2="32.02 123.72"/>
-            <point value2="40.26 141.6"/>
-            <point value2="45.22 146.88"/>
-            <point value2="53.02 151.8"/>
-            <point value2="60.66 154.96"/>
-            <point value2="72.06 156.36"/>
-            <point value2="81.42 155.2"/>
-            <point value2="92.02 152.04"/>
-            <point value2="100.5 147.2"/>
-            <point value2="107.26 141.12"/>
-            <point value2="111.66 135.36"/>
-            <point value2="114.38 127.24"/>
-            <point value2="115.02 120.72"/>
-            <point value2="113.82 112.96"/>
-            <point value2="110.3 105.6"/>
-            <point value2="22.86 -44.96"/>
-        </path>
-        <powerups>
-            <powerup value2="50 50"/>
-            <powerup value2="115 115"/>
-            <powerup value2="0 -88"/>
-            <powerup value2="-75 -75"/>
-        </powerups>
-    </racetrack>
-
-    <hud id="hud1">
-
-        <timeElapsed>
-            <time timeFloat="0.0"/> 
-        </timeElapsed>
-
-        <laps>
-            <lap value="1" />
-        </laps>
-
-        <speedometer>
-            <speed value="0" />
-        </speedometer>
-
-        <timeLeftBenefit>
-            <time timeFloat="0.0" />
-        </timeLeftBenefit>
-
-        <timeLeftPenalty>
-            <time timeFloat="0.0" />
-        </timeLeftPenalty>
-            
-        <states>
-            <state stateValue="pause" />
-        </states>
-
-    </hud>
-
-    <graph rootid="scene">
-        <node id="defaultWheelLeft">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
-                </primitive>
-            </children>
-        </node>
-        <node id="defaultWheelRight">
-            <transforms>
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelDefault2.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="tractorWheelFrontLeft">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorFront.glb" />
-                </primitive>
-            </children>
-        </node>
-        <node id="tractorWheelFrontRight">
-            <transforms>
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorFront.glb" />
-                </primitive>
-            </children>
-        </node>
-        <node id="tractorWheelBackLeft">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorBack.glb" />
-                </primitive>
-            </children>
-        </node>
-        <node id="tractorWheelBackRight">
-            <transforms>
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelTractorBack.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="tractor-fl-wheel">
-            <transforms>
-                <translate value3="-0.50 0.3 1.61" />
-            </transforms>
-
-            <children>
-                <noderef id="tractorWheelFrontLeft" />
-            </children>
-        </node>
-        <node id="tractor-fr-wheel">
-            <transforms>
-                <translate value3="0.50 0.3 1.61" />
-            </transforms>
-
-            <children>
-                <noderef id="tractorWheelFrontRight" />
-            </children>
-        </node>
-        <node id="tractor-rl-wheel">
-            <transforms>
-                <translate value3="-0.6 0.5 0.45" />
-            </transforms>
-            <children>
-                <noderef id="tractorWheelBackLeft" />
-            </children>
-        </node>
-        <node id="tractor-rr-wheel">
-            <transforms>
-                <translate value3="0.6 0.5 0.45" />
-            </transforms>
-            <children>
-                <noderef id="tractorWheelBackRight" />
-            </children>
-        </node>
-
-
-        <node id="tractor">
-            <transforms>
-                <translate value3="0 0 0.81" />
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/tractor.glb" />
-                </primitive>
-            </children>
-        </node>
-
-
-        <node id="racingWheelLeft">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
-                </primitive>
-            </children>
-        </node>
-        <node id="racingWheelRight">
-            <transforms>
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/wheels/wheelRacing.glb" />
-                </primitive>
-            </children>
-        </node>
-
-
-        <node id="hatchback">
-            <transforms>
-                <translate value3="0 0 0.81" />
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/race_hatchback.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="hatchback-popup">
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/pop_up.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="hatchback-popup-l">
-            <transforms>
-                <translate value3="-0.45 0 0" />
-                <rotate value3="0 0 0" />
-            </transforms>
-
-            <children>
-                <noderef id="hatchback-popup" />
-            </children>
-        </node>
-
-        <node id="hatchback-popup-r">
-            <transforms>
-                <translate value3="0.45 0 0" />
-                <rotate value3="0 0 0" />
-            </transforms>
-
-            <children>
-                <noderef id="hatchback-popup" />
-            </children>
-        </node>
-
-        <node id="hatchback-pop-popups">
-            <transforms>
-                <translate value3="0 0.65 -1.15" />
-                <rotate value3="-1.1 0 0" />
-            </transforms>
-
-            <children>
-                <noderef id="hatchback-popup-l" />
-                <noderef id="hatchback-popup-r" />
-            </children>
-        </node>
-
-        <node id="hatchback-pop">
-            <transforms>
-                <translate value3="0 0 0.81" />
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-
-            <children>
-                <noderef id="hatchback-pop-popups" />
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/race_hatchback_pop.glb" />
-                </primitive>
-            </children>
-        </node>
-
-
-        <node id="hatchback-fl-wheel">
-            <transforms>
-                <translate value3="-0.50 0.3 1.62" />
-            </transforms>
-
-            <children>
-                <noderef id="defaultWheelLeft" />
-            </children>
-        </node>
-        <node id="hatchback-fr-wheel">
-            <transforms>
-                <translate value3="0.50 0.3 1.62" />
-            </transforms>
-
-            <children>
-                <noderef id="defaultWheelRight" />
-            </children>
-        </node>
-        <node id="hatchback-rl-wheel">
-            <transforms>
-                <translate value3="-0.50 0.3 0" />
-            </transforms>
-            <children>
-                <noderef id="defaultWheelLeft" />
-            </children>
-        </node>
-        <node id="hatchback-rr-wheel">
-            <transforms>
-                <translate value3="0.50 0.3 0" />
-            </transforms>
-            <children>
-                <noderef id="defaultWheelRight" />
-            </children>
-        </node>
-
-
-        <node id="race">
-            <transforms>
-                <translate value3="0 0 0.81" />
-                <rotate value3="0 3.1416 0" />
-            </transforms>
-
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/race.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="race-fl-wheel">
-            <transforms>
-                <translate value3="-0.50 0.3 1.46" />
-            </transforms>
-
-            <children>
-                <noderef id="racingWheelLeft" />
-            </children>
-        </node>
-        <node id="race-fr-wheel">
-            <transforms>
-                <translate value3="0.50 0.3 1.46" />
-            </transforms>
-
-            <children>
-                <noderef id="racingWheelRight" />
-            </children>
-        </node>
-        <node id="race-rl-wheel">
-            <transforms>
-                <translate value3="-0.50 0.3 0" />
-            </transforms>
-            <children>
-                <noderef id="racingWheelLeft" />
-            </children>
-        </node>
-        <node id="race-rr-wheel">
-            <transforms>
-                <translate value3="0.50 0.3 0" />
-            </transforms>
-            <children>
-                <noderef id="racingWheelRight" />
-            </children>
-        </node>
-
-        <node id="spectator">
-            <transforms>
-                <scale value3="0.5 0.5 0.5" />
-                <translate value3="4 0.1 -3" />
-            </transforms>
-            <collider pos="0 0" size="1.2 1.2" />
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/spectators/PrototypePete.gltf" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="big-screen-model">
-            <transforms>
-                <scale value3="7 7 7" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/big-screen/billboardDouble_exclusive.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="big-screen-1">
-            <transforms>
-                <translate value3="-75 0.1 -35" />
-                <rotate value3="0 0.5 0"/>
-            </transforms>
-            <children>
-                <noderef id="big-screen-model" /> 
-            </children>
-        </node>
-
-        <node id="big-screen-2">
-            <transforms>
-                <rotate value3="0 0.785 0" />
-                <translate value3="-5 0.1 125" />
-            </transforms>
-            <children>
-                <noderef id="big-screen-model" /> 
-            </children>
-        </node>
-
-        <node id="big-screen-3">
-            <transforms>
-                <translate value3="18 0.1 -70" />
-            </transforms>
-            <children>
-                <noderef id="big-screen-model" /> 
-            </children>
-        </node>
-
-        <node id="big-screens">
-            <transforms>
-            </transforms>
-            <children>
-                <noderef id="big-screen-1" /> 
-                <noderef id="big-screen-2" /> 
-                <noderef id="big-screen-3" /> 
-            </children>
-        </node>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <node id="largeTree1">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <translate value3="-15 0.1 -85" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="largeTree2">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <translate value3="-12 0.1 -80" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="largeTree3">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <translate value3="-9 0.1 -75" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <!--<node id="bush1">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <translate value3="-9 0.1 -75" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/_bush_1.fbx" />
-                    </primitive>
-                </children>
-        </node>-->
-
-        <node id="grandStand1">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-65 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand2">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-58 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand3">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-51 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand4">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-44 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand5">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-37 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-
-        <node id="grandStand6">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-30 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand7">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-23 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand8">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-16 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand9">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-9 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="grandStand10">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-2 0.1 -22" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-
-        <node id="grandStandRound1">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <rotate value3="0 0.86 0" /> 
-                    <translate value3="50 0.1 -69" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/racing/grandStandRound.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fencePlayerLeft1">
-                <transforms>
-                    <scale value3="20 7 7" />
-                    <translate value3="50 0.1 -62" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/stone-wall.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="floor">
-            <transforms>
-                <translate value3="0 -0.05 0" />
-                <rotate value3="-1.570795 0 0" />
-            </transforms>
-            <children>
-                <primitive>       
-                    <rectangle xy1="-200 -200" xy2="200 200" />
-                </primitive>
-            </children>
-            <materialref id="grassApp" /> <!-- Reference to the floor material -->
-        </node>
-
-
-    
-        <node id="fenceLeft1">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <rotate value3="0 1.57 0" />
-                    <translate value3="10 0 -20" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceLeft2">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <rotate value3="0 1.57 0" />
-                    <translate value3="-10 0 -20" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceRight1">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <rotate value3="0 1.57 0" />
-                    <translate value3="-10 0 20" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceRight2">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <rotate value3="0 1.57 0" />
-                    <translate value3="10 0 20" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceBack1">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <translate value3="-10 0 -21.55" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceBack2">
-                <transforms>
-                    <scale value3="1.7 1.5 1" />
-                    <translate value3="9.6 0 -21.55" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceFront1">
-                <transforms>
-                    <scale value3="1 1.5 2" />
-                    <translate value3="-13.8 0 21.3" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="fenceFront2">
-                <transforms>
-                    <scale value3="1 1.5 2" />
-                    <translate value3="13.8 0 21.3" /> 
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/fencing/WhiteFence.glb" />
-                    </primitive>
-                </children>
-        </node>
-
-        <node id="rectangle1"> 
-
-            <transforms>
-				<translate value3="0 0 -0.5" />
-				<rotate value3="0 3.14 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" />
-                </primitive> 
-            </children> 
-        </node>
-		
-		<node id="rectangle2"> 
-
-            <transforms>
-				<translate value3="0 0 0.5" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle3"> 
-
-            <transforms>
-				<translate value3="0 -0.5 0" />
-				<rotate value3="1.57 0.0 0.0" />
-            </transforms> 
-
-            <children>   
-                <primitive>          
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle4"> 
-
-            <transforms>
-				<translate value3="0 0.5 0" />
-				<rotate value3="-1.57 0.0 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle5"> 
-
-            <transforms>
-				<translate value3="-0.5 0 0" />
-				<rotate value3="0.0 -1.57 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-		
-		<node id="rectangle6"> 
-            <transforms>
-				<translate value3="0.5 0 0" />
-				<rotate value3="0.0 1.57 0.0" />
-            </transforms> 
-
-            <children>             
-                <primitive>
-                    <rectangle xy1="-0.5 -0.5" xy2="0.5 0.5" /> 
-                </primitive>
-            </children> 
-        </node>
-
-        <node id="unitCube">
-            <children>            
-				<!-- Back -->
-                <noderef id="rectangle1" /> 
-				<!-- Front -->
-				<noderef id="rectangle2" /> 
-				<!-- Bottom -->
-				<noderef id="rectangle3" />
-				<!-- Top -->
-				<noderef id="rectangle4" />
-				<!-- Left -->				
-				<noderef id="rectangle5" />
-				 <!-- Right -->
-				<noderef id="rectangle6" />
-            </children> 
-        </node>
-
-        <node id="powerupCube">
-            <transforms>
-                <scale value3="0.7 0.7 0.7" />
-                <translate value3="0 0.5 0" />
-            </transforms>
-            <children>
-                    <noderef id="unitCube" />
-            </children>
-            <materialref id="powerupCubeApp" />
-        </node>
-
-        <node id="obstacles" pickable="true">
-            <children>
-                <noderef id="clock-pickable" />
-                <noderef id="wine-bottle-pickable" />
-                <noderef id="snail-pickable" />
-            </children>
-        </node>
-
-        <node id="fenceGroup">
-            <transforms>
-                <translate value3="170 0 -170" />
-            </transforms>
-            <children>
-                <noderef id="fenceLeft1" />
-                <noderef id="fenceLeft2" />
-                <noderef id="fenceRight1" />
-                <noderef id="fenceRight2" />
-                <noderef id="fenceBack1" />
-                <noderef id="fenceBack2" />
-                <noderef id="fenceFront1" />
-                <noderef id="fenceFront2" />
-                <noderef id="obstacles" />
-            </children>
-        </node>
-
-        <!-- obstacles -->
-
-        <node id="clock-model">
-            <transforms>
-                <scale value3="0.15 0.15 0.15"/>
-                <translate value3="0 0.2 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/obstacles/Clock.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="clock">
-            <transforms>
-                <rotate value3="0 1.57 0" />
-            </transforms>
-            <children>
-                <noderef id="clock-model" />
-            </children>
-        </node>
-
-        <node id="clock-pickable">
-            <transforms>
-                <translate value3="0 0 2" />
-            </transforms>
-            <children>
-                <noderef id="clock" />
-            </children>
-        </node>
-
-        <node id="wine-bottle-model">
-            <transforms>
-                <scale value3="0.2 0.2 0.2"/>
-                <translate value3="0 0.2 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/obstacles/BottleChampagne.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="wine-bottle">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <noderef id="wine-bottle-model" />
-            </children>
-        </node>
-
-        <node id="wine-bottle-pickable">
-            <transforms>
-                <translate value3="0 0 -2" />
-            </transforms>
-            <children>
-                <noderef id="wine-bottle" />
-            </children>
-        </node>
-
-        <node id="snail-model">
-            <transforms>
-                <scale value3="0.2 0.2 0.2"/>
-                <translate value3="0 0.2 0" />
-            </transforms>
-            <children>
-                <primitive>
-                    <model3d filepath="scenes/scene1/models/obstacles/Snail.glb" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="snail">
-            <transforms>
-                <rotate value3="0 0 0" />
-            </transforms>
-            <children>
-                <noderef id="snail-model" />
-            </children>
-        </node>
-
-        <node id="snail-pickable">
-            <transforms>
-                <translate value3="0 0 0" />
-            </transforms>
-            <children>
-                <noderef id="snail" />
-            </children>
-        </node>
-
-
-               <node id="defaultTree0">
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.58419889562931
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.19180513487793
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.02811511925087
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.592871295339535
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.685451945382155
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.40719242907134
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 40.20681036839406
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+sm 41
+        <node id="defaultTree0">
                 <transforms>
                     <scale value3="3 3 3" />
                     <translate value3="101 0.1 170" />
@@ -2407,60 +1507,7 @@
                     </primitive>
                 </children>
         </node>
-        
-        <node id="scene" castshadows = "true" receiveshadows="true"> 
-            <children> 
-                <pointlight id="light1" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="33.75 37.3 33.75" 
-                /> 
-
-                <pointlight id="light2" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"
-                /> 
-                
-                <pointlight id="light3" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"  
-                /> 
-
-                <spotlight id="light4" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="true"
-                    position="2 2 4" 
-                    target="0 0 0"
-                    penumbra="1.0"
-                    angle="10.0" 
-                /> 
-
-                <directionallight id="light5" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="1.0"
-                    castshadow="true"
-                    position="2 2 4" 
-                />
-
-                <!-- <noderef id="hatchback" /> -->
-                <noderef id="big-screens" />
-                <noderef id="spectator" />
-
-                <noderef id="defaultTree0" />
+        <noderef id="defaultTree0" />
         <noderef id="defaultTree1" />
         <noderef id="defaultTree2" />
         <noderef id="defaultTree3" />
@@ -2562,441 +1609,3 @@
         <noderef id="defaultTree99" />
         <noderef id="defaultTree100" />
         <noderef id="defaultTree101" />
-        
-                <noderef id="grandStand1" />
-                <noderef id="grandStand2" />
-                <noderef id="grandStand3" />
-                <noderef id="grandStand4" />
-                <noderef id="grandStand5" />
-                <noderef id="grandStand6" />
-                <noderef id="grandStand7" />
-                <noderef id="grandStand8" />
-                <noderef id="grandStand9" />
-                <noderef id="grandStand10" />
-                <noderef id="grandStandRound1" />
-                <noderef id="largeTree1" />
-                <noderef id="largeTree2" />
-                <noderef id="largeTree3" />
-                <noderef id="floor" />
-                <noderef id="fenceGroup" />
-                
-
-            </children> 
-        </node>
-
-    </graph>
-
-    <car id="race">
-        <carcameras>
-            <perspective id="follow-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 3 -4" 
-                target="0 0 4" />
-            <perspective id="roof-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 1 0" 
-                target="0 0.4 3" />
-            <perspective id="first-person" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 0.6 1" 
-                target="0 0.4 5" />
-        </carcameras>
-
-
-        <collider pos="0 0.65" size="1 2.3" />
-
-        <frontlights>
-        </frontlights>
-
-        <rearlights>
-        </rearlights>
-
-        <body>
-            <noderef id="race" />
-        </body>
-
-        <turnwheels>
-            <noderef id="race-fl-wheel" />
-            <noderef id="race-fr-wheel" />
-        </turnwheels>
-        <statwheels>
-            <noderef id="race-rl-wheel" />
-            <noderef id="race-rr-wheel" />
-        </statwheels>
-
-        <route time="75">
-            <point value2="22.86 -44.96"/>
-            <point value2="-40.34 -153.56"/>
-            <point value2="-42.94 -155.56"/>
-            <point value2="-47.46 -156.36"/>
-            <point value2="-51.38 -155.68"/>
-            <point value2="-55.1 -153.4"/>
-            <point value2="-67.86 -137.12"/>
-            <point value2="-91.1 -121.12"/>
-            <point value2="-109.82 -109.4"/>
-            <point value2="-113.66 -105.68"/>
-            <point value2="-115.02 -102.24"/>
-            <point value2="-114.42 -97.44"/>
-            <point value2="-105.1 -72.84"/>
-            <point value2="-93.02 -45.92"/>
-            <point value2="-89.94 -42.88"/>
-            <point value2="-85.14 -41.2"/>
-            <point value2="-79.14 -41.72"/>
-            <point value2="-73.94 -44.08"/>
-            <point value2="-70.34 -48.16"/>
-            <point value2="-69.22 -53.12"/>
-            <point value2="-70.46 -62.24"/>
-            <point value2="-79.82 -92.56"/>
-            <point value2="-79.38 -96.44"/>
-            <point value2="-78.58 -99.68"/>
-            <point value2="-75.22 -103.36"/>
-            <point value2="-70.26 -105.44"/>
-            <point value2="-66.1 -106.08"/>
-            <point value2="-59.9 -105.48"/>
-            <point value2="-55.06 -102.96"/>
-            <point value2="-51.54 -99.16"/>
-            <point value2="-49.98 -95.36"/>
-            <point value2="-32.7 -29.36"/>
-            <point value2="-31.14 -26.44"/>
-            <point value2="-28.1 -23.36"/>
-            <point value2="76.7 80.16"/>
-            <point value2="78.86 84.12"/>
-            <point value2="78.86 87.28"/>
-            <point value2="77.74 90.72"/>
-            <point value2="74.34 94.56"/>
-            <point value2="70.94 96.68"/>
-            <point value2="64.94 98.56"/>
-            <point value2="58.74 99.4"/>
-            <point value2="52.46 99.4"/>
-            <point value2="47.26 98.56"/>
-            <point value2="41.38 96.52"/>
-            <point value2="36.78 93.88"/>
-            <point value2="-40.54 18.72"/>
-            <point value2="-44.38 16.96"/>
-            <point value2="-49.82 16.0"/>
-            <point value2="-53.98 16.24"/>
-            <point value2="-58.62 17.28"/>
-            <point value2="-61.98 19.2"/>
-            <point value2="-65.74 22.32"/>
-            <point value2="-68.34 26.6"/>
-            <point value2="-70.1 31.36"/>
-            <point value2="-79.26 91.48"/>
-            <point value2="-79.14 95.24"/>
-            <point value2="-78.26 98.96"/>
-            <point value2="-76.34 102.88"/>
-            <point value2="-71.46 106.88"/>
-            <point value2="-64.26 110.56"/>
-            <point value2="-43.26 116.8"/>
-            <point value2="-17.22 122.44"/>
-            <point value2="-5.46 122.2"/>
-            <point value2="16.3 117.08"/>
-            <point value2="22.54 116.96"/>
-            <point value2="27.74 118.8"/>
-            <point value2="32.02 123.72"/>
-            <point value2="40.26 141.6"/>
-            <point value2="45.22 146.88"/>
-            <point value2="53.02 151.8"/>
-            <point value2="60.66 154.96"/>
-            <point value2="72.06 156.36"/>
-            <point value2="81.42 155.2"/>
-            <point value2="92.02 152.04"/>
-            <point value2="100.5 147.2"/>
-            <point value2="107.26 141.12"/>
-            <point value2="111.66 135.36"/>
-            <point value2="114.38 127.24"/>
-            <point value2="115.02 120.72"/>
-            <point value2="113.82 112.96"/>
-            <point value2="110.3 105.6"/>
-        </route>
-    </car>
-
-    <car id="hatchback">
-        <carcameras>
-            <perspective id="follow-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 3 -4" 
-                target="0 0 4" />
-            <perspective id="roof-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 1.4 0.5" 
-                target="0 0.4 5" />
-            <perspective id="first-person" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 0.9 1.4" 
-                target="0 0.4 5" />
-        </carcameras>
-
-
-        <collider pos="0 0.65" size="1 2.3" />
-
-        <frontlights>
-            <pointlight id="frontLightL" enabled="false" 
-                color="1.0 1.0 1.0 1" 
-                intensity="0.2"
-                distance="0.1"
-                decay="2.0"
-                castshadow="false"
-                position="-0.5 0.5 -1.3"
-            /> 
-            <pointlight id="frontLightR" enabled="false" 
-                color="1.0 1.0 1.0 1" 
-                intensity="0.2"
-                distance="0.1"
-                decay="2.0"
-                castshadow="false"
-                position="0.5 0.5 -1.3"
-            /> 
-        </frontlights>
-
-        <rearlights>
-            <pointlight id="brakeLightL" enabled="false" 
-                color="1.0 0.0 0.0 1" 
-                intensity="0.2"
-                distance="0.5"
-                decay="2.0"
-                castshadow="false"
-                position="-0.5 0.85 1.3"
-            /> 
-            <pointlight id="brakeLightR" enabled="false" 
-                color="1.0 0.0 0.0 1" 
-                intensity="0.5"
-                distance="0.5"
-                decay="2.0"
-                castshadow="false"
-                position="0.5 0.85 1.3"
-            /> 
-        </rearlights>
-
-        <body>
-            <noderef id="hatchback" />
-        </body>
-
-        <turnwheels>
-            <noderef id="hatchback-fl-wheel" />
-            <noderef id="hatchback-fr-wheel" />
-        </turnwheels>
-        <statwheels>
-            <noderef id="hatchback-rl-wheel" />
-            <noderef id="hatchback-rr-wheel" />
-        </statwheels>
-
-        <route time="75">
-        </route>
-    </car>
-
-    <car id="tractor">
-        <carcameras>
-            <perspective id="follow-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 3 -4" 
-                target="0 0 4" />
-            <perspective id="roof-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 1.4 0.5" 
-                target="0 0.4 5" />
-            <perspective id="first-person" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 0.9 1.4" 
-                target="0 0.4 5" />
-        </carcameras>
-
-
-        <collider pos="0 0.8" size="1 1.8" />
-
-        <frontlights>
-        </frontlights>
-
-        <rearlights>
-        </rearlights>
-
-        <body>
-            <noderef id="tractor" />
-        </body>
-
-        <turnwheels>
-            <noderef id="tractor-fl-wheel" />
-            <noderef id="tractor-fr-wheel" />
-        </turnwheels>
-        <statwheels>
-            <noderef id="tractor-rl-wheel" />
-            <noderef id="tractor-rr-wheel" />
-        </statwheels>
-
-        <route time="75">
-        </route>
-    </car>
-
-    <car id="hatchback-pop">
-        <carcameras>
-            <perspective id="top-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 20 0" 
-                target="0 0 5" />
-            <perspective id="follow-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 3 -4" 
-                target="0 0 4" />
-            <perspective id="closer-follow-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 2 -3" 
-                target="0 0 4" />
-            <perspective id="roof-perspective" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 1.4 0.5" 
-                target="0 0.4 5" />
-            <perspective id="first-person" 
-                angle="60" 
-                near="0.1" 
-                far="1000" 
-                location="0 0.9 1.4" 
-                target="0 0.4 5" />
-        </carcameras>
-
-
-        <collider pos="0 0.65" size="1 2.3" />
-
-        <frontlights>
-            <pointlight id="frontLightL" enabled="false" 
-                color="1.0 1.0 1.0 1" 
-                intensity="0.5"
-                distance="10"
-                decay="2.0"
-                castshadow="false"
-                position="-0.45 0.65 -1.3"
-            /> 
-            <pointlight id="frontLightR" enabled="false" 
-                color="1.0 1.0 1.0 1" 
-                intensity="0.5"
-                distance="10"
-                decay="2.0"
-                castshadow="false"
-                position="0.45 0.65 -1.3"
-            /> 
-        </frontlights>
-
-        <rearlights>
-            <pointlight id="brakeLightL" enabled="false" 
-                color="1.0 0.0 0.0 1" 
-                intensity="0.5"
-                distance="1"
-                decay="2.0"
-                castshadow="false"
-                position="-0.5 0.85 1.3"
-            /> 
-            <pointlight id="brakeLightR" enabled="false" 
-                color="1.0 0.0 0.0 1" 
-                intensity="0.5"
-                distance="1"
-                decay="2.0"
-                castshadow="false"
-                position="0.5 0.85 1.3"
-            /> 
-        </rearlights>
-
-        <body>
-            <noderef id="hatchback-pop" />
-        </body>
-
-        <turnwheels>
-            <noderef id="hatchback-fl-wheel" />
-            <noderef id="hatchback-fr-wheel" />
-        </turnwheels>
-        <statwheels>
-            <noderef id="hatchback-rl-wheel" />
-            <noderef id="hatchback-rr-wheel" />
-        </statwheels>
-
-        <route time="75">
-        </route>
-    </car>
-
-    <obstacles camera="obstaclescam" >
-        <obstacle noderef="clock" />
-        <obstacle noderef="wine-bottle" />
-        <obstacle noderef="snail" />
-    </obstacles>
-
-
-    <animation id="hatchback-pop-hello" duration="2" repeat="false" autostart="false">
-        <tracks>
-            <track id="headlight" interpolation="smooth">
-                <noderef value="hatchback-popup-r"/>
-            </track>
-        </tracks>
-
-        <timestamps>
-            <timestamp value="0">
-                <key id="headlight">
-                    <rotate value3="0 0 0"/>
-                </key>
-            </timestamp>
-
-            <timestamp value="1">
-                <key id="headlight">
-                    <rotate value3="1.1 0 0"/>
-                </key>
-            </timestamp>
-
-            <timestamp value="2">
-                <key id="headlight">
-                    <rotate value3="0 0 0"/>
-                </key>
-            </timestamp>
-        </timestamps>
-    </animation>
-
-    <animation id="spectator-cheer" duration="3" repeat="false" autostart="true">
-        <tracks>
-            <track id="spectators" interpolation="smooth">
-                <noderef value="spectator"/>
-                <noderef value="defaultTree1"/>
-            </track>
-        </tracks>
-
-        <timestamps>
-            <timestamp value="0">
-                <key id="spectators">
-                    <translate value3="0 0 0"/>
-                </key>
-            </timestamp>
-
-            <timestamp value="1">
-                <key id="spectators">
-                    <translate value3="0 0.97 0"/>
-                </key>
-            </timestamp>
-
-            <timestamp value="2">
-                <key id="spectators">
-                    <translate value3="0 0.50 0"/>
-                </key>
-            </timestamp>
-        </timestamps>
-    </animation>
-</yaf>

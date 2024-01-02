@@ -1321,8 +1321,6 @@ class MyFileReader {
      * @param {*} elem
      */
     loadCarCameras(elem, car) {
-        car.initialCamera = this.getString(elem, "initial");
-
         let orthogonals = elem.getElementsByTagName("orthogonal");
         let perspectives = elem.getElementsByTagName("perspective");
         if (orthogonals === null && perspectives === null) {
@@ -1369,13 +1367,16 @@ class MyFileReader {
      * @param {*} rootElement
      */
     loadCars(rootElement) {
-
         console.log("this.xmlfilename:", this.xmlfilename);
 
         // load cars
         let cars = rootElement.getElementsByTagName("car");
 
-        if (cars.length < 1 && this.xmlfilename != "scenes/scene1/initialMenu.xml" && this.xmlfilename != "scenes/scene1/finalMenu.xml")
+        if (
+            cars.length < 1 &&
+            this.xmlfilename != "scenes/scene1/initialMenu.xml" &&
+            this.xmlfilename != "scenes/scene1/finalMenu.xml"
+        )
             throw new Error(
                 "At least one car should be specified in the YAF XML!"
             );

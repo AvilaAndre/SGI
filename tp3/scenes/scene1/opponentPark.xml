@@ -596,7 +596,7 @@
 
 
     <car id="tractor">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="follow-perspective" 
                 angle="60" 
                 near="0.1" 
@@ -644,7 +644,7 @@
     </car>
 
     <car id="race">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
@@ -692,7 +692,7 @@
     </car>
 
     <car id="hatchback">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="follow-perpective" 
                 angle="60" 
                 near="0.1" 
@@ -772,7 +772,7 @@
     </car>
 
     <car id="hatchback-pop">
-        <carcameras initial="follow-perspective">
+        <carcameras>
             <perspective id="top-perpective" 
                 angle="60" 
                 near="0.1" 
