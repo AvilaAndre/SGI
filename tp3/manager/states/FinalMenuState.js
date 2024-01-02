@@ -27,7 +27,7 @@ class FinalMenuState extends GameState {
     }
 
     update(delta) {
-        //this.manager.launchFireworks();
+        this.manager.launchFireworks(delta);
     }
 
     addCarsToScene() {
