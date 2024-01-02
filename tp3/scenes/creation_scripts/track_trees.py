@@ -114,13 +114,12 @@ def distance_to(ptA, ptB):
     return math.sqrt( pow(ptB[0] - ptA[0], 2) + pow(ptB[1] - ptA[1], 2))
 
 radius_between_trees = 4
-radius_between_track_points = 20
+radius_between_track_points = 30
 trees = []
 
-random.seed(15)
+random.seed(14)
 
-for i in range(0, 500):
-    # print("progress", i, len(trees))
+for i in range(0, 100):
     new_tree = (random.randint(minX, maxX), random.randint(minY, maxY))
 
     broke = False
@@ -129,7 +128,6 @@ for i in range(0, 500):
     for path_point in path:    
         dt = distance_to(new_tree, path_point)    
         if dt < radius_between_track_points:
-            # print("track")
             broke = True
             break
         if dt < smallest_distance:
@@ -139,7 +137,6 @@ for i in range(0, 500):
         continue
 
     if smallest_distance > radius_between_track_points*2:
-        print("sm", smallest_distance)
         continue
 
     for placed_tree in trees:        
@@ -154,15 +151,20 @@ for i in range(0, 500):
     trees.append(new_tree)
 
 
-
 for i in range(len(trees)):
     tree = trees[i]
+
+    size = random.randint(3, 10)
+
+    collider = round(size * (0.4/3), 2)
+
+
     print(f"""        <node id="defaultTree{i}">
                 <transforms>
-                    <scale value3="3 3 3" />
+                    <scale value3="{size} {size} {size}" />
                     <translate value3="{tree[0]} 0.1 {tree[1]}" />
                 </transforms>
-                <collider pos="0 0" size="0.4 0.4" />
+                <collider pos="0 0" size="{collider} {collider}" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/{ "tree_simple_dark" if random.randint(0, 1) else "treeLarge"}.glb" />
@@ -171,4 +173,4 @@ for i in range(len(trees)):
         </node>""")
     
 for i in range(len(trees)):
-    print(f"""        <noderef id="defaultTree{i}" />""")
+    print(f"""        ><noderef id="defaultTree{i}" />""")

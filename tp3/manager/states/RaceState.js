@@ -3,7 +3,6 @@ import { GameState } from "../GameState.js";
 import { MyClock } from "../../utils/MyClock.js";
 import { NumbersComponent } from "../../hud/components/NumbersComponent.js";
 import { MinimapComponent } from "../../hud/components/MinimapComponent.js";
-import { LettersComponent } from "../../hud/components/LettersComponent.js";
 /**
  * This class contains methods of  the game
  */
