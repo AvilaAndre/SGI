@@ -24,6 +24,14 @@ class AnimationPlayer {
     }
 
     /**
+     * Gets the animation with id, undefined if does not exist
+     * @param {string} animId
+     */
+    getAnimation(animId) {
+        return this.animations[animId]
+    }
+
+    /**
      * Plays the animations from the start.
      * @param {string} animId
      */

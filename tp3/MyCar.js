@@ -482,6 +482,16 @@ class MyCar extends THREE.Object3D {
     }
 
     /**
+     * Calls "func" whenever the animation finishes a loop
+     * @param {Function} func
+     */
+    runAnimationOnFinished(func) {
+        this.contents.animationPlayer
+            .getAnimation(this.carName + "_routeAnim")
+            ?.bindOnFinish(func);
+    }
+
+    /**
      * Pauses the animation around the track
      */
     pauseRunAnimation() {

@@ -21,8 +21,14 @@ class RaceState extends GameState {
         this.manager.lapClock = new MyClock();
         this.manager.lapClock.stop();
 
+        // Clock that keeps track of every opponent lap's time
+        this.manager.opponentTotalTime = new MyClock();
+        this.manager.opponentTotalTime.stop();
+
         // Stores the ammount of laps done
         this.manager.lapCount = 0;
+        // Stores the ammount of laps done by the opponent
+        this.manager.opponentLapCount = 0;
 
         if (!manager.checkpoints) {
             this.manager.currCheckpoint = 0;
@@ -73,7 +79,6 @@ class RaceState extends GameState {
         };
 
         // Obstacles
-
         this.drunkObstacle = {
             active: false,
             clock: new MyClock(),
@@ -417,8 +422,16 @@ class RaceState extends GameState {
      * Called whenever a new lap is started
      */
     onNewLap() {
-        if (this.manager.lapCount == 0 && this.manager.opponentCar)
+        if (this.manager.lapCount == 0 && this.manager.opponentCar) {
             this.manager.opponentCar.startRunAnimation();
+
+            // start timer
+            this.manager.opponentTotalTime.start();
+
+            this.manager.opponentCar.runAnimationOnFinished(
+                this.opponentLapFinished
+            );
+        }
 
         this.manager.lapCount =
             Math.floor(
@@ -449,6 +462,7 @@ class RaceState extends GameState {
     pause() {
         this.paused = true;
         this.manager.lapClock.stop();
+        this.manager.opponentTotalTime.stop();
 
         // stop clocks
         this.modifiers.forEach((mod) => {
@@ -463,6 +477,7 @@ class RaceState extends GameState {
     resume() {
         this.paused = false;
         this.manager.lapClock.resume();
+        this.manager.opponentTotalTime.resume();
 
         // resume clocks
         this.modifiers.forEach((mod) => {
@@ -477,6 +492,13 @@ class RaceState extends GameState {
     pickObstacle() {
         this.pause();
         this.manager.setState("pickingObstacle");
+    }
+
+    /**
+     * Called when the opponent finishes one lap around the track
+     */
+    opponentLapFinished() {
+        this.manager.opponentLapCount++;
     }
 }
 

@@ -32,6 +32,7 @@ class GameManager {
         this.startButton = null;
 
         this.playerCar = null;
+        this.opponentCar = null;
 
         this.playerPickedCar = null;
         this.cpuPickedCar = null;
