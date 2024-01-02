@@ -999,6 +999,11 @@
             </children>
         </node>
 
+        <lod id="fenceGroup">
+            <noderef id="empty" mindist="0"/>
+            <noderef id="fenceGroup" mindist="150"/>
+        </lod>
+
         <!-- obstacles -->
 
         <node id="clock-model">
@@ -1098,7 +1103,8 @@
             <children>
             </children>
         </node>
-               <node id="defaultTree0">
+        
+        <node id="defaultTree0">
                 <transforms>
                     <scale value3="3 3 3" />
                     <translate value3="-111 0.1 109" />
@@ -1545,7 +1551,7 @@
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />
                 <noderef id="floor" />
-                <noderef id="fenceGroup" />
+                <lodref id="fenceGroup" />
                 
 
             </children> 
@@ -1771,6 +1777,12 @@
                 far="1000" 
                 location="0 3 -4" 
                 target="0 0 4" />
+            <perspective id="follow-side-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="5 3 -4" 
+                target="0 0 4" />
             <perspective id="roof-perspective" 
                 angle="60" 
                 near="0.1" 
@@ -1823,7 +1835,7 @@
                 angle="60" 
                 near="0.1" 
                 far="1000" 
-                location="5 3 -4" 
+                location="0 3 -4" 
                 target="0 0 4" />
             <perspective id="closer-follow-perspective" 
                 angle="60" 
