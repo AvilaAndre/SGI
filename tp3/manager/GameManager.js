@@ -37,6 +37,9 @@ class GameManager {
         this.playerPickedCar = null;
         this.cpuPickedCar = null;
 
+        // number of laps around the track by the opponent
+        this.opponentLapCount = 0;
+
         this.counter = 0;
 
         //fireworks
@@ -44,8 +47,6 @@ class GameManager {
         this.fireworks = [];
 
         this.hud = null;
-
-        
     }
 
     /**
@@ -53,7 +54,6 @@ class GameManager {
      * @param {GameState} state
      */
     setState(state) {
-
         if (this.state && this.state.onExit) {
             this.state.onExit();
         }
@@ -166,7 +166,6 @@ class GameManager {
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
     launchFireworks() {
-
         console.log("launching Fireworks!");
         this.counter++;
         // add new fireworks every 5% of the calls
@@ -197,7 +196,7 @@ class GameManager {
         this.obstacles = [];
     }
 
-    getState(){
+    getState() {
         return this.state;
     }
 }

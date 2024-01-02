@@ -372,7 +372,9 @@ class MyCar extends THREE.Object3D {
         for (let i = 0; i < this.rotatingWheels.length; i++) {
             const wheel = this.rotatingWheels[i];
 
-            wheel.children[0].rotateX(this.speed * -delta);
+            wheel.children[0].rotateX(
+                this.speed * delta * (i % 2 == 0 ? 1 : -1)
+            );
         }
 
         this.frontCarLights();

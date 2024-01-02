@@ -429,7 +429,7 @@ class RaceState extends GameState {
             this.manager.opponentTotalTime.start();
 
             this.manager.opponentCar.runAnimationOnFinished(
-                this.opponentLapFinished
+                this.opponentLapFinished.bind(this)
             );
         }
 
