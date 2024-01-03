@@ -5,7 +5,7 @@ import { LettersComponent } from "../../hud/components/LettersComponent.js";
 import { ButtonsComponent } from "../../hud/components/ButtonsComponent.js";
 
 /**
- * This class contains methods of  the game
+ * This class contains the final menu state
  */
 class FinalMenuState extends GameState {
     constructor(contents, manager) {
@@ -26,10 +26,17 @@ class FinalMenuState extends GameState {
 
     }
 
+    /**
+     * Respnsible for launching the fireworks with the passage of time
+     * @param {*} delta 
+     */
     update(delta) {
         this.manager.launchFireworks(delta);
     }
 
+    /**
+     * Adds the cars selected by the player (for themselves and for the computer) to the final menu
+     **/
     addCarsToScene() {
         const playerCarName = this.manager.playerCar;
         const cpuCarName = this.manager.opponentCar;
@@ -50,9 +57,10 @@ class FinalMenuState extends GameState {
         
     }
     
-    
-    
-
+    /**
+     * Called when a click event happens
+     * @param {*} event 
+     */
     onPointerClick(event) {
         const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
 
@@ -63,10 +71,17 @@ class FinalMenuState extends GameState {
         }
     }
 
+    /**
+     * Called when a pointer move event happens
+     * @param {*} event 
+     */
     onPointerMove(event) {
         this.pickingManager.onPointerMove(event);
     }
 
+    /**
+     * Creates the final menu's HUD components
+     */
     createHud() {
         this.manager.hud.addComponent(
             "difficulty",

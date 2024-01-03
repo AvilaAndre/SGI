@@ -259,6 +259,7 @@ class MyAnimation {
         return this;
     }
 
+    
     createClip(mixer, attribute, times, values, interpolation) {
         if (times.length > 0) {
             let unpacked = [];
