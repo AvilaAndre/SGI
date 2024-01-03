@@ -28,7 +28,7 @@
 
 - Cars: all the cars (that are chosen by the player) are controled by the keys WASP, can go into reverse, their weels spin and the front ones tilt when the car is moving to the right or left, just like real-life cars.
 
-- Animations: 
+- Animations: Animations are implemented using Three.js functionalities, apart from the autonomous car animation, they are declared in the XML file and are made by tracks (which are the nodes affected by the animation) and timestamps (contain the transformations that occur at a given time) that are then turned into keyframes that Three.js handles. 
 
 - Powerups: many mistery boxes are preaded across the track. Some of them stops the opponent in time for a few seconds - allowing the player to catch up a bit - while others increase the maximum possible speed of the player for four seconds. Besides this imporvements, a player can choose an obstacle and put it in any spot in the track. After being used, the powerup box's colors will fade a bit, indicating that is has been used, and can't have its power used again in the same lap. In the next lap, it will return with its original colors and with a power. 
 
@@ -42,7 +42,7 @@
 
 - HUD: an important informative part, prsent in the initial and final menus, as well as in the race. In the inicial menu, the HUD is composed by the title of the game, the FEUP logo, and the students' names. In he final menu, the HUD has more components: it indicates who won and who lost (and the player's inputed name) - based in who completed the 3 mandatory laps first -, the level of difficulty that was played, the player's and the opponents times. Besides that, the buttons are also part of the HUD in this menu: they allow the game to be replayed with the exact same settings (Replay button), or for the player to change them and play again (Menu button). During the race, 3 different components are visible: on the top center of the screen, a counter that keeps track of each lap's time; on the top right side, the lap counter, and on the bottom left, the car's speed.
 
-- Collisions:
+- Collisions: Collision checking is implemented using some concepts learnt in class and some others, it takes performance into account using Axis Oriented Bounding Boxes, then when these collide, a more precise collider is used to check for intersections. The more precise colliders are only rectangle colliders as they were enough for our purpose and due to the nature of the game, we decided that 2D collisions would be enough for our use case. The rectangle colliders are intersected using the Separating Axis Theorem. Colliders are also divided into dynamic and static colliders, the firsts have their position updated every frame while the others do not change, therefore, to improve performance, we implemented a collider pruning tree for the static colliders combining them into bigger colliders that use Axis Aligned Bounding Boxes.
 
 - Shaders: the mistery boxes spin around themselves and pulsate, same thing happens with any obstacle after being dropped in a spot in a track. Besides that, many outdoors are displayed around the track, showing at each minute the game actually happening. Besides that, the outdoor has depth.
 
