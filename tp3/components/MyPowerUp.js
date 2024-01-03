@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { instantiateNode } from "../GraphBuilder.js";
+import { instantiateNode } from "../builders/GraphBuilder.js";
 import { RectangleCollider } from "../collisions/RectangleCollider.js";
 import { MyContents } from "../MyContents.js";
 

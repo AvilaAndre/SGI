@@ -4,8 +4,8 @@ import {
     addPointLight,
     addSpotlight,
     instantiateNode,
-} from "./GraphBuilder.js";
-import { addCamera } from "./ComponentBuilder.js";
+} from "./builders/GraphBuilder.js";
+import { addCamera } from "./builders/ComponentBuilder.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
 import { MyAnimation } from "./animation/MyAnimation.js";
 import { MyContents } from "./MyContents.js";

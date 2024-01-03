@@ -5,7 +5,7 @@ import { KeyboardManager } from "./KeyboardManager.js";
 import { PlayerParkState } from "./states/PlayerParkState.js";
 import { OpponentParkState } from "./states/OpponentParkState.js";
 import { PickObstacleState } from "./states/PickObstacleState.js";
-import { MyFirework } from "../MyFirework.js";
+import { MyFirework } from "../components/MyFirework.js";
 import { MyCar } from "../MyCar.js";
 import { MyContents } from "../MyContents.js";
 import { CollisionManager } from "./CollisionManager.js";
