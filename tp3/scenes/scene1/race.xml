@@ -1680,7 +1680,7 @@
             <noderef id="race-rr-wheel" />
         </statwheels>
 
-        <route time="75">
+        <route time="90">
             <point value2="22.86 -44.96"/>
             <point value2="-40.34 -153.56"/>
             <point value2="-42.94 -155.56"/>
@@ -1842,7 +1842,7 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="75">
+        <route time="90">
         </route>
     </car>
 
@@ -1896,7 +1896,7 @@
             <noderef id="tractor-rr-wheel" />
         </statwheels>
 
-        <route time="75">
+        <route time="90">
         </route>
     </car>
 
@@ -1988,7 +1988,7 @@
             <noderef id="hatchback-rr-wheel" />
         </statwheels>
 
-        <route time="75">
+        <route time="90">
         </route>
     </car>
 
