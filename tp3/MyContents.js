@@ -134,10 +134,6 @@ class MyContents {
         // register when keys are down
         document.addEventListener("keydown", (keyData) => {
             this.manager.keyboard.setKeyDown(keyData.key);
-
-            if (keyData.key == "o") {
-                this.switchScenes("race");
-            }
         });
         // register when keys are up
         document.addEventListener("keyup", (keyData) =>
