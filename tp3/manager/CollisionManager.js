@@ -7,7 +7,7 @@ import { ColliderPruningTree } from "../collisions/ColliderPrunningTree.js";
  */
 class CollisionManager {
     /**
-     *
+     * Creates a manager that holds colliders
      * @param {MyContents} contents
      */
     constructor(contents) {
@@ -18,16 +18,13 @@ class CollisionManager {
     }
 
     /**
-     *
+     * Adds a collider to this manager, if it is flagged as static, it gets added to a collider pruning tree.
      * @param {Collider} collider
      * @param {boolean} isStatic signals if an object needs updating or not
      */
     addCollider(collider, isStatic = false) {
         if (isStatic) this.staticColliders.addCollider(collider);
         else this.dynamicColliders.push(collider);
-
-        // DEBUG
-        this.contents.app.scene.add(collider.getDebugObject());
     }
 
     /**
@@ -48,21 +45,18 @@ class CollisionManager {
         return false;
     }
 
+    /**
+     * updates the colliders values of those that are dynamic
+     * @param {number} _delta
+     */
     update(_delta) {
         this.dynamicColliders.forEach((element) => {
             element.update();
-            element.updateDebugObject();
-        });
-
-        this.staticColliders.colliders.forEach((element) => {
-            element.updateDebugObject();
         });
     }
 
-
-
     /**
-     *
+     * Checks for collisions
      * @param {Collider} collider
      * @returns {Collider} null if does not collide with another collider
      */

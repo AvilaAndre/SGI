@@ -5,7 +5,7 @@ import * as THREE from "three";
  */
 class Collider {
     /**
-     *
+     * Adds base values to the collider
      * @param {THREE.Object3D} parent the parent object
      * @param {THREE.Vector3} center the collider position
      */
@@ -28,7 +28,7 @@ class Collider {
 
     /**
      * Returns the collider's position
-     * @returns 
+     * @returns
      */
     getPosition() {
         const parentWorldPosition = new THREE.Vector3();

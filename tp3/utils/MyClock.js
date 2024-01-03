@@ -26,6 +26,7 @@ class MyClock {
      * Stops the execution of the clock.
      */
     stop() {
+        if (!this.#running) return;
         this.#updateElapsedTime();
         this.#running = false;
     }

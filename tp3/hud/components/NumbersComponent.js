@@ -9,7 +9,7 @@ class NumbersComponent extends HudComponent {
     #sprites = [];
 
     /**
-     *
+     * Displays numbers on the HUD
      * @param {THREE.Vector2} position
      * @param {number} spriteScale
      * @param {function} valueGetter gets the value for this component
@@ -86,6 +86,10 @@ class NumbersComponent extends HudComponent {
         }
     }
 
+    /**
+     * Sets the component's value as the given, transforming it to the desired string
+     * @param {number} newValue
+     */
     setValue(newValue) {
         this.value = Math.floor(Math.abs(newValue))
             .toString()
@@ -93,6 +97,10 @@ class NumbersComponent extends HudComponent {
             .slice(-this.#nDigits); // has a maximum of 3 elements
     }
 
+    /**
+     * returns the value this hud component displays
+     * @returns {string}
+     */
     getValue() {
         return this.value;
     }

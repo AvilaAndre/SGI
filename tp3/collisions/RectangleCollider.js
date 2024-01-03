@@ -8,7 +8,7 @@ import { OBB } from "./OBB.js";
  */
 class RectangleCollider extends Collider {
     /**
-     *
+     * Creates a collider in the shape of a 2D rectangle
      * @param {THREE.Object3D} parent the parent's position
      * @param {THREE.Vector2} center the collider position
      * @param {number} width
@@ -27,7 +27,7 @@ class RectangleCollider extends Collider {
     }
 
     /**
-     * Checks if collides with another collider
+     * Checks if this collides with another collider
      * @param {Collider} collider
      */
     collide(otherCollider) {
@@ -59,6 +59,9 @@ class RectangleCollider extends Collider {
         }
     }
 
+    /**
+     * Calculates the limits of this collider, calculating the 2D bounding box that contains it
+     */
     computePoints() {
         const parentWorldPosition = new THREE.Vector3();
 
@@ -144,6 +147,10 @@ class RectangleCollider extends Collider {
         this.computePoints();
     }
 
+    /**
+     * Returns a visual representation of the collider, for DEBUG purposes only
+     * @returns {THREE.Object3D}
+     */
     getDebugObject() {
         if (this.debugObject) {
             return this.debugObject;

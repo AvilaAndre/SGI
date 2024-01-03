@@ -13,6 +13,11 @@ class MyAnimation {
         this.contents = contents;
     }
 
+    /**
+     * Creates an animation from the data provided
+     * @param {Object} data
+     * @returns {MyAnimation}
+     */
     fromNodeData(data) {
         // INFORMATION
         this.id = data.id;
@@ -261,11 +266,11 @@ class MyAnimation {
 
     /**
      * Create and manage animation clips
-     * @param {*} mixer 
-     * @param {*} attribute 
-     * @param {*} times 
-     * @param {*} values 
-     * @param {*} interpolation 
+     * @param {*} mixer
+     * @param {*} attribute
+     * @param {*} times
+     * @param {*} values
+     * @param {*} interpolation
      */
     createClip(mixer, attribute, times, values, interpolation) {
         if (times.length > 0) {
@@ -399,7 +404,7 @@ class MyAnimation {
 
     /**
      * Adjust the speed of the animation
-     * @param {*} timeScale 
+     * @param {*} timeScale
      */
     setTimeScale(timeScale) {
         for (let i = 0; i < this.actions.length; i++) {
@@ -424,7 +429,7 @@ class MyAnimation {
 
     /**
      * Updates the state of the animation mixers over time
-     * @param {*} delta 
+     * @param {*} delta
      */
     update(delta) {
         for (let i = 0; i < this.mixers.length; i++) {

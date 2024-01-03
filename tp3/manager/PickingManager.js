@@ -163,6 +163,10 @@ class PickingManager {
         return wantedIntersection == null ? null : wantedIntersection.pickable;
     }
 
+    /**
+     * Called when the pointer moves
+     * @param {*} event 
+     */
     onPointerMove(event) {
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
@@ -186,6 +190,11 @@ class PickingManager {
         this.pickingHelper(intersects);
     }
 
+    /**
+     * Gets the nearest pickable object
+     * @param {*} event 
+     * @returns 
+     */
     getNearestObject(event) {
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components

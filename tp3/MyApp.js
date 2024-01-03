@@ -250,18 +250,6 @@ class MyApp {
             this.updateBigScreensClock.getElapsedTime() >
             this.updateBigScreensTime
         ) {
-            this.framebufferVector.x =
-                (window.innerWidth * this.dpr) / 2 -
-                this.framebufferTextureSize.x / 2;
-            this.framebufferVector.y =
-                (window.innerHeight * this.dpr) / 2 -
-                this.framebufferTextureSize.y / 2;
-
-            this.renderer.copyFramebufferToTexture(
-                this.framebufferVector,
-                this.framebufferTexture
-            );
-
             this.renderer.setRenderTarget(this.target);
             this.renderer.render(this.scene, this.activeCamera);
 

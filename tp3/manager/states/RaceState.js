@@ -188,6 +188,11 @@ class RaceState extends GameState {
             this.paused ? this.resume() : this.pause();
         }
 
+        if (this.manager.keyboard.isKeyJustDown("Escape")) {
+            this.contents.switchScenes("initialMenu");
+            return;
+        }
+
         if (this.paused) return;
 
         // update powerup visuals
