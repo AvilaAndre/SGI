@@ -580,24 +580,14 @@
                 </children>
         </node>
 
-        <!--<node id="bush1">
-                <transforms>
-                    <scale value3="7 7 7" />
-                    <translate value3="-9 0.1 -75" />
-                </transforms>
-                <children>
-                    <primitive>
-                        <model3d filepath="scenes/scene1/models/trees/_bush_1.fbx" />
-                    </primitive>
-                </children>
-        </node>-->
 
         <node id="grandStand1">
                 <transforms>
+                    <rotate value3="0 2.1 0" />
+                    <translate value3="0 0.1 30" />
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-65 0.1 -22" />
                 </transforms>
+                <collider pos="0 0" size="8 8" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
@@ -608,8 +598,8 @@
         <node id="grandStand2">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-58 0.1 -22" />
+                    <translate value3="-58 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -621,8 +611,8 @@
         <node id="grandStand3">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-51 0.1 -22" />
+                    <translate value3="-51 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -634,8 +624,8 @@
         <node id="grandStand4">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-44 0.1 -22" />
+                    <translate value3="-44 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -647,8 +637,8 @@
         <node id="grandStand5">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-37 0.1 -22" />
+                    <translate value3="-37 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -661,8 +651,8 @@
         <node id="grandStand6">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-30 0.1 -22" />
+                    <translate value3="-30 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -674,8 +664,8 @@
         <node id="grandStand7">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-23 0.1 -22" />
+                    <translate value3="-23 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -687,8 +677,8 @@
         <node id="grandStand8">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-16 0.1 -22" />
+                    <translate value3="-16 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -700,8 +690,8 @@
         <node id="grandStand9">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-9 0.1 -22" />
+                    <translate value3="-9 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -713,8 +703,8 @@
         <node id="grandStand10">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 -1.06 0" />
-                    <translate value3="-2 0.1 -22" />
+                    <translate value3="-2 0.1 0" />
+                    <rotate value3="0 0.0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -723,12 +713,11 @@
                 </children>
         </node>
 
-
         <node id="grandStandRound1">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <rotate value3="0 0.86 0" /> 
                     <translate value3="50 0.1 -69" /> 
+                    <rotate value3="0 0.86 0" /> 
                 </transforms>
                 <children>
                     <primitive>
@@ -1537,15 +1526,6 @@
 
                 <noderef id="spectator" />        
                 <noderef id="grandStand1" />
-                <noderef id="grandStand2" />
-                <noderef id="grandStand3" />
-                <noderef id="grandStand4" />
-                <noderef id="grandStand5" />
-                <noderef id="grandStand6" />
-                <noderef id="grandStand7" />
-                <noderef id="grandStand8" />
-                <noderef id="grandStand9" />
-                <noderef id="grandStand10" />
                 <noderef id="grandStandRound1" />
                 <noderef id="largeTree1" />
                 <noderef id="largeTree2" />
@@ -1950,11 +1930,10 @@
         </timestamps>
     </animation>
 
-    <animation id="spectator-cheer" duration="3" repeat="false" autostart="true">
+    <animation id="spectator-cheer" duration="0.6" repeat="true" autostart="true">
         <tracks>
             <track id="spectators" interpolation="smooth">
                 <noderef value="spectator"/>
-                <noderef value="defaultTree1"/>
             </track>
         </tracks>
 
@@ -1965,15 +1944,15 @@
                 </key>
             </timestamp>
 
-            <timestamp value="1">
+            <timestamp value="0.3">
                 <key id="spectators">
-                    <translate value3="0 0.97 0"/>
+                    <translate value3="0 0.27 0"/>
                 </key>
             </timestamp>
 
-            <timestamp value="2">
+            <timestamp value="0.6">
                 <key id="spectators">
-                    <translate value3="0 0.50 0"/>
+                    <translate value3="0 0 0"/>
                 </key>
             </timestamp>
         </timestamps>
