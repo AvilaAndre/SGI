@@ -11,19 +11,14 @@ class FinalMenuState extends GameState {
     constructor(contents, manager) {
         super(contents, manager);
 
-
-        this.pickingManager = new PickingManager(
-            this.contents,
-            ["menuButton", "replayButton"]
-        );
-
-        console.log("this.manager.totalTime:", this.manager.totalTime)
+        this.pickingManager = new PickingManager(this.contents, [
+            "menuButton",
+            "replayButton",
+        ]);
 
         this.createHud();
 
-
         this.addCarsToScene();
-
     }
 
     update(delta) {
@@ -36,9 +31,6 @@ class FinalMenuState extends GameState {
 
         cpuCarName.stopRunAnimation();
 
-        console.log("playerCarName: ", playerCarName);
-        console.log("cpuCarName: ", cpuCarName);
-
         playerCarName.scale.set(2, 2, 2);
         cpuCarName.scale.set(2, 2, 2);
 
@@ -47,18 +39,14 @@ class FinalMenuState extends GameState {
 
         this.contents.app.scene.add(playerCarName, cpuCarName);
         return;
-        
     }
-    
-    
-    
 
     onPointerClick(event) {
         const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
 
-        if(buttonPicked === "menuButton") {
+        if (buttonPicked === "menuButton") {
             this.contents.switchScenes("initialMenu");
-        } else if(buttonPicked === "replayButton") {
+        } else if (buttonPicked === "replayButton") {
             this.contents.switchScenes("race");
         }
     }
@@ -110,7 +98,9 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(-0.15, -0.5),
                 0.07,
                 () => {},
-                (this.manager.playerTotalTime.getElapsedTime() / 1000).toFixed(2) + " secs",
+                (this.manager.playerTotalTime.getElapsedTime() / 1000).toFixed(
+                    2
+                ) + " secs",
                 5,
                 0.06
             )
@@ -134,7 +124,9 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(0.65, -0.5),
                 0.07,
                 () => {},
-                (this.manager.opponentTotalTime.getElapsedTime()/1000).toFixed(2) + " secs",
+                (
+                    this.manager.opponentTotalTime.getElapsedTime() / 1000
+                ).toFixed(2) + " secs",
                 5,
                 0.06
             )
@@ -182,10 +174,12 @@ class FinalMenuState extends GameState {
             )
         );
 
-        this.contents.pickables.push(this.manager.hud.getComponent("menuButton"));
-        this.contents.pickables.push(this.manager.hud.getComponent("replayButton"));
-
-        console.log("this.manager.hud.getComponent(menu):", this.manager.hud.getComponent("menuButton"));
+        this.contents.pickables.push(
+            this.manager.hud.getComponent("menuButton")
+        );
+        this.contents.pickables.push(
+            this.manager.hud.getComponent("replayButton")
+        );
     }
 }
 

@@ -170,12 +170,10 @@ class GameManager {
 
     //When there is a winner, go to a new state (something like WinnerState) and call this function to start the fireworks
     launchFireworks(delta) {
-        console.log("launching Fireworks!");
         this.counter++;
         // add new fireworks every 5% of the calls
         if (Math.random() < 0.05) {
             this.fireworks.push(new MyFirework(this.app, this.contents));
-            // console.log("firework added");
         }
 
         // for each fireworks
@@ -184,7 +182,6 @@ class GameManager {
             if (this.fireworks[i].done) {
                 // remove firework
                 this.fireworks.splice(i, 1);
-                // console.log("firework removed");
                 continue;
             }
             // otherwise updates firework

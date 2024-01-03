@@ -45,7 +45,6 @@ class ColliderPruningTree extends Collider {
     }
 
     getDebugObject() {
-        console.log("Called DEBUG Object on collider");
         return null;
     }
 
