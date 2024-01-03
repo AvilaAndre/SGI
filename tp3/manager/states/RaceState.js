@@ -24,6 +24,8 @@ class RaceState extends GameState {
         this.manager.opponentTotalTime = new MyClock();
         this.manager.opponentTotalTime.stop();
 
+        this.manager.opponentFinish = false;
+
         this.manager.playerTotalTime = new MyClock();
         this.manager.playerTotalTime.stop();
 
@@ -419,7 +421,8 @@ class RaceState extends GameState {
             this.manager.currCheckpoint++;
         }
 
-        if (this.manager.opponentLapCount == 4) {
+        if (this.manager.opponentLapCount == 4 && this.manager.opponentFinish == false) {
+            this.manager.opponentFinish = true;
             this.manager.opponentTotalTime.stop();
         }
 
@@ -488,7 +491,9 @@ class RaceState extends GameState {
     pause() {
         this.paused = true;
         this.manager.lapClock.stop();
-        this.manager.opponentTotalTime.stop();
+        if(this.manager.opponentFinish == false){
+            this.manager.opponentTotalTime.stop();
+        }
         this.manager.playerTotalTime.stop();
 
         // stop clocks
@@ -504,7 +509,9 @@ class RaceState extends GameState {
     resume() {
         this.paused = false;
         this.manager.lapClock.resume();
-        this.manager.opponentTotalTime.resume();
+        if(this.manager.opponentFinish == false){
+            this.manager.opponentTotalTime.resume();
+        }
         this.manager.playerTotalTime.resume();
 
         // resume clocks

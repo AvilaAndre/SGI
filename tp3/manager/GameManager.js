@@ -68,7 +68,6 @@ class GameManager {
                 this.state = new RaceState(this.contents, this);
                 break;
             case "pickingPlayer":
-                this.launchFireworks();
                 this.state = new PlayerParkState(this.contents, this);
                 break;
             case "pickingOpponent":
@@ -80,12 +79,10 @@ class GameManager {
 
             case "initialMenu":
                 this.state = new InitialMenuState(this.contents, this);
-                //this.state.onExit();
                 break;
 
             case "finalMenu":
                 this.state = new FinalMenuState(this.contents, this);
-                //this.state.onExit();
                 break;
 
             default:
