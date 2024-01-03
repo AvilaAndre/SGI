@@ -180,7 +180,7 @@ class MyApp {
                         this.cameras[this.activeCameraName].camTarget.position;
                 } else {
                     this.controls.enabled = true;
-                    this.controls.target.copy(
+                    this.controls.target = (
                         this.cameras[this.activeCameraName].targetCoords ||
                             new THREE.Vector3(0, 0, 0)
                     );

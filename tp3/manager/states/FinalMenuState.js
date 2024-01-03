@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GameState } from "../GameState.js";
 import { PickingManager } from "../PickingManager.js";
 import { LettersComponent } from "../../hud/components/LettersComponent.js";
+import { ButtonsComponent } from "../../hud/components/ButtonsComponent.js";
 
 /**
  * This class contains methods of  the game
@@ -10,63 +11,56 @@ class FinalMenuState extends GameState {
     constructor(contents, manager) {
         super(contents, manager);
 
-        this.pickingManager = new PickingManager(this.contents, [
-            "startButton",
-            "easyButton",
-            "mediumButton",
-            "hardButton",
-        ]);
 
-        if (this.manager.difficulty == null) {
-            this.manager.difficulty = 1;
-        }
+        this.pickingManager = new PickingManager(
+            this.contents,
+            ["menuButton", "replayButton"]
+        );
+
+        console.log("this.manager.totalTime:", this.manager.totalTime)
 
         this.createHud();
 
-        if (this.manager.playerPickedCar == null) {
-            this.manager.playerPickedCar = "hatchback-popup";
-        }
-
-        if (this.manager.cpuPickedCar == null) {
-            this.manager.cpuPickedCar = "race";
-        }
 
         this.addCarsToScene();
+
     }
 
     update(delta) {
-        //this.manager.launchFireworks();
+        this.manager.launchFireworks(delta);
     }
 
     addCarsToScene() {
-        const playerCarName = this.manager.playerPickedCar;
-        const cpuCarName = this.manager.cpuPickedCar;
+        const playerCarName = this.manager.playerCar;
+        const cpuCarName = this.manager.opponentCar;
 
-        // Create an array of the two car names you want to add
-        const carNamesToAdd = [playerCarName, cpuCarName];
+        cpuCarName.stopRunAnimation();
 
-        // Loop through each car name to add
-        for (let i = 0; i < carNamesToAdd.length; i++) {
-            const carName = carNamesToAdd[i];
-            const car = this.manager.cars[carName];
+        console.log("playerCarName: ", playerCarName);
+        console.log("cpuCarName: ", cpuCarName);
 
-            if (car) {
-                // Position the car based on its index
-                // Adjust this logic if you want a different positioning strategy
-                car.position.set(
-                    3 * (i - Math.floor(carNamesToAdd.length / 2)),
-                    0,
-                    0
-                );
+        playerCarName.scale.set(2, 2, 2);
+        cpuCarName.scale.set(2, 2, 2);
 
-                // Add the car to the scene
-                this.contents.app.scene.add(car);
-            }
-        }
+        playerCarName.teleportTo(4, -4, 0);
+        cpuCarName.teleportTo(-4, 4, 1.57);
+
+        this.contents.app.scene.add(playerCarName, cpuCarName);
+        return;
+        
     }
+    
+    
+    
 
     onPointerClick(event) {
         const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
+
+        if(buttonPicked === "menuButton") {
+            this.contents.switchScenes("initialMenu");
+        } else if(buttonPicked === "replayButton") {
+            this.contents.switchScenes("race");
+        }
     }
 
     onPointerMove(event) {
@@ -92,7 +86,7 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(-1.05, -0.5),
                 0.07,
                 () => {},
-                this.manager.difficulty,
+                this.manager.difficultyLevel,
                 5,
                 0.06
             )
@@ -116,7 +110,7 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(-0.15, -0.5),
                 0.07,
                 () => {},
-                "(tempo)",
+                (this.manager.playerTotalTime.getElapsedTime() / 1000).toFixed(2) + " secs",
                 5,
                 0.06
             )
@@ -140,11 +134,58 @@ class FinalMenuState extends GameState {
                 new THREE.Vector2(0.65, -0.5),
                 0.07,
                 () => {},
-                "(tempo)",
+                (this.manager.opponentTotalTime.getElapsedTime()/1000).toFixed(2) + " secs",
                 5,
                 0.06
             )
         );
+
+        this.manager.hud.addComponent(
+            "winner",
+            new LettersComponent(
+                new THREE.Vector2(-0.1, 0.35),
+                0.12,
+                () => {},
+                this.manager.winner + " WON!",
+                5,
+                0.06
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "loser",
+            new LettersComponent(
+                new THREE.Vector2(-0.2, -0.35),
+                0.07,
+                () => {},
+                this.manager.loser + " lost...",
+                5,
+                0.06
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "menuButton",
+            new ButtonsComponent(
+                new THREE.Vector2(-0.25, -0.1),
+                0.1,
+                "menuButton.png"
+            )
+        );
+
+        this.manager.hud.addComponent(
+            "replayButton",
+            new ButtonsComponent(
+                new THREE.Vector2(0.25, -0.1),
+                0.1,
+                "replayButton.png"
+            )
+        );
+
+        this.contents.pickables.push(this.manager.hud.getComponent("menuButton"));
+        this.contents.pickables.push(this.manager.hud.getComponent("replayButton"));
+
+        console.log("this.manager.hud.getComponent(menu):", this.manager.hud.getComponent("menuButton"));
     }
 }
 
