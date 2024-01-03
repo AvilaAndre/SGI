@@ -32,6 +32,7 @@ class MyPowerUp extends THREE.Object3D {
         const powerUpMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 1.0 },
+                pwUpActive: { value: false },
                 rotationSpeed: { value: 2.0 },
                 uTexture: { value: texture },
                 pumpRange: { value: 0.1 },
@@ -43,6 +44,8 @@ class MyPowerUp extends THREE.Object3D {
             fragmentShader: document.getElementById("fragmentPowerUpShader")
                 .textContent,
         });
+
+        powerUpMaterial.transparent = true;
 
         const geometry = this.createPowerUpBox();
 
@@ -217,7 +220,6 @@ class MyPowerUp extends THREE.Object3D {
      * Deactivates the powerup
      */
     deactivate() {
-        this.visible = false;
         this.#active = false;
     }
 
@@ -230,7 +232,6 @@ class MyPowerUp extends THREE.Object3D {
         );
 
         this.#active = true;
-        this.visible = true;
     }
 
     /**
@@ -239,6 +240,7 @@ class MyPowerUp extends THREE.Object3D {
      */
     update(delta) {
         this.object.material.uniforms.time.value += delta;
+        this.object.material.uniforms.pwUpActive.value = this.#active;
     }
 }
 
