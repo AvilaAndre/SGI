@@ -426,25 +426,28 @@ class RaceState extends GameState {
             this.manager.currCheckpoint++;
         }
 
-        if (this.manager.opponentLapCount == 4 && this.manager.opponentFinish == false) {
+        if (this.manager.opponentLapCount == 3 && this.manager.opponentFinish == false) {
             this.manager.opponentFinish = true;
             this.manager.opponentTotalTime.stop();
+            
         }
-
-        if (this.manager.lapCount == 4 && this.manager.opponentLapCount < 4) {
-            this.manager.winner = this.manager.playerName;
-            this.manager.loser = "Opponent";
-        } else {
-            this.manager.winner = "Opponent";
-            this.manager.loser = this.manager.playerName;
-        }
+        
 
         if (this.manager.lapCount == 4) {
             this.manager.playerTotalTime.stop();
+            
+            if (this.manager.opponentLapCount < 3) {
+                this.manager.winner = this.manager.playerName;
+                this.manager.loser = "Opponent";
+            } else {
+                this.manager.winner = "Opponent";
+                this.manager.loser = this.manager.playerName;
+            }
             this.contents.switchScenes("finalMenu");
+            return;
         }
 
-        this.countAllTime(delta);
+
     }
 
     /**
@@ -489,9 +492,6 @@ class RaceState extends GameState {
         this.manager.lapClock.start();
     }
 
-    countAllTime(delta) {
-        this.manager.totalTime += delta;
-    }
 
     pause() {
         this.paused = true;
