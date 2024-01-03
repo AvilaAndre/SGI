@@ -5,7 +5,7 @@ import * as THREE from "three";
  */
 class AABB {
     /**
-     *
+     * Sets the inital values of the variables present in this class
      * @param {number} minX
      * @param {number} maxX
      * @param {number} minY

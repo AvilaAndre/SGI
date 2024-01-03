@@ -7,7 +7,8 @@ import { Collider } from "./Collider.js";
  */
 class PTNodeCollider extends Collider {
     /**
-     *
+     * Creates a collider by combining two colliders into a single AABB collider that contains both
+     * This means that colliderA and colliderB are intersected only if the result of their merge also is
      * @param {Collider} colliderA
      * @param {Collider} colliderB
      * @param {THREE.Vector3} position

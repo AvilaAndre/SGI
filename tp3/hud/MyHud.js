@@ -7,7 +7,7 @@ import { HudComponent } from "./HudComponent.js";
  */
 class MyHud extends THREE.Object3D {
     /**
-     *
+     * Contains the data being displayed on the screen
      * @param {MyContents} contents the contents object
      * @param {Object} data the path of the hud
      */
@@ -29,19 +29,21 @@ class MyHud extends THREE.Object3D {
         this.components = {};
     }
 
+    /**
+     * Updates the information of every component held
+     */
     updateHudComponents() {
-        // updates if exists
-
         for (let i = 0; i < Object.keys(this.components).length; i++) {
             const component = this.components[Object.keys(this.components)[i]];
 
+            // updates if exists
             component?.update();
         }
-
-        this.speedometer?.update();
-        this.lapCounter?.update();
     }
 
+    /**
+     * Updates the position of the HUD so it always shows in front of the camera
+     */
     update() {
         if (!this.visible) return;
 
@@ -76,7 +78,7 @@ class MyHud extends THREE.Object3D {
 
     /**
      * Removes a component from the HUD
-     * @param {*} componentName 
+     * @param {*} componentName
      */
     removeComponent(componentName) {
         const component = this.components[componentName];
@@ -101,8 +103,6 @@ class MyHud extends THREE.Object3D {
     getName(componentName) {
         return this.components[componentName].name;
     }
-
-
 }
 
 MyHud.prototype.isGroup = true;

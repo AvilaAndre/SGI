@@ -51,6 +51,11 @@ class GameState {
      * Called when a pointer move event happens
      */
     onPointerMove(event) {}
+
+    /**
+     * Called when this state is being replaced
+     */
+    onExit() {}
 }
 
 export { GameState };

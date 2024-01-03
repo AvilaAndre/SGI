@@ -32,7 +32,7 @@ class ColliderPruningTree extends Collider {
 
     /**
      * Returns the collider's type
-     * @returns 
+     * @returns
      */
     getType() {
         return this.type;
@@ -65,7 +65,7 @@ class ColliderPruningTree extends Collider {
         while (colliders.length > 1) {
             const pairs = this.intoPairs(colliders);
 
-            // merge pairs
+            // merge pairs of colliders into one single collider that contains both
             colliders = [];
             for (let j = pairs.length - 1; j >= 0; j--) {
                 const elementA = pairs[j];
@@ -90,9 +90,9 @@ class ColliderPruningTree extends Collider {
     }
 
     /**
-     * 
-     * @param {*} colliders 
-     * @returns 
+     * Groups the given colliders into pairs
+     * @param {List<Collider>} colliders
+     * @returns {List<Object>}
      */
     intoPairs(colliders) {
         const pairs = [];
@@ -145,6 +145,9 @@ class ColliderPruningTree extends Collider {
         return pairs;
     }
 
+    /**
+     * Updates the visual representation of the collider,used only for debug
+     */
     updateDebugObject() {
         if (this.debugObject) {
             this.debugObject.rotation.set(...this.parent.rotation);

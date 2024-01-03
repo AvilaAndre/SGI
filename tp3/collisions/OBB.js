@@ -49,7 +49,7 @@ class OBB {
     }
 
     /**
-     *
+     * Checks for intersections when using the Separating Axis Theorem
      * @param {THREE.Vector2} edgePt1
      * @param {THREE.Vector2} edgePt2
      * @param {[Vector2]} pointsA

@@ -31,9 +31,11 @@ class GameManager {
 
         this.startButton = null;
 
+        // the car objects selected
         this.playerCar = null;
         this.opponentCar = null;
 
+        // the car names selected
         this.playerPickedCar = null;
         this.cpuPickedCar = null;
 
@@ -44,8 +46,8 @@ class GameManager {
 
         this.counter = 0;
 
-        //fireworks
         this.app = app;
+        //fireworks
         this.fireworks = [];
 
         this.hud = null;
@@ -54,7 +56,7 @@ class GameManager {
     }
 
     /**
-     *
+     * Switches the current state
      * @param {GameState} state
      */
     setState(state) {
@@ -80,12 +82,10 @@ class GameManager {
 
             case "initialMenu":
                 this.state = new InitialMenuState(this.contents, this);
-                //this.state.onExit();
                 break;
 
             case "finalMenu":
                 this.state = new FinalMenuState(this.contents, this);
-                //this.state.onExit();
                 break;
 
             default:
@@ -102,36 +102,58 @@ class GameManager {
         this.state.restored();
     }
 
+    /**
+     * Sets the current hud as "newHud"
+     * @param {MyHud} newHud
+     */
     setHud(newHud) {
         this.hud = newHud;
     }
 
+    /**
+     * Updates every manager held by this manager with exception for the collisionManager
+     * @param {number} delta
+     */
     update(delta) {
         this.state.update(delta);
         this.keyboard.update();
         this.hud?.update();
     }
 
+    /**
+     * Update the collisions managed by the collision manager
+     * @param {number} delta
+     */
     updateCollisions(delta) {
         this.collisionManager.update(delta);
     }
 
+    /**
+     * Whenever there is a pointer click event
+     */
     onPointerClick(event) {
         this.state.onPointerClick(event);
     }
 
+    /**
+     * Whenever there is a pointer move event
+     */
     onPointerMove(event) {
         this.state.onPointerMove(event);
     }
 
     /**
-     *
+     * adds a car to the possible cars in this game
      * @param {MyCar} car
      */
     addCar(car) {
         this.cars[car.carName] = car;
     }
 
+    /**
+     * Selects the given car as the player's car and adds it to the scene
+     * @param {string} idx
+     */
     selectPlayerCar(idx) {
         if (!Object.keys(this.cars).includes(idx)) return;
         this.playerCar = this.cars[idx];
@@ -141,6 +163,10 @@ class GameManager {
         this.collisionManager.addCollider(this.playerCar.collider);
     }
 
+    /**
+     * Selects the given car as the opponents car and adds it to the scene
+     * @param {string} idx
+     */
     selectOpponentCar(idx) {
         if (!Object.keys(this.cars).includes(idx)) return;
         this.opponentCar = this.cars[idx];
@@ -149,6 +175,9 @@ class GameManager {
         this.collisionManager.addCollider(this.opponentCar.collider);
     }
 
+    /**
+     * Changes the camera the player if currently seeing the scene while following the car from
+     */
     changeCarCamera() {
         let i;
         for (i = 0; i < this.playerCar.cameras.length; i++) {

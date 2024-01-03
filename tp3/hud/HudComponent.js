@@ -5,7 +5,7 @@ import * as THREE from "three";
  */
 class HudComponent extends THREE.Object3D {
     /**
-     *
+     * Is a part of the HUD displayed to the user
      * @param {THREE.Vector2} position position on screen
      * @param {number} spriteScale component spriteScale on screen
      * @param {function} valueGetter method that gets the value for this component
@@ -30,10 +30,18 @@ class HudComponent extends THREE.Object3D {
         }
     }
 
+    /**
+     * Sets the component's value as the given
+     * @param {*} newValue
+     */
     setValue(newValue) {
         this.value = newValue;
     }
 
+    /**
+     * returns the value this hud component displays
+     * @returns {*}
+     */
     getValue() {
         return this.value;
     }

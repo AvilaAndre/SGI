@@ -8,7 +8,7 @@ class BigScreensManager {
     #screenMeshes = [];
 
     /**
-     *
+     * This manager manages all the screens that show the current camera.
      * @param {MyContents} contents the contents object
      */
     constructor(contents) {
@@ -16,7 +16,7 @@ class BigScreensManager {
     }
 
     /**
-     *
+     * Adds a sceen object when a mesh representing the big screen is created
      * @param {THREE.Object3D} bigScreenObj the big screen's object
      */
     loadObject(bigScreenObj) {
@@ -72,29 +72,17 @@ class BigScreensManager {
     }
 
     /**
-     *
-     * @param {number} delta
+     * Updates the manager, setting its material's uniforms values
+     * @param {number} _delta
      * @param {THREE.RenderTarget} target
      */
-    update(delta, target) {
+    update(_delta, target) {
         this.#screenMeshes.forEach((mesh) => {
-            if (this.contents.app.framebufferTexture) {
-                mesh.material.uniforms.tDiffuse.value =
-                    this.contents.app.framebufferTexture;
-            }
-
             if (target.depthTexture) {
                 mesh.material.uniforms.tDepth.value = target.depthTexture;
                 mesh.material.uniforms.tDiffuse.value = target.texture;
             }
         });
-    }
-
-    createTextureFromImage() {
-        const canvas = document.getElementById("canvas-elem");
-        const texture = new THREE.CanvasTexture(canvas);
-
-        return texture;
     }
 }
 export { BigScreensManager };

@@ -11,7 +11,7 @@ class MinimapComponent extends HudComponent {
     #opponentCarObj = null;
 
     /**
-     *
+     * Dsiplays a map with the current location of the cars
      * @param {THREE.Vector2} position
      * @param {number} spriteScale
      * @param {function} valueGetter gets the value for this component
@@ -91,6 +91,10 @@ class MinimapComponent extends HudComponent {
         }
     }
 
+    /**
+     * Updates the positions of the cars
+     * @param {Object} newValue
+     */
     setValue(newValue) {
         if (this.#playerCarObj && newValue.playerCar) {
             this.#playerCarObj.position.x = newValue.playerCar.position
@@ -108,10 +112,6 @@ class MinimapComponent extends HudComponent {
                 .clone()
                 .multiplyScalar(0.01 * this.spriteScale).z;
         }
-    }
-
-    getValue() {
-        return this.value;
     }
 }
 
