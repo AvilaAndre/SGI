@@ -98,6 +98,7 @@
           uniform float pumpRange;
           uniform float pumpSpeed;
           varying vec2 vUv;
+          uniform bool obsActive;
 
           mat4 rotateY(float theta) {
             float c = cos(theta);
@@ -146,11 +147,18 @@
           uniform vec2 resolution;
 
           uniform vec3 mColor;
+          uniform bool obsActive;
 
           varying vec2 vUv;
 
           void main()	{
             gl_FragColor = vec4(mColor, 1.0);
+
+            if (obsActive) {
+              gl_FragColor.a = 1.0;
+            } else {
+              gl_FragColor.a = 0.3;
+            }
           }
       </script>
 

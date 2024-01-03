@@ -195,6 +195,7 @@ class RaceState extends GameState {
         this.contents.track.obstacleObjects.forEach((obstacleObj) => {
             obstacleObj.meshes.forEach((mesh) => {
                 mesh.material.uniforms.time.value += delta;
+                mesh.material.uniforms.obsActive.value = obstacleObj.active;
             });
         });
 
@@ -300,8 +301,8 @@ class RaceState extends GameState {
                         break;
                 }
             } else if (collider.parent.isObstacle) {
-                if (collider.parent.visible) {
-                    collider.parent.visible = false;
+                if (collider.parent.active) {
+                    collider.parent.active = false;
 
                     switch (collider.parent.effect) {
                         case 0:
@@ -475,7 +476,7 @@ class RaceState extends GameState {
             powerUpObj.activate();
         });
         this.contents.track.obstacleObjects.forEach((obstacleObj) => {
-            obstacleObj.visible = true;
+            obstacleObj.active = true;
         });
         this.manager.lapClock.start();
     }
