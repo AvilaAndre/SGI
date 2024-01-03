@@ -12,19 +12,31 @@
 
 - Initial Menu: composed by the game's name "Third Gear", an alusion to the Terceira Island and the famous program Top Gear. Besides the names of the developers and the Feup Logo, the player must pick a difficulty level, between easy, medium and hard. This level will change the speed with which the opponent moves its car, allowing for a more tricky (or not) play. Besides that, the player must type in their game name. Only after that, they can start the fun!
 
+![Screenshot](/tp3/screenshots/initialMenu.png)
+
 - Player Park: the player must choose their *weapon of attack*, or, more precisely, their car. The choice varies between a formula-1 like car, a small tractor, and two more reguler ones. The first green car presented - the one on the right hand-side - has two special feature: brake lights and pop-up front lights, besides more camera angles. All cars have an interesting detail: when breaking or moving to the sides, they tilt a bit, mimicking the emotion of real-life cars.
+
+![Screenshot](/tp3/screenshots/playerPark.png)
 
 - Opponent Park: similar to the previously mentined park, but this time, the car chosen will be used by the computer to play against the player.
 
-- Race: the race begins as soons as the player's car is next to the opponent's car. Throught the race, the player must go through all the cones (checkpoints), otherwise the lap is not completed, and, therefour, is not valid. When the player's car goes to the grass, its speed is decreased to only 70% of what is was. The same thing happens to the player car when the two cars collide. 
+![Screenshot](/tp3/screenshots/opponentPark.png)
+
+- Race: the race begins as soons as the player's car is next to the opponent's car. Throught the race, the player must go through all the cones (checkpoints), otherwise the lap is not completed, and, therefour, is not valid. When the player's car goes to the grass, its speed is decreased to only 70% of what is was. The same thing happens to the player car when the two cars collide.
+
+![Screenshot](/tp3/screenshots/race.png)
 
 - Cars: all the cars (that are chosen by the player) are controled by the keys WASP, can go into reverse, their weels spin and the front ones tilt when the car is moving to the right or left, just like real-life cars.
 
 - Animations: 
 
-- Powerups: many mistery boxes are preaded across the track. Some of them stops the opponent in time for a few seconds - allowing the player to catch up a bit - while others increase the maximum possible speed of the player for four seconds. Besides this imporvements, a player can choose an obstacle and put it in any spot in the track.
+- Powerups: many mistery boxes are preaded across the track. Some of them stops the opponent in time for a few seconds - allowing the player to catch up a bit - while others increase the maximum possible speed of the player for four seconds. Besides this imporvements, a player can choose an obstacle and put it in any spot in the track. After being used, the powerup box's colors will fade a bit, indicating that is has been used, and can't have its power used again in the same lap. In the next lap, it will return with its original colors and with a power. 
+
+![Screenshot](/tp3/screenshots/powerupAfter.png)
 
 - Obstacles: 3 different obstacles can be picked: a clock, that makes the opponent's car faster during four seconds; a snail, that makes the player's car slower during six seconds; a champagne bottle, that switches the A and D keys during five seconds. These obstacles are chosen by the player through picking.
+
+![Screenshot](/tp3/screenshots/obstacles.png)
 
 - Obstacle Park: the different obstacles are inside fences. The camera changes position from the car to them when it's time to pick one.
 
@@ -35,6 +47,8 @@
 - Shaders: the mistery boxes spin around themselves and pulsate, same thing happens with any obstacle after being dropped in a spot in a track. Besides that, many outdoors are displayed around the track, showing at each minute the game actually happening. Besides that, the outdoor has depth.
 
 - Final Menu: Besides the HUD components present in this scene, the two stars of the game have a special spot: the two cars chosen. Fireworks (affected by gravity) explode all around them, celebrating the winner's victory.
+
+![Screenshot](/tp3/screenshots/finalMenu.png)
 
 ----
 ## Issues/Problems
