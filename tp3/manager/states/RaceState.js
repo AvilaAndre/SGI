@@ -493,8 +493,7 @@ class RaceState extends GameState {
     pause() {
         this.paused = true;
         this.manager.lapClock.stop();
-        if (this.manager.opponentTotalTime.isRunning())
-            this.manager.opponentTotalTime.stop();
+        this.manager.opponentTotalTime.stop();
         this.manager.playerTotalTime.stop();
 
         // stop clocks
