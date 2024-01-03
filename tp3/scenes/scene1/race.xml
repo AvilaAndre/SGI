@@ -679,7 +679,7 @@
                     <rotate value3="0 2.1 0" />
                     <translate value3="0 0.1 30" />
                 </transforms>
-                <collider pos="28 0" size="64 7.5" />
+                <collider pos="28 0" size="64 8" />
                 <children>
                     <noderef id="grandStand1" />
                     <noderef id="grandStand2" />
