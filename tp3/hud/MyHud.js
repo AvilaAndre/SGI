@@ -74,6 +74,10 @@ class MyHud extends THREE.Object3D {
         this.add(component);
     }
 
+    /**
+     * Removes a component from the HUD
+     * @param {*} componentName 
+     */
     removeComponent(componentName) {
         const component = this.components[componentName];
         this.remove(component);
@@ -89,6 +93,11 @@ class MyHud extends THREE.Object3D {
         return this.components[componentName];
     }
 
+    /**
+     * Retrieves the name of a component by its name.
+     * @param {string} componentName - The name of the component to retrieve.
+     * @returns {string | undefined} The name of the component, if found; otherwise, undefined.
+     */
     getName(componentName) {
         return this.components[componentName].name;
     }

@@ -9,6 +9,9 @@ class ButtonsComponent extends HudComponent {
         this.createImagePlane();
     }
 
+    /**
+     * Creates a plane that has a texture of a button, that will be added to the HUD
+     */
     createImagePlane() {
 
         new THREE.TextureLoader().load(`scenes/scene1/textures/${this.imageName}`, (texture) => {

@@ -58,7 +58,8 @@ class FinalMenuState extends GameState {
     }
     
     /**
-     * Called when a click event happens
+     * Called when a click event happens.
+     * Checks which button was clicked and switches to the appropriate scene, either the player wants to replay or start a completely new game
      * @param {*} event 
      */
     onPointerClick(event) {

@@ -9,7 +9,7 @@ class KeyboardManager {
         this.keysJustDown = [];
         this.keysJustUp = [];
     }
-
+    
     setKeyDown(key) {
         this.keys[key] = true;
         this.keysJustDown.push(key);

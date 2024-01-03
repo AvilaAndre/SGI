@@ -18,10 +18,18 @@ class Collider {
         this.type = "default";
     }
 
+    /**
+     * Returns the collide's type
+     * @returns {string} the collider type
+     */
     getType() {
         return this.type;
     }
 
+    /**
+     * Returns the collider's position
+     * @returns 
+     */
     getPosition() {
         const parentWorldPosition = new THREE.Vector3();
 
@@ -39,6 +47,10 @@ class Collider {
         return null;
     }
 
+    /**
+     * Returns the debug object
+     * @returns {THREE.Object3D} the debug object
+     */
     getDebugObject() {
         console.log("Called DEBUG Object on collider");
         return null;
@@ -46,6 +58,9 @@ class Collider {
 
     update() {}
 
+    /**
+     * Updates the debug object
+     */
     updateDebugObject() {
         if (this.debugObject) {
             this.debugObject.rotation.set(...this.parent.rotation);
