@@ -107,6 +107,51 @@ class MyTrack extends THREE.Object3D {
                         ) +
                         Math.PI / 2,
                 };
+
+                const perpendicularToTangent = tangent
+                    .clone()
+                    .cross(new THREE.Vector3(0, 1, 0))
+                    .normalize();
+
+                const pointIn = pt
+                    .clone()
+                    .add(
+                        perpendicularToTangent
+                            .clone()
+                            .multiplyScalar(-this.trackWidth*1.3 / 2)
+                    );
+
+                const pointOut = pt
+                    .clone()
+                    .add(
+                        perpendicularToTangent
+                            .clone()
+                            .multiplyScalar(this.trackWidth*1.3 / 2)
+                    );
+
+                const flagL = createPrimitive(
+                    {
+                        type: "model3d",
+                        filepath: "scenes/scene1/models/checkpoints/flag.glb",
+                    },
+                    this.contents
+                );
+
+                const flagR = createPrimitive(
+                    {
+                        type: "model3d",
+                        filepath: "scenes/scene1/models/checkpoints/flag.glb",
+                    },
+                    this.contents
+                );
+
+                flagL.position.set(...pointIn);
+                flagL.scale.set(4, 4, 4);
+                flagR.position.set(...pointOut);
+                flagR.scale.set(4, 4, 4);
+
+                this.add(flagL);
+                this.add(flagR);
             }
 
             const checkpointObj = new THREE.Object3D();
