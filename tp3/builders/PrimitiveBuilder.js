@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MyContents } from "./MyContents.js";
+import { MyContents } from "../MyContents.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 /**

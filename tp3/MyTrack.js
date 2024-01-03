@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { MyContents } from "./MyContents.js";
 import { RectangleCollider } from "./collisions/RectangleCollider.js";
-import { createPrimitive } from "./PrimitiveBuilder.js";
+import { createPrimitive } from "./builders/PrimitiveBuilder.js";
 import { MyPowerUp } from "./components/MyPowerUp.js";
 /**
  * This class contains a race track made with catmull curves
@@ -118,7 +118,7 @@ class MyTrack extends THREE.Object3D {
                     .add(
                         perpendicularToTangent
                             .clone()
-                            .multiplyScalar(-this.trackWidth*1.3 / 2)
+                            .multiplyScalar((-this.trackWidth * 1.3) / 2)
                     );
 
                 const pointOut = pt
@@ -126,7 +126,7 @@ class MyTrack extends THREE.Object3D {
                     .add(
                         perpendicularToTangent
                             .clone()
-                            .multiplyScalar(this.trackWidth*1.3 / 2)
+                            .multiplyScalar((this.trackWidth * 1.3) / 2)
                     );
 
                 const flagL = createPrimitive(

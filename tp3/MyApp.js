@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { MyContents } from "./MyContents.js";
-import { MyGuiInterface } from "./MyGuiInterface.js";
 import Stats from "three/addons/libs/stats.module.js";
 import { MyClock } from "./utils/MyClock.js";
 
@@ -180,10 +179,9 @@ class MyApp {
                         this.cameras[this.activeCameraName].camTarget.position;
                 } else {
                     this.controls.enabled = true;
-                    this.controls.target = (
+                    this.controls.target =
                         this.cameras[this.activeCameraName].targetCoords ||
-                            new THREE.Vector3(0, 0, 0)
-                    );
+                        new THREE.Vector3(0, 0, 0);
                 }
             }
         }
@@ -218,13 +216,6 @@ class MyApp {
         Object.keys(cameras).forEach((key) => {
             this.cameras[key] = cameras[key];
         });
-    }
-
-    /**
-     * @param {MyGuiInterface} contents the gui interface object
-     */
-    setGui(gui) {
-        this.gui = gui;
     }
 
     /**

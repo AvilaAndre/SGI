@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { createPrimitive } from "./PrimitiveBuilder.js";
-import { MyContents } from "./MyContents.js";
-import { RectangleCollider } from "./collisions/RectangleCollider.js";
+import { MyContents } from "../MyContents.js";
+import { RectangleCollider } from "../collisions/RectangleCollider.js";
 
 /**
  * Instantiates nodes, having in consideration if it is a primitive,
