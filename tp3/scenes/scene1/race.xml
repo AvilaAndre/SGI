@@ -1583,7 +1583,6 @@
                     position="2 2 4" 
                 />
 
-                <!-- <noderef id="hatchback" /> -->
                 <noderef id="big-screens" />
 
                 <noderef id="defaultTree0" />
@@ -1773,6 +1772,13 @@
                 near="0.1" 
                 far="1000" 
                 location="0 3 -4" 
+                target="0 0 4" />
+            
+            <perspective id="side-perspective" 
+                angle="60" 
+                near="0.1" 
+                far="1000" 
+                location="5 3 -4" 
                 target="0 0 4" />
             <perspective id="roof-perspective" 
                 angle="60" 
