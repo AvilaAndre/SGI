@@ -26,7 +26,7 @@ class BigScreensManager {
                 uniforms: {
                     tDiffuse: {
                         value: new THREE.TextureLoader().load(
-                            "sprite_sheet.png"
+                            "scenes/scene1/textures/sprite_sheet.png"
                         ),
                     },
                     tDepth: { value: null },
@@ -60,8 +60,6 @@ class BigScreensManager {
         this.contents.app.scene.add(mesh);
 
         this.#screenMeshes.push(mesh);
-
-        this.textu = new THREE.TextureLoader().load("sprite_sheet.png");
     }
 
     /**

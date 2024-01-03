@@ -69,7 +69,7 @@ class MyApp {
         this.clock = new THREE.Clock(true);
 
         this.appMaterial = new THREE.MeshBasicMaterial({
-            map: new THREE.TextureLoader().load("sprite_sheet.png"),
+            map: new THREE.TextureLoader().load("scenes/scene1/textures/sprite_sheet.png"),
         });
 
         // frame buffer
