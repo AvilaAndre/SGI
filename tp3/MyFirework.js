@@ -7,7 +7,7 @@ class MyFirework {
         this.contents = contents
 
         this.done     = false 
-        this.dest     = [] 
+        this.futureDestinations     = [] 
         
         this.vertices = null
         this.colors   = null
@@ -73,7 +73,7 @@ class MyFirework {
         let xInc = THREE.MathUtils.randInt( -10, 10);
         let zInc = THREE.MathUtils.randInt( -15, 15);
 
-        this.dest.push(x + xInc, 20, z + zInc);  // Destination is now based on this random starting point
+        this.futureDestinations.push(x + xInc, 20, z + zInc);  // Destination is now based on this random starting point
         let vertices = [x, 0, z];  // Starting position of the particle
         
         this.geometry = new THREE.BufferGeometry()
@@ -107,7 +107,7 @@ class MyFirework {
     
 
         let vertices = [];
-        this.dest = [];
+        this.futureDestinations = [];
         let angleStep = (Math.PI * 2) / n;
 
         //The points should be in a circle around the origin, but have a random trajectory to be like real-life fireworks
@@ -119,7 +119,7 @@ class MyFirework {
             let y = origin[1] + radius * Math.sin(angle);
             let z = origin[2];
     
-            this.dest.push(x, y, z);
+            this.futureDestinations.push(x, y, z);
 
         }
 
@@ -142,7 +142,7 @@ class MyFirework {
     reset() {
         // console.log("firework reseted")
         this.app.scene.remove( this.points )  
-        this.dest     = [] 
+        this.futureDestinations     = [] 
         this.vertices = null
         this.colors   = null 
         this.geometry = null
@@ -198,7 +198,7 @@ class MyFirework {
             if (this.exploded) {
                 // Increase explosion time and calculate progress
                 this.explosionTime += delta;
-                this.progress = this.explosionTime / 10;
+                this.movement = this.explosionTime / 10;
         
                 // Update particle positions towards their destinations
                 let positions = this.geometry.getAttribute('position');
@@ -206,9 +206,9 @@ class MyFirework {
         
                 for (let i = 0; i < vertices.length; i += 3) {
                     // Use lerp to move particles towards their destinations
-                    vertices[i] = THREE.MathUtils.lerp(vertices[i], this.dest[i], this.progress);
-                    vertices[i + 1] = THREE.MathUtils.lerp(vertices[i + 1], this.dest[i + 1], this.progress);
-                    vertices[i + 2] = THREE.MathUtils.lerp(vertices[i + 2], this.dest[i + 2], this.progress);
+                    vertices[i] = THREE.MathUtils.lerp(vertices[i], this.futureDestinations[i], this.movement);
+                    vertices[i + 1] = THREE.MathUtils.lerp(vertices[i + 1], this.futureDestinations[i + 1], this.movement);
+                    vertices[i + 2] = THREE.MathUtils.lerp(vertices[i + 2], this.futureDestinations[i + 2], this.movement);
                 }
                 verticesAtribute.needsUpdate = true
         
@@ -218,7 +218,7 @@ class MyFirework {
                 material.needsUpdate = true;
         
 
-                if (this.progress >= 1) {
+                if (this.movement >= 1) {
                     this.completelyExploded = true;
                     this.reset();
                     this.done = true;
