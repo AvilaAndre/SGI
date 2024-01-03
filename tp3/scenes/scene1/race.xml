@@ -628,6 +628,7 @@
                     <scale value3="7 7 7" />
                     <translate value3="-15 0.1 -85" />
                 </transforms>
+                <collider pos="0 0" size="2 2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -640,6 +641,7 @@
                     <scale value3="7 7 7" />
                     <translate value3="-12 0.1 -80" />
                 </transforms>
+                <collider pos="0 0" size="2 2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />
@@ -652,6 +654,7 @@
                     <scale value3="7 7 7" />
                     <translate value3="-9 0.1 -75" />
                 </transforms>
+                <collider pos="0 0" size="2 2" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/trees/treeLarge.glb" />

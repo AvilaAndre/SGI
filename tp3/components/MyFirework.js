@@ -140,7 +140,7 @@ class MyFirework {
      * cleanup
      */
     reset() {
-        // console.log("firework reseted")
+
         this.app.scene.remove( this.points )  
         this.futureDestinations     = [] 
         this.vertices = null

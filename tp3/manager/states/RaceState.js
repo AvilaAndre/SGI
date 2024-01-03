@@ -24,6 +24,8 @@ class RaceState extends GameState {
         this.manager.opponentTotalTime = new MyClock();
         this.manager.opponentTotalTime.stop();
 
+        this.manager.opponentFinish = false;
+
         this.manager.playerTotalTime = new MyClock();
         this.manager.playerTotalTime.stop();
 
@@ -424,24 +426,28 @@ class RaceState extends GameState {
             this.manager.currCheckpoint++;
         }
 
-        if (this.manager.opponentLapCount == 4) {
+        if (this.manager.opponentLapCount == 3 && this.manager.opponentFinish == false) {
+            this.manager.opponentFinish = true;
             this.manager.opponentTotalTime.stop();
+            
         }
-
-        if (this.manager.lapCount == 4 && this.manager.opponentLapCount < 4) {
-            this.manager.winner = this.manager.playerName;
-            this.manager.loser = "Opponent";
-        } else {
-            this.manager.winner = "Opponent";
-            this.manager.loser = this.manager.playerName;
-        }
+        
 
         if (this.manager.lapCount == 4) {
             this.manager.playerTotalTime.stop();
+            
+            if (this.manager.opponentLapCount < 3) {
+                this.manager.winner = this.manager.playerName;
+                this.manager.loser = "Opponent";
+            } else {
+                this.manager.winner = "Opponent";
+                this.manager.loser = this.manager.playerName;
+            }
             this.contents.switchScenes("finalMenu");
+            return;
         }
 
-        this.countAllTime(delta);
+
     }
 
     /**
@@ -486,14 +492,13 @@ class RaceState extends GameState {
         this.manager.lapClock.start();
     }
 
-    countAllTime(delta) {
-        this.manager.totalTime += delta;
-    }
 
     pause() {
         this.paused = true;
         this.manager.lapClock.stop();
-        this.manager.opponentTotalTime.stop();
+        if(this.manager.opponentFinish == false){
+            this.manager.opponentTotalTime.stop();
+        }
         this.manager.playerTotalTime.stop();
 
         // stop clocks
@@ -509,7 +514,9 @@ class RaceState extends GameState {
     resume() {
         this.paused = false;
         this.manager.lapClock.resume();
-        this.manager.opponentTotalTime.resume();
+        if(this.manager.opponentFinish == false){
+            this.manager.opponentTotalTime.resume();
+        }
         this.manager.playerTotalTime.resume();
 
         // resume clocks

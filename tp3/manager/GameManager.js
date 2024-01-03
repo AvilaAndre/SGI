@@ -70,7 +70,6 @@ class GameManager {
                 this.state = new RaceState(this.contents, this);
                 break;
             case "pickingPlayer":
-                this.launchFireworks();
                 this.state = new PlayerParkState(this.contents, this);
                 break;
             case "pickingOpponent":
