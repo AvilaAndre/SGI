@@ -1367,8 +1367,6 @@ class MyFileReader {
      * @param {*} rootElement
      */
     loadCars(rootElement) {
-        console.log("this.xmlfilename:", this.xmlfilename);
-
         // load cars
         let cars = rootElement.getElementsByTagName("car");
 
@@ -1543,8 +1541,6 @@ class MyFileReader {
         let timeElapsedElements =
             hudElement.getElementsByTagName("timeElapsed");
 
-        // console.log("timeElapsedElements:", timeElapsedElements); // FIXME:
-
         if (timeElapsedElements == null) {
             throw new Error(
                 "There should be exactly one time elapsed element in the hud"
@@ -1562,8 +1558,6 @@ class MyFileReader {
 
         let lapsElements = hudElement.getElementsByTagName("laps");
 
-        // console.log("lapsElements:", lapsElements); // FIXME:
-
         if (lapsElements == null) {
             throw new Error(
                 "There should be exactly one laps element in the hud"
@@ -1576,8 +1570,6 @@ class MyFileReader {
 
         let speedometerElements =
             hudElement.getElementsByTagName("speedometer");
-
-        // console.log("speedometerElements:", speedometerElements); // TODO:
 
         if (speedometerElements == null) {
             throw new Error(
@@ -1597,8 +1589,6 @@ class MyFileReader {
         let timeLeftBenefitElements =
             hudElement.getElementsByTagName("timeLeftBenefit");
 
-        // console.log("timeLeftBenefitElements:", timeLeftBenefitElements); // FIXME:
-
         if (timeLeftBenefitElements == null) {
             throw new Error(
                 "There should be exactly one timeLeftBenefit element in the hud"
@@ -1617,8 +1607,6 @@ class MyFileReader {
         let timeLeftPenaltyElements =
             hudElement.getElementsByTagName("timeLeftPenalty");
 
-        // console.log("timeLeftPenaltyElements:", timeLeftPenaltyElements); //FIXME:
-
         if (timeLeftPenaltyElements == null) {
             throw new Error(
                 "There should be exactly one timeLeftPenalty element in the hud"
@@ -1635,8 +1623,6 @@ class MyFileReader {
         //STATES
 
         let statesElements = hudElement.getElementsByTagName("states");
-
-        // console.log("statesElements:", statesElements); // FIXME:
 
         if (statesElements == null) {
             throw new Error(

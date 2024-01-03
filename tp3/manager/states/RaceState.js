@@ -117,16 +117,9 @@ class RaceState extends GameState {
         ];
 
         this.createHud();
-        console.log("this.manager.cars:", this.manager.cars);
-        console.log(
-            "this.manager.playerPickedCar:",
-            this.manager.playerPickedCar
-        );
-        console.log("this.manager.cpuPickedCar:", this.manager.cpuPickedCar);
     }
 
     createHud() {
-
         this.manager.hud.addComponent(
             "lapTimer",
             new NumbersComponent(
@@ -189,7 +182,6 @@ class RaceState extends GameState {
     }
 
     update(delta) {
-
         if (this.manager.keyboard.isKeyJustDown("p")) {
             this.paused ? this.resume() : this.pause();
         }
@@ -203,6 +195,7 @@ class RaceState extends GameState {
         this.contents.track.obstacleObjects.forEach((obstacleObj) => {
             obstacleObj.meshes.forEach((mesh) => {
                 mesh.material.uniforms.time.value += delta;
+                mesh.material.uniforms.obsActive.value = obstacleObj.active;
             });
         });
 
@@ -291,6 +284,8 @@ class RaceState extends GameState {
                         this.speedPowerUp.active = true;
                         this.speedPowerUp.clock.start();
 
+                        this.manager.playerCar.maxSpeedPowerUPMultiplier = 2;
+
                         this.pickObstacle();
                         break;
                     case 1:
@@ -306,8 +301,8 @@ class RaceState extends GameState {
                         break;
                 }
             } else if (collider.parent.isObstacle) {
-                if (collider.parent.visible) {
-                    collider.parent.visible = false;
+                if (collider.parent.active) {
+                    collider.parent.active = false;
 
                     switch (collider.parent.effect) {
                         case 0:
@@ -424,14 +419,11 @@ class RaceState extends GameState {
             this.manager.currCheckpoint++;
         }
 
-
-        console.log("this.manager.opponentTotalTime:", this.manager.opponentTotalTime)
-
-        if(this.manager.opponentLapCount == 4){
+        if (this.manager.opponentLapCount == 4) {
             this.manager.opponentTotalTime.stop();
         }
 
-        if(this.manager.lapCount == 4 && this.manager.opponentLapCount < 4){
+        if (this.manager.lapCount == 4 && this.manager.opponentLapCount < 4) {
             this.manager.winner = this.manager.playerName;
             this.manager.loser = "Opponent";
         } else {
@@ -439,15 +431,12 @@ class RaceState extends GameState {
             this.manager.loser = this.manager.playerName;
         }
 
-        if(this.manager.lapCount == 4){
+        if (this.manager.lapCount == 4) {
             this.manager.playerTotalTime.stop();
             this.contents.switchScenes("finalMenu");
         }
 
-
-
         this.countAllTime(delta);
-
     }
 
     /**
@@ -462,12 +451,9 @@ class RaceState extends GameState {
             this.manager.playerTotalTime.start();
         }
 
-
-
-            this.manager.opponentCar.runAnimationOnFinished(
-                this.opponentLapFinished.bind(this)
-            );
-        
+        this.manager.opponentCar.runAnimationOnFinished(
+            this.opponentLapFinished.bind(this)
+        );
 
         this.manager.lapCount =
             Math.floor(
@@ -490,14 +476,13 @@ class RaceState extends GameState {
             powerUpObj.activate();
         });
         this.contents.track.obstacleObjects.forEach((obstacleObj) => {
-            obstacleObj.visible = true;
+            obstacleObj.active = true;
         });
         this.manager.lapClock.start();
     }
 
-    countAllTime(delta){
+    countAllTime(delta) {
         this.manager.totalTime += delta;
-        console.log("this.manager.totalTime:", this.manager.totalTime);
     }
 
     pause() {

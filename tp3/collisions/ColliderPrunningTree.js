@@ -53,7 +53,6 @@ class ColliderPruningTree extends Collider {
      * @returns {THREE.Object3D} the debug object
      */
     getDebugObject() {
-        console.log("Called DEBUG Object on collider");
         return null;
     }
 

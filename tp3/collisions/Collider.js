@@ -43,7 +43,6 @@ class Collider {
      * @param {Collider} collider
      */
     collide(collider) {
-        console.log("collide called in Generic Collider");
         return null;
     }
 
@@ -52,7 +51,6 @@ class Collider {
      * @returns {THREE.Object3D} the debug object
      */
     getDebugObject() {
-        console.log("Called DEBUG Object on collider");
         return null;
     }
 

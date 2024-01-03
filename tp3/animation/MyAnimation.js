@@ -414,7 +414,6 @@ class MyAnimation {
      * @param {Function} func
      */
     bindOnFinish(func) {
-        console.log("bind");
         if (this.mixers.length > 0) {
             this.mixers[0].addEventListener("loop", (e) => {
                 // a mixer has multiple actions, so this is only called when the action is about the position

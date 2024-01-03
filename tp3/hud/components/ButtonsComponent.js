@@ -26,8 +26,7 @@ class ButtonsComponent extends HudComponent {
             imagePlane.position.set(this.position.x, this.position.y, this.position.z);
             imagePlane.scale.set(this.scale.x, this.scale.y, this.scale.z);
 
-
-            console.log("imagePlane:", imagePlane);
+            // Add image plane to the component
             this.add(imagePlane);
         });
     }

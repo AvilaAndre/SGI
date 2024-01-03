@@ -119,6 +119,9 @@ class PickObstacleState extends GameState {
                         this.obstacleSelected.effect = 2;
                         break;
                 }
+
+                // activate obstacle
+                this.obstacleSelected.active = true;
             }
         }
     }
@@ -219,6 +222,7 @@ class PickObstacleState extends GameState {
                         elem.material = new THREE.ShaderMaterial({
                             uniforms: {
                                 time: { value: 1.0 },
+                                obsActive: { value: true },
                                 rotationSpeed: { value: 2.0 },
                                 pumpRange: { value: 0.2 },
                                 pumpSpeed: { value: 1 },
@@ -234,6 +238,9 @@ class PickObstacleState extends GameState {
                                 "fragmentObstacleShader"
                             ).textContent,
                         });
+
+                        elem.material.transparent = true;
+
                         this.obstacleSelected.meshes.push(elem);
                     }
                 });
