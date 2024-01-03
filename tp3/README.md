@@ -10,11 +10,11 @@
 ----
 ## Project information
 
-- Initial Menu: composed by the game's name "Third Gear", an alusion to the Terceira Island and the famous program Top Gear. Besides the names of the developers and the Feup Logo, the player must pick a difficulty level, between easy, medium and hard. This level will change the speed with which the opponent moves its car, allowing for a more tricky (or not) play. Besides that, the player must type in their game name. Only after that, they can start the fun!
+- Initial Menu: composed by the game's name "Third Gear", an allusion to the Terceira Island and the famous program Top Gear. Besides the names of the developers and the Feup Logo, the player must pick a difficulty level, between easy, medium and hard. This level will change the speed with which the opponent moves its car, allowing for a more tricky (or not) play. Besides that, the player must type in their game name. Only after that, they can start the fun!
 
 ![Screenshot](/tp3/screenshots/initialMenu.png)
 
-- Player Park: the player must choose their *weapon of attack*, or, more precisely, their car. The choice varies between a formula-1 like car, a small tractor, and two more reguler ones. The first green car presented - the one on the right hand-side - has two special feature: brake lights and pop-up front lights, besides more camera angles. All cars have an interesting detail: when breaking or moving to the sides, they tilt a bit, mimicking the emotion of real-life cars.
+- Player Park: the player must choose their car. The choice varies between a formula-1 like car, a small tractor, and two more regular ones. The first green car presented - the one on the right hand-side - has two special feature: brake lights and pop-up front lights, besides more camera angles. All cars have an interesting detail: when braking or moving to the sides, they tilt a bit, mimicking the emotion of real-life cars.
 
 ![Screenshot](/tp3/screenshots/playerPark.png)
 
@@ -22,15 +22,15 @@
 
 ![Screenshot](/tp3/screenshots/opponentPark.png)
 
-- Race: the race begins as soons as the player's car is next to the opponent's car. Throught the race, the player must go through all the cones (checkpoints), otherwise the lap is not completed, and, therefour, is not valid. When the player's car goes to the grass, its speed is decreased to only 70% of what is was. The same thing happens to the player car when the two cars collide.
+- Race: the race begins as soon as the player's car is next to the opponent's car. Throughout the race, the player must go through all the cones (checkpoints), otherwise the lap is not completed, and, therefore, is not valid. When the player's car goes to the grass, its speed is decreased to only 70% of what is was. The same thing happens to the player car when the two cars collide.
 
 ![Screenshot](/tp3/screenshots/race.png)
 
-- Cars: all the cars (that are chosen by the player) are controled by the keys WASP, can go into reverse, their weels spin and the front ones tilt when the car is moving to the right or left, just like real-life cars.
+- Cars: all the cars (that are chosen by the player) are controlled by the keys WASP, can go into reverse, their wheels spin and the front ones tilt when the car is moving to the right or left, just like real-life cars.
 
 - Animations: 
 
-- Powerups: many mistery boxes are preaded across the track. Some of them stops the opponent in time for a few seconds - allowing the player to catch up a bit - while others increase the maximum possible speed of the player for four seconds. Besides this imporvements, a player can choose an obstacle and put it in any spot in the track. After being used, the powerup box's colors will fade a bit, indicating that is has been used, and can't have its power used again in the same lap. In the next lap, it will return with its original colors and with a power. 
+- Powerups: many mistery boxes are scattered across the track. Some of them stops the opponent in time for a few seconds - allowing the player to catch up a bit - while others increase the maximum possible speed of the player for four seconds. Besides this improvements, a player can choose an obstacle and put it in any spot in the track. After being used, the powerup box's colors will fade a bit, indicating that is has been used, and can't have its power used again in the same lap. In the next lap, it will return with its original colors and with a power. 
 
 ![Screenshot](/tp3/screenshots/powerupAfter.png)
 
@@ -40,7 +40,7 @@
 
 - Obstacle Park: the different obstacles are inside fences. The camera changes position from the car to them when it's time to pick one.
 
-- HUD: an important informative part, prsent in the initial and final menus, as well as in the race. In the inicial menu, the HUD is composed by the title of the game, the FEUP logo, and the students' names. In he final menu, the HUD has more components: it indicates who won and who lost (and the player's inputed name) - based in who completed the 3 mandatory laps first -, the level of difficulty that was played, the player's and the opponents times. Besides that, the buttons are also part of the HUD in this menu: they allow the game to be replayed with the exact same settings (Replay button), or for the player to change them and play again (Menu button). During the race, 3 different components are visible: on the top center of the screen, a counter that keeps track of each lap's time; on the top right side, the lap counter, and on the bottom left, the car's speed.
+- HUD: an important informative part, present in the initial and final menus, as well as in the race. In the initial menu, the HUD is composed by the title of the game, the FEUP logo, and the students' names. In he final menu, the HUD has more components: it indicates who won and who lost (and the player's inputed name) - based in who completed the 3 mandatory laps first -, the level of difficulty that was played, the player's and the opponents times. Besides that, the buttons are also part of the HUD in this menu: they allow the game to be replayed with the exact same settings (Replay button), or for the player to change them and play again (Menu button). During the race, 3 different components are visible: on the top center of the screen, a counter that keeps track of each lap's time; on the top right side, the lap counter, and on the bottom left, the car's speed.
 
 - Collisions:
 
