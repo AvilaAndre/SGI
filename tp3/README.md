@@ -55,3 +55,5 @@
 
 - All features were implemented.
 - No known bug as of the moment this file was written.
+
+- We do not know if it is a bug, but we tried to implement LOD's to be able to add more trees without impacting performance, this was caused by rendering trees far away from the player, however, the LOD's distance was not calculated using the camera's position but using the origin of the scene, therefore, our game does not have as many 3D elements in its scenario as we wanted due to us wanting to keep a good driving experience. We tried many solutions, from replacing the camera's parent to setting the LOD autoUpdate variable false and calling update manually.
