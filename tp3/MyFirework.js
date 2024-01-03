@@ -13,10 +13,6 @@ class MyFirework {
         this.colors   = null
         this.geometry = null
         this.points   = null
-
-        this.lifeSpan = THREE.MathUtils.randFloat(1.5, 2.5); // Random lifespan
-
-
         this.explosionTime = 0;
         
         //Different colors for the fireworks
@@ -40,15 +36,10 @@ class MyFirework {
             })
         );
         
-        this.height = 20
-        this.speed = 70
-        
         this.velocities = [] // Array of velocity vectors for each particle
 
-        this.reachedDestination = false; // Flag to track reaching the destination
 
         this.isDescending = false;
-
 
         this.completelyExploded = false;
 
@@ -92,13 +83,12 @@ class MyFirework {
         this.points.castShadow = true;
         this.points.receiveShadow = true;
 
-        let initialUpwardVelocity = 30; // Adjust these values as needed
+        let initialUpwardVelocity = 30; //Initial velocity that the particle is launched with
         let ran = THREE.MathUtils.randInt( -5, 5);
         this.velocities.push(new THREE.Vector3(ran, initialUpwardVelocity, ran));
 
         //Adding all points to the scene
         this.app.scene.add( this.points );  
-        // console.log("firework launched");
     }
 
     /**
@@ -120,6 +110,7 @@ class MyFirework {
         this.dest = [];
         let angleStep = (Math.PI * 2) / n;
 
+        //The points should be in a circle around the origin, but have a random trajectory to be like real-life fireworks
         for (let i = 0; i < n; i++) {
             vertices.push(origin[0], origin[1], origin[2]);
             let angle = angleStep * i;
@@ -195,7 +186,7 @@ class MyFirework {
                         this.isDescending = true;
                     }
     
-                    // Check if the firework has descended 5 units below after reaching the destination
+                    // Check if the firework has descended 5 units below after reaching the destination, to give the effect of gravity
                     if (this.isDescending && vertices[i+1] <= 31) {
                         this.explode(vertices, 80, 0, 12);
                         this.exploded = true;

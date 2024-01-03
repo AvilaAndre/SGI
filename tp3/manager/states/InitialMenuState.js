@@ -38,12 +38,19 @@ class InitialMenuState extends GameState {
 
     update(delta) {}
 
+    /**
+     * Remove the keydown event listener when exiting the InitialMenuState
+     */
     onExit() {
         // Remove the event listener
         document.removeEventListener('keydown', this.boundInputHandler);
     }
     
 
+    /**
+     * Allows the player to input their name
+     * @returns 
+     */
     input() {
     
         const letterRegex = /^[a-zA-Z ]$/;
@@ -83,7 +90,12 @@ class InitialMenuState extends GameState {
     }
     
     
-
+    /**
+     * Called when a click event happens.
+     * Checks which button was clicked to set the difficulty.
+     * Emits a warning in the screen if tha player wants to start a game without choosing a difficulty and/or typing their name
+     * @param {*} event 
+     */
     onPointerClick(event) {
 
         const buttonPicked = this.pickingManager.getNearestObject(event)?.name;
@@ -169,7 +181,10 @@ class InitialMenuState extends GameState {
         
     }
 
-   
+   /**
+    * Changes the difficulty button's texture when clicked
+    * @param {*} buttonId 
+    */
     handleButtonTextureChange(buttonId) {
 
         const selectedTextureId = 'black' + buttonId.charAt(0).toUpperCase() + buttonId.slice(1) + 'Tex';
@@ -202,18 +217,18 @@ class InitialMenuState extends GameState {
 
         this.lastClickedButtonMaterialId = materialId;
     }
-    
-    
-    
-    
-    
-    
 
+    /**
+     * Called when a pointer move event happens
+     * @param {*} event 
+     */
     onPointerMove(event) {
         this.pickingManager.onPointerMove(event);
     }
 
-
+    /**
+     * Creates the initial menu's HUD components
+     */
     createHud(){
         this.manager.hud.addComponent(
             "titleThird",
@@ -314,10 +329,7 @@ class InitialMenuState extends GameState {
                 0.1
             )
         );
-
-
-
-        
+       
     }
 }
 

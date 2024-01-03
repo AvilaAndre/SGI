@@ -19,7 +19,7 @@ class AABB {
     }
 
     /**
-     *
+     * Updates the coordinates of the bounding box
      * @param {number} minX
      * @param {number} maxX
      * @param {number} minY
@@ -33,7 +33,7 @@ class AABB {
     }
 
     /**
-     *
+     * Checks if a point is inside the bounding box
      * @param {THREE.Vector2} point
      * @returns {boolean} if is inside
      */

@@ -21,7 +21,11 @@ class PlayerParkState extends GameState {
     update(delta) {
         //this.manager.launchFireworks();
     }
-
+    /**
+     * Called when a click event happens.
+     * Defines which car was chosen by the player to be theirs and stores this information.
+     * @param {*} event 
+     */
     onPointerClick(event) {
         const carPicked = this.pickingManager.getNearestObject(event)?.name;
 
@@ -32,10 +36,17 @@ class PlayerParkState extends GameState {
         }
     }
 
+    /**
+     * Called when a pointer move event happens
+     * @param {*} event 
+     */
     onPointerMove(event) {
         this.pickingManager.onPointerMove(event);
     }
 
+    /**
+     * Adds every available car to the scene
+     */
     addCarsToScene() {
         const carNames = Object.keys(this.manager.cars);
 

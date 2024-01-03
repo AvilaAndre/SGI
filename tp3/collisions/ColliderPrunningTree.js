@@ -22,7 +22,7 @@ class ColliderPruningTree extends Collider {
     }
 
     /**
-     *
+     * Adds collider
      * @param {THREE.Vector3} collider
      */
     addCollider(collider) {
@@ -30,6 +30,10 @@ class ColliderPruningTree extends Collider {
         this.update();
     }
 
+    /**
+     * Returns the collider's type
+     * @returns 
+     */
     getType() {
         return this.type;
     }
@@ -44,10 +48,17 @@ class ColliderPruningTree extends Collider {
         return this.collider.collide(collider);
     }
 
+    /**
+     * Gets a debug object
+     * @returns {THREE.Object3D} the debug object
+     */
     getDebugObject() {
         return null;
     }
 
+    /**
+     * Updates the collider
+     */
     update() {
         let colliders = this.colliders;
 
@@ -78,6 +89,11 @@ class ColliderPruningTree extends Collider {
         }
     }
 
+    /**
+     * 
+     * @param {*} colliders 
+     * @returns 
+     */
     intoPairs(colliders) {
         const pairs = [];
 

@@ -583,11 +583,8 @@
 
         <node id="grandStand1">
                 <transforms>
-                    <rotate value3="0 2.1 0" />
-                    <translate value3="0 0.1 30" />
                     <scale value3="7 7 7" />
                 </transforms>
-                <collider pos="0 0" size="8 8" />
                 <children>
                     <primitive>
                         <model3d filepath="scenes/scene1/models/racing/grandStand.glb" />
@@ -595,11 +592,31 @@
                 </children>
         </node>
 
+        <node id="grandStandLine">
+                <transforms>
+                    <rotate value3="0 2.1 0" />
+                    <translate value3="0 0.1 30" />
+                </transforms>
+                <collider pos="28 0" size="64 7.5" />
+                <children>
+                    <noderef id="grandStand1" />
+                    <noderef id="grandStand2" />
+                    <noderef id="grandStand3" />
+                    <noderef id="grandStand4" />
+                    <noderef id="grandStand5" />
+                    <noderef id="grandStand6" />
+                    <noderef id="grandStand7" />
+                    <noderef id="grandStand8" />
+                    <noderef id="grandStand9" />
+                </children>
+        </node>
+
+
+
         <node id="grandStand2">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-58 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="7 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -611,8 +628,7 @@
         <node id="grandStand3">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-51 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="14 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -624,8 +640,7 @@
         <node id="grandStand4">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-44 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="21 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -637,8 +652,7 @@
         <node id="grandStand5">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-37 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="28 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -651,8 +665,7 @@
         <node id="grandStand6">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-30 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="35 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -664,8 +677,7 @@
         <node id="grandStand7">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-23 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="42 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -677,8 +689,7 @@
         <node id="grandStand8">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-16 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="49 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -690,8 +701,7 @@
         <node id="grandStand9">
                 <transforms>
                     <scale value3="7 7 7" />
-                    <translate value3="-9 0.1 0" />
-                    <rotate value3="0 0.0 0" />
+                    <translate value3="56 0 0" />
                 </transforms>
                 <children>
                     <primitive>
@@ -1525,8 +1535,7 @@
                 <noderef id="defaultTree28" />
 
                 <noderef id="spectator" />        
-                <noderef id="grandStand1" />
-                <noderef id="grandStandRound1" />
+                <noderef id="grandStandLine" />
                 <noderef id="largeTree1" />
                 <noderef id="largeTree2" />
                 <noderef id="largeTree3" />

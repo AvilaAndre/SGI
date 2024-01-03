@@ -259,6 +259,14 @@ class MyAnimation {
         return this;
     }
 
+    /**
+     * Create and manage animation clips
+     * @param {*} mixer 
+     * @param {*} attribute 
+     * @param {*} times 
+     * @param {*} values 
+     * @param {*} interpolation 
+     */
     createClip(mixer, attribute, times, values, interpolation) {
         if (times.length > 0) {
             let unpacked = [];
@@ -389,6 +397,10 @@ class MyAnimation {
         }
     }
 
+    /**
+     * Adjust the speed of the animation
+     * @param {*} timeScale 
+     */
     setTimeScale(timeScale) {
         for (let i = 0; i < this.actions.length; i++) {
             const action = this.actions[i];
@@ -410,6 +422,10 @@ class MyAnimation {
         }
     }
 
+    /**
+     * Updates the state of the animation mixers over time
+     * @param {*} delta 
+     */
     update(delta) {
         for (let i = 0; i < this.mixers.length; i++) {
             const mixer = this.mixers[i];
