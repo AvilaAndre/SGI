@@ -58,9 +58,12 @@ class OpponentParkState extends GameState {
         for (let i = 0; i < carNames.length; i++) {
             const car = this.manager.cars[carNames[i]];
 
-            car.position.set(3 * (i - Math.floor(carNames.length / 2)), 0, 0);
+            if(car.name != this.contents.manager.playerPickedCar){
+                car.position.set(3 * (i - Math.floor(carNames.length / 2)), 0, 0);
 
-            this.contents.app.scene.add(car);
+                this.contents.app.scene.add(car);
+            }
+            
         }
     }
 }
